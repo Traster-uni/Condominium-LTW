@@ -289,3 +289,4 @@ fabric.properties
 .history/
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Node,Eclipse,Intellij,VisualStudioCode
+/.vscode
