@@ -27,7 +27,8 @@ body {
 
 /* Navbar links on mouse-over */
 .navbar a:hover {
-  background-color: #000;
+  background-color: #04aa6d5e;
+  color: rgba(0, 0, 0, 0.39);
 }
 
 /* Current/active navbar link */
