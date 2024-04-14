@@ -1,46 +1,46 @@
-.grid {
-    display: grid;
-    grid-template-columns: 20% 1fr 20%;
-    height: 100vh;
+.flexbox {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
 }
 
 .bacheca {
-    display: table;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+  display: table;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .bacheca-types {
-    display: table-cell;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+  display: table-cell;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }
 
 .bacheca-types__input {
-    position: absolute;
-    visibility: hidden;
+  position: absolute;
+  visibility: hidden;
 }
 
 .bacheca-types__label {
-    display: block;
-    margin: 0 -1px -1px 0; /* -1px margin removes double-thickness borders between items */
-    padding: 1em .25em;
+  display: block;
+  margin: 0 -1px -1px 0; /* -1px margin removes double-thickness borders between items */
+  padding: 1em 0.25em;
 
-    border: 1px solid #ddd;
+  border: 1px solid #ddd;
 
-    font: 14px/1.5 sans-serif; 
-    text-align: center;  
+  font: 14px/1.5 sans-serif;
+  text-align: center;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .bacheca-types__label:hover {
-    background: #fafafa;
+  background: #fafafa;
 }
 
 .bacheca-types__input:checked + .bacheca-types__label {
-    background: #eee;
-    color: #333; 
+  background: #eee;
+  color: #333;
 }
