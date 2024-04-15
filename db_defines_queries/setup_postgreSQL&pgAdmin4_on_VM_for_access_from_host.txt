@@ -1,0 +1,134 @@
+PREREQUISITI:
+	VMbox con Ubuntu installato
+
+Procedimento:
+	Ubuntu:
+		Installare postgreSQL come da sito web: https://www.postgresql.org/download/linux/ubuntu/
+			# Create the file repository configuration:
+			sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+
+			# Import the repository signing key:
+			wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+			# Update the package lists:
+			sudo apt-get update
+
+			# Install the latest version of PostgreSQL.
+			# If you want a specific version, use 'postgresql-12' or similar instead of 'postgresql':
+			sudo apt-get -y install postgresql
+		
+		Una volta installato per controllare che postgresql sia up puoi impiegare il comando
+			sudo service postgresql status
+			
+		Una volta installato postgresql un nuovo utente sarà stato definito 
+		nell'OS di nome postgresql (cat /etc/passwd)
+		
+		Possiamo ora eseguire i comandi riguardo postgresql tramite 
+		questo utente, per eseguire il cambio utente:
+		sudo -i -u postgresql
+		
+		poi digita nel terminale:
+		psql
+		(logout to exit interface)
+		
+		Adesso dovremo definire da quale indirizzo ip e porta postgresql debba ascoltare per gli accessi.
+		Procediamo con l'editig dei files postgresql.conf e pg_hba.conf
+		che si trovano nella dir: /etc/postgresql/<num.vers>/main
+		
+		Modifica il file postgresql.conf
+		sudo nano postgrsql.comf
+		
+		All'interno di postgresql.conf
+			aggiungi una nuova linea di testo con:
+				listen_addresses = "*"
+			questo dirà a postgres di ascoltare qualsiasi indirizzo ip
+			salva e chiudi nano con CTRL+S e CTRL+X
+		
+		Modifica il file pg_hba.conf
+		sudo nano pg_hba.conf
+		
+		All'interno di pg_hba.conf
+			aggiungi le seguenti (occhio alle colonne, usa i tabs come separatori)
+			questa linea definisce un nuovo utente:
+			
+			local	all		admin					md5
+			
+			questa definirà l'indirizzo ip da ascoltare:
+			
+			host 	all 	all		0.0.0.0/0		trust
+			
+			salva e chiudi nano con CTRL+S e CTRL+X
+			
+		Abbiamo cambiato i file config di postgreSQL, è necessario esegurie un riavvio di postgres
+		
+		sudo service postgrsql restart
+		sudo service postgrsql status
+		
+		Ora creiamo il nuovo ruolo admin:
+			cambia user in postgresql:
+			sudo -i -u postgresql
+		
+			poi digita nel terminale:
+			psql
+			
+			Ora definisci admin nel seguente modo:
+			create role admin with
+			login
+			superuser
+			createdb
+			createrole
+			inherit
+			replication
+			connection limit -1
+			password 'admin';
+			
+			ora esci:
+			exit
+		
+		Installare pgadmin4 come dal sitoweb: https://www.pgadmin.org/download/pgadmin-4-apt/
+		
+		(potresti non avere il programma curl, installalo tramite apt-install)
+		
+		# Install the public key for the repository (if not done previously):
+		curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /usr/share/keyrings/packages-pgadmin-org.gpg
+
+		# Create the repository configuration file:
+		sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+		
+		# Install for web mode only: 
+		sudo apt install pgadmin4-web
+		
+		Esegui il setup del websever per pgadmi4-web
+		sudo /usr/pgadmin4/bin/setup-web.sh
+		
+		inserisci una mail e una password a piacere, (non devono esistere per davvero)
+		
+		Aggiungere delle regole al firewall di ubuntu ufw
+		
+		sudo ufw allow 80/tcp
+		sudo ufw allow 5432/tcp
+		sudo ufw enable
+		sudo ufw status
+		
+		Ora andrando da firefox dovresti poter accedere al webclient tramite: 127.0.0.1/pgadmin4
+	
+	WINDOWS:
+		Aggiungere delle regole di forwording delle porte sulle impostazioni di VMbox:
+		<Ubuntu_VM>->impostazioni->Rete->Scheda 1->Avanzate->Inoltro delle porte-><il + verde sulla sinistra>
+		
+		aggiungere due records:
+		postgresql_cli_FW	127.0.0.1	5432	10.0.2.15	5432
+		web					127.0.0.1	80		10.0.2.15	80
+		
+		Ora dal tuo browser di windows digita: 127.0.0.1/pgadmin4 
+		Dovresti vedere la pagina di login di pgadmin, se è così 
+		il clientOS e l'HostOS stanno comunicando senza intoppi
+		
+		Esegui il login tramite i dati inseriti alla definizione dello user.
+		
+		Se si vuole aggiungere l'applicativo di postgresql, basta installarlo normalmente dal sitoweb e al momento dell'apertura d
+		della applicazione dovrai creare un nuovo server con 
+		Hostname: 127.0.0.1:5432
+		(ricordati di impiegare usr e passwd definiti per il tuo user)
+		Postgresql app raggiungerà la VM come atteso.
+		

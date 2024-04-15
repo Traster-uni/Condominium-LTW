@@ -1,0 +1,14 @@
+ut_no_reg (cookie, ut_id)
+ut_registrato(ut_id, nome, congome, usrname, passwd, dIscrizione, codice_fiscale)
+Documenti(ut_id, img_ID, img_FisclCode)
+
+Condomino (ut_id, pdf_doc_purchaseRent)
+Amministratore(ut_id, pdf_doc_idAdmin)
+
+Condominio(aptBlock_id, address, citta, )
+
+req_ut_access(utReq_id, ut_id, aptBlock_id, time_born, time_mod, status:enum{accepted, refused, aborted})
+
+req_aptBlock_create(utReq_id, utAdm_id, time_born, time_mod, status: enum{accept, refused})
+
+aptBlock_form(utReq_id, address, citta, regione, img_docs)
