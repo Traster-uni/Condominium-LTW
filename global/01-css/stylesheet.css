@@ -5,11 +5,10 @@ body {
 
 /* Style the navigation bar */
 .navbar {
-  width: auto;
+  display: flex;
+  flex-direction: row;
   background-color: #2a9b3d;
   overflow: auto;
-  padding-left: 100px;
-  padding-right: 100px;
 }
 
 /* Navbar links */
@@ -32,4 +31,8 @@ body {
 /* Current/active navbar link */
 .active {
   background-color: #04AA6D;
+}
+
+.navbar--menu {
+  justify-content: auto;
 }
