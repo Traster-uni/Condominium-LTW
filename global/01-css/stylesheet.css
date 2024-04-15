@@ -9,6 +9,7 @@ body {
   flex-direction: row;
   background-color: #2a9b3d;
   overflow: auto;
+  font-family: "Lato", sans-serif;
 }
 
 /* Navbar links */
@@ -30,9 +31,19 @@ body {
 
 /* Current/active navbar link */
 .active {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
 }
 
 .navbar--menu {
-  justify-content: auto;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: center;
+}
+
+.sezione {
+  height: auto;
+  width: 25%;
+  padding-top: 30px;
+  font-size: large;
 }
