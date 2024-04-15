@@ -20,7 +20,6 @@ body {
   padding-right: 5px;
   color: white;
   text-decoration: none;
-  font-size: 17px;
 }
 
 /* Navbar links on mouse-over */
@@ -44,6 +43,6 @@ body {
 .sezione {
   height: auto;
   width: 25%;
-  padding-top: 30px;
-  font-size: large;
+  padding-top: 25px;
+  font-size: 25px;
 }
