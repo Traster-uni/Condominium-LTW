@@ -12,3 +12,6 @@ req_ut_access(utReq_id, ut_id, aptBlock_id, time_born, time_mod, status:enum{acc
 req_aptBlock_create(utReq_id, utAdm_id, time_born, time_mod, status: enum{accept, refused})
 
 aptBlock_form(utReq_id, address, citta, regione, img_docs)
+
+
+[bb](0,N) <---> (0,N) [post] (0,N) <---> (0,1) [thread] (1,N) <---> (1,1) [reply]
