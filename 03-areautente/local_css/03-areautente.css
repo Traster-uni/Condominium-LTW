@@ -5,7 +5,7 @@ h3 {
 .flexbox {
     display: flex;
     flex-direction: row;
-    height: 93.5vh;
+    height: 100vh;
 }
 
 .profile-pic img {
