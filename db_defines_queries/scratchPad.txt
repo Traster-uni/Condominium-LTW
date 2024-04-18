@@ -15,3 +15,12 @@ aptBlock_form(utReq_id, address, citta, regione, img_docs)
 
 
 [bb](0,N) <---> (0,N) [post] (0,N) <---> (0,1) [thread] (1,N) <---> (1,1) [reply]
+
+Per far sı̀ che PHP possa utilizzare il DBMS PostgreSQL bisogna
+utilizzare l’estensione pgsql:
+Linux: Lanciare, tramite shell, il seguente comando: 
+sudo apt install php-pgsql
+Nel file di configurazione php.ini, decommentare la riga
+“; extension=pgsql” (togliendo il “;” iniziale).
+Per chi usa XAMPP: solitamente il file php.ini è situato nella
+cartella C:\xampp\php
