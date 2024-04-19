@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./global/01-css/navbar.css" />
+    <link rel="stylesheet" href="./02-home/local_css/02-home.css">
+    <link rel="stylesheet" href="./ext_resources/01-css/calendar.css">
+    <link rel="stylesheet" href="./03-prenota/local_css/03-prenota.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Prenota</title>
   </head>
@@ -16,5 +19,109 @@
       });
     </script>
     <!--end of Navigation bar-->
+
+    <div class="flexbox">
+        <div style="background-color: rgb(101, 189, 113); width: 20%;">
+            <main class="card">
+                <section class="card__header">
+                  <h3>Aprile 2024</h3>
+                </section>
+                <section class="card__body">
+                  <ul class="card__body--days">
+                    <li>LUN</li>
+                    <li>MAR</li>
+                    <li>MER</li>
+                    <li>GIO</li>
+                    <li>VEN</li>
+                    <li>SAB</li>
+                    <li>DOM</li>
+                  </ul>
+                  <ul class="card__body--dates">
+                    <li class="prev">30</li>
+                    <li class="prev">31</li>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                    <li>6</li>
+                    <li class="active">7</li>
+                    <li>8</li>
+                    <li>9</li>
+                    <li>10</li>
+                    <li>11</li>
+                    <li>12</li>
+                    <li>13</li>
+                    <li>14</li>
+                    <li>15</li>
+                    <li class="circle orange">16 <span>5</span></li>
+                    <li>17</li>
+                    <li>18</li>
+                    <li class="circle purple">19 <span>6</span></li>
+                    <li>20</li>
+                    <li>21</li>
+                    <li>22</li>
+                    <li>23</li>
+                    <li>24</li>
+                    <li>25</li>
+                    <li>26</li>
+                    <li>27</li>
+                    <li>28</li>
+                    <li>29</li>
+                    <li>30</li>
+                    <li>31</li>
+                    <li class="next">1</li>
+                    <li class="next">2</li>
+                  </ul>
+                </section>
+        </div>
+        <div style="background-color: rgb(255, 255, 255); flex: 1;">
+            <div class="luoghi">
+              <figure class="luogo">
+                Luogo 1
+                <img src="03-prenota/images/1.jpeg" class="immagine">
+              </figure>
+              <figure class="luogo">
+                Luogo 2
+                <img src="03-prenota/images/2.jpg" class="immagine">
+              </figure>
+              <figure class="luogo">
+                Luogo 3
+                <img src="03-prenota/images/3.webp" class="immagine">
+              </figure>
+              <figure class="luogo">
+                Luogo 4
+                <img src="03-prenota/images/4.jpg" class="immagine">
+              </figure>
+              <figure class="luogo">
+                Luogo 5
+                <img src="03-prenota/images/5.jpg" class="immagine">
+              </figure>
+              <figure class="luogo">
+                Luogo 6
+                <img src="03-prenota/images/6.webp" class="immagine">
+              </figure>
+            </div>
+        </div>
+        <div style="background-color: rgb(101, 189, 113); width: 20%;">
+            <div class="contatti-utili">
+                <ul>
+                    <li class="contatti-utili__nome">
+                        Nome - Amministratore Cellulare
+                    </li>
+                    <li class="contatti-utili__nome">
+                        Nome - Elettricista Cellulare
+                    </li>
+                    <li class="contatti-utili__nome">
+                        Nome - Fabbro Cellulare
+                    </li>
+                    <li class="contatti-utili__nome">
+                        Nome - Idraulico Cellulare
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
   </body>
 </html>
