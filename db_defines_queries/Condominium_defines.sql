@@ -15,7 +15,7 @@ CHECK(
 
 CREATE TYPE ut_reqest_stat AS ENUM ('accepted', 'refused', 'aborted');
 
-CREATE TYPE request_status AS ENUM ('accepted', 'refused');
+CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 -- may needs deletion and creation, ALSO THE TABLE THAT USE THIS TYPE MAY NEED TO BE DROPPED FIRST
 -- DROP DOMAIN IF EXISTS request_status 
 
@@ -129,10 +129,12 @@ CREATE TABLE IF NOT EXISTS aptBlock_bulletinBoard(
 	aptBlock_id integer,
 	bb_id serial,
 	bb_name varchar(20) NOT NULL,
+	bb_year date NOT NULL, -- must be 01-01-year
 	--more attributes may be needed
 	PRIMARY KEY (bb_id),
 	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id)
 );
+
 
 CREATE TABLE IF NOT EXISTS posts(
 	post_id serial,
@@ -165,7 +167,7 @@ CREATE TABLE IF NOT EXISTS post_thread(
 	UNIQUE (thread_id, post_id)
 );
 
--- usde for post_thread and tickets
+-- used for post_thread and tickets
 CREATE TABLE IF NOT EXISTS reply_thread(
 	thread_id integer,
 	ud_id integer,
@@ -183,7 +185,7 @@ CREATE TABLE IF NOT EXISTS tags_posts(
 	post_id integer,
 	PRIMARY KEY (name_tag, post_id),
 	FOREIGN KEY (name_tag) REFERENCES tags(name_tag),
-	FOREING KEY (post_id) REFERENCES posts(post_id)
+	FOREIGN KEY (post_id) REFERENCES posts(post_id)
 );
 
 -- tickets are a special kind of threads
@@ -197,18 +199,18 @@ CREATE TABLE IF NOT EXISTS tickets(
 	imgs_fname varchar(100)[],
 	time_born timestamp NOT NULL, 		-- current_time
 	time_lastReplay timestamp NOT NULL, -- current_time last reply
-	PRIMARY KEY (thread_id),
+	PRIMARY KEY (ticket_id),
 	FOREIGN KEY (aptBlock_admin) REFERENCES aptBlock_admin(ut_id),
-	FOREIGN KEY (ud_id) REFERENCES ut_owner(ut_id),
+	FOREIGN KEY (ud_id) REFERENCES ut_owner(ut_id)
 );
 -- TRIGGER: max 5 tickets per ud_id
 
 CREATE TABLE IF NOT EXISTS tags_tickets(
 	name_tag varchar(10),
 	ticket_id integer,
-	PRIMARY KEY (name_tag ticket_id),
+	PRIMARY KEY (name_tag, ticket_id),
 	FOREIGN KEY (name_tag) REFERENCES tags(name_tag),
-	FOREING KEY (ticket_id) REFERENCES tickets(ticket_id)
+	FOREIGN KEY (ticket_id) REFERENCES tickets(ticket_id)
 );
  
  CREATE TABLE IF NOT EXISTS common_spaces(
@@ -224,7 +226,7 @@ CREATE TABLE IF NOT EXISTS tags_tickets(
 	ut_id integer,
 	adm_id integer,
 	rental_time time NOT NULL, 
-	rental_day day CHECK (rental_day > current_date) NOT NULL, 
+	rental_day date CHECK (rental_day > current_date) NOT NULL, 
 	retal_period integer CHECK (retal_period > 0),
 	submit_time timestamp NOT NULL,
 	stat request_status NOT NULL,
@@ -235,3 +237,5 @@ CREATE TABLE IF NOT EXISTS tags_tickets(
  -- TRIGGER: max n rental_req accepted per user
  -- TRIGGER: rental_req acceptable if within x days from current_date
  -- TRIGGER: for each user there can't be multiple rental_req in the same period/day
+
+-------------------------------------------------------------------------------
