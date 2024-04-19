@@ -1,0 +1,18 @@
+.luoghi {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  text-align: center;
+}
+
+.luogo {
+  border: 1px solid black;
+}
+
+.immagine {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-height: 350px;
+  max-width: 350px;
+}
