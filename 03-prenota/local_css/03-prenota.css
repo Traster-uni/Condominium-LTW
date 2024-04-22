@@ -7,12 +7,53 @@
 
 .luogo {
   border: 1px solid black;
+  background-color: white;
+  position: relative;
+  overflow: hidden;
+  font-size: 20px;
 }
 
 .immagine {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  max-height: 350px;
-  max-width: 350px;
+  max-height: 300px;
+  max-width: 100%;
+  margin: 0;
+  display: block;
+  z-index: 0;
+}
+
+.overlay {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1;
+  background-color: rgb(129, 126, 126, 50%);
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateY(300px);
+  transition: 0.3s;
+}
+
+.luogo:hover .overlay {
+  transform: translateY(0);
+}
+
+.bottone {
+  background-color: #2f9b3d;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 15px 30px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 6px;
 }
