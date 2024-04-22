@@ -76,8 +76,9 @@ CREATE TABLE IF NOT EXISTS region(
 
 CREATE TABLE IF NOT EXISTS city(
 	name varchar(50),
-	provence varchar(50),
 	region varchar(50),
+	provence varchar(50),
+	cap postalCode,
 	PRIMARY KEY (name),
 	FOREIGN KEY (provence) REFERENCES city(name),
 	FOREIGN KEY (region) REFERENCES region(name)
@@ -97,7 +98,6 @@ CREATE TABLE IF NOT EXISTS req_aptBlock_create(
 CREATE TABLE IF NOT EXISTS aptBlock(
 	aptBlock_id integer,
 	addr_aptB varchar(50) NOT NULL,
-	postalCode postalCode NOT NULL,
 	city varchar(50),
 	PRIMARY KEY (aptBlock_id),
 	FOREIGN KEY (aptBlock_id) REFERENCES req_aptBlock_create(aptBlockReq_id),
