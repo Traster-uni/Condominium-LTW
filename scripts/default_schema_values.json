@@ -1,4 +1,93 @@
 {
+    "regioni":[
+        {
+            "name":"Abruzzo"
+        },
+        {
+            "name":"Basilicata"
+        },
+        {
+            "name":"Calabria"
+        },        
+        {
+            "name":"Campania"
+        },
+        {
+            "name":"Emilia-Romangna"
+        },
+        {
+            "name":"Friuli Venzia Giulia"
+        },
+        {
+            "name":"Lazio"
+        },
+        {
+            "name":"Liguria"
+        },
+        {
+            "name":"Lombanrdia"
+        },
+        {
+            "name":"Marche"
+        },
+        {
+            "name":"Molise"
+        },
+        {
+            "name":"Piemonte"
+        },
+        {
+            "name":"Puglia"
+        },
+        {
+            "name":"Sardegna"
+        },
+        {
+            "name":"Sicilia"
+        },
+        {
+            "name":"Toscana"
+        },
+        {
+            "name":"Trentino Alto-Adige"
+        },
+        {
+            "name":"Umbria"
+        },
+        {
+            "name":"Valle d'Aosta"
+        },
+        {
+            "name":"Veneto"
+        }
+    ],
+    "city": [
+        {
+            "name": "",
+            "provence": "",
+            "region": ""
+        },
+        {
+            "name": "",
+            "provence": "",
+            "region": ""
+        },
+        {
+            "name": "",
+            "provence": "",
+            "region": ""
+        },
+        {
+            "name": "",
+            "provence": "",
+            "region": ""
+        },
+        {
+            "name": "",
+            "provence": "",
+            "region": ""
+        },
+    ],
     "ut_registered": [
         {
             "ut_id": 1,
@@ -7,7 +96,7 @@
             "d_nascita": "7/9/1986",
             "telefono": "0377 8947062",
             "address": "Via Vipacco 56",
-            "citta_residenza": "Celle Ligure",
+            "citta_residenza": "Roma",
             "ut_email": "ClaraFallaci@superrito.com",
             "passwd" : "aedai1ohPae",
             "data_iscrizione": "22/04/2024"
@@ -19,7 +108,7 @@
             "d_nascita": "10/18/1948",
             "telefono": "0327 9792713",
             "address": "Via Nazario Sauro 86",
-            "citta_residenza": "Gorgonzola",
+            "citta_residenza": "Roma",
             "ut_email": "DaliaTrevisani@rhyta.com",
             "passwd" : "ahw3ie1Oh",
             "data_iscrizione": "22/04/2024"
@@ -31,21 +120,21 @@
             "d_nascita": "1/15/1984",
             "telefono": "0343 5538100",
             "address": "Piazzetta Scalette Rubiani 81",
-            "citta_residenza": "",
-            "ut_email": "",
-            "passwd" : "",
+            "citta_residenza": "Roma",
+            "ut_email": "GenerosoGallo@jourrapide.com",
+            "passwd" : "ri7kaiC1ie",
             "data_iscrizione": "22/04/2024"
         },
         {
             "ut_id": 4,
             "nome": "Bruno",
-            "cognome": "",
-            "d_nascita": "",
-            "telefono": "",
-            "address": "",
-            "citta_residenza": "",
-            "ut_email": "",
-            "passwd" : "",
+            "cognome": "Napolitano",
+            "d_nascita": "7/27/1959",
+            "telefono": "0349 6731710",
+            "address": "Piazza Guglielmo Pepe 36",
+            "citta_residenza": "Roma",
+            "ut_email": "BrunoNapolitano@teleworm.us",
+            "passwd" : "quie5Shuod",
             "data_iscrizione": "22/04/2024"
         },
         {
@@ -55,7 +144,7 @@
             "d_nascita": "",
             "telefono": "",
             "address": "",
-            "citta_residenza": "",
+            "citta_residenza": "Roma",
             "ut_email": "",
             "passwd" : "",
             "data_iscrizione": "22/04/2024"
@@ -67,7 +156,7 @@
             "d_nascita": "",
             "telefono": "",
             "address": "",
-            "citta_residenza": "",
+            "citta_residenza": "Roma",
             "ut_email": "",
             "passwd" : "",
             "data_iscrizione": "22/04/2024"
@@ -79,7 +168,7 @@
             "d_nascita": "",
             "telefono": "",
             "address": "",
-            "citta_residenza": "",
+            "citta_residenza": "Milano",
             "ut_email": "",
             "passwd" : "",
             "data_iscrizione": "22/04/2024"
@@ -91,7 +180,7 @@
             "d_nascita": "",
             "telefono": "",
             "address": "",
-            "citta_residenza": "",
+            "citta_residenza": "Milano",
             "ut_email": "",
             "passwd" : "",
             "data_iscrizione": "22/04/2024"
@@ -103,7 +192,7 @@
             "d_nascita": "",
             "telefono": "",
             "address": "",
-            "citta_residenza": "",
+            "citta_residenza": "Milano",
             "ut_email": "",
             "passwd" : "",
             "data_iscrizione": "22/04/2024"
@@ -115,7 +204,7 @@
             "d_nascita": "",
             "telefono": "",
             "address": "",
-            "citta_residenza": "",
+            "citta_residenza": "Milano",
             "ut_email": "",
             "passwd" : "",
             "data_iscrizione": "22/04/2024"
@@ -127,7 +216,7 @@
             "d_nascita": "",
             "telefono": "",
             "address": "",
-            "citta_residenza": "",
+            "citta_residenza": "Milano",
             "ut_email": "",
             "passwd" : "",
             "data_iscrizione": "22/04/2024"
@@ -139,7 +228,7 @@
             "d_nascita": "1/31/1974",
             "telefono": "0329 0767714",
             "address": "Via Moiariello 143",
-            "citta_residenza": "Catenanuova",
+            "citta_residenza": "Milano",
             "ut_email": "AdoneCapon@teleworm.us",
             "passwd" : "diegheeMe2",
             "data_iscrizione": "22/04/2024"
