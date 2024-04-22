@@ -1,4 +1,4 @@
-.formTicket{
+.formTicket, .collapse{
     max-height: 0;
     overflow: hidden;
     padding-left: 3%;
@@ -24,10 +24,48 @@
     background-color: rgb(158, 218, 185);
 }
 
-
-
 .descrizione {
     width: 100%;
     resize: none;
 }
 
+.tab {
+    padding: 1.4rem;
+}
+
+.tablinks {
+    border-top: none;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.tablinks:hover, .tablinks.active {
+    border-bottom: 0.5px solid rgb(148, 175, 144);
+    font-weight: bolder;
+    font-size: larger;
+    transition: all 300ms ease;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+table tr td{
+    padding-left: 1rem;
+}
+
+.accepted {
+    color: green;
+}
+
+.closed {
+    color: red;
+}
+
+.pending {
+    color: orange;
+}

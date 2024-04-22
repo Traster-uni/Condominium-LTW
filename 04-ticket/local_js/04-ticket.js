@@ -1,11 +1,14 @@
-let btn = document.getElementsByClassName("opnBtn");
-         
-btn[0].addEventListener("click", function () {
-    this.classList.toggle("active");
-    var content = document.getElementById("formTicket").style.maxHeight;
-    if (content == "auto") {
-        content = 0;
-    } else {
-        content = "auto";
-    }
-});
+var coll = document.getElementsByClassName("openBtn");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.maxHeight){
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
+}
