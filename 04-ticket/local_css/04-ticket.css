@@ -1,0 +1,33 @@
+.formTicket{
+    max-height: 0;
+    overflow: hidden;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 1%;
+}
+
+.openBtn {
+    width: 100%;
+    padding-top: 1.7rem;
+    padding-bottom: 1.7rem;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 300ms ease;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.active, .openBtn:hover {
+    background-color: rgb(158, 218, 185);
+}
+
+
+
+.descrizione {
+    width: 100%;
+    resize: none;
+}
+
