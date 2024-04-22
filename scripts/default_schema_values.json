@@ -63,30 +63,105 @@
     ],
     "city": [
         {
-            "name": "",
-            "provence": "",
-            "region": ""
-        },
-        {
-            "name": "",
-            "provence": "",
-            "region": ""
-        },
-        {
-            "name": "",
-            "provence": "",
-            "region": ""
-        },
-        {
-            "name": "",
-            "provence": "",
-            "region": ""
-        },
-        {
-            "name": "",
-            "provence": "",
-            "region": ""
-        },
+            "name": "Torino",
+            "provence": "TO",
+            "region": "Piemonte"
+          },
+          {
+            "name": "Aosta",
+            "provence": "AO",
+            "region": "Valle d'Aosta"
+          },
+          {
+            "name": "Milano",
+            "provence": "MI",
+            "region": "Lombardia"
+          },
+          {
+            "name": "Trento",
+            "provence": "TN",
+            "region": "Trentino-Alto Adige"
+          },
+          {
+            "name": "Venezia",
+            "provence": "VE",
+            "region": "Veneto"
+          },
+          {
+            "name": "Trieste",
+            "provence": "TS",
+            "region": "Friuli-Venezia Giulia"
+          },
+          {
+            "name": "Genova",
+            "provence": "GE",
+            "region": "Liguria"
+          },
+          {
+            "name": "Bologna",
+            "provence": "BO",
+            "region": "Emilia-Romagna"
+          },
+          {
+            "name": "Firenze",
+            "provence": "FI",
+            "region": "Toscana"
+          },
+          {
+            "name": "Perugia",
+            "provence": "PG",
+            "region": "Umbria"
+          },
+          {
+            "name": "Ancona",
+            "provence": "AN",
+            "region": "Marche"
+          },
+          {
+            "name": "Roma",
+            "provence": "RM",
+            "region": "Lazio"
+          },
+          {
+            "name": "L'Aquila",
+            "provence": "AQ",
+            "region": "Abruzzo"
+          },
+          {
+            "name": "Campobasso",
+            "provence": "CB",
+            "region": "Molise"
+          },
+          {
+            "name": "Napoli",
+            "provence": "NA",
+            "region": "Campania"
+          },
+          {
+            "name": "Bari",
+            "region": "Puglia",
+            "provence": "BA"
+          },
+          {
+            "name": "Potenza",
+            "provence": "PZ",
+            "region": "Basilicata"
+          },
+          {
+            "name": "Catanzaro",
+            "provence": "CZ",
+            "region": "Calabria"
+          },
+          {
+            "name": "Palermo",
+            "provence": "PA",
+            "region": "Sicilia"
+          },
+          {
+            "name": "Cagliari",
+            "provence": "CA",
+            "region": "Sardegna"
+          }
     ],
     "ut_registered": [
         {
@@ -94,7 +169,7 @@
             "nome": "Clara",
             "cognome": "Fallaci",
             "d_nascita": "7/9/1986",
-            "telefono": "0377 8947062",
+            "telefono": "0677 8947062",
             "address": "Via Vipacco 56",
             "citta_residenza": "Roma",
             "ut_email": "ClaraFallaci@superrito.com",
@@ -106,7 +181,7 @@
             "nome": "Dalia",
             "cognome": "Trevisani",
             "d_nascita": "10/18/1948",
-            "telefono": "0327 9792713",
+            "telefono": "0627 9792713",
             "address": "Via Nazario Sauro 86",
             "citta_residenza": "Roma",
             "ut_email": "DaliaTrevisani@rhyta.com",
@@ -118,7 +193,7 @@
             "nome": "Generoso",
             "cognome": "Gallo",
             "d_nascita": "1/15/1984",
-            "telefono": "0343 5538100",
+            "telefono": "0643 5538100",
             "address": "Piazzetta Scalette Rubiani 81",
             "citta_residenza": "Roma",
             "ut_email": "GenerosoGallo@jourrapide.com",
@@ -130,9 +205,9 @@
             "nome": "Bruno",
             "cognome": "Napolitano",
             "d_nascita": "7/27/1959",
-            "telefono": "0349 6731710",
+            "telefono": "0819 6731710",
             "address": "Piazza Guglielmo Pepe 36",
-            "citta_residenza": "Roma",
+            "citta_residenza": "Napoli",
             "ut_email": "BrunoNapolitano@teleworm.us",
             "passwd" : "quie5Shuod",
             "data_iscrizione": "22/04/2024"
@@ -140,85 +215,85 @@
         {
             "ut_id": 5,
             "nome": "Deodato",
-            "cognome": "",
-            "d_nascita": "",
-            "telefono": "",
-            "address": "",
+            "cognome": "Cocci",
+            "d_nascita": "4/5/1943",
+            "telefono": "0623 6565163",
+            "address": "Via Solfatara 17",
             "citta_residenza": "Roma",
-            "ut_email": "",
-            "passwd" : "",
+            "ut_email": "DeodatoCocci@rhyta.com",
+            "passwd" : "ohG1aer8hee",
             "data_iscrizione": "22/04/2024"
         },
         {
             "ut_id": 6,
             "nome": "Alma",
-            "cognome": "",
-            "d_nascita": "",
-            "telefono": "",
-            "address": "",
+            "cognome": "Lucchesi",
+            "d_nascita": "1/30/1965",
+            "telefono": "0621 8237025",
+            "address": "Via Silvio Spaventa 135",
             "citta_residenza": "Roma",
-            "ut_email": "",
-            "passwd" : "",
+            "ut_email": "AlmaLucchesi@teleworm.us",
+            "passwd" : "iaSohhie6",
             "data_iscrizione": "22/04/2024"
         },
         {
             "ut_id": 7,
             "nome": "Gabriella",
-            "cognome": "",
-            "d_nascita": "",
-            "telefono": "",
-            "address": "",
+            "cognome": "Boni",
+            "d_nascita": "11/3/1970",
+            "telefono": "0677 4946662",
+            "address": "Via A.G. Alaimo 137",
             "citta_residenza": "Milano",
-            "ut_email": "",
-            "passwd" : "",
+            "ut_email": "GabriellaBoni@dayrep.com",
+            "passwd" : "Ewu3Noo4aeRae",
             "data_iscrizione": "22/04/2024"
         },
         {
             "ut_id": 8,
             "nome": "Quintilia",
-            "cognome": "",
-            "d_nascita": "",
-            "telefono": "",
-            "address": "",
+            "cognome": "Gallo",
+            "d_nascita": "4/24/1959",
+            "telefono": "0229 0542761",
+            "address": "Via Santa Teresa degli Scalzi 72",
             "citta_residenza": "Milano",
-            "ut_email": "",
-            "passwd" : "",
+            "ut_email": "QuintiliaGallo@dayrep.com",
+            "passwd" : "deepie0C",
             "data_iscrizione": "22/04/2024"
         },
         {
             "ut_id": 9,
             "nome": "Degna",
-            "cognome": "",
-            "d_nascita": "",
-            "telefono": "",
-            "address": "",
+            "cognome": "Piazza",
+            "d_nascita": "7/1/1991",
+            "telefono": "0214 0741321",
+            "address": "Via Pasquale Scura 24",
             "citta_residenza": "Milano",
-            "ut_email": "",
-            "passwd" : "",
+            "ut_email": "DegnaPiazza@armyspy.com",
+            "passwd" : "Thoo3mee",
             "data_iscrizione": "22/04/2024"
         },
         {
             "ut_id": 10,
             "nome": "Simone",
-            "cognome": "",
-            "d_nascita": "",
-            "telefono": "",
-            "address": "",
+            "cognome": "Li Fonti",
+            "d_nascita": "6/8/1959",
+            "telefono": "0244 1965949",
+            "address": "Via Varrone 121",
             "citta_residenza": "Milano",
-            "ut_email": "",
-            "passwd" : "",
+            "ut_email": "SimoneLiFonti@rhyta.com",
+            "passwd" : "eu2dohSei",
             "data_iscrizione": "22/04/2024"
         },
         {
             "ut_id": 11,
             "nome": "Abele",
-            "cognome": "",
-            "d_nascita": "",
-            "telefono": "",
-            "address": "",
+            "cognome": "Greco",
+            "d_nascita": "6/12/1977",
+            "telefono": "0245 1887637",
+            "address": "Via San Domenico 134",
             "citta_residenza": "Milano",
-            "ut_email": "",
-            "passwd" : "",
+            "ut_email": "AbeleGreco@armyspy.com",
+            "passwd" : "shaa7Aivai",
             "data_iscrizione": "22/04/2024"
         },
         {
@@ -226,12 +301,88 @@
             "nome": "Adone",
             "cognome": "Capon",
             "d_nascita": "1/31/1974",
-            "telefono": "0329 0767714",
+            "telefono": "0229 0767714",
             "address": "Via Moiariello 143",
             "citta_residenza": "Milano",
             "ut_email": "AdoneCapon@teleworm.us",
             "passwd" : "diegheeMe2",
             "data_iscrizione": "22/04/2024"
+        }
+    ],
+    "aptBlock_admin":[
+        {
+            "ut_id": 1,
+            "pdf_doc_AdmValidity_fname" :"",
+            "pdf_doc_AdmValidity" :"",
+            "adm_telephone" :"0677 7299584"
+        },
+        {
+            "ut_id": 7,
+            "pdf_doc_AdmValidity_fname" :"",
+            "pdf_doc_AdmValidity" :"0677 4859303",
+            "adm_telephone" :""
+        }
+    ],
+    "ut_owner":[
+        {
+            "ut_id": 2,
+            "codice_fiscale": "",
+            "ut_doc_fname": "",
+            "ut_doc_purchase": ""
+        },
+        {
+            "ut_id": 3,
+            "codice_fiscale": "",
+            "ut_doc_fname": "",
+            "ut_doc_purchase": ""
+        },
+        {
+            "ut_id": 4,
+            "codice_fiscale": "",
+            "ut_doc_fname": "",
+            "ut_doc_purchase": ""
+        },
+        {
+            "ut_id": 5,
+            "codice_fiscale": "",
+            "ut_doc_fname": "",
+            "ut_doc_purchase": ""
+        },
+        {
+            "ut_id": 6,
+            "codice_fiscale": "",
+            "ut_doc_fname": "",
+            "ut_doc_purchase": ""
+        },
+        {
+            "ut_id": 8,
+            "codice_fiscale": "",
+            "ut_doc_fname": "",
+            "ut_doc_purchase": ""
+        },
+        {
+            "ut_id": 9,
+            "codice_fiscale": "",
+            "ut_doc_fname": "",
+            "ut_doc_purchase": ""
+        },
+        {
+            "ut_id": 10,
+            "codice_fiscale": "",
+            "ut_doc_fname": "",
+            "ut_doc_purchase": ""
+        },
+        {
+            "ut_id": 11,
+            "codice_fiscale": "",
+            "ut_doc_fname": "",
+            "ut_doc_purchase": ""
+        },
+        {
+            "ut_id": 12,
+            "codice_fiscale": "",
+            "ut_doc_fname": "",
+            "ut_doc_purchase": ""
         }
     ]
 }
