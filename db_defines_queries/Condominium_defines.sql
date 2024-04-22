@@ -13,41 +13,48 @@ CHECK(
 	VALUE ~ '^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$'
 );
 
+CREATE DOMAIN fiscalCode as varchar(16)
+CHECK(
+	VALUE ~ '^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$'
+)
+
 CREATE TYPE ut_reqest_stat AS ENUM ('accepted', 'refused', 'aborted');
 
 CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 -- may needs deletion and creation, ALSO THE TABLE THAT USE THIS TYPE MAY NEED TO BE DROPPED FIRST
 -- DROP DOMAIN IF EXISTS request_status 
 
-CREATE TABLE IF NOT EXISTS ut_no_reg (
+CREATE TABLE IF NOT EXISTS ut_no_reg ( -- DEPRECATED
 	cookie integer check (cookie >= 0), -- cookie maybe random, maybe always non negative
 	PRIMARY KEY (cookie)
 );
+
 
 CREATE TABLE IF NOT EXISTS ut_registered(
 	ut_id serial,
 	nome varchar(50) NOT NULL,
 	cognome varchar(50) NOT NULL,
-	user_name varchar(50) NOT NULL,
-	passwd varchar(50) NOT NULL,
+	d_nascita date NOT NULL,
 	telefono telNumber NOT NULL,
+	address varchar(50) NOT NULL,
+	citta_residenza varchar(100) NOT NULL,
+	ut_email email NOT NULL,
+	passwd varchar(50) NOT NULL,
 	data_iscrizione date NOT NULL, -- call current_date at time of insertion
-	codice_fiscale varchar(16),
 	PRIMARY KEY (ut_id),
-	UNIQUE (codice_fiscale, user_name, ut_id)
+	FOREIGN KEY (citta_residenza) REFERENCES city(name),
+	UNIQUE (ut_id, ut_email)
 );
+
 
 CREATE TABLE IF NOT EXISTS ut_owner(
 	ut_id integer,
-	ut_name varchar(50) NOT NULL,
-	ut_surname varchar(50)NOT NULL,
-	ut_tel telNumber NOT NULL,
-	ut_email email NOT NULL,
-	passwd_hash varchar(128) NOT NULL, --store the hash not the actual passwd
+	codice_fiscale fiscalCode NOT NULL,
 	ut_doc_fname varchar(100) NOT NULL,
 	ut_doc_purchase bytea NOT NULL,
 	PRIMARY KEY (ut_id),
-	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
+	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id),
+	UNIQUE(codice_fiscale)
 );
 -- hash algorithms: https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords
 -- may needs deletion and creation

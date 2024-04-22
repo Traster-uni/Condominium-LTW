@@ -1,0 +1,148 @@
+{
+    "ut_registered": [
+        {
+            "ut_id": 1,
+            "nome": "Clara",
+            "cognome": "Fallaci",
+            "d_nascita": "7/9/1986",
+            "telefono": "0377 8947062",
+            "address": "Via Vipacco 56",
+            "citta_residenza": "Celle Ligure",
+            "ut_email": "ClaraFallaci@superrito.com",
+            "passwd" : "aedai1ohPae",
+            "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 2,
+            "nome": "Dalia",
+            "cognome": "Trevisani",
+            "d_nascita": "10/18/1948",
+            "telefono": "0327 9792713",
+            "address": "Via Nazario Sauro 86",
+            "citta_residenza": "Gorgonzola",
+            "ut_email": "DaliaTrevisani@rhyta.com",
+            "passwd" : "ahw3ie1Oh",
+            "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 3,
+            "nome": "Generoso",
+            "cognome": "Gallo",
+            "d_nascita": "1/15/1984",
+            "telefono": "0343 5538100",
+            "address": "Piazzetta Scalette Rubiani 81",
+            "citta_residenza": "",
+            "ut_email": "",
+            "passwd" : "",
+            "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 4,
+            "nome": "Bruno",
+            "cognome": "",
+            "d_nascita": "",
+            "telefono": "",
+            "address": "",
+            "citta_residenza": "",
+            "ut_email": "",
+            "passwd" : "",
+            "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 5,
+            "nome": "Deodato",
+            "cognome": "",
+            "d_nascita": "",
+            "telefono": "",
+            "address": "",
+            "citta_residenza": "",
+            "ut_email": "",
+            "passwd" : "",
+            "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 6,
+            "nome": "Alma",
+            "cognome": "",
+            "d_nascita": "",
+            "telefono": "",
+            "address": "",
+            "citta_residenza": "",
+            "ut_email": "",
+            "passwd" : "",
+            "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 7,
+            "nome": "Gabriella",
+            "cognome": "",
+            "d_nascita": "",
+            "telefono": "",
+            "address": "",
+            "citta_residenza": "",
+            "ut_email": "",
+            "passwd" : "",
+            "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 8,
+            "nome": "Quintilia",
+            "cognome": "",
+            "d_nascita": "",
+            "telefono": "",
+            "address": "",
+            "citta_residenza": "",
+            "ut_email": "",
+            "passwd" : "",
+            "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 9,
+            "nome": "Degna",
+            "cognome": "",
+            "d_nascita": "",
+            "telefono": "",
+            "address": "",
+            "citta_residenza": "",
+            "ut_email": "",
+            "passwd" : "",
+            "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 10,
+            "nome": "Simone",
+            "cognome": "",
+            "d_nascita": "",
+            "telefono": "",
+            "address": "",
+            "citta_residenza": "",
+            "ut_email": "",
+            "passwd" : "",
+            "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 11,
+            "nome": "Abele",
+            "cognome": "",
+            "d_nascita": "",
+            "telefono": "",
+            "address": "",
+            "citta_residenza": "",
+            "ut_email": "",
+            "passwd" : "",
+            "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 12,
+            "nome": "Adone",
+            "cognome": "Capon",
+            "d_nascita": "1/31/1974",
+            "telefono": "0329 0767714",
+            "address": "Via Moiariello 143",
+            "citta_residenza": "Catenanuova",
+            "ut_email": "AdoneCapon@teleworm.us",
+            "passwd" : "diegheeMe2",
+            "data_iscrizione": "22/04/2024"
+        }
+    ]
+}

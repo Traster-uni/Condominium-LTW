@@ -3,6 +3,7 @@ import os
 from config import load_config
 
 def connect(config):
+    print(f"connect ---> {config}")
     try:
         # connecting to the PostgreSQL server
         with psycopg2.connect(**config) as conn:
@@ -12,7 +13,7 @@ def connect(config):
         print(err)
 
 if __name__ == '__main__':
-    config = load_config(os.getcwd()+"\\database.ini")
+    config = load_config("database.ini")
     connect(config)
 
 # from https://www.postgresqltutorial.com/postgresql-python/connect/
