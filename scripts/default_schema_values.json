@@ -168,7 +168,7 @@
             "ut_id": 1,
             "nome": "Clara",
             "cognome": "Fallaci",
-            "d_nascita": "7/9/1986",
+            "d_nascita": "9/7/1986",
             "telefono": "0677 8947062",
             "address": "Via Vipacco 56",
             "citta_residenza": "Roma",
@@ -180,7 +180,7 @@
             "ut_id": 2,
             "nome": "Dalia",
             "cognome": "Trevisani",
-            "d_nascita": "10/18/1948",
+            "d_nascita": "18/10/1948",
             "telefono": "0627 9792713",
             "address": "Via Nazario Sauro 86",
             "citta_residenza": "Roma",
@@ -192,7 +192,7 @@
             "ut_id": 3,
             "nome": "Generoso",
             "cognome": "Gallo",
-            "d_nascita": "1/15/1984",
+            "d_nascita": "15/1/1984",
             "telefono": "0643 5538100",
             "address": "Piazzetta Scalette Rubiani 81",
             "citta_residenza": "Roma",
@@ -204,7 +204,7 @@
             "ut_id": 4,
             "nome": "Bruno",
             "cognome": "Napolitano",
-            "d_nascita": "7/27/1959",
+            "d_nascita": "27/7/1959",
             "telefono": "0819 6731710",
             "address": "Piazza Guglielmo Pepe 36",
             "citta_residenza": "Napoli",
@@ -216,7 +216,7 @@
             "ut_id": 5,
             "nome": "Deodato",
             "cognome": "Cocci",
-            "d_nascita": "4/5/1943",
+            "d_nascita": "5/4/1943",
             "telefono": "0623 6565163",
             "address": "Via Solfatara 17",
             "citta_residenza": "Roma",
@@ -228,7 +228,7 @@
             "ut_id": 6,
             "nome": "Alma",
             "cognome": "Lucchesi",
-            "d_nascita": "1/30/1965",
+            "d_nascita": "30/1/1965",
             "telefono": "0621 8237025",
             "address": "Via Silvio Spaventa 135",
             "citta_residenza": "Roma",
@@ -240,7 +240,7 @@
             "ut_id": 7,
             "nome": "Gabriella",
             "cognome": "Boni",
-            "d_nascita": "11/3/1970",
+            "d_nascita": "3/11/1970",
             "telefono": "0677 4946662",
             "address": "Via A.G. Alaimo 137",
             "citta_residenza": "Milano",
@@ -252,7 +252,7 @@
             "ut_id": 8,
             "nome": "Quintilia",
             "cognome": "Gallo",
-            "d_nascita": "4/24/1959",
+            "d_nascita": "24/4/1959",
             "telefono": "0229 0542761",
             "address": "Via Santa Teresa degli Scalzi 72",
             "citta_residenza": "Milano",
@@ -264,7 +264,7 @@
             "ut_id": 9,
             "nome": "Degna",
             "cognome": "Piazza",
-            "d_nascita": "7/1/1991",
+            "d_nascita": "1/7/1991",
             "telefono": "0214 0741321",
             "address": "Via Pasquale Scura 24",
             "citta_residenza": "Milano",
@@ -276,7 +276,7 @@
             "ut_id": 10,
             "nome": "Simone",
             "cognome": "Li Fonti",
-            "d_nascita": "6/8/1959",
+            "d_nascita": "8/6/1959",
             "telefono": "0244 1965949",
             "address": "Via Varrone 121",
             "citta_residenza": "Milano",
@@ -288,7 +288,7 @@
             "ut_id": 11,
             "nome": "Abele",
             "cognome": "Greco",
-            "d_nascita": "6/12/1977",
+            "d_nascita": "12/6/1977",
             "telefono": "0245 1887637",
             "address": "Via San Domenico 134",
             "citta_residenza": "Milano",
@@ -300,13 +300,60 @@
             "ut_id": 12,
             "nome": "Adone",
             "cognome": "Capon",
-            "d_nascita": "1/31/1974",
+            "d_nascita": "31/1/1974",
             "telefono": "0229 0767714",
             "address": "Via Moiariello 143",
             "citta_residenza": "Milano",
             "ut_email": "AdoneCapon@teleworm.us",
             "passwd" : "diegheeMe2",
             "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 13,
+            "nome": "Tommaso",
+            "cognome": "Lopedote",
+            "d_nascita": "14/05/2001",
+            "telefono": "0000000000",
+            "address": "Via Moiariello 143",
+            "citta_residenza": "Roma",
+            "ut_email": "tommaso@site.it",
+            "passwd" : "service",
+            "data_iscrizione": "22/04/2024"
+        },
+        {
+            "ut_id": 14,
+            "nome": "Iacopo",
+            "cognome": "",
+            "d_nascita": "01/01/2000",
+            "telefono": "0000000000",
+            "address": "Via Moiariello 143",
+            "citta_residenza": "Roma",
+            "ut_email": "Iacopo@site.it",
+            "passwd" : "service",
+            "data_iscrizione": "22/04/2024"
+        },        
+        {
+            "ut_id": 15,
+            "nome": "Rinaldo",
+            "cognome": "",
+            "d_nascita": "01/01/2000",
+            "telefono": "0000000000",
+            "address": "Via Moiariello 143",
+            "citta_residenza": "Roma",
+            "ut_email": "Rinaldo@site.it",
+            "passwd" : "service",
+            "data_iscrizione": "22/04/2024"
+        }
+    ],
+    "site_personel":[
+        {
+            "ut_id": 13
+        },
+        {
+            "ut_id": 14
+        },
+        {
+            "ut_id": 15 
         }
     ],
     "aptBlock_admin":[
@@ -319,70 +366,292 @@
         {
             "ut_id": 7,
             "pdf_doc_AdmValidity_fname" :"",
-            "pdf_doc_AdmValidity" :"0677 4859303",
-            "adm_telephone" :""
+            "pdf_doc_AdmValidity" :"",
+            "adm_telephone" :"0677 4859303"
         }
     ],
     "ut_owner":[
         {
             "ut_id": 2,
-            "codice_fiscale": "",
+            "codice_fiscale": "TRVDLA48R58H501N",
             "ut_doc_fname": "",
             "ut_doc_purchase": ""
         },
         {
             "ut_id": 3,
-            "codice_fiscale": "",
+            "codice_fiscale": "GLLGRS84A15H501Q",
             "ut_doc_fname": "",
             "ut_doc_purchase": ""
         },
         {
             "ut_id": 4,
-            "codice_fiscale": "",
+            "codice_fiscale": "NPLBRN59L27F839Y",
             "ut_doc_fname": "",
             "ut_doc_purchase": ""
         },
         {
             "ut_id": 5,
-            "codice_fiscale": "",
+            "codice_fiscale": "CCCDDT43D05H501P",
             "ut_doc_fname": "",
             "ut_doc_purchase": ""
         },
         {
             "ut_id": 6,
-            "codice_fiscale": "",
+            "codice_fiscale": "LCCLMA65A70E715A",
             "ut_doc_fname": "",
             "ut_doc_purchase": ""
         },
         {
             "ut_id": 8,
-            "codice_fiscale": "",
+            "codice_fiscale": "GLLQTL59D64H501F",
             "ut_doc_fname": "",
             "ut_doc_purchase": ""
         },
         {
             "ut_id": 9,
-            "codice_fiscale": "",
+            "codice_fiscale": "PZZDGN91L41F205F",
             "ut_doc_fname": "",
             "ut_doc_purchase": ""
         },
         {
             "ut_id": 10,
-            "codice_fiscale": "",
+            "codice_fiscale": "LFNSMN59H08F205D     ",
             "ut_doc_fname": "",
             "ut_doc_purchase": ""
         },
         {
             "ut_id": 11,
-            "codice_fiscale": "",
+            "codice_fiscale": "GRCBLA77H12F205I",
             "ut_doc_fname": "",
             "ut_doc_purchase": ""
         },
         {
             "ut_id": 12,
-            "codice_fiscale": "",
+            "codice_fiscale": "CPNDNA74A31F205H",
             "ut_doc_fname": "",
             "ut_doc_purchase": ""
+        }
+    ],
+    "req_aptBlock_create": [
+        {
+            "ud_id": 1,
+            "aptBlockReq_id": 1,
+            "time_born": "",
+            "time_mod": "",
+            "stat": "accepted"
+        },
+        {
+            "ud_id": 7,
+            "aptBlockReq_id": 2,
+            "time_born": "",
+            "time_mod": "",
+            "stat": "accepted"
+        }
+    ],
+    "aptBlock": [
+        {
+            "aptBlock_id": 1,
+            "addr_aptB": "Via Dante, 1",
+            "city": "Roma"
+        },
+        {
+            "aptBlock_id": 2,
+            "addr_aptB": "Via Virgilio, 1",
+            "city": "Milano"
+        }
+    ],
+    "ut_personal_documents": [
+        {
+            "ut_id": 1,
+            "expr_date_ID": "01/01/2030",
+            "img_ID": "",
+            "img_Id_fname": "",
+            "img_FiscalCode": ""
+        },
+        {
+            "ut_id": 2,
+            "expr_date_ID": "01/01/2030",
+            "img_ID": "",
+            "img_Id_fname": "",
+            "img_FiscalCode": ""
+        },
+        {
+            "ut_id": 3,
+            "expr_date_ID": "01/01/2030",
+            "img_ID": "",
+            "img_Id_fname": "",
+            "img_FiscalCode": ""
+        },
+        {
+            "ut_id": 4,
+            "expr_date_ID": "01/01/2030",
+            "img_ID": "",
+            "img_Id_fname": "",
+            "img_FiscalCode": ""
+        },
+        {
+            "ut_id": 5,
+            "expr_date_ID": "01/01/2030",
+            "img_ID": "",
+            "img_Id_fname": "",
+            "img_FiscalCode": ""
+        },
+        {
+            "ut_id": 6,
+            "expr_date_ID": "01/01/2030",
+            "img_ID": "",
+            "img_Id_fname": "",
+            "img_FiscalCode": ""
+        },
+        {
+            "ut_id": 7,
+            "expr_date_ID": "01/01/2030",
+            "img_ID": "",
+            "img_Id_fname": "",
+            "img_FiscalCode": ""
+        },
+        {
+            "ut_id": 8,
+            "expr_date_ID": "01/01/2030",
+            "img_ID": "",
+            "img_Id_fname": "",
+            "img_FiscalCode": ""
+        },
+        {
+            "ut_id": 9,
+            "expr_date_ID": "01/01/2030",
+            "img_ID": "",
+            "img_Id_fname": "",
+            "img_FiscalCode": ""
+        },
+        {
+            "ut_id": 10,
+            "expr_date_ID": "01/01/2030",
+            "img_ID": "",
+            "img_Id_fname": "",
+            "img_FiscalCode": ""
+        },
+        {
+            "ut_id": 11,
+            "expr_date_ID": "01/01/2030",
+            "img_ID": "",
+            "img_Id_fname": "",
+            "img_FiscalCode": ""
+        },
+        {
+            "ut_id": 12,
+            "expr_date_ID": "01/01/2030",
+            "img_ID": "",
+            "img_Id_fname": "",
+            "img_FiscalCode": ""
+        }
+    ],
+    "req_ut_access": [
+        {
+            "ut_id": 2,
+            "utReq_id": "",
+            "aptBlock_id": "",
+            "time_born": "",
+            "time_mod": "",
+            "status": ""
+        },
+        {
+            "ut_id": 3,
+            "utReq_id": 1,
+            "aptBlock_id": "",
+            "time_born": "",
+            "time_mod": "",
+            "status": ""
+        },
+        {
+            "ut_id": 4,
+            "utReq_id": "",
+            "aptBlock_id": "",
+            "time_born": "",
+            "time_mod": "",
+            "status": ""
+        },
+        {
+            "ut_id": 5,
+            "utReq_id": "",
+            "aptBlock_id": "",
+            "time_born": "",
+            "time_mod": "",
+            "status": ""
+        },
+        {
+            "ut_id": 6,
+            "utReq_id": "",
+            "aptBlock_id": "",
+            "time_born": "",
+            "time_mod": "",
+            "status": ""
+        },
+        {
+            "ut_id": 8,
+            "utReq_id": "",
+            "aptBlock_id": "",
+            "time_born": "",
+            "time_mod": "",
+            "status": ""
+        },
+        {
+            "ut_id": 9,
+            "utReq_id": "",
+            "aptBlock_id": "",
+            "time_born": "",
+            "time_mod": "",
+            "status": ""
+        },
+        {
+            "ut_id": 10,
+            "utReq_id": "",
+            "aptBlock_id": "",
+            "time_born": "",
+            "time_mod": "",
+            "status": ""
+        },
+        {
+            "ut_id": 11,
+            "utReq_id": "",
+            "aptBlock_id": "",
+            "time_born": "",
+            "time_mod": "",
+            "status": ""
+        },
+        {
+            "ut_id": 12,
+            "utReq_id": "",
+            "aptBlock_id": "",
+            "time_born": "",
+            "time_mod": "",
+            "status": ""
+        }
+    ],
+    "aptBlock_bullettinBoard": [
+        {
+            "aptBlock_id": 1,
+            "bb_id": 1,
+            "bb_name": "general",
+            "bb_year": 2024
+        },
+        {
+            "aptBlock_id": 1,
+            "bb_id": 2,
+            "bb_name": "admin",
+            "bb_year": 2024
+        },
+        {
+            "aptBlock_id": 2,
+            "bb_id": 1,
+            "bb_name": "general",
+            "bb_year": 2024
+        },
+        {
+            "aptBlock_id": 2,
+            "bb_id": 2,
+            "bb_name": "admin",
+            "bb_year": 2024
         }
     ]
 }

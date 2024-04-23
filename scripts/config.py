@@ -23,15 +23,17 @@ def load_config(filename="database.ini", section="postgresql"):
 
 def load_data(fname="data.json"):
     data = dict()
-    with open(fname) as f:
+    fname_abs = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(fname_abs, fname)) as f:
         data = json.load(f)
-        print(type(data))
         for rows in data:
             print(rows)
+    print(data)
     return data
 
 if __name__ == '__main__':
     config = load_config()
+    load_data("default_schema_values.json")
 
 
 

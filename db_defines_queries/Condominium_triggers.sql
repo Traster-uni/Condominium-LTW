@@ -27,6 +27,9 @@ CREATE TRIGGER rental_req_stamp BEFORE INSERT OR UPDATE ON rental_request
 -- TO MODIFY TRIGGERS:
 -- DROP TRIGGER rental_req_stamp ON rental_request;
 -- DROP FUNCTION max_rental_req_accepted_per_user();
-
 INSERT INTO rental_request VALUES
     (1, 43, 105, CURRENT_TIME(1)::time, CURRENT_DATE+INTERVAL '2 days', 2, CURRENT_TIMESTAMP, 'pending');
+
+
+-- TODO: On creation of new instance of aptBlock TRIGGER creations of two new instances 
+--   of aptBlock_bulletinBoard: "admin" and "general"

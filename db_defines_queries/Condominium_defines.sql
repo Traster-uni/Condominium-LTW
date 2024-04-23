@@ -46,6 +46,9 @@ CREATE TABLE IF NOT EXISTS ut_registered(
 	UNIQUE (ut_id, ut_email)
 );
 
+CREATE TABLE IF NOT EXISTS site_personel(
+	ut_id integer,
+);
 
 CREATE TABLE IF NOT EXISTS ut_owner(
 	ut_id integer,
@@ -110,7 +113,7 @@ CREATE TABLE IF NOT EXISTS ut_personal_documents(
 	ut_id integer,
 	expr_date_ID date NOT NULL,
 	img_ID bytea[] NOT NULL,
-	img_ID_fname varchar(100)][] NOT NULL,
+	img_ID_fname varchar(100)[] NOT NULL,
 	img_FiscalCode bytea NOT NULL,
 	PRIMARY KEY (ut_id),
 	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
@@ -138,9 +141,10 @@ CREATE TABLE IF NOT EXISTS aptBlock_bulletinBoard(
 	bb_name varchar(20) NOT NULL,
 	bb_year date NOT NULL, -- must be 01-01-year
 	--more attributes may be needed
-	PRIMARY KEY (bb_id),
+	PRIMARY KEY (aptBlock_id, bb_id),
 	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id)
 );
+--TODO: DROP AND CREATE
 
 
 CREATE TABLE IF NOT EXISTS posts(
