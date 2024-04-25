@@ -147,6 +147,7 @@ CREATE TABLE IF NOT EXISTS aptBlock_bulletinBoard(
 	PRIMARY KEY (aptBlock_id, bb_id),
 	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id)
 );
+-- drop table aptBlock_bulletinBoard cascade
 
 
 CREATE TABLE IF NOT EXISTS posts(

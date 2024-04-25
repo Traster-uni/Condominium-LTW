@@ -29,7 +29,8 @@ def connect(config):
         # connecting to the PostgreSQL server
         with psycopg2.connect(**config) as conn:
             print(f"Connected to the PostgreSQL server at {config['host']}:{config['port']}")
-            return conn
+            d = load_data("default_schema_values.json")
+            insert_data(d, conn)
     except (psycopg2.DatabaseError, Exception) as err:
         print(err)
     return
@@ -60,11 +61,11 @@ def insert_data(data:dict, connection:psycopg2.connect):
             query_str += ");"
             print(query_str)
             cur.execute(query_str)
-
+    cur.close()
+    return
+    
 if __name__ == '__main__':
     config = load_config("database.ini")
     conn = connect(config)
-    d = load_data("default_schema_values.json")
-    insert_data(d, conn)
 
 # from https://www.postgresqltutorial.com/postgresql-python/connect/
