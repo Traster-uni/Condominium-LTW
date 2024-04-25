@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS ut_registered(
 	nome varchar(50) NOT NULL,
 	cognome varchar(50) NOT NULL,
 	d_nascita date NOT NULL,
-	telefono telNumber NOT NULL,
+	telefono varchar(13) NOT NULL,
 	address varchar(50) NOT NULL,
 	citta_residenza varchar(100) NOT NULL,
 	ut_email email NOT NULL,
