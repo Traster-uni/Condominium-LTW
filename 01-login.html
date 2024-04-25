@@ -13,6 +13,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Montserrat"
     />
+    
     <style>
       body,
       h1 {
@@ -33,12 +34,38 @@
         </header>
 
         <div class="buttons">
-          <button class="button">
-            REGISTRATI
-          </button>
-          <button class="button">
-            LOGIN
-          </button>
+          <button class="button" id="signInButton"> REGISTRATI </button>
+          <button class="button"> LOGIN </button>
+        </div>
+
+        <!--Modale per la registrazione-->
+        <div class="modal" id="modalSignIn">
+          <div class="modal-content">
+            <div class="modal-header"><h2>Registrazione</h2><span class="close">&times;</span></div>
+            <div class="modal-body"><p>Form di registrazione</p>
+            <form action="" method="post">
+              <label for="nome">Nome:</label>
+              <input type="text" name="nome" id="nome" required>
+              <label for="cognome">Cognome:</label>
+              <input type="text" name="cognome" id="cognome" required>
+              <label for="email">E-mail:</label>
+              <input type="email" name="email" id="email" required>
+              <label for="password">Password:</label>
+              <input type="password" name="password" id="password" required>
+              <input type="submit" value="submit">
+            </form>
+            </div>
+            <div class="modal-footer">Footer</div>
+          </div>
+        </div>
+
+        <!--Modale per il log in-->
+        <div class="modal" id="modalLogIn">
+          <div class="modal-content">
+            <div class="modal-header">Accedi</div>
+            <div class="modal-body">Form di Login</div>
+            <div class="modal-footer">Footer</div>
+          </div>
         </div>
 
         <div style="padding-left: 40px; padding-right: 40px">
@@ -68,5 +95,6 @@
         </div>
     </div>
     <div class="lightgreen"></div>
+  <script src="./01-login/local_js/01-login.js"></script>
   </body>
 </html>

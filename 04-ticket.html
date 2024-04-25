@@ -89,7 +89,7 @@
             <textarea class="descrizione" name="descrizione" id="descrizione" cols="50" rows="10" minlength="50" required></textarea>
             <br>
             <input type="file" type="image">
-            <input type="submit">
+            <input type="submit" value="Submit" onclick="return ticketSubmit(event)">
             <input type="reset">
           </form>
         </div>
@@ -103,30 +103,34 @@
           <div>
             <section id="2024" class="tabcontent">
               <table id="table2024" border="1px">
-                <tr>
-                  <th><h2>Titolo</h2></th>
-                  <th><h2>Data Creazione</h2></th>
-                  <th><h2>Status</h2></th>
-                  <th><h2>Ultima Risposta</h2></th>
-                </tr>
-                <tr>
-                  <td>Titolo 1</td>
-                  <td>Data Creazione 1</td>
-                  <td><span class="accepted">Accettato</span></td>
-                  <td>Ultima Risposta 1</td>
-                </tr>
-                <tr>
-                  <td>Titolo 2</td>
-                  <td>Data Creazione 2</td>
-                  <td><span class="closed">Chiuso</span></td>
-                  <td>Ultima Risposta 2</td>
-                </tr>
-                <tr>
-                  <td>Titolo 3</td>
-                  <td>Data Creazione 3</td>
-                  <td><span class="pending">In corso</span></td>
-                  <td>Ultima Risposta 3</td>
-                </tr>
+                <thead>
+                  <tr>
+                    <th><h2>Titolo</h2></th>
+                    <th><h2>Data Creazione</h2></th>
+                    <th><h2>Status</h2></th>
+                    <th><h2>Ultima Risposta</h2></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Titolo 1</td>
+                    <td>Data Creazione 1</td>
+                    <td><span class="accepted">Accettato</span></td>
+                    <td>Ultima Risposta 1</td>
+                  </tr>
+                  <tr>
+                    <td>Titolo 2</td>
+                    <td>Data Creazione 2</td>
+                    <td><span class="closed">Chiuso</span></td>
+                    <td>Ultima Risposta 2</td>
+                  </tr>
+                  <tr>
+                    <td>Titolo 3</td>
+                    <td>Data Creazione 3</td>
+                    <td><span class="pending">In corso</span></td>
+                    <td>Ultima Risposta 3</td>
+                  </tr>
+                </tbody>
               </table>
             </section>
             <section id="2023" class="tabcontent">
@@ -174,9 +178,10 @@
                   </li>
               </ul>
           </div>
-      </div>
+      </div> 
   </div>
   <script>document.getElementById("currentDate").click();</script>
   <script src="./04-ticket/local_js/04-ticket.js"></script>
+  <script src="./04-ticket/local_js/04-submitTicket.js"></script>
   </body>
 </html>
