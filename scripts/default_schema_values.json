@@ -359,15 +359,15 @@
     "aptBlock_admin":[
         {
             "ut_id": 1,
-            "pdf_doc_AdmValidity_fname" :"",
-            "pdf_doc_AdmValidity" :"",
-            "adm_telephone" :"+3906777299584"
+            "pdf_doc_AdmValidity_fname" :"directory",
+            "pdf_doc_AdmValidity" :"0x00000",
+            "adm_telephone" :"+390677729958"
         },
         {
             "ut_id": 7,
-            "pdf_doc_AdmValidity_fname" :"",
-            "pdf_doc_AdmValidity" :"",
-            "adm_telephone" :"+3906774859303"
+            "pdf_doc_AdmValidity_fname" :"directory",
+            "pdf_doc_AdmValidity" :"0x00000",
+            "adm_telephone" :"+390677485930"
         }
     ],
     "req_aptBlock_create": [
@@ -397,7 +397,7 @@
             "aptBlock_id": 2,
             "addr_aptB": "Via Virgilio, 1",
             "city": "Milano",
-            "cap": " 20131"
+            "cap": "20131"
         }
     ],
     "req_ut_access": [
@@ -484,63 +484,63 @@
     ],
     "ut_owner":[
         {
-            "utReq_id": 2,
+            "utReq_id": 1,
             "codice_fiscale": "TRVDLA48R58H501N",
-            "ut_doc_fname": "",
+            "ut_doc_fname": "directory",
+            "ut_doc_purchase": ""
+        },
+        {
+            "utReq_id": 2,
+            "codice_fiscale": "GLLGRS84A15H501Q",
+            "ut_doc_fname": "directory",
             "ut_doc_purchase": ""
         },
         {
             "utReq_id": 3,
-            "codice_fiscale": "GLLGRS84A15H501Q",
-            "ut_doc_fname": "",
+            "codice_fiscale": "NPLBRN59L27F839Y",
+            "ut_doc_fname": "directory",
             "ut_doc_purchase": ""
         },
         {
             "utReq_id": 4,
-            "codice_fiscale": "NPLBRN59L27F839Y",
-            "ut_doc_fname": "",
+            "codice_fiscale": "CCCDDT43D05H501P",
+            "ut_doc_fname": "directory",
             "ut_doc_purchase": ""
         },
         {
             "utReq_id": 5,
-            "codice_fiscale": "CCCDDT43D05H501P",
-            "ut_doc_fname": "",
+            "codice_fiscale": "LCCLMA65A70E715A",
+            "ut_doc_fname": "directory",
             "ut_doc_purchase": ""
         },
         {
             "utReq_id": 6,
-            "codice_fiscale": "LCCLMA65A70E715A",
-            "ut_doc_fname": "",
+            "codice_fiscale": "GLLQTL59D64H501F",
+            "ut_doc_fname": "directory",
+            "ut_doc_purchase": ""
+        },
+        {
+            "utReq_id": 7,
+            "codice_fiscale": "PZZDGN91L41F205F",
+            "ut_doc_fname": "directory",
             "ut_doc_purchase": ""
         },
         {
             "utReq_id": 8,
-            "codice_fiscale": "GLLQTL59D64H501F",
-            "ut_doc_fname": "",
+            "codice_fiscale": "LFNSMN59H08F205D",
+            "ut_doc_fname": "directory",
             "ut_doc_purchase": ""
         },
         {
             "utReq_id": 9,
-            "codice_fiscale": "PZZDGN91L41F205F",
-            "ut_doc_fname": "",
+            "codice_fiscale": "GRCBLA77H12F205I",
+            "ut_doc_fname": "directory",
             "ut_doc_purchase": ""
         },
         {
             "utReq_id": 10,
-            "codice_fiscale": "LFNSMN59H08F205D",
-            "ut_doc_fname": "",
-            "ut_doc_purchase": ""
-        },
-        {
-            "utReq_id": 11,
-            "codice_fiscale": "GRCBLA77H12F205I",
-            "ut_doc_fname": "",
-            "ut_doc_purchase": ""
-        },
-        {
-            "utReq_id": 12,
             "codice_fiscale": "CPNDNA74A31F205H",
-            "ut_doc_fname": "",
+            "ut_doc_fname": "directory",
             "ut_doc_purchase": ""
         }
     ],
@@ -630,7 +630,7 @@
             "img_FiscalCode": ""
         }
     ],
-    "aptBlock_bullettinBoard": [
+    "aptBlock_bulletinBoard": [
         {
             "aptBlock_id": 1,
             "bb_id": 1,

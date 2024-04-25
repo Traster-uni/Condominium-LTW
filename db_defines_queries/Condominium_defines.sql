@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS ut_owner(
 	utReq_id integer,
 	codice_fiscale fiscalCode NOT NULL,
 	ut_doc_fname varchar(100) NOT NULL,
-	ut_doc_purchase bytea NOT NULL,
+	ut_doc_purchase bytea,
 	PRIMARY KEY (utReq_id),
 	FOREIGN KEY (utReq_id) REFERENCES req_ut_access(utReq_id),
 	UNIQUE(codice_fiscale)
@@ -69,8 +69,8 @@ CREATE TABLE IF NOT EXISTS ut_owner(
 CREATE TABLE IF NOT EXISTS aptBlock_admin(
 	ut_id integer,
 	pdf_doc_AdmValidity_fname varchar(100) NOT NULL,
-	pdf_doc_AdmValidity bytea NOT NULL,
-	adm_telephone telNumber NOT NULL,
+	pdf_doc_AdmValidity bytea,
+	adm_telephone varchar(13) NOT NULL,
 	PRIMARY KEY (ut_id),
 	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
 );
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS aptBlock_bulletinBoard(
 	aptBlock_id integer,
 	bb_id serial,
 	bb_name varchar(20) NOT NULL,
-	bb_year date NOT NULL, -- must be 01-01-year
+	bb_year integer NOT NULL, -- must be 01-01-year
 	--more attributes may be needed
 	PRIMARY KEY (aptBlock_id, bb_id),
 	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id)
