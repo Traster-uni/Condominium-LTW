@@ -1,4 +1,4 @@
-CREATE DOMAIN telNumber as varchar(12)
+CREATE DOMAIN telNumber as varchar(13)
 CHECK(
 	 VALUE ~ '^\+39[0-9]{6,12}$'
 );
@@ -48,15 +48,17 @@ CREATE TABLE IF NOT EXISTS ut_registered(
 
 CREATE TABLE IF NOT EXISTS site_personel(
 	ut_id integer,
+	PRIMARY KEY (ut_id),
+	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
 );
 
 CREATE TABLE IF NOT EXISTS ut_owner(
-	ut_id integer,
+	utReq_id integer,
 	codice_fiscale fiscalCode NOT NULL,
 	ut_doc_fname varchar(100) NOT NULL,
 	ut_doc_purchase bytea NOT NULL,
-	PRIMARY KEY (ut_id),
-	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id),
+	PRIMARY KEY (utReq_id),
+	FOREIGN KEY (utReq_id) REFERENCES req_ut_access(utReq_id),
 	UNIQUE(codice_fiscale)
 );
 -- hash algorithms: https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords
@@ -80,19 +82,18 @@ CREATE TABLE IF NOT EXISTS region(
 CREATE TABLE IF NOT EXISTS city(
 	name varchar(50),
 	region varchar(50),
-	provence varchar(50),
-	cap postalCode,
+	provence varchar(2),
 	PRIMARY KEY (name),
-	FOREIGN KEY (provence) REFERENCES city(name),
 	FOREIGN KEY (region) REFERENCES region(name)
 );
+
 
 CREATE TABLE IF NOT EXISTS req_aptBlock_create(
 	ut_id integer,
 	aptBlockReq_id serial,
-	time_born timestamp,
+	time_born timestamp NOT NULL,
 	time_mod timestamp,
-	stat request_status,
+	stat request_status NOT NULL,
 	PRIMARY KEY (aptBlockReq_id),
 	FOREIGN KEY (ut_id) REFERENCES aptBlock_admin(ut_id)
 );
@@ -101,7 +102,8 @@ CREATE TABLE IF NOT EXISTS req_aptBlock_create(
 CREATE TABLE IF NOT EXISTS aptBlock(
 	aptBlock_id integer,
 	addr_aptB varchar(50) NOT NULL,
-	city varchar(50),
+	city varchar(50) NOT NULL,
+	cap postalcode NOT NULL,
 	PRIMARY KEY (aptBlock_id),
 	FOREIGN KEY (aptBlock_id) REFERENCES req_aptBlock_create(aptBlockReq_id),
 	FOREIGN KEY (city) REFERENCES city(name),
@@ -144,7 +146,6 @@ CREATE TABLE IF NOT EXISTS aptBlock_bulletinBoard(
 	PRIMARY KEY (aptBlock_id, bb_id),
 	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id)
 );
---TODO: DROP AND CREATE
 
 
 CREATE TABLE IF NOT EXISTS posts(

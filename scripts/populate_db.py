@@ -40,20 +40,31 @@ def load_data(fname="data.json"):
     fname_abs = os.path.dirname(os.path.abspath(__file__))
 
     with open(os.path.join(fname_abs, fname)) as f:
-        data = json.load(f)   
+        data = json.load(f)
     return data
 
 def insert_data(data:dict, connection:psycopg2.connect):
     cur = connection.cursor()
-
+    
     for table_name in data:
-        for instance in table_name:
-            cur.execute(f"INSERT {table_name}")
+        for instance in data[table_name]:
+            values_list = instance.values()
+            query_str = "INSERT INTO " + table_name + " VALUES ("
+            for i,v in enumerate(values_list):
+                if type(v) is int:
+                    query_str += str(v)
+                else:
+                    query_str += "'" + v + "'"
+                if i < len(values_list)-1:
+                    query_str += ", "
+            query_str += ");"
+            print(query_str)
+            cur.execute(query_str)
 
 if __name__ == '__main__':
     config = load_config("database.ini")
     conn = connect(config)
-    d = load_data("default_schema_values")
+    d = load_data("default_schema_values.json")
     insert_data(d, conn)
 
 # from https://www.postgresqltutorial.com/postgresql-python/connect/
