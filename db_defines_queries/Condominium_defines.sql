@@ -10,7 +10,7 @@ CHECK(
 
 CREATE DOMAIN email as varchar(50)
 CHECK(
-	VALUE ~ '^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$'
+	VALUE ~ '^[\w-\.]+@([\w-]+\.)+[\w-]{2,10}$'
 );
 
 CREATE DOMAIN fiscalCode as varchar(16)
@@ -38,13 +38,14 @@ CREATE TABLE IF NOT EXISTS ut_registered(
 	telefono varchar(13) NOT NULL,
 	address varchar(50) NOT NULL,
 	citta_residenza varchar(100) NOT NULL,
-	ut_email email NOT NULL,
+	ut_email varchar(50) NOT NULL,
 	passwd varchar(50) NOT NULL,
 	data_iscrizione date NOT NULL, -- call current_date at time of insertion
 	PRIMARY KEY (ut_id),
 	FOREIGN KEY (citta_residenza) REFERENCES city(name),
 	UNIQUE (ut_id, ut_email)
 );
+
 
 CREATE TABLE IF NOT EXISTS site_personel(
 	ut_id integer,
