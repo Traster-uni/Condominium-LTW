@@ -95,6 +95,9 @@ CREATE TABLE IF NOT EXISTS req_aptBlock_create(
 	time_born timestamp NOT NULL,
 	time_mod timestamp,
 	stat request_status NOT NULL,
+	addr_aptB varchar(50) NOT NULL,
+	city varchar(50) NOT NULL,
+	cap postalcode NOT NULL,
 	PRIMARY KEY (aptBlockReq_id),
 	FOREIGN KEY (ut_id) REFERENCES aptBlock_admin(ut_id)
 );

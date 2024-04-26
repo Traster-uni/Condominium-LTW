@@ -24,3 +24,14 @@ Nel file di configurazione php.ini, decommentare la riga
 “; extension=pgsql” (togliendo il “;” iniziale).
 Per chi usa XAMPP: solitamente il file php.ini è situato nella
 cartella C:\xampp\php
+
+per ogni req_aptBlock_create va da 'pending' a 'accepted':
+    crea una nuova istanza di aptBlock con 
+    aptBlock_id = req_aptBlock_create(aptBlockReq_id)
+
+
+per ogni nuovo aptBlock inserito 
+    crea due nuove istanze di aptBlock_bulletinBoard con 
+    aptBlock_bulletinBoard(aptBlock_id) = aptBlock(aptBlock_id)
+    aptBlock_bulletinBoard(bb_name) = 'admin' and 'general'
+    aptBlock_bulletinBoard(bb_year) = date_part(current_date, 'year')
