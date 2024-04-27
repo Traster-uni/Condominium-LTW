@@ -1,33 +1,66 @@
 CREATE OR REPLACE FUNCTION max_rental_req_accepted_per_user() RETURNS trigger
 AS $$
-	usr_id = TD["new"]["ud_id"]
-	rt_id = TD["new"]["rental_req_id"]
+	usr_id 	= TD["new"]["ud_id"]
+	rt_id	= TD["new"]["rental_req_id"]
 	print(f"usr_id: {usr_id}, rental_day: {rt_day}")
 	qry = f"""
-	        SELECT count(r_req.rental_req_id)
-	        FROM rental_requests r_req
-	        WHERE r_req.ud_id == {usr_id} AND (r_req.stat=='pending' OR r_req.stat=='accepted')
+			SELECT count(r_req.rental_req_id)
+			FROM rental_requests r_req
+			WHERE r_req.ud_id == {usr_id} AND (r_req.stat=='pending' OR r_req.stat=='accepted')
 				AND date_trunc('day', r_req.rental_time) > date_trunc('day', CURRENT_TIMESTAMP)
-	        GROUP BY (r_req.rental_req_id)
-	        """
+			GROUP BY (r_req.rental_req_id)
+			"""
 	plpython3u.prepare(qry)
 	try:
 		qry_result = plpy.execute(qry)
 	except plpy.SPIError:
-	    return "something went wrong"
+		return "something went wrong"
 	else:
-	    if qry_result[0] > 5:
-	        raise plpy.error(f"Max num of requests reached for {usr_id}, rolling back")
+		if qry_result[0] > 5:
+			raise plpy.error(f"Max num of requests reached for {usr_id}, rolling back")
 		else:
-	    	return "OK"
+			return "OK"
 $$ LANGUAGE plpython3u;
 
 CREATE TRIGGER rental_req_stamp BEFORE INSERT OR UPDATE ON rental_request
     FOR EACH STATEMENT EXECUTE FUNCTION max_rental_req_accepted_per_user();
     --- FOR EACH STATEMENT option will call the trigger function only once for each statement, regardless of the number of rows getting modified.
 
+-- CREATE OR REPLACE FUNCTION rental_within_30days RETURNS trigger
+-- AS $$
+-- 	usr_id = TD["new"]["ud_id"]
+-- 	rt_id = TD["new"]["rental_req_id"]
+-- 	print(f"usr_id: {usr_id}, rental_day: {rt_day}")
+-- 	rt_day = TD["new"]["rental_day"]
+-- 	current_date = "SELECT * FROM date_trunc('day', CURRENT_TIMESTAMP)"
+-- 	plpython3u.prepare(current_date)
+-- 	try:
+-- 		qry_result = plpy.execute(qrcurrent_datey)
+-- 	except plpy.SPIError:
+-- 	    return "something went wrong"
+-- 	if rt_day - 
+-- $$ LANGUAGE plpython3u
+
+-- CREATE TRIGGER rental_within_30days_check BEFORE INSERT ON rental_request
+-- 	FOR EACH STATEMENT EXECUTE FUNCTION rental_within_30days();
+
 CREATE OR REPLACE FUNCTION rental_req_disj() RETURNS trigger
 AS $$
+	usr_id		= TD["new"]["ud_id"]
+	rt_id		= TD["new"]["rental_req_id"]
+	rt_time		= TD["new"]["rental_time"]
+	rt_day		= TD["new"]["rental_day"]
+	rt_period 	= TD["new"]["rental_period"]
+
+	qry = f"""
+			EXISTS(
+				SELECT rr.rental_day 
+				FROM rental_request rr 
+				WHERE rr.rental_day == {rt_day} AND rr.stat != 'refused'
+					(rr.rental_time < {rt_time} AND rr.rental_time + interval 'rr.rental_period hours' > {rental_time} OR
+					rr.rental_time < {rt_time} + interval '{rt_period} hours' AND  rr.rental_time+rr.rental_period > {rt_time} + interval '{rt_period} hours')
+			)
+			"""
 
 $$ LANGUAGE plpython3u
 
@@ -35,16 +68,16 @@ CREATE TRIGGER rental_req_disj_check BEFORE INSERT OR UPDATE ON rental_request
 	FOR EACH STATEMENT EXECUTE FUNCTION rental_req_disj();
 
 
-CREATE OR REPLACE FUNCTION new_aptBlock RETURN trigger
+CREATE OR REPLACE FUNCTION new_aptBlock RETURNS trigger
 AS $$
 	rq_status_old = TD["old"]["stat"]
 	rq_status_new = TD["new"]["stat"]
 
-	ut_id = TD["new"]["ut_id"]
+	ut_id 		= TD["new"]["ut_id"]
 	aptBlock_id = TD["new"]["aptBlockReq_id"]
-	addr_aptB = TD["new"]["addr_aptB"]
-	city = TD["new"]["city"]
-	cap = TD["new"]["cap"]
+	addr_aptB 	= TD["new"]["addr_aptB"]
+	city 		= TD["new"]["city"]
+	cap 		= TD["new"]["cap"]
 
 	if rq_status_old == "pending":
 		if rq_status_new == "refused":
@@ -56,7 +89,7 @@ AS $$
 			try:
 				plpy.execute(qry)
 			except plpy.SPIError:
-	    		return "something went wrong"
+				return "something went wrong"
 
 	return "OK"
 $$ LANGUAGE plpython3u;
@@ -82,7 +115,7 @@ AS $$
 	try:
 		plpy.execute(qry_geneal)
 	except plpy.SPIError:
-	    		return "something went wrong with the insertion of the general bboard"
+				return "something went wrong with the insertion of the general bboard"
 	try:
 		plpy.execute(qry_admin)
 	except plpy.SPIError:
@@ -92,13 +125,8 @@ $$ LANGUAGE plpython3u;
 
 CREATE TRIGGER insert_bulletinBoard_on_aptBlock_creation AFTER INSERT ON aptBlock
 	FOR EACH ROW EXECUTE FUNCTION define_relative_bulletinBoards();
-
+-- Triggers insertion of admin and general board once a new aptBlock has been defined.
 
 -- TO MODIFY TRIGGERS:
 -- DROP TRIGGER rental_req_stamp ON rental_request;
 -- DROP FUNCTION max_rental_req_accepted_per_user();
-
-
-
--- TODO: On creation of new instance of aptBlock TRIGGER creations of two new instances 
---   of aptBlock_bulletinBoard: "admin" and "general"
