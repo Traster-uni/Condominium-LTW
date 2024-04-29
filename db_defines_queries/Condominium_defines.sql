@@ -16,7 +16,7 @@ CHECK(
 CREATE DOMAIN fiscalCode as varchar(16)
 CHECK(
 	VALUE ~ '^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$'
-)
+);
 
 CREATE TYPE ut_request_stat AS ENUM ('accepted', 'refused', 'aborted');
 
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS aptBlock_bulletinBoard(
 	bb_name varchar(20) NOT NULL,
 	bb_year integer NOT NULL, -- must be 01-01-year
 	--more attributes may be needed
-	PRIMARY KEY (aptBlock_id, bb_id),
+	PRIMARY KEY (bb_id),
 	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id)
 );
 -- drop table aptBlock_bulletinBoard cascade
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS posts(
 	off_comments bool DEFAULT false,
 	PRIMARY KEY (post_id),
 	FOREIGN KEY (bb_id) REFERENCES aptBlock_bulletinBoard(bb_id),
-	FOREIGN KEY (ut_owner_id) REFERENCES ut_owner(ut_id),
+	FOREIGN KEY (ut_owner_id) REFERENCES ut_owner(utReq_id),
 	UNIQUE (post_id, bb_id)
 );
 
@@ -180,8 +180,8 @@ CREATE TABLE IF NOT EXISTS post_thread(
 	time_born timestamp NOT NULL, 		-- current_time
 	time_lastReplay timestamp NOT NULL, -- current_time last reply
 	PRIMARY KEY (thread_id),
-	FOREIGN KEY (post_id) REFERENCES post(post_id),
-	FOREIGN KEY (ud_id) REFERENCES ut_owner(ut_id),
+	FOREIGN KEY (post_id) REFERENCES posts(post_id),
+	FOREIGN KEY (ud_id) REFERENCES ut_owner(utReq_id),
 	UNIQUE (thread_id, post_id)
 );
 
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS reply_thread(
 	ud_id integer,
 	PRIMARY KEY (thread_id, ud_id),
 	FOREIGN KEY (thread_id) REFERENCES post_thread(thread_id),
-	FOREIGN KEY (ud_id) REFERENCES ut_owner(ut_id)
+	FOREIGN KEY (ud_id) REFERENCES ut_owner(utReq_id)
 );
 -- ogni messaggio di raply ad un post crea un thread
 -- 		ogni messaggio di risposta ad un thread crea un reply 
@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS tickets(
 	time_lastReplay timestamp NOT NULL, -- current_time last reply
 	PRIMARY KEY (ticket_id),
 	FOREIGN KEY (aptBlock_admin) REFERENCES aptBlock_admin(ut_id),
-	FOREIGN KEY (ud_id) REFERENCES ut_owner(ut_id)
+	FOREIGN KEY (ud_id) REFERENCES ut_owner(utReq_id)
 );
 -- TRIGGER: max 5 tickets per ud_id
 
@@ -252,7 +252,7 @@ CREATE TABLE IF NOT EXISTS tags_tickets(
 	submit_time timestamp NOT NULL,
 	stat request_status NOT NULL,
 	PRIMARY KEY (rental_req_id),
-	FOREIGN KEY (ut_id) REFERENCES ut_owner(ut_id),
+	FOREIGN KEY (ut_id) REFERENCES ut_owner(utReq_id),
 	FOREIGN KEY (adm_id) REFERENCES aptBlock_admin(ut_id)
  );
  -- TRIGGER: max n rental_req accepted per user
