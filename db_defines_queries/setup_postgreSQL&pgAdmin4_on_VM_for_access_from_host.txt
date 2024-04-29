@@ -126,7 +126,7 @@ Procedimento:
 		
 		Esegui il login tramite i dati inseriti alla definizione dello user.
 		
-		Se si vuole aggiungere l'applicativo di postgresql, basta installarlo normalmente dal sitoweb e al momento dell'apertura d
+		Se si vuole aggiungere l'applicativo di pgadmi4, basta installarlo normalmente dal sitoweb e al momento dell'apertura d
 		della applicazione dovrai creare un nuovo server con 
 		Hostname: 127.0.0.1:5432
 		(ricordati di impiegare usr e passwd definiti per il tuo user)
