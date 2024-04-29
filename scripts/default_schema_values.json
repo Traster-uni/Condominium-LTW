@@ -376,14 +376,20 @@
             "aptBlockReq_id": 1,
             "time_born": "2024-04-24 15:23:06",
             "time_mod": "2024-04-24 20:03:02",
-            "stat": "accepted"
+            "stat": "accepted",
+            "addr_aptB": "Via Dante, 1",
+            "city": "Roma",
+            "cap": "00123"
         },
         {
             "ud_id": 7,
             "aptBlockReq_id": 2,
             "time_born": "2024-04-24 15:23:06",
             "time_mod": "2024-04-24 20:03:02",
-            "stat": "accepted"
+            "stat": "accepted",
+            "addr_aptB": "Via Virgilio, 1",
+            "city": "Milano",
+            "cap": "20131"
         }
     ],
     "aptBlock": [
