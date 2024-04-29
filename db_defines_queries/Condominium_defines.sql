@@ -23,6 +23,22 @@ CREATE TYPE ut_request_stat AS ENUM ('accepted', 'refused', 'aborted');
 CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 -- may needs deletion and creation, ALSO THE TABLE THAT USE THIS TYPE MAY NEED TO BE DROPPED FIRST
 -- DROP DOMAIN IF EXISTS request_status 
+-------------------------------------------
+ALTER TABLE ut_personal_documents
+	DROP COLUMN img_ID,
+	DROP COLUMN img_ID_fname,
+	DROP COLUMN img_FiscalCode
+    ADD COLUMN img_ID_fname varchar(100),
+	ADD COLUMN img_FiscalCode_fname varchar(100)
+-- commentare dove opportuno in caso di messaggi del tipo "x colonna non definita"
+ALTER TABLE aptBlock_admin
+	DROP COLUMN pdf_doc_AdmValidity
+ALTER TABLE ut_owner
+	DROP COLUMN ut_doc_purchase
+ALTER TABLE tickets
+	DROP COLUMN imgs_fname,
+	ADD COLUMN img_fname varchar(100)
+---------------------------------------------
 
 CREATE TABLE IF NOT EXISTS region(
 	name varchar(50),
@@ -69,7 +85,6 @@ CREATE TABLE IF NOT EXISTS site_personel(
 CREATE TABLE IF NOT EXISTS aptBlock_admin(
 	ut_id integer,
 	pdf_doc_AdmValidity_fname varchar(100) NOT NULL,
-	pdf_doc_AdmValidity bytea,
 	adm_telephone varchar(13) NOT NULL,
 	PRIMARY KEY (ut_id),
 	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
@@ -119,7 +134,6 @@ CREATE TABLE IF NOT EXISTS ut_owner(
 	utReq_id integer,
 	codice_fiscale fiscalCode NOT NULL,
 	ut_doc_fname varchar(100) NOT NULL,
-	ut_doc_purchase bytea,
 	PRIMARY KEY (utReq_id),
 	FOREIGN KEY (utReq_id) REFERENCES req_ut_access(utReq_id),
 	UNIQUE(codice_fiscale)
@@ -132,12 +146,12 @@ CREATE TABLE IF NOT EXISTS ut_owner(
 CREATE TABLE IF NOT EXISTS ut_personal_documents(
 	ut_id integer,
 	expr_date_ID date NOT NULL,
-	img_ID bytea[] NOT NULL,
-	img_ID_fname varchar(100)[] NOT NULL,
-	img_FiscalCode bytea NOT NULL,
+	img_ID_fname varchar(100) NOT NULL,
+	img_FiscalCode_fname varchar(100) NOT NULL,
 	PRIMARY KEY (ut_id),
 	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
 );
+
 -- https://stackoverflow.com/questions/54500/storing-images-in-postgresql
 
 -- [bb](0,N) <---> (0,N) [post] (0,N) <---> (0,1) [thread] (1,N) <---> (1,1) [reply]
@@ -217,8 +231,7 @@ CREATE TABLE IF NOT EXISTS tickets(
 	aptBlock_admin integer,	-- therad is related to a certain post
 	title varchar(50) NOT NULL,
 	comm_text text[] NOT NULL,
-	imgs_data bytea[],
-	imgs_fname varchar(100)[],
+	imgs_fname varchar(100),
 	time_born timestamp NOT NULL, 		-- current_time
 	time_lastReplay timestamp NOT NULL, -- current_time last reply
 	PRIMARY KEY (ticket_id),

@@ -49,8 +49,14 @@ def insert_data(data:dict, connection:psycopg2.connect):
     
     for table_name in data:
         for instance in data[table_name]:
+            keys_list = instance.keys()
             values_list = instance.values()
-            query_str = "INSERT INTO " + table_name + " VALUES ("
+            query_str = "INSERT INTO " + table_name + "("
+            for i,k in enumerate(keys_list):
+                query_str += k
+                if i < len(values_list)-1:
+                    query_str += ", "
+            query_str += ")\nVALUES ("
             for i,v in enumerate(values_list):
                 if type(v) is int:
                     query_str += str(v)

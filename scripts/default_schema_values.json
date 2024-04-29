@@ -360,19 +360,17 @@
         {
             "ut_id": 1,
             "pdf_doc_AdmValidity_fname" :"directory",
-            "pdf_doc_AdmValidity" :"0x00000",
             "adm_telephone" :"+390677729958"
         },
         {
             "ut_id": 7,
             "pdf_doc_AdmValidity_fname" :"directory",
-            "pdf_doc_AdmValidity" :"0x00000",
             "adm_telephone" :"+390677485930"
         }
     ],
     "req_aptBlock_create": [
         {
-            "ud_id": 1,
+            "ut_id": 1,
             "aptBlockReq_id": 1,
             "time_born": "2024-04-24 15:23:06",
             "time_mod": "2024-04-24 20:03:02",
@@ -382,7 +380,7 @@
             "cap": "00123"
         },
         {
-            "ud_id": 7,
+            "ut_id": 7,
             "aptBlockReq_id": 2,
             "time_born": "2024-04-24 15:23:06",
             "time_mod": "2024-04-24 20:03:02",
@@ -492,148 +490,127 @@
         {
             "utReq_id": 1,
             "codice_fiscale": "TRVDLA48R58H501N",
-            "ut_doc_fname": "directory",
-            "ut_doc_purchase": ""
+            "ut_doc_fname": "directory"
         },
         {
             "utReq_id": 2,
             "codice_fiscale": "GLLGRS84A15H501Q",
-            "ut_doc_fname": "directory",
-            "ut_doc_purchase": ""
+            "ut_doc_fname": "directory"
         },
         {
             "utReq_id": 3,
             "codice_fiscale": "NPLBRN59L27F839Y",
-            "ut_doc_fname": "directory",
-            "ut_doc_purchase": ""
+            "ut_doc_fname": "directory"
         },
         {
             "utReq_id": 4,
             "codice_fiscale": "CCCDDT43D05H501P",
-            "ut_doc_fname": "directory",
-            "ut_doc_purchase": ""
+            "ut_doc_fname": "directory"
         },
         {
             "utReq_id": 5,
             "codice_fiscale": "LCCLMA65A70E715A",
-            "ut_doc_fname": "directory",
-            "ut_doc_purchase": ""
+            "ut_doc_fname": "directory"
         },
         {
             "utReq_id": 6,
             "codice_fiscale": "GLLQTL59D64H501F",
-            "ut_doc_fname": "directory",
-            "ut_doc_purchase": ""
+            "ut_doc_fname": "directory"
         },
         {
             "utReq_id": 7,
             "codice_fiscale": "PZZDGN91L41F205F",
-            "ut_doc_fname": "directory",
-            "ut_doc_purchase": ""
+            "ut_doc_fname": "directory"
         },
         {
             "utReq_id": 8,
             "codice_fiscale": "LFNSMN59H08F205D",
-            "ut_doc_fname": "directory",
-            "ut_doc_purchase": ""
+            "ut_doc_fname": "directory"
         },
         {
             "utReq_id": 9,
             "codice_fiscale": "GRCBLA77H12F205I",
-            "ut_doc_fname": "directory",
-            "ut_doc_purchase": ""
+            "ut_doc_fname": "directory"
         },
         {
             "utReq_id": 10,
             "codice_fiscale": "CPNDNA74A31F205H",
-            "ut_doc_fname": "directory",
-            "ut_doc_purchase": ""
+            "ut_doc_fname": "directory"
         }
     ],
     "ut_personal_documents": [
         {
             "ut_id": 1,
             "expr_date_ID": "2030-01-01",
-            "img_ID": "",
-            "img_Id_fname": "",
-            "img_FiscalCode": ""
+            "img_FiscalCode_fname": "directory",
+            "img_Id_fname": "directory"
+
         },
         {
             "ut_id": 2,
             "expr_date_ID": "2030-01-01",
-            "img_ID": "",
-            "img_Id_fname": "",
-            "img_FiscalCode": ""
+            "img_FiscalCode_fname": "directory",
+            "img_Id_fname": "directory"
         },
         {
             "ut_id": 3,
             "expr_date_ID": "2030-01-01",
-            "img_ID": "",
-            "img_Id_fname": "",
-            "img_FiscalCode": ""
+            "img_FiscalCode_fname": "directory",
+            "img_Id_fname": "directory"
         },
         {
             "ut_id": 4,
             "expr_date_ID": "2030-01-01",
-            "img_ID": "",
-            "img_Id_fname": "",
-            "img_FiscalCode": ""
+            "img_FiscalCode_fname": "directory",
+            "img_Id_fname": "directory"
         },
         {
             "ut_id": 5,
             "expr_date_ID": "2030-01-01",
-            "img_ID": "",
-            "img_Id_fname": "",
-            "img_FiscalCode": ""
+            "img_FiscalCode_fname": "directory",
+            "img_Id_fname": "directory"
         },
         {
             "ut_id": 6,
             "expr_date_ID": "2030-01-01",
-            "img_ID": "",
-            "img_Id_fname": "",
-            "img_FiscalCode": ""
+            "img_FiscalCode_fname": "directory",
+            "img_Id_fname": "directory"
         },
         {
             "ut_id": 7,
             "expr_date_ID": "2030-01-01",
-            "img_ID": "",
-            "img_Id_fname": "",
-            "img_FiscalCode": ""
+            "img_FiscalCode_fname": "directory",
+            "img_Id_fname": "directory"
         },
         {
             "ut_id": 8,
             "expr_date_ID": "2030-01-01",
-            "img_ID": "",
-            "img_Id_fname": "",
-            "img_FiscalCode": ""
+            "img_FiscalCode_fname": "directory",
+            "img_Id_fname": "directory"
         },
         {
             "ut_id": 9,
             "expr_date_ID": "2030-01-01",
-            "img_ID": "",
-            "img_Id_fname": "",
-            "img_FiscalCode": ""
+            "img_FiscalCode_fname": "directory",
+            "img_Id_fname": "directory"
         },
         {
             "ut_id": 10,
             "expr_date_ID": "2030-01-01",
-            "img_ID": "",
-            "img_Id_fname": "",
-            "img_FiscalCode": ""
+            "img_FiscalCode_fname": "directory",
+            "img_Id_fname": "directory"
         },
         {
             "ut_id": 11,
             "expr_date_ID": "2030-01-01",
-            "img_ID": "",
-            "img_Id_fname": "",
-            "img_FiscalCode": ""
+            "img_FiscalCode_fname": "directory",
+            "img_Id_fname": "directory"
         },
         {
             "ut_id": 12,
             "expr_date_ID": "2030-01-01",
-            "img_ID": "",
-            "img_Id_fname": "",
-            "img_FiscalCode": ""
+            "img_FiscalCode_fname": "directory",
+            "img_Id_fname": "directory"
         }
     ],
     "aptBlock_bulletinBoard": [
@@ -651,13 +628,13 @@
         },
         {
             "aptBlock_id": 2,
-            "bb_id": 1,
+            "bb_id": 3,
             "bb_name": "general",
             "bb_year": "2024"
         },
         {
             "aptBlock_id": 2,
-            "bb_id": 2,
+            "bb_id": 4,
             "bb_name": "admin",
             "bb_year": "2024"
         }
