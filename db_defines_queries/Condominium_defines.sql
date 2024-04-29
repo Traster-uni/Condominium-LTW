@@ -18,7 +18,7 @@ CHECK(
 	VALUE ~ '^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$'
 )
 
-CREATE TYPE ut_reqest_stat AS ENUM ('accepted', 'refused', 'aborted');
+CREATE TYPE ut_request_stat AS ENUM ('accepted', 'refused', 'aborted');
 
 CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 -- may needs deletion and creation, ALSO THE TABLE THAT USE THIS TYPE MAY NEED TO BE DROPPED FIRST
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS req_ut_access(
 	aptBlock_id integer,
 	time_born timestamp NOT NULL,
 	time_mod timestamp NOT NULL,
-	status ut_reqest_stat NOT NULL,
+	status ut_request_stat NOT NULL,
 	PRIMARY KEY (utReq_id),
 	FOREIGN KEY (ut_id) REFERENCES ut_owner(ut_id),
 	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id),
@@ -192,6 +192,9 @@ CREATE TABLE IF NOT EXISTS reply_thread(
 	FOREIGN KEY (thread_id) REFERENCES post_thread(thread_id),
 	FOREIGN KEY (ud_id) REFERENCES ut_owner(ut_id)
 );
+-- ogni messaggio di raply ad un post crea un thread
+-- 		ogni messaggio di risposta ad un thread crea un reply 
+
 
 CREATE TABLE IF NOT EXISTS tags(
 	name_tag varchar(10) PRIMARY KEY
