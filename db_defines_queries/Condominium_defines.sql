@@ -134,11 +134,12 @@ CREATE TABLE IF NOT EXISTS req_ut_access(
 	time_mod timestamp NOT NULL,
 	status ut_request_stat NOT NULL,
 	PRIMARY KEY (utReq_id),
-	FOREIGN KEY (ut_id) REFERENCES ut_owner(ut_id),
+	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id),
 	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id),
 	UNIQUE (ut_id, utReq_id)
 );
-
+ALTER TABLE req_ut_access
+ALTER COLUMN status TYPE ut_request_stat;
 -- [bb](0,N) <---> (0,N) [post] (0,N) <---> (0,1) [thread] (1,N) <---> (1,1) [reply]
 
 CREATE TABLE IF NOT EXISTS aptBlock_bulletinBoard(
