@@ -24,6 +24,19 @@ CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 -- may needs deletion and creation, ALSO THE TABLE THAT USE THIS TYPE MAY NEED TO BE DROPPED FIRST
 -- DROP DOMAIN IF EXISTS request_status 
 
+CREATE TABLE IF NOT EXISTS region(
+	name varchar(50),
+	PRIMARY KEY (name)
+);
+
+CREATE TABLE IF NOT EXISTS city(
+	name varchar(50),
+	region varchar(50),
+	provence varchar(2),
+	PRIMARY KEY (name),
+	FOREIGN KEY (region) REFERENCES region(name)
+);
+
 CREATE TABLE IF NOT EXISTS ut_no_reg ( -- DEPRECATED
 	cookie integer check (cookie >= 0), -- cookie maybe random, maybe always non negative
 	PRIMARY KEY (cookie)
@@ -53,19 +66,6 @@ CREATE TABLE IF NOT EXISTS site_personel(
 	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
 );
 
-CREATE TABLE IF NOT EXISTS ut_owner(
-	utReq_id integer,
-	codice_fiscale fiscalCode NOT NULL,
-	ut_doc_fname varchar(100) NOT NULL,
-	ut_doc_purchase bytea,
-	PRIMARY KEY (utReq_id),
-	FOREIGN KEY (utReq_id) REFERENCES req_ut_access(utReq_id),
-	UNIQUE(codice_fiscale)
-);
--- hash algorithms: https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords
--- may needs deletion and creation
--- DROP TABLE IF EXISTS ut_owner CASCADE 
-
 CREATE TABLE IF NOT EXISTS aptBlock_admin(
 	ut_id integer,
 	pdf_doc_AdmValidity_fname varchar(100) NOT NULL,
@@ -74,20 +74,6 @@ CREATE TABLE IF NOT EXISTS aptBlock_admin(
 	PRIMARY KEY (ut_id),
 	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
 );
-
-CREATE TABLE IF NOT EXISTS region(
-	name varchar(50),
-	PRIMARY KEY (name)
-);
-
-CREATE TABLE IF NOT EXISTS city(
-	name varchar(50),
-	region varchar(50),
-	provence varchar(2),
-	PRIMARY KEY (name),
-	FOREIGN KEY (region) REFERENCES region(name)
-);
-
 
 CREATE TABLE IF NOT EXISTS req_aptBlock_create(
 	ut_id integer,
@@ -115,17 +101,7 @@ CREATE TABLE IF NOT EXISTS aptBlock(
 );
 -- may needs deletion and creation
 -- DROP TABLE IF EXISTS aptBlock CASCADE
-CREATE TABLE IF NOT EXISTS ut_personal_documents(
-	ut_id integer,
-	expr_date_ID date NOT NULL,
-	img_ID bytea[] NOT NULL,
-	img_ID_fname varchar(100)[] NOT NULL,
-	img_FiscalCode bytea NOT NULL,
-	PRIMARY KEY (ut_id),
-	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
-);
 
--- https://stackoverflow.com/questions/54500/storing-images-in-postgresql
 CREATE TABLE IF NOT EXISTS req_ut_access(
 	ut_id integer,
 	utReq_id serial,
@@ -138,8 +114,32 @@ CREATE TABLE IF NOT EXISTS req_ut_access(
 	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id),
 	UNIQUE (ut_id, utReq_id)
 );
-ALTER TABLE req_ut_access
-ALTER COLUMN status TYPE ut_request_stat;
+
+CREATE TABLE IF NOT EXISTS ut_owner(
+	utReq_id integer,
+	codice_fiscale fiscalCode NOT NULL,
+	ut_doc_fname varchar(100) NOT NULL,
+	ut_doc_purchase bytea,
+	PRIMARY KEY (utReq_id),
+	FOREIGN KEY (utReq_id) REFERENCES req_ut_access(utReq_id),
+	UNIQUE(codice_fiscale)
+);
+-- hash algorithms: https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords
+-- may needs deletion and creation
+-- DROP TABLE IF EXISTS ut_owner CASCADE 
+
+
+CREATE TABLE IF NOT EXISTS ut_personal_documents(
+	ut_id integer,
+	expr_date_ID date NOT NULL,
+	img_ID bytea[] NOT NULL,
+	img_ID_fname varchar(100)[] NOT NULL,
+	img_FiscalCode bytea NOT NULL,
+	PRIMARY KEY (ut_id),
+	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
+);
+-- https://stackoverflow.com/questions/54500/storing-images-in-postgresql
+
 -- [bb](0,N) <---> (0,N) [post] (0,N) <---> (0,1) [thread] (1,N) <---> (1,1) [reply]
 
 CREATE TABLE IF NOT EXISTS aptBlock_bulletinBoard(
@@ -149,7 +149,8 @@ CREATE TABLE IF NOT EXISTS aptBlock_bulletinBoard(
 	bb_year integer NOT NULL, -- must be 01-01-year
 	--more attributes may be needed
 	PRIMARY KEY (bb_id),
-	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id)
+	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id),
+	UNIQUE (bb_id, aptBlock_id)
 );
 -- drop table aptBlock_bulletinBoard cascade
 
@@ -260,3 +261,4 @@ CREATE TABLE IF NOT EXISTS tags_tickets(
  -- TRIGGER: for each user there can't be multiple rental_req in the same period/day
 
 -------------------------------------------------------------------------------
+

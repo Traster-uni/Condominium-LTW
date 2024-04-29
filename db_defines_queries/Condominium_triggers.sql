@@ -57,18 +57,26 @@ AS $$
 				SELECT rr.rental_day 
 				FROM rental_request rr 
 				WHERE rr.rental_day == {rt_day} AND rr.stat != 'refused'
-					(rr.rental_time < {rt_time} AND rr.rental_time + interval 'rr.rental_period hours' > {rental_time} OR
-					rr.rental_time < {rt_time} + interval '{rt_period} hours' AND  rr.rental_time+rr.rental_period > {rt_time} + interval '{rt_period} hours')
+					(rr.rental_time < {rt_time} AND rr.rental_time + interval 'rr.rental_period hours' > {rental_time}) OR
+					(rr.rental_time < {rt_time} + interval '{rt_period} hours' AND  rr.rental_time+rr.rental_period > {rt_time} + interval '{rt_period} hours')
 			)
 			"""
-
-$$ LANGUAGE plpython3u
+	plpython3u.prepare(qry)
+	try:
+		qry_result = plpy.execute(qry)
+	except plpy.SPIError:
+		return "something went wrong"
+	if qry_result[0] == True:
+		raise plpy.error("A rental request in the same time period already exists")
+	else:
+		return "OK"
+$$ LANGUAGE plpython3u;
 
 CREATE TRIGGER rental_req_disj_check BEFORE INSERT OR UPDATE ON rental_request
 	FOR EACH STATEMENT EXECUTE FUNCTION rental_req_disj();
 
 
-CREATE OR REPLACE FUNCTION new_aptBlock RETURNS trigger
+CREATE OR REPLACE FUNCTION new_aptBlock() RETURNS trigger
 AS $$
 	rq_status_old = TD["old"]["stat"]
 	rq_status_new = TD["new"]["stat"]
@@ -98,7 +106,7 @@ CREATE TRIGGER insert_aptBlock_on_req_accepted AFTER UPDATE ON req_aptBlock_crea
 	FOR EACH ROW EXECUTE FUNCTION new_aptBlock();
 
 
-CREATE OR REPLACE FUNCTION define_relative_bulletinBoards RETURN trigger
+CREATE OR REPLACE FUNCTION define_relative_bulletinBoards() RETURNS trigger
 AS $$
 	aptBlock_id = TD["new"]["aptBlock_id"]
 
