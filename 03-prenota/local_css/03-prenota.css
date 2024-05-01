@@ -3,6 +3,13 @@
   flex: 1;
   display: grid;
   grid-template-rows: max-content;
+  padding: 0;
+  margin: 0;
+}
+
+.colonna-centrale * {
+  padding: 0;
+  margin: 0;
 }
 
 .luoghi {
