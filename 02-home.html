@@ -1,112 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="./global/01-css/navbar.css">
-    <link rel="stylesheet" href="./02-home/local_css/02-home.css">
-    <link rel="stylesheet" href="./ext_resources/01-css/calendar.css">
+    <link rel="stylesheet" href="./02-home/local_css/02-home.css" />
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <!--Navigation bar-->
-    <div id="nav-placeholder"></div>
+    <div id="navbar"></div>
     <script>
-        $(function(){
-        $("#nav-placeholder").load("nav.html");
-        });
+      $(function () {
+        $("#navbar").load("navbar.html");
+      });
     </script>
     <!--end of Navigation bar-->
 
     <div class="flexbox">
-        <div style="background-color: rgb(101, 189, 113); width: 20%;">
-            <main class="card">
-                <section class="card__header">
-                  <h3>Aprile 2024</h3>
-                </section>
-                <section class="card__body">
-                  <ul class="card__body--days">
-                    <li>LUN</li>
-                    <li>MAR</li>
-                    <li>MER</li>
-                    <li>GIO</li>
-                    <li>VEN</li>
-                    <li>SAB</li>
-                    <li>DOM</li>
-                  </ul>
-                  <ul class="card__body--dates">
-                    <li class="prev">30</li>
-                    <li class="prev">31</li>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>6</li>
-                    <li class="active">7</li>
-                    <li>8</li>
-                    <li>9</li>
-                    <li>10</li>
-                    <li>11</li>
-                    <li>12</li>
-                    <li>13</li>
-                    <li>14</li>
-                    <li>15</li>
-                    <li class="circle orange">16 <span>5</span></li>
-                    <li>17</li>
-                    <li>18</li>
-                    <li class="circle purple">19 <span>6</span></li>
-                    <li>20</li>
-                    <li>21</li>
-                    <li>22</li>
-                    <li>23</li>
-                    <li>24</li>
-                    <li>25</li>
-                    <li>26</li>
-                    <li>27</li>
-                    <li>28</li>
-                    <li>29</li>
-                    <li>30</li>
-                    <li>31</li>
-                    <li class="next">1</li>
-                    <li class="next">2</li>
-                  </ul>
-                </section>
+      <div style="background-color: rgb(101, 189, 113); width: 20%">
+        <!--Calendar-->
+        <div id="calendar"></div>
+        <script>
+          $(function () {
+            $("#calendar").load("calendar-small.html");
+          });
+        </script>
+        <!--End of calendar-->
+      </div>
+      <div style="background-color: rgb(255, 255, 255); flex: 1">
+        <ul class="bacheca">
+          <li class="bacheca-types">
+            <input
+              class="bacheca-types__input"
+              type="radio"
+              name="bacheca-types"
+              value="padmin"
+              id="padmin"
+            />
+            <label class="bacheca-types__label" for="padmin">Post Admin</label>
+          </li>
+          <li class="bacheca-types">
+            <input
+              class="bacheca-types__input"
+              type="radio"
+              name="bacheca-types"
+              value="putente"
+              id="putente"
+            />
+            <label class="bacheca-types__label" for="putente"
+              >Post Utente</label
+            >
+          </li>
+        </ul>
+      </div>
+      <div style="background-color: rgb(101, 189, 113); width: 20%">
+        <div class="contatti-utili">
+          <ul>
+            <li class="contatti-utili__nome">
+              Nome - Amministratore Cellulare
+            </li>
+            <li class="contatti-utili__nome">Nome - Elettricista Cellulare</li>
+            <li class="contatti-utili__nome">Nome - Fabbro Cellulare</li>
+            <li class="contatti-utili__nome">Nome - Idraulico Cellulare</li>
+          </ul>
         </div>
-        <div style="background-color: rgb(255, 255, 255); flex: 1;">
-            <ul class="bacheca">
-                <li class="bacheca-types">
-                    <input class="bacheca-types__input" type="radio" name="bacheca-types" value="padmin" id="padmin" />
-                    <label class="bacheca-types__label" for="padmin">Post Admin</label>
-
-                </li>
-                <li class="bacheca-types">
-                    <input class="bacheca-types__input" type="radio" name="bacheca-types" value="putente" id="putente" />
-                    <label class="bacheca-types__label" for="putente">Post Utente</label>
-                </li>
-
-
-            </ul>
-        </div>
-        <div style="background-color: rgb(101, 189, 113); width: 20%;">
-            <div class="contatti-utili">
-                <ul>
-                    <li class="contatti-utili__nome">
-                        Nome - Amministratore Cellulare
-                    </li>
-                    <li class="contatti-utili__nome">
-                        Nome - Elettricista Cellulare
-                    </li>
-                    <li class="contatti-utili__nome">
-                        Nome - Fabbro Cellulare
-                    </li>
-                    <li class="contatti-utili__nome">
-                        Nome - Idraulico Cellulare
-                    </li>
-                </ul>
-            </div>
-        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

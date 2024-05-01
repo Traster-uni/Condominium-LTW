@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Area Utente</title>
-    <link rel="stylesheet" href="./global/01-css/navbar.css" />
-    <link rel="stylesheet" href="./ext_resources/01-css/calendar.css" />
     <link rel="stylesheet" href="./05-areautente/local_css/05-areautente.css" />
     <link
       rel="stylesheet"
@@ -16,10 +14,10 @@
   </head>
   <body>
     <!--Navigation bar-->
-    <div id="nav-placeholder"></div>
+    <div id="navbar"></div>
     <script>
       $(function () {
-        $("#nav-placeholder").load("nav.html");
+        $("#navbar").load("navbar.html");
       });
     </script>
     <!--end of Navigation bar-->
@@ -34,7 +32,11 @@
         </div>
         <!-- Tabs Impostazioni -->
         <div class="tab">
-          <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'Profilo')">
+          <button
+            class="tablinks"
+            id="defaultOpen"
+            onclick="openTab(event, 'Profilo')"
+          >
             <span class="material-symbols-outlined">account_circle</span>Profilo
           </button>
           <button class="tablinks" onclick="openTab(event, 'Condominio')">

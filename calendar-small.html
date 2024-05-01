@@ -1,0 +1,39 @@
+<!-- Main wrapper for the calendar application -->
+<div class="container-calendar">
+  <div id="right">
+    <div class="button-container-calendar">
+      <button id="previous" onclick="previous()">‹</button>
+      <h3 id="monthAndYear" style="font-size: 22px"></h3>
+      <button id="next" onclick="next()">›</button>
+    </div>
+    <table class="table-calendar" id="calendar" data-lang="it">
+      <thead id="thead-month"></thead>
+      <!-- Table body for displaying the calendar -->
+      <tbody id="calendar-body"></tbody>
+    </table>
+    <div class="footer-container-calendar">
+      <!-- Dropdowns to select a specific month and year -->
+      <select id="month" onchange="jump()">
+        <option value="0">Gen</option>
+        <option value="1">Feb</option>
+        <option value="2">Mar</option>
+        <option value="3">Apr</option>
+        <option value="4">Mag</option>
+        <option value="5">Giu</option>
+        <option value="6">Lug</option>
+        <option value="7">Ago</option>
+        <option value="8">Set</option>
+        <option value="9">Ott</option>
+        <option value="10">Nov</option>
+        <option value="11">Dic</option>
+      </select>
+      <!-- Dropdown to select a specific year -->
+      <select id="year" onchange="jump()"></select>
+    </div>
+  </div>
+</div>
+
+<script src="./ext_resources/04-js/calendar.js"></script>
+<link rel="stylesheet" href="./ext_resources/01-css/calendar-small.css" />
+
+<!-- Source: https://www.geeksforgeeks.org/how-to-create-a-dynamic-calendar-in-html-css-javascript/ -->
