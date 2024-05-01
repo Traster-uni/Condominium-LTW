@@ -52,12 +52,11 @@
 }
 
 .bottone {
-  background-color: white;
-  color: black;
+  background-color: #2f9b3d;
+  color: #ffffff;
   font-size: 20px;
   padding: 15px 30px;
-  border: 3px solid transparent;
-  border-color: #2f9b3d;
+  border: 1px solid transparent;
   border-radius: 8px;
   font-weight: 200;
   letter-spacing: 1px;
@@ -67,7 +66,7 @@
 }
 
 .bottone:hover {
-  background-color: #2f9b3d;
+  background-color: #3bbd4c;
 }
 
 .popup {
