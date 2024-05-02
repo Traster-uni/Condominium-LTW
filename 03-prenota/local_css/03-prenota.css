@@ -34,6 +34,7 @@
   max-height: 300px;
   max-width: 100%;
   margin: 0;
+  margin-top: 17px;
   display: block;
   z-index: 0;
 }
@@ -78,16 +79,16 @@
 
 .popup {
   display: none;
-  grid-template-columns: 300px 200px;
+  grid-template-columns: 300px 400px;
   align-self: center;
   justify-self: center;
-  height: 300px;
+  height: 340px;
   position: fixed;
   padding: 10px;
   top: 25%;
   background: #fff;
   border-radius: 10px;
-  z-index: 20;
+  z-index: 1;
 }
 
 .popup:after {
@@ -116,6 +117,7 @@
 .popup-form {
   display: grid;
   grid-template-rows: 40px auto auto;
+  padding-left: 10px;
 }
 
 .close {

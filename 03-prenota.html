@@ -89,13 +89,21 @@
         </div>
         <div class="popup" id="popup1">
           <div>
+            <h3 style="font-size: 20px">Luogo 1</h3>
             <img src="03-prenota/images/1.jpeg" class="immagine" />
           </div>
           <div class="popup-form">
             <div style="text-align: right">
               <button class="close" href="#" onclick="hide('popup1')"></button>
             </div>
-            <div style="text-align: center">Calendario</div>
+            <div style="text-align: center">
+              <div id="calendar1"></div>
+              <script>
+                $(function () {
+                  $("#calendar1").load("calendar-prenota.html");
+                });
+              </script>
+            </div>
             <div style="text-align: center">Orario</div>
           </div>
         </div>
