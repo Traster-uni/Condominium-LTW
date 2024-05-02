@@ -29,6 +29,9 @@ ALTER TABLE aptBlock
 
 ALTER TABLE common_spaces
 	ADD COLUMN aptBlock_imgs_dir varchar(100);
+
+ALTER TABLE ut_personal_documents
+	ADD COLUMN ut_FiscalCode fiscalCode NOT NULL;
 -------------------------------------------
 ALTER TABLE rental_request
 	DROP COLUMN rental_day,
@@ -146,8 +149,7 @@ CREATE TABLE IF NOT EXISTS req_ut_access(
 
 CREATE TABLE IF NOT EXISTS ut_owner(
 	utReq_id integer,
-	codice_fiscale fiscalCode NOT NULL,
-	ut_doc_fname varchar(100) NOT NULL,
+	ut_ownership_doc_fname varchar(100) NOT NULL,
 	PRIMARY KEY (utReq_id),
 	FOREIGN KEY (utReq_id) REFERENCES req_ut_access(utReq_id),
 	UNIQUE(codice_fiscale)
@@ -161,6 +163,7 @@ CREATE TABLE IF NOT EXISTS ut_personal_documents(
 	ut_id integer,
 	expr_date_ID date NOT NULL,
 	img_ID_fname varchar(100) NOT NULL,
+	ut_FiscalCode fiscalCode NOT NULL,
 	img_FiscalCode_fname varchar(100) NOT NULL,
 	PRIMARY KEY (ut_id),
 	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)

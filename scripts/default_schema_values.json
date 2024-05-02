@@ -489,128 +489,129 @@
     "ut_owner":[
         {
             "utReq_id": 1,
-            "codice_fiscale": "TRVDLA48R58H501N",
-            "ut_doc_fname": "directory"
+            "ut_ownership_doc_fname": "TRVDLA48R58H501N"
         },
         {
             "utReq_id": 2,
-            "codice_fiscale": "GLLGRS84A15H501Q",
-            "ut_doc_fname": "directory"
+            "ut_ownership_doc_fname": "GLLGRS84A15H501Q"
         },
         {
             "utReq_id": 3,
-            "codice_fiscale": "NPLBRN59L27F839Y",
-            "ut_doc_fname": "directory"
+            "ut_ownership_doc_fname": "NPLBRN59L27F839Y"
         },
         {
             "utReq_id": 4,
-            "codice_fiscale": "CCCDDT43D05H501P",
-            "ut_doc_fname": "directory"
+            "ut_ownership_doc_fname": "CCCDDT43D05H501P"
         },
         {
             "utReq_id": 5,
-            "codice_fiscale": "LCCLMA65A70E715A",
-            "ut_doc_fname": "directory"
+            "ut_ownership_doc_fname": "LCCLMA65A70E715A"
         },
         {
             "utReq_id": 6,
-            "codice_fiscale": "GLLQTL59D64H501F",
-            "ut_doc_fname": "directory"
+            "ut_ownership_doc_fname": "GLLQTL59D64H501F"
         },
         {
             "utReq_id": 7,
-            "codice_fiscale": "PZZDGN91L41F205F",
-            "ut_doc_fname": "directory"
+            "ut_ownership_doc_fname": "PZZDGN91L41F205F"
         },
         {
             "utReq_id": 8,
-            "codice_fiscale": "LFNSMN59H08F205D",
-            "ut_doc_fname": "directory"
+            "ut_ownership_doc_fname": "LFNSMN59H08F205D"
         },
         {
             "utReq_id": 9,
-            "codice_fiscale": "GRCBLA77H12F205I",
-            "ut_doc_fname": "directory"
+            "ut_ownership_doc_fname": "GRCBLA77H12F205I"
         },
         {
             "utReq_id": 10,
-            "codice_fiscale": "CPNDNA74A31F205H",
-            "ut_doc_fname": "directory"
+            "ut_ownership_doc_fname": "CPNDNA74A31F205H"
         }
     ],
     "ut_personal_documents": [
         {
             "ut_id": 1,
             "expr_date_ID": "2030-01-01",
-            "img_FiscalCode_fname": "directory",
-            "img_Id_fname": "directory"
-
+            "img_Id_fname": "directory",
+            "ut_FiscalCode" : "TRVDLA48R58H501N",
+            "img_FiscalCode_fname": "directory"
         },
         {
             "ut_id": 2,
             "expr_date_ID": "2030-01-01",
-            "img_FiscalCode_fname": "directory",
-            "img_Id_fname": "directory"
+            "img_Id_fname": "directory",
+            "ut_FiscalCode" : "GLLGRS84A15H501Q",
+            "img_FiscalCode_fname": "directory"
         },
         {
             "ut_id": 3,
             "expr_date_ID": "2030-01-01",
-            "img_FiscalCode_fname": "directory",
-            "img_Id_fname": "directory"
+            "img_Id_fname": "directory",
+            "ut_FiscalCode" : "NPLBRN59L27F839Y",
+            "img_FiscalCode_fname": "directory"
         },
         {
             "ut_id": 4,
             "expr_date_ID": "2030-01-01",
-            "img_FiscalCode_fname": "directory",
-            "img_Id_fname": "directory"
+            "img_Id_fname": "directory",
+            "ut_FiscalCode" : "CCCDDT43D05H501P",
+            "img_FiscalCode_fname": "directory"
         },
         {
             "ut_id": 5,
             "expr_date_ID": "2030-01-01",
-            "img_FiscalCode_fname": "directory",
-            "img_Id_fname": "directory"
+            "img_Id_fname": "directory",
+            "ut_FiscalCode" : "LCCLMA65A70E715A",
+            "img_FiscalCode_fname": "directory"
         },
         {
             "ut_id": 6,
             "expr_date_ID": "2030-01-01",
-            "img_FiscalCode_fname": "directory",
-            "img_Id_fname": "directory"
+            "img_Id_fname": "directory",
+            "ut_FiscalCode" : "GLLQTL59D64H501F",
+            "img_FiscalCode_fname": "directory"
         },
         {
             "ut_id": 7,
             "expr_date_ID": "2030-01-01",
-            "img_FiscalCode_fname": "directory",
-            "img_Id_fname": "directory"
+            "img_Id_fname": "directory",
+            "ut_FiscalCode" : "PZZDGN91L41F205F",
+            "img_FiscalCode_fname": "directory"
         },
         {
             "ut_id": 8,
             "expr_date_ID": "2030-01-01",
-            "img_FiscalCode_fname": "directory",
-            "img_Id_fname": "directory"
+            "img_Id_fname": "directory",
+            "ut_FiscalCode" : "LFNSMN59H08F205D",
+            "img_FiscalCode_fname": "directory"
         },
         {
             "ut_id": 9,
             "expr_date_ID": "2030-01-01",
-            "img_FiscalCode_fname": "directory",
-            "img_Id_fname": "directory"
+            "img_Id_fname": "directory",
+            "ut_FiscalCode" : "GRCBLA77H12F205I",
+            "img_FiscalCode_fname": "directory"
         },
         {
             "ut_id": 10,
             "expr_date_ID": "2030-01-01",
-            "img_FiscalCode_fname": "directory",
-            "img_Id_fname": "directory"
+            "img_Id_fname": "directory",
+            "ut_FiscalCode" : "CPNDNA74A31F205H",
+            "img_FiscalCode_fname": "directory"
         },
         {
             "ut_id": 11,
             "expr_date_ID": "2030-01-01",
-            "img_FiscalCode_fname": "directory",
-            "img_Id_fname": "directory"
+            "img_Id_fname": "directory",
+            "ut_FiscalCode" : "GLLGRS84A15H501Q",
+            "img_FiscalCode_fname": "directory"
         },
         {
             "ut_id": 12,
             "expr_date_ID": "2030-01-01",
-            "img_FiscalCode_fname": "directory",
-            "img_Id_fname": "directory"
+            "img_Id_fname": "directory",
+            "ut_FiscalCode" : "GLLGRS84A15H501Q",
+            "img_FiscalCode_fname": "directory"
         }
     ],
     "aptBlock_bulletinBoard": [

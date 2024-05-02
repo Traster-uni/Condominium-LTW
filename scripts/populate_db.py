@@ -44,11 +44,32 @@ def load_data(fname="data.json"):
         data = json.load(f)
     return data
 
-def insert_data(data:dict, connection:psycopg2.connect):
+def insert_data(data:dict, connection:psycopg2.connect, schema_name="null"):
     cur = connection.cursor()
-    
-    for table_name in data:
-        for instance in data[table_name]:
+    if (schema_name == "null"):
+        for table_name in data:
+            for instance in data[table_name]:
+                keys_list = instance.keys()
+                values_list = instance.values()
+                query_str = "INSERT INTO " + table_name + "("
+                for i,k in enumerate(keys_list):
+                    query_str += k
+                    if i < len(values_list)-1:
+                        query_str += ", "
+                query_str += ")\n\tVALUES ("
+                for i,v in enumerate(values_list):
+                    if type(v) is int:
+                        query_str += str(v)
+                    else:
+                        query_str += "'" + v + "'"
+                    if i < len(values_list)-1:
+                        query_str += ", "
+                query_str += ");"
+                print(query_str)
+                cur.execute(query_str)
+        cur.close()
+    else:
+        for instace in data[schema_name]:
             keys_list = instance.keys()
             values_list = instance.values()
             query_str = "INSERT INTO " + table_name + "("
@@ -56,7 +77,7 @@ def insert_data(data:dict, connection:psycopg2.connect):
                 query_str += k
                 if i < len(values_list)-1:
                     query_str += ", "
-            query_str += ")\nVALUES ("
+            query_str += ")\n\tVALUES ("
             for i,v in enumerate(values_list):
                 if type(v) is int:
                     query_str += str(v)
@@ -67,7 +88,7 @@ def insert_data(data:dict, connection:psycopg2.connect):
             query_str += ");"
             print(query_str)
             cur.execute(query_str)
-    cur.close()
+        cur.close()
     return
     
 if __name__ == '__main__':
