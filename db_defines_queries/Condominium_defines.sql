@@ -25,11 +25,11 @@ CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 -- DROP DOMAIN IF EXISTS request_status 
 -------------------------------------------
 ALTER TABLE rental_request
-	DROP COLUMN rental_day
-	DROP COLUMN rental_time
-	DROP COLUMN rental_period
-	ADD COLUMN rental_datatime_start timestamp NOT NULL
-	ADD COLUMN rental_datatime_start timestamp NOT NULL check (rental_datatime_end::varchar >= rental_datatime_start::varchar)
+	DROP COLUMN rental_day,
+	DROP COLUMN rental_time,
+	DROP COLUMN rental_period,
+	ADD COLUMN rental_datatime_start timestamp NOT NULL,
+	ADD COLUMN rental_datatime_start timestamp NOT NULL check (rental_datatime_end::varchar >= rental_datatime_start::varchar);
 
 ALTER TABLE ut_personal_documents
 	DROP COLUMN img_ID,
