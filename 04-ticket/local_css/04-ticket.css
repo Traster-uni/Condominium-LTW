@@ -1,3 +1,10 @@
+.flexbox {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    padding-top: 70px;
+}
+
 .formTicket, .collapse{
     max-height: 0;
     overflow: hidden;
@@ -49,7 +56,7 @@
     transition: all 300ms ease;
 }
 
-table {
+.table-ticket {
     table-layout: fixed;
     width: 100%;
 }
