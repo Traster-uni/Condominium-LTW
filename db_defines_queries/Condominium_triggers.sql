@@ -4,12 +4,12 @@ AS $$
 	rt_id	= TD["new"]["rental_req_id"]
 	print(f"usr_id: {usr_id}, rental_day: {rt_day}")
 	qry = f"""
-			SELECT count(r_req.rental_req_id)
+			SELECT r_req.ut_id, count(r_req.rental_req_id)
 			FROM rental_request r_req
-			WHERE r_req.ud_id = {usr_id} 
-				AND r_req.stat ='pending'
-				AND r_req.rental_datatime_start BETWEEN date_trunc('date', now()) AND date_trunc('date', now()) + INTERVAL '30 days'
-			GROUP BY (r_req.rental_req_id)
+			WHERE r_req.ut_id = {usr_id}
+				AND	r_req.stat ='pending'
+				AND r_req.rental_datatime_start BETWEEN date_trunc('day', current_timestamp) AND date_trunc('day', current_timestamp) + INTERVAL '30 days'
+			GROUP BY (r_req.ut_id)
 			"""
 	plpython3u.prepare(qry)
 	try:
