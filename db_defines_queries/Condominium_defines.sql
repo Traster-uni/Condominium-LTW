@@ -24,6 +24,10 @@ CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 -- may needs deletion and creation, ALSO THE TABLE THAT USE THIS TYPE MAY NEED TO BE DROPPED FIRST
 -- DROP DOMAIN IF EXISTS request_status 
 -------------------------------------------
+ALTER TABLE ut_owner
+    RENAME COLUMN ut_doc_fname TO ut_ownership_doc_fname,
+    DROP COLUMN codice_fiscale;
+-------------------------------------------
 ALTER TABLE aptBlock
 	ADD COLUMN aptBlock_imgs_dir varchar(100);
 
