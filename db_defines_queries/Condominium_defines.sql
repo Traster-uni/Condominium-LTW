@@ -27,7 +27,7 @@ CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 ALTER TABLE rental_request
 	DROP COLUMN rental_day,
 	DROP COLUMN rental_time,
-	DROP COLUMN rental_period,
+	DROP COLUMN retal_period,
 	ADD COLUMN rental_datatime_start timestamp NOT NULL,
 	ADD COLUMN rental_datatime_end timestamp NOT NULL check (rental_datatime_end::varchar >= rental_datatime_start::varchar);
 
