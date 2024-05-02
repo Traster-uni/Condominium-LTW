@@ -30,7 +30,7 @@ def connect(config):
         with psycopg2.connect(**config) as conn:
             print(f"Connected to the PostgreSQL server at {config['host']}:{config['port']}")
             d = load_data("default_schema_values.json")
-            insert_data(d, conn)
+            insert_data(d, conn, "ut_personal_documents")
     except (psycopg2.DatabaseError, Exception) as err:
         print(err)
     return
@@ -69,10 +69,11 @@ def insert_data(data:dict, connection:psycopg2.connect, schema_name="null"):
                 cur.execute(query_str)
         cur.close()
     else:
-        for instace in data[schema_name]:
+        print(data[schema_name])
+        for instance in data[schema_name]:
             keys_list = instance.keys()
             values_list = instance.values()
-            query_str = "INSERT INTO " + table_name + "("
+            query_str = "INSERT INTO " + schema_name + "("
             for i,k in enumerate(keys_list):
                 query_str += k
                 if i < len(values_list)-1:

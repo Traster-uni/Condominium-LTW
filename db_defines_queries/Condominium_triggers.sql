@@ -1,13 +1,14 @@
-CREATE OR REPLACE FUNCTION max_rental_req_accepted_per_user() RETURNS trigger
+CREATE OR REPLACE FUNCTION max_rental_req_month_per_user() RETURNS trigger
 AS $$
 	usr_id 	= TD["new"]["ud_id"]
 	rt_id	= TD["new"]["rental_req_id"]
 	print(f"usr_id: {usr_id}, rental_day: {rt_day}")
 	qry = f"""
 			SELECT count(r_req.rental_req_id)
-			FROM rental_requests r_req
-			WHERE r_req.ud_id == {usr_id} AND (r_req.stat in ('pending', 'accepted'))
-				AND date_trunc('day', r_req.rental_time) > date_trunc('day', CURRENT_TIMESTAMP)
+			FROM rental_request r_req
+			WHERE r_req.ud_id = {usr_id} 
+				AND r_req.stat ='pending'
+				AND r_req.rental_datatime_start BETWEEN date_trunc('date', now()) AND date_trunc('date', now()) + INTERVAL '30 days'
 			GROUP BY (r_req.rental_req_id)
 			"""
 	plpython3u.prepare(qry)
