@@ -6,7 +6,7 @@ AS $$
 	qry = f"""
 			SELECT count(r_req.rental_req_id)
 			FROM rental_requests r_req
-			WHERE r_req.ud_id == {usr_id} AND (r_req.stat=='pending' OR r_req.stat=='accepted')
+			WHERE r_req.ud_id == {usr_id} AND (r_req.stat in ('pending', 'accepted'))
 				AND date_trunc('day', r_req.rental_time) > date_trunc('day', CURRENT_TIMESTAMP)
 			GROUP BY (r_req.rental_req_id)
 			"""
@@ -103,7 +103,7 @@ AS $$
 $$ LANGUAGE plpython3u;
 
 CREATE TRIGGER insert_aptBlock_on_req_accepted AFTER UPDATE ON req_aptBlock_create
-	FOR EACH ROW EXECUTE FUNCTION new_aptBlock();
+	FOR EACH STATEMENT EXECUTE FUNCTION new_aptBlock();
 
 
 CREATE OR REPLACE FUNCTION define_relative_bulletinBoards() RETURNS trigger
@@ -132,7 +132,7 @@ AS $$
 $$ LANGUAGE plpython3u;
 
 CREATE TRIGGER insert_bulletinBoard_on_aptBlock_creation AFTER INSERT ON aptBlock
-	FOR EACH ROW EXECUTE FUNCTION define_relative_bulletinBoards();
+	FOR EACH STATEMENT EXECUTE FUNCTION define_relative_bulletinBoards();
 -- Triggers insertion of admin and general board once a new aptBlock has been defined.
 
 -- TO MODIFY TRIGGERS:

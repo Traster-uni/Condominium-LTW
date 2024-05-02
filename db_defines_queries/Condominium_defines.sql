@@ -24,6 +24,13 @@ CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 -- may needs deletion and creation, ALSO THE TABLE THAT USE THIS TYPE MAY NEED TO BE DROPPED FIRST
 -- DROP DOMAIN IF EXISTS request_status 
 -------------------------------------------
+ALTER TABLE rental_request
+	DROP COLUMN rental_day
+	DROP COLUMN rental_time
+	DROP COLUMN rental_period
+	ADD COLUMN rental_datatime_start timestamp NOT NULL
+	ADD COLUMN rental_datatime_start timestamp NOT NULL check (rental_datatime_end::varchar >= rental_datatime_start::varchar)
+
 ALTER TABLE ut_personal_documents
 	DROP COLUMN img_ID,
 	DROP COLUMN img_ID_fname,
@@ -260,9 +267,8 @@ CREATE TABLE IF NOT EXISTS tags_tickets(
 	rental_req_id serial,
 	ut_id integer,
 	adm_id integer,
-	rental_time time NOT NULL, 
-	rental_day date CHECK (rental_day > current_date) NOT NULL, 
-	retal_period integer CHECK (retal_period > 0),
+	rental_datatime_start timestamp NOT NULL, 
+	rental_datatime_end timestamp NOT NULL CHECK(rental_datatime_end > rental_datatime_start),
 	submit_time timestamp NOT NULL,
 	stat request_status NOT NULL,
 	PRIMARY KEY (rental_req_id),
