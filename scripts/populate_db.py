@@ -69,7 +69,6 @@ def insert_data(data:dict, connection:psycopg2.connect, schema_name="null"):
                 cur.execute(query_str)
         cur.close()
     else:
-        print(data[schema_name])
         for instance in data[schema_name]:
             keys_list = instance.keys()
             values_list = instance.values()
