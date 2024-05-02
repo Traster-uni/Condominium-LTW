@@ -24,6 +24,12 @@ CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 -- may needs deletion and creation, ALSO THE TABLE THAT USE THIS TYPE MAY NEED TO BE DROPPED FIRST
 -- DROP DOMAIN IF EXISTS request_status 
 -------------------------------------------
+ALTER TABLE aptBlock
+	ADD COLUMN aptBlock_imgs_dir varchar(100);
+
+ALTER TABLE common_spaces
+	ADD COLUMN aptBlock_imgs_dir varchar(100);
+-------------------------------------------
 ALTER TABLE rental_request
 	DROP COLUMN rental_day,
 	DROP COLUMN rental_time,
@@ -116,6 +122,7 @@ CREATE TABLE IF NOT EXISTS aptBlock(
 	addr_aptB varchar(50) NOT NULL,
 	city varchar(50) NOT NULL,
 	cap postalcode NOT NULL,
+	aptBlock_imgs_dir varchar(100),
 	PRIMARY KEY (aptBlock_id),
 	FOREIGN KEY (aptBlock_id) REFERENCES req_aptBlock_create(aptBlockReq_id),
 	FOREIGN KEY (city) REFERENCES city(name),
@@ -255,11 +262,12 @@ CREATE TABLE IF NOT EXISTS tags_tickets(
 	FOREIGN KEY (ticket_id) REFERENCES tickets(ticket_id)
 );
  
- CREATE TABLE IF NOT EXISTS common_spaces(
+CREATE TABLE IF NOT EXISTS common_spaces(
 	cs_id serial,
 	common_space_name varchar(50) NOT NULL,
 	int_num integer NOT NULL,
 	floor_num integer NOT NULL,
+	common_space_imgs_dir varchar(100),
 	PRIMARY KEY (common_space_name)
  );
 
