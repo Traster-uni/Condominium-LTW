@@ -4,11 +4,19 @@ AS $$
 	rt_id	= TD["new"]["rental_req_id"]
 	print(f"usr_id: {usr_id}, rental_day: {rt_day}")
 	qry = f"""
-			SELECT r_req.ut_id, count(r_req.rental_req_id)
+			SELECT r_req.ut_id, count(r_req.rental_req_id) as num_req
 			FROM rental_request r_req
 			WHERE r_req.ut_id = {usr_id}
-				AND	r_req.stat ='pending'
+				AND	(r_req.stat ='pending' OR r_req.stat = 'accepted')
 				AND r_req.rental_datatime_start BETWEEN date_trunc('day', current_timestamp) AND date_trunc('day', current_timestamp) + INTERVAL '30 days'
+			GROUP BY (r_req.ut_id)
+			"""
+	qry2 =	f"""
+			SELECT r_req.ut_id, count(r_req.rental_req_id) as conum_requnt
+			FROM rental_request r_req
+			WHERE r_req.ut_id = 1
+				AND	(r_req.stat ='pending' OR r_req.stat = 'accepted')
+				AND date_part('month', r_req.rental_datatime_start) = date_part('month', current_timestamp)
 			GROUP BY (r_req.ut_id)
 			"""
 	plpython3u.prepare(qry)
@@ -17,7 +25,7 @@ AS $$
 	except plpy.SPIError:
 		return "something went wrong"
 	else:
-		if qry_result[0] > 5:
+		if qry_result[1] > 5:
 			raise plpy.error(f"Max num of requests reached for {usr_id}, rolling back")
 		else:
 			return "OK"
@@ -49,17 +57,14 @@ CREATE OR REPLACE FUNCTION rental_req_disj() RETURNS trigger
 AS $$
 	usr_id		= TD["new"]["ud_id"]
 	rt_id		= TD["new"]["rental_req_id"]
-	rt_time		= TD["new"]["rental_time"]
-	rt_day		= TD["new"]["rental_day"]
-	rt_period 	= TD["new"]["rental_period"]
-
+	rt_dt_s		= TD["new"]["rental_datatime_start"]
+	rt_dt_e		= TD["new"]["rental_datatime_end"]
 	qry = f"""
 			EXISTS(
-				SELECT rr.rental_day 
-				FROM rental_request rr 
-				WHERE rr.rental_day == {rt_day} AND rr.stat != 'refused'
-					(rr.rental_time < {rt_time} AND rr.rental_time + interval 'rr.rental_period hours' > {rental_time}) OR
-					(rr.rental_time < {rt_time} + interval '{rt_period} hours' AND  rr.rental_time+rr.rental_period > {rt_time} + interval '{rt_period} hours')
+				SELECT rr.rental_req_id 
+				FROM rental_request rr
+				WHERE {rt_dt_s} BETWEEN rr.rental_datatime_start AND rr.rental_datetime_end
+				AND {rt_dt_e} BETWEEN rr.rental_datetime_start AND rr.rental_datetime_end
 			)
 			"""
 	plpython3u.prepare(qry)
@@ -92,7 +97,7 @@ AS $$
 		if rq_status_new == "refused":
 			raise plpy.error(f"The request was refused, aborting operation")
 
-		elif rq_status_new == "accpeted":
+		elif rq_status_new == "accepted":
 			qry = f"INSERT INTO aptBlock VALUES({aptBlock_id}, {addr_aptB}, {city}, {cap})"
 			plpy.prepare(qry)
 			try:

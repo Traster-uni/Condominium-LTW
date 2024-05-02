@@ -35,3 +35,7 @@ per ogni nuovo aptBlock inserito
     aptBlock_bulletinBoard(aptBlock_id) = aptBlock(aptBlock_id)
     aptBlock_bulletinBoard(bb_name) = 'admin' and 'general'
     aptBlock_bulletinBoard(bb_year) = date_part(current_date, 'year')
+
+-------------
+Definire sulla Base dati dei profili user da impiegare per gli utenti
+generici
