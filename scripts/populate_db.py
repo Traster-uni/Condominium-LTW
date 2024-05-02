@@ -23,14 +23,14 @@ def load_config(filename="database.ini", section="postgresql"):
     return config
 
 
-def connect(config):
+def connect(config, s_name = "null"):
     print(f"connect ---> {config}")
     try:
         # connecting to the PostgreSQL server
         with psycopg2.connect(**config) as conn:
             print(f"Connected to the PostgreSQL server at {config['host']}:{config['port']}")
             d = load_data("default_schema_values.json")
-            insert_data(d, conn, "ut_personal_documents")
+            insert_data(d, conn, s_name)
     except (psycopg2.DatabaseError, Exception) as err:
         print(err)
     return
@@ -46,7 +46,10 @@ def load_data(fname="data.json"):
 
 def insert_data(data:dict, connection:psycopg2.connect, schema_name="null"):
     cur = connection.cursor()
-    if (schema_name == "null"):
+    if schema_name not in data.keys():
+        print("no corrisponding key for given schema name")
+        return
+    if schema_name == "null":
         for table_name in data:
             for instance in data[table_name]:
                 keys_list = instance.keys()

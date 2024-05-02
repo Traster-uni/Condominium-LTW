@@ -25,8 +25,9 @@ CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 -- DROP DOMAIN IF EXISTS request_status 
 -------------------------------------------
 ALTER TABLE ut_owner
-    RENAME COLUMN ut_doc_fname TO ut_ownership_doc_fname,
-    DROP COLUMN codice_fiscale;
+	DROP COLUMN codice_fiscale,
+    RENAME COLUMN ut_doc_fname TO ut_ownership_doc_fname;
+
 -------------------------------------------
 ALTER TABLE aptBlock
 	ADD COLUMN aptBlock_imgs_dir varchar(100);
@@ -278,7 +279,7 @@ CREATE TABLE IF NOT EXISTS common_spaces(
 	PRIMARY KEY (common_space_name)
  );
 
- CREATE TABLE IF NOT EXISTS rental_request(
+CREATE TABLE IF NOT EXISTS rental_request(
 	rental_req_id serial,
 	ut_id integer,
 	adm_id integer,
@@ -289,7 +290,7 @@ CREATE TABLE IF NOT EXISTS common_spaces(
 	PRIMARY KEY (rental_req_id),
 	FOREIGN KEY (ut_id) REFERENCES ut_owner(utReq_id),
 	FOREIGN KEY (adm_id) REFERENCES aptBlock_admin(ut_id)
- );
+);
  -- TRIGGER: max n rental_req accepted per user
  -- TRIGGER: rental_req acceptable if within x days from current_date
  -- TRIGGER: for each user there can't be multiple rental_req in the same period/day
