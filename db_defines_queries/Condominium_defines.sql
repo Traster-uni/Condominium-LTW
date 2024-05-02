@@ -29,7 +29,7 @@ ALTER TABLE rental_request
 	DROP COLUMN rental_time,
 	DROP COLUMN rental_period,
 	ADD COLUMN rental_datatime_start timestamp NOT NULL,
-	ADD COLUMN rental_datatime_start timestamp NOT NULL check (rental_datatime_end::varchar >= rental_datatime_start::varchar);
+	ADD COLUMN rental_datatime_end timestamp NOT NULL check (rental_datatime_end::varchar >= rental_datatime_start::varchar);
 
 ALTER TABLE ut_personal_documents
 	DROP COLUMN img_ID,
