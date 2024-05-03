@@ -104,7 +104,34 @@
                 });
               </script>
             </div>
-            <div style="text-align: center">Orario</div>
+            <form class="popup-form-bottom">
+              <label
+                for="time-start"
+                style="font-weight: 600; margin-right: 5px"
+                >Dalle:</label
+              >
+              <input
+                id="time-start"
+                type="time"
+                style="margin-right: 10px"
+                required
+              />
+              <label for="time-end" style="font-weight: 600; margin-right: 5px"
+                >Alle:</label
+              >
+              <input
+                id="time-end"
+                type="time"
+                style="margin-right: 20px"
+                required
+              />
+              <input
+                type="submit"
+                value="Conferma"
+                class="submit"
+                onclick="checkTime(event)"
+              />
+            </form>
           </div>
         </div>
         <div class="popup" id="popup2">

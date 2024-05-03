@@ -142,3 +142,28 @@
 .close:hover {
   background: rgba(153, 153, 153, 0.5);
 }
+
+.popup-form-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit {
+  background-color: #2f9b3d;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 100;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s;
+  justify-self: center;
+  align-self: center;
+}
+
+.submit:hover {
+  background-color: #3bbd4c;
+}
