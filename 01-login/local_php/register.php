@@ -5,6 +5,8 @@
     if (!$connection) {
         echo "Errore, connessione non riuscita.<br>";
         exit;
+    } else {
+        echo "connected";
     }
 
     //Prendo i dati dalla form e li vado ad inserire nella tabella sul DB
@@ -15,14 +17,14 @@
         $dnascita = htmlspecialchars($_POST["data-nascita"]);
         $telefono = htmlspecialchars($_POST["telefono"]);
         $fiscalcode = htmlspecialchars($_POST["fiscal-code"]);
-        $address = htmlspecialchars($_POST("address"))
+        $address = htmlspecialchars($_POST("address"));
         $citta = htmlspecialchars($_POST["citta"]);
         $email = htmlspecialchars($_POST["email"]);
         $password = htmlspecialchars($_POST["password"]);
         $password_hash = pg_escape_string(password_hash($password, PASSWORD_DEFAULT)); //Hashing della password
 
         //Preparo la query
-        $q = "INSERT INTO ut_registered(nome, cognome, d_nascita, telefono, address, citta_residenza, ut_email, passwd) VALUES ("$nome", "$cognome", "$dnascita", "$telefono", "$address", "$citta", "$email", "$password_hash")";
+        $q = "INSERT INTO ut_registered(nome, cognome, d_nascita, telefono, address, citta_residenza, ut_email, passwd) VALUES ('$nome', '$cognome', '$dnascita', '$telefono', '$address', '$citta', '$email', '$password_hash')";
         $result = pg_query($connection, $q);
 
         // Verifica se l'inserimento è avvenuto con successo
