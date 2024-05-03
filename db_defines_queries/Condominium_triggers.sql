@@ -1,73 +1,85 @@
-CREATE OR REPLACE FUNCTION max_rental_req_accepted_per_user() RETURNS trigger
+CREATE OR REPLACE FUNCTION max_rental_req_month_per_user() RETURNS trigger
 AS $$
-	usr_id 	= TD["new"]["ut_id"]
+	usr_id 	= TD["new"]["ud_id"]
 	rt_id	= TD["new"]["rental_req_id"]
+	print(f"usr_id: {usr_id}, rental_day: {rt_day}")
 	qry = f"""
 			SELECT r_req.ut_id, count(r_req.rental_req_id) as num_req
 			FROM rental_request r_req
 			WHERE r_req.ut_id = {usr_id}
 				AND	(r_req.stat ='pending' OR r_req.stat = 'accepted')
-				AND r_req.rental_datetime_start BETWEEN date_trunc('day', current_timestamp) AND date_trunc('day', current_timestamp) + INTERVAL '30 days'
+				AND r_req.rental_datatime_start BETWEEN date_trunc('day', current_timestamp) AND date_trunc('day', current_timestamp) + INTERVAL '30 days'
 			GROUP BY (r_req.ut_id)
 			"""
 	qry2 =	f"""
 			SELECT r_req.ut_id, count(r_req.rental_req_id) as conum_requnt
 			FROM rental_request r_req
-			WHERE r_req.ut_id = {usr_id}
+			WHERE r_req.ut_id = 1
 				AND	(r_req.stat ='pending' OR r_req.stat = 'accepted')
-				AND date_part('month', r_req.rental_datetime_start) = date_part('month', current_timestamp)
+				AND date_part('month', r_req.rental_datatime_start) = date_part('month', current_timestamp)
 			GROUP BY (r_req.ut_id)
 			"""
-	plpy.prepare(qry)
+	plpython3u.prepare(qry)
 	try:
 		qry_result = plpy.execute(qry)
 	except plpy.SPIError:
 		return "something went wrong"
 	else:
-		if qry_result[0]["num_req"] > 5:
+		if qry_result[1] > 5:
 			raise plpy.error(f"Max num of requests reached for {usr_id}, rolling back")
 		else:
 			return "OK"
 $$ LANGUAGE plpython3u;
 
+CREATE TRIGGER rental_req_stamp BEFORE INSERT OR UPDATE ON rental_request
+    FOR EACH STATEMENT EXECUTE FUNCTION max_rental_req_accepted_per_user();
+    --- FOR EACH STATEMENT option will call the trigger function only once for each statement, regardless of the number of rows getting modified.
 
-CREATE OR REPLACE TRIGGER max_rental_req_accepted_per_user BEFORE INSERT OR UPDATE ON rental_request
-    FOR EACH ROW EXECUTE FUNCTION max_rental_req_accepted_per_user();
+-- CREATE OR REPLACE FUNCTION rental_within_30days RETURNS trigger
+-- AS $$
+-- 	usr_id = TD["new"]["ud_id"]
+-- 	rt_id = TD["new"]["rental_req_id"]
+-- 	print(f"usr_id: {usr_id}, rental_day: {rt_day}")
+-- 	rt_day = TD["new"]["rental_day"]
+-- 	current_date = "SELECT * FROM date_trunc('day', CURRENT_TIMESTAMP)"
+-- 	plpython3u.prepare(current_date)
+-- 	try:
+-- 		qry_result = plpy.execute(qrcurrent_datey)
+-- 	except plpy.SPIError:
+-- 	    return "something went wrong"
+-- 	if rt_day - 
+-- $$ LANGUAGE plpython3u
+
+-- CREATE TRIGGER rental_within_30days_check BEFORE INSERT ON rental_request
+-- 	FOR EACH STATEMENT EXECUTE FUNCTION rental_within_30days();
 
 CREATE OR REPLACE FUNCTION rental_req_disj() RETURNS trigger
 AS $$
-	usr_id		= TD["new"]["ut_id"]
+	usr_id		= TD["new"]["ud_id"]
 	rt_id		= TD["new"]["rental_req_id"]
-	rt_dt_s		= TD["new"]["rental_datetime_start"]
-	rt_dt_e		= TD["new"]["rental_datetime_end"]
-	
+	rt_dt_s		= TD["new"]["rental_datatime_start"]
+	rt_dt_e		= TD["new"]["rental_datatime_end"]
 	qry = f"""
-		SELECT EXISTS(
-			SELECT rr.rental_req_id 
-			FROM rental_request rr
-			WHERE date_part('day', timestamp '{rt_dt_s}') 
-				BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
-			AND date_part('day', timestamp '{rt_dt_e}') 
-				BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
-		) as disj
-		"""
-	plpy.prepare(qry)
+			EXISTS(
+				SELECT rr.rental_req_id 
+				FROM rental_request rr
+				WHERE {rt_dt_s} BETWEEN rr.rental_datatime_start AND rr.rental_datetime_end
+				AND {rt_dt_e} BETWEEN rr.rental_datetime_start AND rr.rental_datetime_end
+			)
+			"""
+	plpython3u.prepare(qry)
 	try:
 		qry_result = plpy.execute(qry)
-
 	except plpy.SPIError:
-		ins_print = f"INSERT INTO python_log (log_message) VALUES ('{qry_result}')"
-		plpy.prepare(ins_print)
-		plpy.execute(qry)
 		return "something went wrong"
-	if qry_result[0]["disj"] == True:
+	if qry_result[0] == True:
 		raise plpy.error("A rental request in the same time period already exists")
 	else:
 		return "OK"
 $$ LANGUAGE plpython3u;
 
-CREATE OR REPLACE TRIGGER rental_req_disj_check BEFORE INSERT OR UPDATE ON rental_request
-	FOR EACH ROW EXECUTE FUNCTION rental_req_disj();
+CREATE TRIGGER rental_req_disj_check BEFORE INSERT OR UPDATE ON rental_request
+	FOR EACH STATEMENT EXECUTE FUNCTION rental_req_disj();
 
 
 CREATE OR REPLACE FUNCTION new_aptBlock() RETURNS trigger
@@ -96,8 +108,8 @@ AS $$
 	return "OK"
 $$ LANGUAGE plpython3u;
 
-CREATE OR REPLACE TRIGGER insert_aptBlock_on_req_accepted AFTER UPDATE ON req_aptBlock_create
-	FOR EACH ROW EXECUTE FUNCTION new_aptBlock();
+CREATE TRIGGER insert_aptBlock_on_req_accepted AFTER UPDATE ON req_aptBlock_create
+	FOR EACH STATEMENT EXECUTE FUNCTION new_aptBlock();
 
 
 CREATE OR REPLACE FUNCTION define_relative_bulletinBoards() RETURNS trigger
@@ -116,7 +128,7 @@ AS $$
 	plpy.prepare(qry_admin)
 	try:
 		plpy.execute(qry_geneal)
-	except plpython3u.SPIError:
+	except plpy.SPIError:
 				return "something went wrong with the insertion of the general bboard"
 	try:
 		plpy.execute(qry_admin)
@@ -125,8 +137,8 @@ AS $$
 	return "OK"
 $$ LANGUAGE plpython3u;
 
-CREATE OR REPLACE TRIGGER insert_bulletinBoard_on_aptBlock_creation AFTER INSERT ON aptBlock
-	FOR EACH ROW EXECUTE FUNCTION define_relative_bulletinBoards();
+CREATE TRIGGER insert_bulletinBoard_on_aptBlock_creation AFTER INSERT ON aptBlock
+	FOR EACH STATEMENT EXECUTE FUNCTION define_relative_bulletinBoards();
 -- Triggers insertion of admin and general board once a new aptBlock has been defined.
 
 -- TO MODIFY TRIGGERS:

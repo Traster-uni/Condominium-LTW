@@ -36,34 +36,6 @@ per ogni nuovo aptBlock inserito
     aptBlock_bulletinBoard(bb_name) = 'admin' and 'general'
     aptBlock_bulletinBoard(bb_year) = date_part(current_date, 'year')
 
-
- CREATE TABLE IF NOT EXISTS rental_request(
-	rental_req_id serial,
-	ut_id integer,
-	adm_id integer,
-	rental_time time NOT NULL, drop
-	rental_day date CHECK (rental_day > current_date) NOT NULL, 
-	retal_period integer CHECK (retal_period > 0),
-	submit_time timestamp NOT NULL,
-	stat request_status NOT NULL,
-	PRIMARY KEY (rental_req_id),
-	FOREIGN KEY (ut_id) REFERENCES ut_owner(utReq_id),
-	FOREIGN KEY (adm_id) REFERENCES aptBlock_admin(ut_id)
- );
-
-  CREATE TABLE IF NOT EXISTS rental_request(
-	rental_req_id serial,
-	ut_id integer,
-	adm_id integer,
-	rental_datatime_start timestamp NOT NULL, 
-	rental_datatime_end timestamp NOT NULL CHECK(rental_datatime_end >= rental_datatime_start),
-	submit_time timestamp NOT NULL,
-	stat request_status NOT NULL,
-	PRIMARY KEY (rental_req_id),
-	FOREIGN KEY (ut_id) REFERENCES ut_owner(utReq_id),
-	FOREIGN KEY (adm_id) REFERENCES aptBlock_admin(ut_id)
- );
-
-ALTER TABLE ut_owner
-    RENAME COLUMN ut_doc_fname TO ut_ownership_doc_fname,
-    DROP COLUMN codice_fiscale;
+-------------
+Definire sulla Base dati dei profili user da impiegare per gli utenti
+generici
