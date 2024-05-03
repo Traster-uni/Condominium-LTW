@@ -1,3 +1,10 @@
+CREATE GROUP site_personel;
+CREATE USER Tommaso WITH PASSWORD 'service' IN GROUP site_personel CREATEROLE;
+CREATE USER Rinaldo WITH PASSWORD 'service' IN GROUP site_personel CREATEROLE;
+CREATE USER Iacopo WITH PASSWORD 'service' IN GROUP site_personel CREATEROLE;
+
+----------------------------------------------------------------------------------------------------------
+
 CREATE DOMAIN telNumber as varchar(13)
 CHECK(
 	 VALUE ~ '^\+39[0-9]{6,12}$'
@@ -42,8 +49,8 @@ ALTER TABLE rental_request
 	DROP COLUMN rental_day,
 	DROP COLUMN rental_time,
 	DROP COLUMN retal_period,
-	ADD COLUMN rental_datatime_start timestamp NOT NULL,
-	ADD COLUMN rental_datatime_end timestamp NOT NULL check (rental_datatime_end::varchar >= rental_datatime_start::varchar);
+	ADD COLUMN rental_datetime_start timestamp NOT NULL,
+	ADD COLUMN rental_datetime_end timestamp NOT NULL check (rental_datetime_end::varchar >= rental_datetime_start::varchar);
 
 ALTER TABLE ut_personal_documents
 	DROP COLUMN img_ID,
@@ -283,8 +290,8 @@ CREATE TABLE IF NOT EXISTS rental_request(
 	rental_req_id serial,
 	ut_id integer,
 	adm_id integer,
-	rental_datatime_start timestamp NOT NULL, 
-	rental_datatime_end timestamp NOT NULL CHECK(rental_datatime_end > rental_datatime_start),
+	rental_datetime_start timestamp NOT NULL, 
+	rental_datetime_end timestamp NOT NULL CHECK(rental_datetime_end > rental_datetime_start),
 	submit_time timestamp NOT NULL,
 	stat request_status NOT NULL,
 	PRIMARY KEY (rental_req_id),
