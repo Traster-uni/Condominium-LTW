@@ -52,6 +52,7 @@ UPDATE req_aptBlock_create
 --    aptBlock_id = TD["new"]["aptBlockReq_id"]
 --PL/Python function "new_aptblock" 
 
+	
 --SQL state: 38000
 -------------------------------------------------------
 -- fetch 

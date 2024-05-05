@@ -56,7 +56,7 @@ AS $$
 		qry_result = plpy.execute(qry)
 
 	except plpy.SPIError:
-		ins_print = f"INSERT INTO python_log (log_message) VALUES ('{qry_result}')"
+		ins_print = f"INSERT INTO python_log (log_message) VALUES ('{TD["new"]}')"
 		plpy.prepare(ins_print)
 		plpy.execute(qry)
 		return "something went wrong"
@@ -76,8 +76,8 @@ AS $$
 	rq_status_new = TD["new"]["stat"]
 
 	ut_id 		= TD["new"]["ut_id"]
-	aptBlock_id = TD["new"]["aptBlockReq_id"]
-	addr_aptB 	= TD["new"]["addr_aptB"]
+	aptBlock_id = TD["new"]["aptblockreq_id"]
+	addr_aptB 	= TD["new"]["addr_aptb"]
 	city 		= TD["new"]["city"]
 	cap 		= TD["new"]["cap"]
 
@@ -86,18 +86,18 @@ AS $$
 			raise plpy.error(f"The request was refused, aborting operation")
 
 		elif rq_status_new == "accepted":
-			qry = f"INSERT INTO aptBlock VALUES({aptBlock_id}, {addr_aptB}, {city}, {cap})"
+			qry = f"INSERT INTO aptBlock VALUES({aptBlock_id}, '{addr_aptB}', '{city}', '{cap}')"
 			plpy.prepare(qry)
 			try:
 				plpy.execute(qry)
 			except plpy.SPIError:
-				return "something went wrong"
-
+				raise plpy.error(f"Something went wrong, aborting operation: ({aptBlock_id}, '{addr_aptB}', '{city}', '{cap}')")
 	return "OK"
 $$ LANGUAGE plpython3u;
 
 CREATE OR REPLACE TRIGGER insert_aptBlock_on_req_accepted AFTER UPDATE ON req_aptBlock_create
 	FOR EACH ROW EXECUTE FUNCTION new_aptBlock();
+
 
 
 CREATE OR REPLACE FUNCTION define_relative_bulletinBoards() RETURNS trigger
