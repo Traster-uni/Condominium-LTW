@@ -86,7 +86,7 @@ AS $$
 			raise plpy.error(f"The request was refused, aborting operation")
 
 		elif rq_status_new == "accepted":
-			qry = f"INSERT INTO aptBlock VALUES({aptBlock_id}, '{addr_aptB}', '{city}', '{cap}')"
+			qry = f"INSERT INTO aptBlock VALUES({aptBlock_id}, '{addr_aptB}', '{city}', '{cap}', null)"
 			plpy.prepare(qry)
 			try:
 				plpy.execute(qry)
@@ -102,15 +102,15 @@ CREATE OR REPLACE TRIGGER insert_aptBlock_on_req_accepted AFTER UPDATE ON req_ap
 
 CREATE OR REPLACE FUNCTION define_relative_bulletinBoards() RETURNS trigger
 AS $$
-	aptBlock_id = TD["new"]["aptBlock_id"]
+	aptBlock_id = TD["new"]["aptblock_id"]
 
 	qry_geneal = f"""
 			INSERT INTO aptBlock_bulletinBoard (aptBlock_id, bb_name, bb_year)
-			VALUES({aptBlock_id}, general, date_part(current_date, 'year'));
+			VALUES({aptBlock_id}, 'general', date_part('year', current_date));
 			"""
 	qry_admin = f"""
 			INSERT INTO aptBlock_bulletinBoard (aptBlock_id, bb_name, bb_year)
-			VALUES({aptBlock_id}, admin, date_part(current_date, 'year'));
+			VALUES({aptBlock_id}, 'admin', date_part('year', current_date));
 			"""
 	plpy.prepare(qry_geneal)
 	plpy.prepare(qry_admin)
