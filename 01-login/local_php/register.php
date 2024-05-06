@@ -29,7 +29,7 @@
         // Verifica se l'inserimento è avvenuto con successo
         if ($result) {
             echo "Registrazione avvenuta con successo!";
-            header("Location: ../01-login.html");
+            header("Location: /01-login.html");
         } else {
             echo "Errore durante la registrazione: " . pg_last_error($connection);
         }
