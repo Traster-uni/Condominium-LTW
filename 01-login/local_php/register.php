@@ -1,5 +1,5 @@
 <?php
-    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=Condominium_LTW user=rinaldo password=service");
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
 
     //Verifico che la connessione è avvenuta con successo
     if (!$connection) {
@@ -32,11 +32,11 @@
             echo "Registrazione avvenuta con successo!";
             header("Location: ../01-login.html");
         } else {
-            echo "Errore durante la registrazione: " . pg_last_error($conn);
+            echo "Errore durante la registrazione: " . pg_last_error($connection);
         }
     }
 
     // Chiudi la connessione al database
-    pg_close($conn);
+    pg_close($connection);
 ?>
     
