@@ -21,9 +21,10 @@
         $citta = htmlspecialchars($_POST["citta"]);
         $email = htmlspecialchars($_POST["email"]);
         $password = htmlspecialchars($_POST["password"]);
+        $data = date("Y-m-d");
 
         //Preparo la query
-        $q = "INSERT INTO ut_registered(nome, cognome, d_nascita, telefono, address, citta_residenza, ut_email, passwd) VALUES ('$nome', '$cognome', '$dnascita', '$telefono', '$address', '$citta', '$email', '$password')";
+        $q = "INSERT INTO ut_registered(nome, cognome, d_nascita, telefono, address, citta_residenza, ut_email, passwd, data_iscrizione) VALUES ('$nome', '$cognome', '$dnascita', '$telefono', '$address', '$citta', '$email', '$password', '$data')";
         $result = pg_query($connection, $q);
 
         // Verifica se l'inserimento è avvenuto con successo
