@@ -67,3 +67,8 @@ per ogni nuovo aptBlock inserito
 ALTER TABLE ut_owner
     RENAME COLUMN ut_doc_fname TO ut_ownership_doc_fname,
     DROP COLUMN codice_fiscale;
+
+TODO:
+	Autoconnect sul server php su PostgreSQL
+	Trovare un modo per caricarre file binari su cartella remota server 
+	pagina di login HTML+php
