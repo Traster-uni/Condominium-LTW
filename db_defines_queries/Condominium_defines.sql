@@ -27,45 +27,14 @@ CHECK(
 
 CREATE TYPE ut_request_stat AS ENUM ('accepted', 'refused', 'aborted');
 
+CREATE TYPE ticket_status AS ENUM ('open', 'closed');
+
 CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 -- may needs deletion and creation, ALSO THE TABLE THAT USE THIS TYPE MAY NEED TO BE DROPPED FIRST
 -- DROP DOMAIN IF EXISTS request_status 
--------------------------------------------
-ALTER TABLE ut_owner
-	DROP COLUMN codice_fiscale,
-    RENAME COLUMN ut_doc_fname TO ut_ownership_doc_fname;
 
--------------------------------------------
-ALTER TABLE aptBlock
-	ADD COLUMN aptBlock_imgs_dir varchar(100);
-
-ALTER TABLE common_spaces
-	ADD COLUMN aptBlock_imgs_dir varchar(100);
-
-ALTER TABLE ut_personal_documents
-	ADD COLUMN ut_FiscalCode fiscalCode NOT NULL;
--------------------------------------------
-ALTER TABLE rental_request
-	DROP COLUMN rental_day,
-	DROP COLUMN rental_time,
-	DROP COLUMN retal_period,
-	ADD COLUMN rental_datetime_start timestamp NOT NULL,
-	ADD COLUMN rental_datetime_end timestamp NOT NULL check (rental_datetime_end::varchar >= rental_datetime_start::varchar);
-
-ALTER TABLE ut_personal_documents
-	DROP COLUMN img_ID,
-	DROP COLUMN img_ID_fname,
-	DROP COLUMN img_FiscalCode
-    ADD COLUMN img_ID_fname varchar(100),
-	ADD COLUMN img_FiscalCode_fname varchar(100)
--- commentare dove opportuno in caso di messaggi del tipo "x colonna non definita"
-ALTER TABLE aptBlock_admin
-	DROP COLUMN pdf_doc_AdmValidity
-ALTER TABLE ut_owner
-	DROP COLUMN ut_doc_purchase
 ALTER TABLE tickets
-	DROP COLUMN imgs_fname,
-	ADD COLUMN img_fname varchar(100)
+	ADD COLUMN status ticket_status NOT NULL
 ---------------------------------------------
 
 CREATE TABLE IF NOT EXISTS region(
@@ -259,6 +228,7 @@ CREATE TABLE IF NOT EXISTS tickets(
 	ud_id integer,
 	aptBlock_admin integer,	-- therad is related to a certain post
 	title varchar(50) NOT NULL,
+	status ticket_status NOT NULL,
 	comm_text text[] NOT NULL,
 	imgs_fname varchar(100),
 	time_born timestamp NOT NULL, 		-- current_time

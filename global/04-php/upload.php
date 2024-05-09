@@ -12,13 +12,13 @@ function upload_img(){
      *  To recover personal data quickly and easly insert in the filename
      *  some sort of identifier derived from the user
      */ 
-   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
         // filter_var: filters a variable with a given filter 
         $fName = strtolower(basename($_FILES["file"]["name"]));
         $fName = str_replace(" ", "", $fName);
 
-        $target_fname = sprintf(__DIR__ . "/users/%s/pictures/photos/%s", $email, $fName);
+        $target_fname = sprintf(ABS_PATH . "/users/%s/pictures/photos/%s", $email, $fName);
         if ($_FILES) {
 
         } else {
