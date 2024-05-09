@@ -12,4 +12,11 @@
     $tickets = array();
 
     // Recupero i dati
+    while ($row = pg_fetch_assoc($result)) {
+        $year = date('Y', strtotime($row['time_born']));
+        $tickets[$year][] = $row;
+    }
     
+    // Transforma in json
+    header('Content-Type: application/json');
+    echo json_encode($tickets);
