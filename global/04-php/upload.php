@@ -86,7 +86,12 @@ function upload_img($connection){
                     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_fname)) {
                         // usr feedback and refresh
                         echo 'File uploaded correctly<br><br>';
-                        echo '<a href="upload.php">carica un altro file</a>';
+                        echo "Upload: " . $_FILES["file"]["name"] . "<br>";
+                        echo "Type: " . $_FILES["file"]["type"] . "<br>";
+                        echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+                        echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
+                        echo "LOCATION: $target_dir";
+                        echo '<a href="global/04-php/upload.php">carica un altro file</a>';
                     } else {
                         $err =  $_FILES['userfile']['error'];
                         throw new RuntimeException("File was not uploaded correctly, ERROR_MSG: $err");
