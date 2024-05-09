@@ -1,5 +1,5 @@
 <?php
-define("ABS_PATH", dirname(__FILE__));
+define("ABS_PATH", __DIR__);
 define("PRIVATE_PATH", ABS_PATH."/private");
 define("PUBLIC_PATH", ABS_PATH."/public");
 
