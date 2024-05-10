@@ -21,7 +21,7 @@
 // } else {
 //     echo "connected";
 // }
-define("ABS_PATH", "C:\\LTW-Condominium\\tests\\");
+define($ABS_PATH, "C:\\LTW-Condominium\\tests\\");
 ini_set('display_errors', 1);
 print_r($_FILES);
 try {
@@ -67,23 +67,24 @@ try {
         // execute upload
         if (isset($_POST["invio"])){
             if (is_uploaded_file($_FILES["upload-img"]["tmp_name"])){
-                // filter_var: filters a variable with a given filter 
+                // filter_var: filters a variable with a given filter
                 $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
                 
                 $fName = strtolower(basename($_FILES["upload-img"]["name"]));
                 $fName = str_replace(" ", "_", $fName);
                 
-                $target_dir = sprintf(ABS_PATH."/users/%s/pictures/photos/", $email);
+                $target_dir = sprintf($ABS_PATH."\\users\\%s\\pictures\\photos\\", $email);
                 $target_dirfname = sprintf($target_dir."%s", $fName);
                 echo "$target_dirfname";
                 // check for directory
                 if (!is_dir($target_dirfname)){
+                    chdir($ABS_PATH);
                     mkdir($target_dir);
                 }
                 // actually upload the file
                 if (move_uploaded_file($_FILES["upload-img"]["tmp_name"], $target_fname)) {
                     // usr feedback and refresh
-                    echo 'File uploaded correctly<br><br>';
+                    echo "File uploaded correctly<br><br>";
                     echo "Upload: " . $_FILES["upload-img"]["name"] . "<br>";
                     echo "Type: " . $_FILES["upload-img"]["type"] . "<br>";
                     echo "Size: " . ($_FILES["upload-img"]["size"] / 1024) . " kB<br>";
