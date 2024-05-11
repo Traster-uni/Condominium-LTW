@@ -23,100 +23,94 @@
 // }
 // define($ABS_PATH, "C:\\LTW-Condominium\\Condominiunm-LTW\\tests\\");
 // ini_set('display_errors', 1);
+// error_reporting(E_ALL);
 // print_r($_FILES);
-// try {
+// print_r($_FILES['upload-img']['error']);
+try {
 
-//     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//         // Check for: Undefined | Multiple Files | $_FILES Corruption Attack
-//         // courtesy of user CertaiN (user contributed notes): https://www.php.net/manual/it/features.file-upload.php
-//         if (!isset($_FILES['upload-img']['error']) || is_array($_FILES['upload-img']['error'])) {
-//             // Check $_FILES['upload-img']['error'] value.
-//             // courtesy of user CertaiN (user contributed notes): https://www.php.net/manual/it/features.file-upload.php
-//             switch ($_FILES['upload-img']['error']) {
-//                 case UPLOAD_ERR_OK:
-//                     break;
-//                 case UPLOAD_ERR_NO_FILE:
-//                     throw new RuntimeException('No file sent.');
-//                 case UPLOAD_ERR_FORM_SIZE:
-//                     throw new RuntimeException('Exceeded filesize limit.');
-//                 default:
-//                     throw new RuntimeException('Unknown errors.');
-//             }
-//         }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Check for: Undefined | Multiple Files | $_FILES Corruption Attack
+        // courtesy of user CertaiN (user contributed notes): https://www.php.net/manual/it/features.file-upload.php
+        if (isset($_FILES['upload-img']['error']) || is_array($_FILES['upload-img']['error'])) {
+            // Check $_FILES['upload-img']['error'] value.
+            // courtesy of user CertaiN (user contributed notes): https://www.php.net/manual/it/features.file-upload.php
+            switch ($_FILES['upload-img']['error']) {
+                case UPLOAD_ERR_OK:
+                    break;
+                case UPLOAD_ERR_INI_SIZE;
+                    throw new RuntimeException("\nERROR: Exceeded hard filesize limit");
+                case UPLOAD_ERR_FORM_SIZE:
+                    throw new RuntimeException("\nERROR: Exceeded filesize limit.");
+                case UPLOAD_ERR_PARTIAL;
+                    throw new RuntimeException("\nERROR: Uploaded file was only partially uploaded");
+                case UPLOAD_ERR_NO_FILE:
+                    throw new RuntimeException("\nERROR: No file sent.");
+                default:
+                    throw new RuntimeException("\nERROR: Unknown errors.");
+            }
+        }
 
-//         // check filesize. 
-//         // courtesy of user CertaiN (user contributed notes): https://www.php.net/manual/it/features.file-upload.php
-//         if ($_FILES['upload-img']['size'] > 1000000) {
-//             throw new RuntimeException('Exceeded filesize limit.');
-//         }
+        // check filesize. 
+        // courtesy of user CertaiN (user contributed notes): https://www.php.net/manual/it/features.file-upload.php
+        if ($_FILES['upload-img']['size'] > 1000000) {
+            throw new RuntimeException('Exceeded filesize limit.');
+        }
 
-//         // checking file type 
-//         // courtesy of user CertaiN (user contributed notes): https://www.php.net/manual/it/features.file-upload.php
-//         $finfo = new finfo(FILEINFO_MIME_TYPE);
-//         if (false === $ext = array_search(
-//             $finfo->file($_FILES['upload-img']['tmp_name']),
-//             array(
-//                 'jpg' => 'image/jpeg',
-//                 'png' => 'image/png'
-//             ),
-//             true
-//         )) {
-//             throw new RuntimeException('Invalid file format.');
-//         }
+        // checking file type 
+        // courtesy of user CertaiN (user contributed notes): https://www.php.net/manual/it/features.file-upload.php
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        if (false === $ext = array_search(
+            $finfo->file($_FILES['upload-img']['tmp_name']),
+            array(
+                'jpg' => 'image/jpeg',
+                'png' => 'image/png'
+            ),
+            true
+        )) {
+            throw new RuntimeException('Invalid file format.');
+        }
         
-//         // execute upload
-//         if (isset($_POST["invio"])){
-//             if (is_uploaded_file($_FILES["upload-img"]["tmp_name"])){
-//                 // filter_var: filters a variable with a given filter
-//                 $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-                
-//                 $fName = strtolower(basename($_FILES["upload-img"]["name"]));
-//                 $fName = str_replace(" ", "_", $fName);
-                
-//                 $target_dir = sprintf($ABS_PATH."\\users\\%s\\pictures\\photos\\", $email);
-                
-//                 // check for directory
-//                 if (!file_exists($target_dir)){
-//                     chdir($ABS_PATH);
-//                     mkdir($target_dir);
-//                 }
-//                 // actually upload the file
-//                 if (move_uploaded_file($_FILES["upload-img"]["tmp_name"], $target_fname)) {
-//                     // usr feedback and refresh
-//                     echo "File uploaded correctly<br><br>";
-//                     echo "Upload: " . $_FILES["upload-img"]["name"] . "<br>";
-//                     echo "Type: " . $_FILES["upload-img"]["type"] . "<br>";
-//                     echo "Size: " . ($_FILES["upload-img"]["size"] / 1024) . " kB<br>";
-//                     echo "Temp file: " . $_FILES["upload-img"]["tmp_name"] . "<br>";
-//                     echo "LOCATION: $target_dir";
-//                 } else {
-//                     $err =  $_FILES['upload-img']['error'];
-//                     throw new RuntimeException("File was not uploaded correctly, ERROR_MSG: $err");
-//                 }
-//             }
-//         }
-//     }
-// } catch (RuntimeException $e) {
-//     echo $e->getMessage();
-// }
-// // page refresh
-// header("Location: ../../prova_upload.php");
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-print_r($_FILES);
-print_r($_SERVER);
-if (isset($_POST["invio"])){
-    $root = $_SERVER["DOCUMENT_ROOT"];
-    // affinche un parametro di input compaia nella var 'email'
-    // <input type = ....> deve essere incluso nello stesso form
-    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    //$target_dir = sprintf("\\users\\%s\\pictures\\photos\\", $email);
-    //chdir("C:\\LTW-Condominium\\Condominiunm-LTW\\tests");
-    $target_dir = sprintf("users/%s/pictures/photos", $email);
-    chdir($root."/tests");
-    if (!file_exists("/d1")){
-        mkdir($target_dir, 0700, true);
+        // execute upload
+        if (isset($_POST["invio"])){
+            if (is_uploaded_file($_FILES["upload-img"]["tmp_name"])){                               
+                $root = $_SERVER["SCRIPT_FILENAME"]."\\..\\..\\..\\tests";
+                // filter_var: filters a variable with a given filter
+                // affinche un parametro di input compaia nella var 'email'
+                // <input type = ....> deve essere incluso nello stesso form
+                $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+                $fName = strtolower(basename($_FILES["upload-img"]["name"]));
+                $fName = str_replace(" ", "_", $fName);
+                // photos replaced by type of pictures
+                $target_dir = sprintf("users\\%s\\pictures\\photos", $email); // win
+                // $target_dir = sprintf("users/%s/pictures/photos", $email); // Linux
+                $target_fname = $root ."\\". $target_dir . "\\" . $fName;
+                // check for directory
+                if (!file_exists($target_fname)){
+                    chdir($root);
+                    mkdir($target_dir, 0700, true);
+                }
+                echo $target_fname;
+                // actually upload the file
+                if (move_uploaded_file($_FILES["upload-img"]["tmp_name"], $target_fname)) {
+                    // usr feedback and refresh
+                    echo "File uploaded correctly<br><br>";
+                    echo "Upload: " . $_FILES["upload-img"]["name"] . "<br>";
+                    echo "Type: " . $_FILES["upload-img"]["type"] . "<br>";
+                    echo "Size: " . ($_FILES["upload-img"]["size"] / 1024) . " kB<br>";
+                    echo "Temp file: " . $_FILES["upload-img"]["tmp_name"] . "<br>";
+                    echo "LOCATION: $target_dir";
+                } else {
+                    $err =  $_FILES['upload-img']['error'];
+                    throw new RuntimeException("File was not uploaded correctly, ERROR_MSG: $err");
+                }
+            }
+        }
     }
+} catch (RuntimeException $e) {
+    echo $e->getMessage();
 }
+// page refresh
+header("Location: ../../prova_upload.php");
+
 ?>
 

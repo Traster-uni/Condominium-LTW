@@ -150,5 +150,4 @@ Array ( [DOCUMENT_ROOT] => C:\LTW-Condominium
 		[REQUEST_TIME] => 1715433194 )
 
 
-Warning: mkdir(): No such file or directory in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 111
-Warning: mkdir(): File exists in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 113
+Warning: chdir(): No such file or directory (errno 2) in C:\LTW-Condominium\Condominium-LTW\global\04-php\upload.php on line 115
