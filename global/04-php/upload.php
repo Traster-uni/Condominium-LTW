@@ -106,13 +106,16 @@ ini_set('display_errors', 1);
 print_r($_FILES);
 print_r($_SERVER);
 if (isset($_POST["invio"])){
+    $root = $_SERVER["DOCUMENT_ROOT"];
     // affinche un parametro di input compaia nella var 'email'
     // <input type = ....> deve essere incluso nello stesso form
     $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    $target_dir = sprintf("\\users\\%s\\pictures\\photos\\", $email);
-    chdir("C:\\LTW-Condominium\\Condominiunm-LTW\\tests");
-    if (!file_exists("\\d1")){
-        mkdir("\\d1", 0700);
+    //$target_dir = sprintf("\\users\\%s\\pictures\\photos\\", $email);
+    //chdir("C:\\LTW-Condominium\\Condominiunm-LTW\\tests");
+    $target_dir = sprintf("users/%s/pictures/photos", $email);
+    chdir($root."/tests");
+    if (!file_exists("/d1")){
+        mkdir($target_dir, 0700, true);
     }
 }
 ?>
