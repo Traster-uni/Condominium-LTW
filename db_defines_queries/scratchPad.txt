@@ -72,3 +72,83 @@ TODO:
 	Autoconnect sul server php su PostgreSQL
 	Trovare un modo per caricarre file binari su cartella remota server 
 	pagina di login HTML+php
+Array ( [upload-img] => 
+			Array ( [name] => FB_IMG_1533802567848.jpg 
+					[full_path] => FB_IMG_1533802567848.jpg 
+					[type] => image/jpeg [tmp_name] => C:\Users\trast\AppData\Local\Temp\php7569.tmp 
+					[error] => 0 
+					[size] => 30545 ) 
+		)
+
+Warning: Undefined array key "email" in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 71
+
+Warning: Undefined variable $ABS_PATH in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 76
+\users\\pictures\photos\fb_img_1533802567848.jpg
+
+Warning: Undefined variable $ABS_PATH in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 81
+
+Warning: chdir(): No such file or directory (errno 2) in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 81
+
+Warning: mkdir(): No such file or directory in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 82
+
+Warning: Undefined variable $target_fname in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 85
+
+Warning: move_uploaded_file(): Unable to move "C:\Users\trast\AppData\Local\Temp\php7569.tmp" to "" 
+	in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 85
+
+Fatal error: Uncaught ValueError: Path cannot be empty in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php:85 
+	Stack trace: #0 C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php(85): move_uploaded_file() #1 {main} 
+		thrown in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 85
+
+--------------------------------------------------------------------------------------------------
+$_FILES
+Array ( [upload-img] => Array ( 
+						[name] => 
+						[full_path] => 
+						[type] => 
+						[tmp_name] => 
+						[error] => 4 
+						[size] => 0 ) ) 
+
+$_SERVER
+Array ( [DOCUMENT_ROOT] => C:\LTW-Condominium 
+		[REMOTE_ADDR] => ::1 
+		[REMOTE_PORT] => 65019 
+		[SERVER_SOFTWARE] => PHP/8.3.6 (Development Server) 
+		[SERVER_PROTOCOL] => HTTP/1.1 
+		[SERVER_NAME] => localhost 
+		[SERVER_PORT] => 3000 
+		[REQUEST_URI] => /Condominiunm-LTW/global/04-php/upload.php 
+		[REQUEST_METHOD] => POST 
+		[SCRIPT_NAME] => /Condominiunm-LTW/global/04-php/upload.php 
+		[SCRIPT_FILENAME] => C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php 
+		[PHP_SELF] => /Condominiunm-LTW/global/04-php/upload.php 
+		[HTTP_HOST] => localhost:3000 
+		[HTTP_CONNECTION] => keep-alive 
+		[CONTENT_LENGTH] => 291 
+		[HTTP_CONTENT_LENGTH] => 291 
+		[HTTP_CACHE_CONTROL] => max-age=0 
+		[HTTP_SEC_CH_UA] => "Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99" 
+		[HTTP_SEC_CH_UA_MOBILE] => ?0 
+		[HTTP_SEC_CH_UA_PLATFORM] => "Windows" 
+		[HTTP_ORIGIN] => http://localhost:3000 
+		[HTTP_DNT] => 1 
+		[HTTP_UPGRADE_INSECURE_REQUESTS] => 1 
+		[CONTENT_TYPE] => multipart/form-data; boundary=----WebKitFormBoundarymYH9tWHDcnvrsgFN 
+		[HTTP_CONTENT_TYPE] => multipart/form-data; boundary=----WebKitFormBoundarymYH9tWHDcnvrsgFN 
+		[HTTP_USER_AGENT] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 
+		[HTTP_ACCEPT] => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7 
+		[HTTP_SEC_FETCH_SITE] => same-origin 
+		[HTTP_SEC_FETCH_MODE] => navigate 
+		[HTTP_SEC_FETCH_USER] => ?1 
+		[HTTP_SEC_FETCH_DEST] => document 
+		[HTTP_REFERER] => http://localhost:3000/Condominiunm-LTW/prova_upload.php 
+		[HTTP_ACCEPT_ENCODING] => gzip, deflate, br, zstd 
+		[HTTP_ACCEPT_LANGUAGE] => it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7 
+		[HTTP_COOKIE] => PHPSESSID=b9hm83l2c20crtfi4pbbc6a99i 
+		[REQUEST_TIME_FLOAT] => 1715433194.0887 
+		[REQUEST_TIME] => 1715433194 )
+
+
+Warning: mkdir(): No such file or directory in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 111
+Warning: mkdir(): File exists in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 113

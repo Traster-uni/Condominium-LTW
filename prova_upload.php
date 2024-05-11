@@ -1,6 +1,6 @@
 <?php 
         session_start();
-        define("ABS_PATH", "C:\\LTW-Condominium\\tests\\");
+        
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,9 +10,9 @@
     <title>Prova Upload</title>
 </head>
 <body>
-    <input type="text" name="email" id="email" method="post">
-    <br>
     <form enctype="multipart/form-data", action="global/04-php/upload.php" method="post">
+        <input type="text" name="email" id="email" method="post">
+        <br>
         <input type="file" name="upload-img" id="upload-img">
         <br>
         <input type="submit" value="invia" name="invio">
