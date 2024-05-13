@@ -69,21 +69,33 @@ try {
         )) {
             throw new RuntimeException('Invalid file format.');
         }
-        
+        // Os sensitive div and root 
+        switch($_SERVER["HTTP_SEC_CH_UA_PLATFORM"]){
+            case "Windows":
+                $div = "\\";
+                $root = $_SERVER["SCRIPT_FILENAME"]."\\..\\..\\..\\tests";
+            case "Linux":
+                $div = "/";
+                $root = $_SERVER["SCRIPT_FILENAME"]."/../../../tests";
+            case "macOS":
+                $div = "/";
+                $root = $_SERVER["SCRIPT_FILENAME"]."/../../../tests";
+        }
+
         // execute upload
         if (isset($_POST["invio"])){
-            if (is_uploaded_file($_FILES["upload-img"]["tmp_name"])){                               
-                $root = $_SERVER["SCRIPT_FILENAME"]."\\..\\..\\..\\tests";
+            if (is_uploaded_file($_FILES["upload-img"]["tmp_name"])){
                 // filter_var: filters a variable with a given filter
                 // affinche un parametro di input compaia nella var 'email'
                 // <input type = ....> deve essere incluso nello stesso form
                 $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
                 $fName = strtolower(basename($_FILES["upload-img"]["name"]));
                 $fName = str_replace(" ", "_", $fName);
+                
                 // photos replaced by type of pictures
-                $target_dir = sprintf("users\\%s\\pictures\\photos", $email); // win
+                $target_dir = sprintf("users".$div."%s".$div."pictures".$div."photos", $email); // win
                 // $target_dir = sprintf("users/%s/pictures/photos", $email); // Linux
-                $target_fname = $root ."\\". $target_dir . "\\" . $fName;
+                $target_fname = $root .$div. $target_dir .$div. $fName;
                 // check for directory
                 if (!file_exists($target_fname)){
                     chdir($root);
