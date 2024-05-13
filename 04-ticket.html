@@ -41,7 +41,7 @@
           <span class="material-symbols-outlined">add</span>
         </button>
         <div class="collapse" id="formTicket">
-          <form action="" method="post" name="ticket">
+          <form action="/04-ticket/local_php/submit_ticket.php" method="post" name="ticket">
             <h4>Titolo</h4>
             <input type="text" name="titolo" id="titolo" size="50" required />
             <h4>Descrizione</h4>
@@ -59,7 +59,6 @@
             <input
               type="submit"
               value="Submit"
-              onclick="return ticketSubmit(event)"
             />
             <input type="reset" />
           </form>
@@ -86,6 +85,7 @@
     
     <script src="./04-ticket/local_js/04-ticket.js"></script>
     <script src="./04-ticket/local_js/04-submitTicket.js"></script>
+    <!--<script src="./04-ticket/local_js/prova.js"></script>-->
     <script src="./04-ticket/local_js/04-visualizeTicket.js"></script>
   </body>
 </html>

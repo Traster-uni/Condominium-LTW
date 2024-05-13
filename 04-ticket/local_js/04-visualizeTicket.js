@@ -4,9 +4,17 @@ fetch('04-ticket/local_php/get_ticket.php')
         // Ottieni il riferimento all'elemento contenitore dei bottoni
         const tabContainer = document.querySelector('.tab');
 
+        // Ottengo l'anno corrente
         const currentDate = new Date().getFullYear();
+
+        // Ordino gli anni del json
+        const years = Object.keys(ticketsByYear).sort((a, b) => b - a);
+
         // Itera sui ticket per ogni anno
-        Object.keys(ticketsByYear).forEach(year => {
+        years.forEach(year => {
+            // Ordino in base alla lastreplay
+            ticketsByYear[year].sort((a, b) => new Date(b.time_lastreplay) - new Date(a.time_lastreplay));
+
             // Creare il bottone per l'anno corrente
             const button = document.createElement('button');
             const annoButton = parseInt(year);
@@ -54,12 +62,22 @@ fetch('04-ticket/local_php/get_ticket.php')
 
             // Creare il corpo della tabella e aggiungere le righe per ciascun ticket
             const tbody = document.createElement('tbody');
+            
             tickets.forEach(ticket => {
                 const row = document.createElement('tr');
+
+                // Aggiungi una classe specifica in base al valore di ticket.status
+                let statusClass = '';
+                if (ticket.status === 'open') {
+                    statusClass = 'open';
+                } else {
+                    statusClass = 'closed';
+                }
+
                 row.innerHTML = `
                     <td>${ticket.title}</td>
                     <td>${ticket.time_born}</td>
-                    <td>${ticket.status}</td>
+                    <td class="${statusClass}">${ticket.status}</td>
                     <td>${ticket.time_lastreplay}</td>
                 `;
                 tbody.appendChild(row);
@@ -75,5 +93,5 @@ fetch('04-ticket/local_php/get_ticket.php')
             tabContainer.appendChild(section);
         });
         document.getElementById("currentDate").click();
-    })
-    .catch(error => console.error('Errore nel recupero dei ticket:', error));
+
+    }).catch(error => console.error('Errore nel recupero dei ticket:', error));

@@ -2,10 +2,12 @@ h2 {
     font-size: 25px;
 }
 
+body {
+    margin: 0;
+}
+
 .flexbox {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
+    padding-top: 62px;
 }
 
 .profile-pic img {
