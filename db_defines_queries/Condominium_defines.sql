@@ -202,6 +202,7 @@ CREATE TABLE IF NOT EXISTS post_thread(
 CREATE TABLE IF NOT EXISTS reply_thread(
 	thread_id integer,
 	ud_id integer,
+	msg text,
 	PRIMARY KEY (thread_id, ud_id),
 	FOREIGN KEY (thread_id) REFERENCES post_thread(thread_id),
 	FOREIGN KEY (ud_id) REFERENCES ut_owner(utReq_id)
@@ -229,7 +230,7 @@ CREATE TABLE IF NOT EXISTS tickets(
 	aptBlock_admin integer,	-- therad is related to a certain post
 	title varchar(50) NOT NULL,
 	status ticket_status NOT NULL,
-	comm_text text[] NOT NULL,
+	comm_text text NOT NULL,
 	imgs_fname varchar(100),
 	time_born timestamp NOT NULL, 		-- current_time
 	time_lastReplay timestamp NOT NULL, -- current_time last reply
