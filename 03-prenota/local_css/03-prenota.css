@@ -167,3 +167,11 @@
 .submit:hover {
   background-color: #3bbd4c;
 }
+
+.test {
+  background-color: white;
+}
+
+.test:hover {
+  cursor: pointer;
+}

@@ -152,10 +152,17 @@ body {
   border: 1px solid #00000057;
   text-align: center;
   vertical-align: top;
-  background: #ffffff;
+  user-select: none;
 }
 
 /* Date picker */
+
+.today {
+  background-color: rgb(181, 255, 188);
+  font-weight: bold;
+  outline: 1px dashed #00bcd4;
+}
+
 .date-picker.selected {
   background-color: rgb(181, 255, 188);
   font-weight: bold;
@@ -166,22 +173,20 @@ body {
   border-bottom: 2px solid currentColor;
 }
 
-/* Day-specific styling */
-.date-picker:nth-child(1) {
-  color: red;
-  /* Sunday */
-}
-
-.date-picker:nth-child(6) {
-  color: green;
-  /* Friday */
-}
-
 /* Hover effect for date cells */
 .date-picker:hover {
   background-color: green;
   color: white;
   cursor: pointer;
+}
+
+.selectable:hover {
+  background-color: rgba(86, 213, 255, 0.651);
+  cursor: pointer;
+}
+
+.choosen {
+  background-color: rgb(86, 213, 255);
 }
 
 /* Header for month and year */

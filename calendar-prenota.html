@@ -2,34 +2,23 @@
 <div class="container-calendar">
   <div id="right">
     <div class="button-container-calendar" style="margin-bottom: 10px">
-      <button id="previous1" onclick="previous1()">‹</button>
+      <button
+        type="button"
+        id="previous1-button"
+        onclick="previous1(), getDays()"
+      >
+        ‹
+      </button>
       <h3 id="monthAndYear1" style="font-size: 22px"></h3>
-      <button id="next1" onclick="next1()">›</button>
+      <button type="button" id="next1-button" onclick="next1(), getDays()">
+        ›
+      </button>
     </div>
     <table class="table-calendar" id="calendar1" data-lang="it">
       <thead id="thead-month1"></thead>
       <!-- Table body for displaying the calendar -->
       <tbody id="calendar-body1"></tbody>
     </table>
-    <div class="footer-container-calendar">
-      <!-- Dropdowns to select a specific month and year -->
-      <select id="month" onchange="jump()">
-        <option value="0">Gen</option>
-        <option value="1">Feb</option>
-        <option value="2">Mar</option>
-        <option value="3">Apr</option>
-        <option value="4">Mag</option>
-        <option value="5">Giu</option>
-        <option value="6">Lug</option>
-        <option value="7">Ago</option>
-        <option value="8">Set</option>
-        <option value="9">Ott</option>
-        <option value="10">Nov</option>
-        <option value="11">Dic</option>
-      </select>
-      <!-- Dropdown to select a specific year -->
-      <select id="year" onchange="jump()"></select>
-    </div>
   </div>
 </div>
 

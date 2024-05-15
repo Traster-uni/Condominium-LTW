@@ -9,6 +9,18 @@
     <title>Prenota</title>
   </head>
   <body>
+    <?php
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=postgres password=service");
+    if (!$connection) {
+      echo "Errore, connessione non riuscita.<br>";
+      exit;
+    }
+
+    $result = pg_query($connection, "SELECT * FROM common_spaces");
+    $common_space_name = pg_fetch_all_columns($result, 1);
+    $aptblock_imgs_dir = pg_fetch_all_columns($result, 4);
+    ?>
+    
     <script src="./03-prenota/local_js/03-prenota.js"></script>
     <!--Navigation bar-->
     <div id="navbar"></div>
@@ -33,16 +45,20 @@
       <div class="colonna-centrale">
         <div class="luoghi">
           <figure class="luogo">
-            Luogo 1
+            <?php
+            echo "$common_space_name[0]"
+            ?>
             <img src="03-prenota/images/1.jpg" class="immagine" />
             <div class="overlay">
-              <button class="bottone" href="#" onclick="show('popup1')">
+              <button class="bottone" href="#" onclick="show('popup1'), getDays()">
                 PRENOTA
               </button>
             </div>
           </figure>
           <figure class="luogo">
-            Luogo 2
+            <?php
+            echo "$common_space_name[1]"
+            ?>
             <img src="03-prenota/images/2.jpg" class="immagine" />
             <div class="overlay">
               <button class="bottone" href="#" onclick="show('popup2')">
@@ -51,7 +67,9 @@
             </div>
           </figure>
           <figure class="luogo">
-            Luogo 3
+            <?php
+            echo "$common_space_name[2]"
+            ?>
             <img src="03-prenota/images/3.jpg" class="immagine" />
             <div class="overlay">
               <button class="bottone" href="#" onclick="show('popup3')">
@@ -59,15 +77,17 @@
               </button>
             </div>
           </figure>
+          <td></td>
         </div>
         <div class="popup" id="popup1">
           <div>
             <h3 style="font-size: 20px">Luogo 1</h3>
-            <img src="03-prenota/images/1.jpeg" class="immagine" />
+            <img src="03-prenota/images/1.jpg" class="immagine" />
           </div>
-          <div class="popup-form">
+          
+          <form class="popup-form">
             <div style="text-align: right">
-              <button class="close" href="#" onclick="hide('popup1')"></button>
+              <button type="button" class="close" href="#" onclick="hide('popup1')"></button>
             </div>
             <div style="text-align: center">
               <div id="calendar1"></div>
@@ -76,8 +96,9 @@
                   $("#calendar1").load("calendar-prenota.html");
                 });
               </script>
+              <input type="hidden" id="choosenDate" name="choosenDate">
             </div>
-            <form class="popup-form-bottom">
+            <div class="popup-form-bottom">
               <label
                 for="time-start"
                 style="font-weight: 600; margin-right: 5px"
@@ -87,7 +108,6 @@
                 id="time-start"
                 type="time"
                 style="margin-right: 10px"
-                required
               />
               <label for="time-end" style="font-weight: 600; margin-right: 5px"
                 >Alle:</label
@@ -96,7 +116,6 @@
                 id="time-end"
                 type="time"
                 style="margin-right: 20px"
-                required
               />
               <input
                 type="submit"
@@ -104,8 +123,8 @@
                 class="submit"
                 onclick="checkTime(event)"
               />
+              </div>
             </form>
-          </div>
         </div>
         <div class="popup" id="popup2">
           <div>
@@ -151,9 +170,7 @@
       <div style="background-color: rgb(101, 189, 113); width: 20%">
         <div class="contatti-utili">
           <ul>
-            <li class="contatti-utili__nome">
-              Nome - Amministratore Cellulare
-            </li>
+            <li class="contatti-utili__nome">Nome - Amministratore Cellulare</li>
             <li class="contatti-utili__nome">Nome - Elettricista Cellulare</li>
             <li class="contatti-utili__nome">Nome - Fabbro Cellulare</li>
             <li class="contatti-utili__nome">Nome - Idraulico Cellulare</li>
