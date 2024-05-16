@@ -68,10 +68,8 @@ ALTER TABLE ut_owner
     RENAME COLUMN ut_doc_fname TO ut_ownership_doc_fname,
     DROP COLUMN codice_fiscale;
 
-TODO:
-	Autoconnect sul server php su PostgreSQL
-	Trovare un modo per caricarre file binari su cartella remota server 
-	pagina di login HTML+php
+
+$_FILES
 Array ( [upload-img] => 
 			Array ( [name] => FB_IMG_1533802567848.jpg 
 					[full_path] => FB_IMG_1533802567848.jpg 
@@ -80,28 +78,7 @@ Array ( [upload-img] =>
 					[size] => 30545 ) 
 		)
 
-Warning: Undefined array key "email" in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 71
-
-Warning: Undefined variable $ABS_PATH in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 76
-\users\\pictures\photos\fb_img_1533802567848.jpg
-
-Warning: Undefined variable $ABS_PATH in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 81
-
-Warning: chdir(): No such file or directory (errno 2) in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 81
-
-Warning: mkdir(): No such file or directory in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 82
-
-Warning: Undefined variable $target_fname in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 85
-
-Warning: move_uploaded_file(): Unable to move "C:\Users\trast\AppData\Local\Temp\php7569.tmp" to "" 
-	in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 85
-
-Fatal error: Uncaught ValueError: Path cannot be empty in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php:85 
-	Stack trace: #0 C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php(85): move_uploaded_file() #1 {main} 
-		thrown in C:\LTW-Condominium\Condominiunm-LTW\global\04-php\upload.php on line 85
-
---------------------------------------------------------------------------------------------------
-$_FILES
+$_FILES empty
 Array ( [upload-img] => Array ( 
 						[name] => 
 						[full_path] => 
@@ -150,4 +127,55 @@ Array ( [DOCUMENT_ROOT] => C:\LTW-Condominium
 		[REQUEST_TIME] => 1715433194 )
 
 
-Warning: chdir(): No such file or directory (errno 2) in C:\LTW-Condominium\Condominium-LTW\global\04-php\upload.php on line 115
+Array ( [upload-img] => Array ( [name] => FB_IMG_1533802567848.jpg 
+								[full_path] => FB_IMG_1533802567848.jpg 
+								[type] => image/jpeg 
+								[tmp_name] => C:\Users\trast\AppData\Local\Temp\phpDE37.tmp 
+								[error] => 0 
+								[size] => 30545 ) )
+
+UPLOAD_ERR_OK
+Value: 0; There is no error, the file uploaded with success.
+
+UPLOAD_ERR_INI_SIZE
+Value: 1; The uploaded file exceeds the upload_max_filesize directive in php.ini.
+
+UPLOAD_ERR_FORM_SIZE
+Value: 2; The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.
+
+UPLOAD_ERR_PARTIAL
+Value: 3; The uploaded file was only partially uploaded.
+
+UPLOAD_ERR_NO_FILE
+Value: 4; No file was uploaded.
+
+UPLOAD_ERR_NO_TMP_DIR
+Value: 6; Missing a temporary folder.
+
+UPLOAD_ERR_CANT_WRITE
+Value: 7; Failed to write file to disk.
+
+UPLOAD_ERR_EXTENSION
+
+TODO:
+	Autoconnect dal server php su PostgreSQL
+	pagina di login HTML+php
+
+(1) pagina html ricerca
+riaggiustare grafica utente 
+calendario rettivo alle attivita
+prenotazione common spaces utente
+posts e threads
+
+admin funcs
+ 	creazione di Condominio
+	Risposta ticket
+	definizione common spaces
+	gestione dei pagamenti --- mock
+	definizione tags 
+
+NOTA BENE: 
+	System requires specific roles for
+		new user to check on login schema and only the login schema
+		new role where all the registered user will login under.
+		
