@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 /* Add a black background color to the top navigation bar */
 .topnav {
   overflow: hidden;
@@ -37,6 +38,8 @@
   font-size: 17px;
 }
 
+=======
+>>>>>>> Stashed changes
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -74,6 +77,7 @@
 @keyframes animatetop {
   from {top:-300px; opacity:0}
   to {top:0; opacity:1}
+<<<<<<< Updated upstream
 }
 
 /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
@@ -89,4 +93,6 @@
 .topnav input[type=text] {
     border: 1px solid #ccc;
   }
+=======
+>>>>>>> Stashed changes
 }
