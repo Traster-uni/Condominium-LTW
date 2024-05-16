@@ -17,6 +17,7 @@
     <style>
       body,
       h1 {
+        margin: 0;
         font-family: "Lato", sans-serif;
       }
       button {
@@ -41,7 +42,7 @@
         <!--Modale per la registrazione-->
         <div class="modal" id="modalSignIn">
           <div class="modal-content">
-            <div class="modal-header"><h2>Registrazione</h2><span class="close">&times;</span></div>
+            <div class="modal-header"><h2>Registrazione</h2><button class="close-button" type="button"><span class="close">&times;</span></button></div>
             <div class="modal-body"><p>Form di registrazione</p>
             <form action="./01-login/local_php/register.php" method="POST">
               <label for="nome">Nome:</label>
@@ -102,7 +103,7 @@
         </div>
 
         <!--Modale per il log in-->
-        <div class="modal" id="modalLogIn">
+        <div class="modal" id="modalLogin">
           <div class="modal-content">
             <div class="modal-header">Accedi</div>
             <div class="modal-body"><p>Login</p>

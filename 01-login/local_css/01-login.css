@@ -41,6 +41,10 @@
   opacity: 0.85;
 }
 
+.close-button {
+  position: ;
+}
+
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
