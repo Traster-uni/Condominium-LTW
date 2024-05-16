@@ -1,7 +1,7 @@
 .flexbox {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  height: 93.1vh;
   padding-top: 49px;
 }
 
@@ -59,4 +59,8 @@
 .contatti-utili__nome {
   border-bottom: 1px solid #ccc;
   padding: 1.5rem 2rem;
+}
+
+.tabcontent {
+  display: none;
 }
