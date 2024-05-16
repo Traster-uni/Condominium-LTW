@@ -35,6 +35,9 @@ CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
 
 ALTER TABLE tickets
 	ADD COLUMN status ticket_status NOT NULL
+ALTER TABLE rental_request
+	RENAME COLUMN rental_datatime_start TO rental_datetime_start
+	RENAME COLUMN rental_datatime_end TO rental_datetime_start
 ---------------------------------------------
 
 CREATE TABLE IF NOT EXISTS region(
@@ -90,7 +93,7 @@ CREATE TABLE IF NOT EXISTS aptBlock_admin(
 CREATE TABLE IF NOT EXISTS req_aptBlock_create(
 	ut_id integer,
 	aptBlockReq_id serial,
-	time_born timestamp NOT NULL,
+	time_born timestamp DEFAULT current_timestamp,
 	time_mod timestamp,
 	stat request_status NOT NULL,
 	addr_aptB varchar(50) NOT NULL,
@@ -119,7 +122,7 @@ CREATE TABLE IF NOT EXISTS req_ut_access(
 	ut_id integer,
 	utReq_id serial,
 	aptBlock_id integer,
-	time_born timestamp NOT NULL,
+	time_born timestamp DEFAULT current_timestamp,
 	time_mod timestamp NOT NULL,
 	status ut_request_stat NOT NULL,
 	PRIMARY KEY (utReq_id),
@@ -173,7 +176,7 @@ CREATE TABLE IF NOT EXISTS posts(
 	ut_owner_id integer,
 	title varchar(100) NOT NULL,
 	ttext text[] NOT NULL,
-	time_born timestamp NOT NULL, 	-- current_time
+	time_born timestamp DEFAULT current_timestamp, 	-- current_time
 	time_edit timestamp NOT NULL,	-- current_time at time of last modification
 	data_json json,		-- to be defined: JSON module for polls and JSON module for payments
 	off_comments bool DEFAULT false,
@@ -189,8 +192,8 @@ CREATE TABLE IF NOT EXISTS post_thread(
 	thread_id serial,
 	ud_id integer,
 	post_id integer,	-- therad is related to a certain post
-	comm_text text[],
-	time_born timestamp NOT NULL, 		-- current_time
+	comm_text text,
+	time_born timestamp DEFAULT current_timestamp, 		-- current_time
 	time_lastReplay timestamp NOT NULL, -- current_time last reply
 	PRIMARY KEY (thread_id),
 	FOREIGN KEY (post_id) REFERENCES posts(post_id),
@@ -232,7 +235,7 @@ CREATE TABLE IF NOT EXISTS tickets(
 	status ticket_status NOT NULL,
 	comm_text text NOT NULL,
 	imgs_fname varchar(100),
-	time_born timestamp NOT NULL, 		-- current_time
+	time_born timestamp DEFAULT current_timestamp, 		-- current_time
 	time_lastReplay timestamp NOT NULL, -- current_time last reply
 	PRIMARY KEY (ticket_id),
 	FOREIGN KEY (aptBlock_admin) REFERENCES aptBlock_admin(ut_id),
@@ -275,3 +278,9 @@ CREATE TABLE IF NOT EXISTS rental_request(
 
 -------------------------------------------------------------------------------
 
+ALTER TABLE rental_request
+	RENAME COLUMN rental_time TO rental_datetime_start
+	ALTER COLUMN rental_datetime_start TYPE timestamp NOT NULL 
+	DROP COLUMN period
+	ADD COLUMN rental_datetime_end timestamp NOT NULL CHECK(rental_datetime_end > rental_datetime_start),
+	

@@ -19,7 +19,7 @@
             $qry = "SELECT passwd
                     FROM ut_registered ut_r
                     WHERE ut_r = ut_email";
-            $qry_result = pg_query(qry);
+            $qry_result = pg_query($connection, $qry);
             if (!$qry_result){
                 echo "Something went wrong";
                 echo pg_result_error($qry_result);

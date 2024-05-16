@@ -24,6 +24,8 @@ AS $$
 	except plpy.SPIError:
 		return "something went wrong"
 	else:
+		if len(qry_result) == 0:
+			return "OK"
 		if qry_result[0]["num_req"] > 5:
 			raise plpy.error(f"Max num of requests reached for {usr_id}, rolling back")
 		else:
@@ -131,7 +133,14 @@ CREATE OR REPLACE TRIGGER insert_bulletinBoard_on_aptBlock_creation AFTER INSERT
 	FOR EACH ROW EXECUTE FUNCTION define_relative_bulletinBoards();
 -- Triggers insertion of admin and general board once a new aptBlock has been defined.
 
-DROP TRIGGER insert_bulletinBoard_on_aptBlock_creation ON aptBlock
+CREATE OR REPLACE FUNCTION timestamp_update_on_update() RETURN trigger
+AS $$ 
+
+$$ LANGUAGE plpython3u;
+
+CREATE OR REPLACE TRIGGER timestamp_update_on_update AFTER MODIFY ON tickets
+	FOR EACH ROW EXECUTE timestamp_update_on_update();
+
 -- TO MODIFY TRIGGERS:
 -- DROP TRIGGER rental_req_stamp ON rental_request;
 -- DROP FUNCTION max_rental_req_accepted_per_user();

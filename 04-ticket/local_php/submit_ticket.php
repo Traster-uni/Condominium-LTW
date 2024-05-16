@@ -14,23 +14,28 @@
 
         $titolo = htmlspecialchars($_POST["titolo"]);
         $comm_text = htmlspecialchars($_POST["descrizione"]);
-        $id = 1;
+        $id = 1; // TODO: modify to adapt to instance connection
         $data = date("Y-m-d");
 
         //Query per prendere l'id dell'admin
-        $query = "SELECT req_aptblock_create.ut_id AS admin_id FROM req_ut_access JOIN req_aptblock_create ON req_ut_access.aptblock_id = req_aptblock_create.aptblockreq_id WHERE req_ut_access.status = 'accepted' AND req_ut_access.ut_id = $id";
+        $query = "SELECT req_aptblock_create.ut_id AS admin_id 
+                    FROM req_ut_access req_ua JOIN req_aptblock_create req_ac 
+                        ON req_ua.aptblock_id = req_ac.aptblockreq_id 
+                    WHERE req_ua.status = 'accepted' 
+                        AND req_ua.ut_id = $id";
         $admin_id = pg_fetch_result(pg_query($connection, $query), 0, 'admin_id');
 
         //Preparo la query
-        $q = "INSERT INTO tickets(ud_id, aptblock_admin, title, comm_text, time_born, time_lastreplay, status) VALUES ('$id', '$admin_id', '$titolo', '$comm_text', '$data', '$data', 'open')";
-        $result = pg_query($connection, $q);
+        $qry_ticket = "INSERT INTO tickets(ud_id, aptblock_admin, title, comm_text, time_born, time_lastreplay, status) 
+                        VALUES ('$id', '$admin_id', '$titolo', '$comm_text', '$data', '$data', 'open')";
+        $result_ticket_insert = pg_query($connection, $qry_ticket);
 
         // Verifica se l'inserimento è avvenuto con successo
-        if ($result) {
-            echo "Registrazione avvenuta con successo!";
+        if ($result_ticket_insert) {
+            echo "Ticket sent successfully!";
             header("Location: /04-ticket.html");
         } else {
-            echo "Errore durante la registrazione: " . pg_last_error($connection);
+            echo "Ticket not sent, ERROR: " . pg_result_error($result_ticket_insert);
         }
     }
 
