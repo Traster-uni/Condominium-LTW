@@ -1,3 +1,10 @@
+.flexbox {
+  display: flex;
+  flex-direction: row;
+  height: 93.1vh;
+  padding-top: 70px;
+}
+
 .colonna-centrale {
   background-color: rgb(255, 255, 255);
   flex: 1;
