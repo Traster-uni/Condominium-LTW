@@ -14,13 +14,6 @@
 // allow script to wait for a connection
 // set_time_limit(0);
 
-// Verifico che la connessione sia avvenuta con successo
-// if (!$connection) {
-//     echo "Errore, connessione non riuscita.<br>";
-//     exit;
-// } else {
-//     echo "connected";
-// }
 // define($ABS_PATH, "C:\\LTW-Condominium\\Condominiunm-LTW\\tests\\");
 // ini_set('display_errors', 1);
 // error_reporting(E_ALL);
