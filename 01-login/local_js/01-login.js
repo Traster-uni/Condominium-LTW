@@ -1,10 +1,10 @@
 // Get the modal
-var modalSignIn = document.getElementById("modalSignIn");
-var modalLogin = document.getElementById("modalLogin");
+var modalSignIn = document.getElementById("modal-signin");
+var modalLogin = document.getElementById("modal-login");
 
 // Get the button that opens the modal
-var btnSignIn = document.getElementById("signInButton");
-var btnLogin = document.getElementById("loginButton");
+var btnSignIn = document.getElementById("signin-button");
+var btnLogin = document.getElementById("login-button");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];

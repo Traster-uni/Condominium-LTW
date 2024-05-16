@@ -12,7 +12,7 @@
   background-color: #2f9b3d;
 }
 .lightgreen {
-  background-color: #c0cec2;
+  background-color: rgb(101, 189, 113);
 }
 .grid {
   display: grid;
@@ -39,10 +39,6 @@
 }
 .button:hover {
   opacity: 0.85;
-}
-
-.close-button {
-  position: ;
 }
 
 .modal {

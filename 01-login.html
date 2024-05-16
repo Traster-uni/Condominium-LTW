@@ -35,14 +35,14 @@
         </header>
 
         <div class="buttons">
-          <button class="button" id="signInButton"> REGISTRATI </button>
-          <button class="button" id="loginButton"> LOGIN </button>
+          <button class="button" id="signin-button"> REGISTRATI </button>
+          <button class="button" id="login-button"> LOGIN </button>
         </div>
 
         <!--Modale per la registrazione-->
-        <div class="modal" id="modalSignIn">
+        <div class="modal" id="modal-signin">
           <div class="modal-content">
-            <div class="modal-header"><h2>Registrazione</h2><button class="close-button" type="button"><span class="close">&times;</span></button></div>
+            <div class="modal-header"><h2>Registrazione</h2><span class="close">&times;</span></div>
             <div class="modal-body"><p>Form di registrazione</p>
             <form action="./01-login/local_php/register.php" method="POST">
               <label for="nome">Nome:</label>
@@ -103,7 +103,7 @@
         </div>
 
         <!--Modale per il log in-->
-        <div class="modal" id="modalLogin">
+        <div class="modal" id="modal-login">
           <div class="modal-content">
             <div class="modal-header">Accedi</div>
             <div class="modal-body"><p>Login</p>
@@ -112,6 +112,7 @@
                 <input type="email" name="email" id="email">
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password">
+                
               </form>
             </div>
             <div class="modal-footer">Footer</div>

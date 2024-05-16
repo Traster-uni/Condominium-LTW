@@ -36,30 +36,40 @@
         <!--End of calendar-->
       </div>
       <div style="background-color: rgb(255, 255, 255); flex: 1">
-        <ul class="bacheca">
-          <li class="bacheca-types">
+        <div class="bacheca">
+          <div class="bacheca-types">
             <input
               class="bacheca-types__input"
-              type="radio"
+              type="button"
               name="bacheca-types"
               value="padmin"
               id="padmin"
+              onclick="openTab(event, tab-admin)"
             />
             <label class="bacheca-types__label" for="padmin">Post Admin</label>
-          </li>
-          <li class="bacheca-types">
+          </div>
+          <div class="bacheca-types">
             <input
               class="bacheca-types__input"
-              type="radio"
+              type="button"
               name="bacheca-types"
               value="putente"
               id="putente"
+              onclick="openTab(event, tab-utente)"
             />
             <label class="bacheca-types__label" for="putente"
               >Post Utente</label
             >
-          </li>
-        </ul>
+          </div>
+
+          <section class="tabcontent" id="tab-admin">
+
+          </section>
+
+          <section id="tabcontent" id="tab-utente">
+
+          </section>
+        </div>
       </div>
       <div style="background-color: rgb(101, 189, 113); width: 20%">
         <div class="contatti-utili">
@@ -74,5 +84,6 @@
         </div>
       </div>
     </div>
+  <script>document.getElementById("padmin").click();</script>
   </body>
 </html>
