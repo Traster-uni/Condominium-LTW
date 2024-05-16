@@ -102,22 +102,22 @@
             </div>
             <div class="popup-form-bottom">
               <label
-                for="time-start"
+                for="time_start"
                 style="font-weight: 600; margin-right: 5px"
                 >Dalle:</label
               >
               <input
-                id="time-start"
-                name="inizio"
+                id="time_start"
+                name="time_start"
                 type="time"
                 style="margin-right: 10px"
               />
-              <label for="time-end" style="font-weight: 600; margin-right: 5px"
+              <label for="time_end" style="font-weight: 600; margin-right: 5px"
                 >Alle:</label
               >
               <input
-                id="time-end"
-                name="fine"
+                id="time_end"
+                name="time_end"
                 type="time"
                 style="margin-right: 20px"
               />

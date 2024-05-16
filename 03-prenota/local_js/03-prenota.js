@@ -7,8 +7,8 @@ var hide = function (id) {
 };
 
 function checkTime(event) {
-  const timeStart = document.getElementById("time-start").value;
-  const timeEnd = document.getElementById("time-end").value;
+  const timeStart = document.getElementById("time_start").value;
+  const timeEnd = document.getElementById("time_end").value;
 
   if (timeEnd <= timeStart) {
     event.preventDefault();
