@@ -45,22 +45,3 @@
   background: #eee;
   color: #333;
 }
-
-.contatti-utili {
-  display: grid;
-  margin: 5rem auto;
-  overflow: auto;
-  background-color: white;
-  width: 90%;
-  max-width: 40rem;
-  box-shadow: 0 1rem 2.5rem rgb(84, 126, 83);
-}
-
-.contatti-utili__nome {
-  border-bottom: 1px solid #ccc;
-  padding: 1.5rem 2rem;
-}
-
-.tabcontent {
-  display: none;
-}

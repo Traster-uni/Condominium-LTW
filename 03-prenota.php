@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./03-prenota/local_css/03-prenota.css" />
+    <link rel="stylesheet" href="global/01-css/contatti.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Prenota</title>
   </head>
