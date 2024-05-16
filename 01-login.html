@@ -35,7 +35,7 @@
 
         <div class="buttons">
           <button class="button" id="signInButton"> REGISTRATI </button>
-          <button class="button"> LOGIN </button>
+          <button class="button" id="loginButton"> LOGIN </button>
         </div>
 
         <!--Modale per la registrazione-->
@@ -105,7 +105,14 @@
         <div class="modal" id="modalLogIn">
           <div class="modal-content">
             <div class="modal-header">Accedi</div>
-            <div class="modal-body">Form di Login</div>
+            <div class="modal-body"><p>Login</p>
+              <form action="" method="post">
+                <label for="email">E-Mail:</label>
+                <input type="email" name="email" id="email">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+              </form>
+            </div>
             <div class="modal-footer">Footer</div>
           </div>
         </div>
