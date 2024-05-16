@@ -151,8 +151,12 @@ function getDays() {
   console.log(calendarDays);
   calendarDays.forEach((day) => {
     day.addEventListener("click", function () {
-      const choosenDate = this.textContent; // Get the selected date
-      document.getElementById("choosenDate").value = choosenDate; // Set the value of the hidden input field
+      const giorno = this.getAttribute("data-date");
+      const mese = this.getAttribute("data-month");
+      const anno = this.getAttribute("data-year");
+      document.getElementById("giorno").value = giorno; // Set the value of the hidden input field
+      document.getElementById("mese").value = mese; // Set the value of the hidden input field
+      document.getElementById("anno").value = anno; // Set the value of the hidden input field
       // Add some visual feedback for the selected date
       calendarDays.forEach((day) => {
         day.classList.remove("choosen");

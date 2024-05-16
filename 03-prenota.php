@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./02-home/local_css/02-home.css" />
     <link rel="stylesheet" href="./03-prenota/local_css/03-prenota.css" />
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Prenota</title>
@@ -85,7 +84,7 @@
             <img src="03-prenota/images/1.jpg" class="immagine" />
           </div>
           
-          <form class="popup-form">
+          <form class="popup-form" action="./03-prenota/local_php/prenotazione.php" method="POST">
             <div style="text-align: right">
               <button type="button" class="close" href="#" onclick="hide('popup1')"></button>
             </div>
@@ -96,7 +95,9 @@
                   $("#calendar1").load("calendar-prenota.html");
                 });
               </script>
-              <input type="hidden" id="choosenDate" name="choosenDate">
+              <input type="hidden" id="giorno" name="giorno">
+              <input type="hidden" id="mese" name="mese">
+              <input type="hidden" id="anno" name="anno">
             </div>
             <div class="popup-form-bottom">
               <label
@@ -106,6 +107,7 @@
               >
               <input
                 id="time-start"
+                name="inizio"
                 type="time"
                 style="margin-right: 10px"
               />
@@ -114,6 +116,7 @@
               >
               <input
                 id="time-end"
+                name="fine"
                 type="time"
                 style="margin-right: 20px"
               />
