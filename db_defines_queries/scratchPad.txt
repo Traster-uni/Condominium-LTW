@@ -178,4 +178,15 @@ NOTA BENE:
 	System requires specific roles for
 		new user to check on login schema and only the login schema
 		new role where all the registered user will login under.
-		
+
+
+
+
+3. Restrict Access to Authenticated Users
+On pages that require authentication, check if the session variables are set. If they are not, redirect the user to the login page.
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
