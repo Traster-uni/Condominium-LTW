@@ -57,7 +57,7 @@
               <p><?php echo htmlspecialchars($row['common_space_name']); ?></p>
               <p>
                 <?php
-                $image_path = str_replace("\\", "/", $row['aptblock_imgs_dir']);
+                $image_path = str_replace("\\", "/", $row['imgs_dir']);
                 $image_path = 'tests/common_spaces_images/' . basename($image_path);
                 ?>
                 <img src="<?php echo htmlspecialchars($image_path); ?>" class="immagine">
@@ -67,11 +67,69 @@
                   PRENOTA
                 </button>
               </div>
+              <div class="popup" id="popup1">
+
+                <div>
+                  <h3 style="font-size: 20px"><?php echo htmlspecialchars($row['common_space_name']); ?></h3>
+                  <p>
+                    <?php
+                    $image_path = str_replace("\\", "/", $row['imgs_dir']);
+                    $image_path = 'tests/common_spaces_images/' . basename($image_path);
+                    ?>
+                    <img src="<?php echo htmlspecialchars($image_path); ?>" class="immagine">
+                  </p>
+                </div>
+            
+                <form class="popup-form" action="./03-prenota/local_php/prenotazione.php" method="POST">
+                  <div style="text-align: right">
+                    <button type="button" class="close" href="#" onclick="hide('popup1')"></button>
+                  </div>
+                  <div style="text-align: center">
+                    <div id="calendar1"></div>
+                    <script>
+                      $(function () {
+                        $("#calendar1").load("calendar-prenota.html");
+                      });
+                    </script>
+                    <input type="hidden" id="giorno" name="giorno">
+                    <input type="hidden" id="mese" name="mese">
+                    <input type="hidden" id="anno" name="anno">
+                  </div>
+                  <div class="popup-form-bottom">
+                    <label
+                      for="time_start"
+                      style="font-weight: 600; margin-right: 5px"
+                      >Dalle:</label
+                    >
+                    <input
+                      id="time_start"
+                      name="time_start"
+                      type="time"
+                      style="margin-right: 10px"
+                    />
+                    <label for="time_end" style="font-weight: 600; margin-right: 5px"
+                      >Alle:</label
+                    >
+                    <input
+                      id="time_end"
+                      name="time_end"
+                      type="time"
+                      style="margin-right: 20px"
+                    />
+                    <input
+                      type="submit"
+                      value="Conferma"
+                      class="submit"
+                      onclick="checkTime(event)"
+                    />
+                  </div>
+                </form>
+              </div>
             </figure>
           <?php endwhile; ?>
         </div>
-        <div class="popup" id="popup1">
-          
+        <!-- <div class="popup" id="popup1">
+
           <div>
             <h3 style="font-size: 20px">Luogo 1</h3>
             <img src="03-prenota/images/1.jpg" class="immagine" />
@@ -121,7 +179,7 @@
               />
               </div>
             </form>
-        </div>
+        </div> -->
         <div class="popup" id="popup2">
           <div>
             <img src="03-prenota/images/2.jpg" class="immagine" />
