@@ -10,6 +10,7 @@
   </head>
   <body>
     <?php
+
     $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=postgres password=service");
     /* $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=".$_SESSION['email']." password=".$_SESSION['password']); */
     if (!$connection) {
@@ -17,16 +18,15 @@
       exit;
     }
 
-    session_start();
+    /* session_start();
 
     if (!isset($_SESSION['ut_id'])) {
       header('01-login.html');
       exit();
-    }
+    } */
 
     $result = pg_query($connection, "SELECT * FROM common_spaces");
-    $common_space_name = pg_fetch_all_columns($result, 1);
-    $aptblock_imgs_dir = pg_fetch_all_columns($result, 4);
+
     ?>
     
     <script src="./03-prenota/local_js/03-prenota.js"></script>
@@ -52,42 +52,26 @@
       </div>
       <div class="colonna-centrale">
         <div class="luoghi">
-          <figure class="luogo">
-            <?php
-            echo "$common_space_name[0]"
-            ?>
-            <img src="03-prenota/images/1.jpg" class="immagine" />
-            <div class="overlay">
-              <button class="bottone" href="#" onclick="show('popup1'), getDays()">
-                PRENOTA
-              </button>
-            </div>
-          </figure>
-          <figure class="luogo">
-            <?php
-            echo "$common_space_name[1]"
-            ?>
-            <img src="03-prenota/images/2.jpg" class="immagine" />
-            <div class="overlay">
-              <button class="bottone" href="#" onclick="show('popup2')">
-                PRENOTA
-              </button>
-            </div>
-          </figure>
-          <figure class="luogo">
-            <?php
-            echo "$common_space_name[2]"
-            ?>
-            <img src="03-prenota/images/3.jpg" class="immagine" />
-            <div class="overlay">
-              <button class="bottone" href="#" onclick="show('popup3')">
-                PRENOTA
-              </button>
-            </div>
-          </figure>
-          <td></td>
+          <?php while ($row = pg_fetch_assoc($result)): ?>
+            <figure class="luogo">
+              <p><?php echo htmlspecialchars($row['common_space_name']); ?></p>
+              <p>
+                <?php
+                $image_path = str_replace("\\", "/", $row['aptblock_imgs_dir']);
+                $image_path = 'tests/common_spaces_images/' . basename($image_path);
+                ?>
+                <img src="<?php echo htmlspecialchars($image_path); ?>" class="immagine">
+              </p>
+              <div class="overlay">
+                <button class="bottone" href="#" onclick="show('popup1'), getDays()">
+                  PRENOTA
+                </button>
+              </div>
+            </figure>
+          <?php endwhile; ?>
         </div>
         <div class="popup" id="popup1">
+          
           <div>
             <h3 style="font-size: 20px">Luogo 1</h3>
             <img src="03-prenota/images/1.jpg" class="immagine" />
