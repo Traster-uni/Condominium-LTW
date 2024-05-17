@@ -190,3 +190,11 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
+
+todoç verifica che le immagini di 03-prenota.php siano visualizzate correttamente
+
+tommaso@site.it - service
+
+
+Warning: Undefined array key "email" in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\login.php on line 48
+13 service

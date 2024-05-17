@@ -257,6 +257,7 @@ CREATE TABLE IF NOT EXISTS common_spaces(
 	int_num integer NOT NULL,
 	floor_num integer NOT NULL,
 	common_space_imgs_dir varchar(100),
+	imgs_dir varchar(100),  
 	PRIMARY KEY (common_space_name)
  );
 
