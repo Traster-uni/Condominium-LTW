@@ -1,12 +1,3 @@
-<?php
-  session_start();
-
-  if (!isset($_SESSION['ut_id'])) {
-      header('01-login.html');
-      exit();
-  }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,9 +11,17 @@
   <body>
     <?php
     $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=postgres password=service");
+    /* $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=".$_SESSION['email']." password=".$_SESSION['password']); */
     if (!$connection) {
       echo "Errore, connessione non riuscita.<br>";
       exit;
+    }
+
+    session_start();
+
+    if (!isset($_SESSION['ut_id'])) {
+      header('01-login.html');
+      exit();
     }
 
     $result = pg_query($connection, "SELECT * FROM common_spaces");
@@ -193,3 +192,4 @@
     </div>
   </body>
 </html>
+

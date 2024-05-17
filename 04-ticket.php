@@ -1,12 +1,3 @@
-<?php
-  session_start();
-
-  if (!isset($_SESSION['ut_id'])) {
-      header('01-login.html');
-      exit();
-  }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,6 +15,14 @@
     <title>Ticket</title>
   </head>
   <body>
+    <?php
+    session_start();
+
+    if (!isset($_SESSION['ut_id'])) {
+      header('01-login.html');
+      exit();
+    }
+    ?>
     <!--Navigation bar-->
     <div id="navbar"></div>
     <script>
