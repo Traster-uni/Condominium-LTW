@@ -1,7 +1,7 @@
 <?php
     // TODO: update login credential for this connection
     //open connection
-    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=usr_login password=iamdolly");
     
     // check for succesful connection
     if (!$connection) {
@@ -10,14 +10,6 @@
     } else {
         echo "connected";
     }
-    // may be removed as we don't use HTTPS for logon
-    session_set_cookie_params([
-        'lifetime' => 0, // Session cookie lasts until the browser is closed
-        'path' => '/',
-        'secure' => isset($_SERVER['HTTPS']), // True if using HTTPS
-        'httponly' => true, // Prevents JavaScript access to session cookie
-        'samesite' => 'Strict', // Strict or Lax depending on your needs
-    ]);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["login_button"])){

@@ -1,5 +1,5 @@
 <?php
-    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=usr_register password=iamdolly");
 
     //Verifico che la connessione è avvenuta con successo
     if (!$connection) {
@@ -38,5 +38,6 @@
 
     // Chiudi la connessione al database
     pg_close($connection);
+    session_regenerate_id(true);
 ?>
     

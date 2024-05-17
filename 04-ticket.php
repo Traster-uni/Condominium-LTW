@@ -1,3 +1,12 @@
+<?php
+  session_start();
+
+  if (!isset($_SESSION['ut_id'])) {
+      header('01-login.html');
+      exit();
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,7 +32,6 @@
       });
     </script>
     <!--end of Navigation bar-->
-
     <div class="flexbox">
       <div style="background-color: rgb(101, 189, 113); width: 20%">
         <!--Calendar-->
