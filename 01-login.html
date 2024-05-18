@@ -63,7 +63,7 @@
                   <input type="tel" name="telefono" id="telefono" required>
 
                   <label for="fiscal-code">Codice Fiscale</label>
-                  <input type="number" name="fiscal-code" id="fiscal-code">
+                  <input type="text" name="fiscal-code" id="fiscal-code">
 
                   <label for="documents" style="padding-right: 7px;">Documenti</label>
                   <input type="file" name="documents" id="documents">
@@ -95,7 +95,10 @@
                     <option value="Palermo">Palermo</option>
                     <option value="Cagliari">Cagliari</option>
                   </select>
-                  <button type="button" id="nextBtn"><span class="material-symbols-outlined">chevron_right</span></button>
+                  
+                  <div class="centered-button-container">
+                    <button type="button" id="nextBtn"><span class="material-symbols-outlined">chevron_right</span></button>
+                  </div>
                   
                 </div>
                 <div id="step2" class="form-step" style="display: none;">
@@ -107,7 +110,9 @@
 
                   <input type="submit" value="Invia">
                   
-                  <button type="button" id="prevBtn"><span class="material-symbols-outlined">chevron_left</span></button>
+                  <div class="centered-button-container">
+                    <button type="button" id="prevBtn"><span class="material-symbols-outlined">chevron_left</span></button>
+                  </div>
                 </div>
               </form>
             </div>

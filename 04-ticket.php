@@ -16,12 +16,12 @@
   </head>
   <body>
     <?php
-    session_start();
+      session_start();
 
-    if (!isset($_SESSION['ut_id'])) {
-      header('01-login.html');
-      exit();
-    }
+      if (!isset($_SESSION['ut_id'])) {
+        header('01-login.html');
+        exit();
+      }
     ?>
     <!--Navigation bar-->
     <div id="navbar"></div>

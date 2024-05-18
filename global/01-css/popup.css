@@ -116,6 +116,22 @@ label {
   margin-bottom: 5px;
 }
 
+#prevBtn, #nextBtn {
+  display: inline-block;
+  width: auto;
+  margin: 0 auto;
+  background-color: #f1f1f1;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.centered-button-container {
+  text-align: center;
+}
+
 .modal-footer {
   padding-bottom: 20px;
 }
