@@ -45,3 +45,84 @@
   background: #eee;
   color: #333;
 }
+
+.post {
+  background-color: white;
+  padding: 30px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.post.response {
+  background-color: #f9f9f9;
+  margin-left: 5px;
+  box-shadow: none;
+}
+
+.responses {
+  margin-top: 10px;
+  display: none;
+}
+
+.response-form {
+  display: flex;
+  margin-top: 10px;
+}
+
+.response-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.response-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.response-button:hover {
+  background-color: #45a049;
+}
+
+.post-title {
+  margin: 0 0 10px;
+}
+
+.post-content {
+  margin: 0 0 10px;
+}
+
+.post-date {
+  font-size: 0.9em;
+  color: #888;
+}
+
+.toggle-comments {
+  background-color: #008CBA;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.toggle-comments:hover {
+  background-color: #007bb5;
+}
+
+.post-tag-prova {
+  background-color: #cf7b7b;
+  color: #333;
+  font-size: 0.8em;
+  padding: 3px 6px;
+  border-radius: 3px;
+  margin-left: 5px;
+}
