@@ -46,7 +46,7 @@
         <!--Modale per la registrazione-->
         <div class="modal" id="modal-signin">
           <div class="modal-content">
-            <div class="modal-header"><h2>Registrazione</h2><span class="close">&times;</span></div>
+            <div class="modal-header"><h2>Registrazione</h2></div>
             <div class="modal-body">
               <form action="./01-login/local_php/register.php" method="POST" id="registrationForm">
                 <div id="step1" class="form-step">
@@ -65,10 +65,8 @@
                   <label for="fiscal-code">Codice Fiscale</label>
                   <input type="number" name="fiscal-code" id="fiscal-code">
 
-                  <div style="display: flex; align-items: baseline;">
-                    <label for="documents">Documenti</label><span class="material-symbols-outlined" style="font-size: smaller; cursor: default;">help</span>
-                    <input type="file" name="documents" id="documents">
-                  </div>
+                  <label for="documents" style="padding-right: 7px;">Documenti</label>
+                  <input type="file" name="documents" id="documents">
 
                   <label for="address">Indirizzo di residenza</label>
                   <input type="text" name="address" id="address" required>
@@ -97,7 +95,6 @@
                     <option value="Palermo">Palermo</option>
                     <option value="Cagliari">Cagliari</option>
                   </select>
-                  <br>
                   <button type="button" id="nextBtn"><span class="material-symbols-outlined">chevron_right</span></button>
                   
                 </div>
@@ -128,7 +125,6 @@
                 <input type="email" name="email" id="email">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password">
-                <br>
                 <input type="submit" name="login_button" id="login_button" value="Accedi">
               </form>
             </div>
@@ -164,5 +160,6 @@
     </div>
     <div class="lightgreen"></div>
   <script src="./01-login/local_js/01-login.js"></script>
+  <!--<script src="global/05-js/hover_text.js"></script>-->
   </body>
 </html>
