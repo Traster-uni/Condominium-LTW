@@ -1,10 +1,22 @@
-var show = function (id) {
-  return (document.getElementById(id).style.display = "grid");
-};
+function popup(button) {
+  var figure = button.closest("figure");
+  var nomeLuogo = figure.querySelector(".nome-luogo");
+  var imgLuogo = figure.querySelector(".img-luogo");
+  var nomeLuogo = nomeLuogo.textContent;
+  var imgLuogo = imgLuogo.src;
+  console.log("Nome Luogo:", nomeLuogo);
+  console.log("Image Source:", imgLuogo);
+  document.getElementById("nome-popup").textContent = nomeLuogo;
+  document.getElementById("img-popup").src = imgLuogo;
+}
 
-var hide = function (id) {
+function show(id) {
+  return (document.getElementById(id).style.display = "grid");
+}
+
+function hide(id) {
   return (document.getElementById(id).style.display = "none");
-};
+}
 
 function checkTime(event) {
   const timeStart = document.getElementById("time_start").value;

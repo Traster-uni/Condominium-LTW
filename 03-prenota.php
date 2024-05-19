@@ -53,171 +53,73 @@
       <div class="colonna-centrale">
         <div class="luoghi">
           <?php while ($row = pg_fetch_assoc($result)): ?>
+            <?php
+            $name = $row['common_space_name'];
+            $img = str_replace("\\", "/", $row['imgs_dir']);
+            $img = 'tests/common_spaces_images/' . basename($img);
+            ?>
             <figure class="luogo">
-              <p><?php echo htmlspecialchars($row['common_space_name']); ?></p>
+              <p class="nome-luogo"><?php echo htmlspecialchars($name); ?></p>
               <p>
-                <?php
-                $image_path = str_replace("\\", "/", $row['imgs_dir']);
-                $image_path = 'tests/common_spaces_images/' . basename($image_path);
-                ?>
-                <img src="<?php echo htmlspecialchars($image_path); ?>" class="immagine">
+                <img class="immagine img-luogo" src="<?php echo htmlspecialchars($img); ?>">
               </p>
               <div class="overlay">
-                <button class="bottone" href="#" onclick="show('popup1'), getDays()">
+                <button class="bottone" href="#" onclick="popup(this), show('popup'), getDays()">
                   PRENOTA
                 </button>
               </div>
-              <div class="popup" id="popup1">
-
-                <div>
-                  <h3 style="font-size: 20px"><?php echo htmlspecialchars($row['common_space_name']); ?></h3>
-                  <p>
-                    <?php
-                    $image_path = str_replace("\\", "/", $row['imgs_dir']);
-                    $image_path = 'tests/common_spaces_images/' . basename($image_path);
-                    ?>
-                    <img src="<?php echo htmlspecialchars($image_path); ?>" class="immagine">
-                  </p>
-                </div>
-            
-                <form class="popup-form" action="./03-prenota/local_php/prenotazione.php" method="POST">
-                  <div style="text-align: right">
-                    <button type="button" class="close" href="#" onclick="hide('popup1')"></button>
-                  </div>
-                  <div style="text-align: center">
-                    <div id="calendar1"></div>
-                    <script>
-                      $(function () {
-                        $("#calendar1").load("calendar-prenota.html");
-                      });
-                    </script>
-                    <input type="hidden" id="giorno" name="giorno">
-                    <input type="hidden" id="mese" name="mese">
-                    <input type="hidden" id="anno" name="anno">
-                  </div>
-                  <div class="popup-form-bottom">
-                    <label
-                      for="time_start"
-                      style="font-weight: 600; margin-right: 5px"
-                      >Dalle:</label
-                    >
-                    <input
-                      id="time_start"
-                      name="time_start"
-                      type="time"
-                      style="margin-right: 10px"
-                    />
-                    <label for="time_end" style="font-weight: 600; margin-right: 5px"
-                      >Alle:</label
-                    >
-                    <input
-                      id="time_end"
-                      name="time_end"
-                      type="time"
-                      style="margin-right: 20px"
-                    />
-                    <input
-                      type="submit"
-                      value="Conferma"
-                      class="submit"
-                      onclick="checkTime(event)"
-                    />
-                  </div>
-                </form>
-              </div>
             </figure>
           <?php endwhile; ?>
-        </div>
-        <!-- <div class="popup" id="popup1">
+          <div class="popup" id="popup">
+            <div>
+              <h3 id="nome-popup" style="font-size: 20px"></h3>
+              <img id="img-popup" src="" class="immagine">
+            </div>
 
-          <div>
-            <h3 style="font-size: 20px">Luogo 1</h3>
-            <img src="03-prenota/images/1.jpg" class="immagine" />
-          </div>
-          
-          <form class="popup-form" action="./03-prenota/local_php/prenotazione.php" method="POST">
-            <div style="text-align: right">
-              <button type="button" class="close" href="#" onclick="hide('popup1')"></button>
-            </div>
-            <div style="text-align: center">
-              <div id="calendar1"></div>
-              <script>
-                $(function () {
-                  $("#calendar1").load("calendar-prenota.html");
-                });
-              </script>
-              <input type="hidden" id="giorno" name="giorno">
-              <input type="hidden" id="mese" name="mese">
-              <input type="hidden" id="anno" name="anno">
-            </div>
-            <div class="popup-form-bottom">
-              <label
-                for="time_start"
-                style="font-weight: 600; margin-right: 5px"
-                >Dalle:</label
-              >
-              <input
-                id="time_start"
-                name="time_start"
-                type="time"
-                style="margin-right: 10px"
-              />
-              <label for="time_end" style="font-weight: 600; margin-right: 5px"
-                >Alle:</label
-              >
-              <input
-                id="time_end"
-                name="time_end"
-                type="time"
-                style="margin-right: 20px"
-              />
-              <input
-                type="submit"
-                value="Conferma"
-                class="submit"
-                onclick="checkTime(event)"
-              />
+            <form class="popup-form" action="./03-prenota/local_php/prenotazione.php" method="POST">
+              <div style="text-align: right">
+                <button type="button" class="close" href="#" onclick="hide('popup')"></button>
+              </div>
+              <div style="text-align: center">
+                <div id="calendar1"></div>
+                <script>
+                  $(function () {
+                    $("#calendar1").load("calendar-prenota.html");
+                  });
+                </script>
+                <input type="hidden" id="giorno" name="giorno">
+                <input type="hidden" id="mese" name="mese">
+                <input type="hidden" id="anno" name="anno">
+              </div>
+              <div class="popup-form-bottom">
+                <label
+                  for="time_start"
+                  style="font-weight: 600; margin-right: 5px"
+                  >Dalle:</label
+                >
+                <input
+                  id="time_start"
+                  name="time_start"
+                  type="time"
+                  style="margin-right: 10px"
+                />
+                <label for="time_end" style="font-weight: 600; margin-right: 5px"
+                  >Alle:</label
+                >
+                <input
+                  id="time_end"
+                  name="time_end"
+                  type="time"
+                  style="margin-right: 20px"
+                />
+                <input
+                  type="submit"
+                  value="Conferma"
+                  class="submit"
+                  onclick="checkTime(event)"
+                />
               </div>
             </form>
-        </div> -->
-        <div class="popup" id="popup2">
-          <div>
-            <img src="03-prenota/images/2.jpg" class="immagine" />
-          </div>
-          <div class="popup-form">
-            <button href="#" onclick="hide('popup2')">X</button>
-          </div>
-        </div>
-        <div class="popup" id="popup3">
-          <div>
-            <img src="03-prenota/images/3.webp" class="immagine" />
-          </div>
-          <div class="popup-form">
-            <button href="#" onclick="hide('popup3')">X</button>
-          </div>
-        </div>
-        <div class="popup" id="popup4">
-          <div>
-            <img src="03-prenota/images/4.jpg" class="immagine" />
-          </div>
-          <div class="popup-form">
-            <button href="#" onclick="hide('popup4')">X</button>
-          </div>
-        </div>
-        <div class="popup" id="popup5">
-          <div>
-            <img src="03-prenota/images/5.jpg" class="immagine" />
-          </div>
-          <div class="popup-form">
-            <button href="#" onclick="hide('popup5')">X</button>
-          </div>
-        </div>
-        <div class="popup" id="popup6">
-          <div>
-            <img src="03-prenota/images/6.webp" class="immagine" />
-          </div>
-          <div class="popup-form">
-            <button href="#" onclick="hide('popup6')">X</button>
           </div>
         </div>
       </div>
