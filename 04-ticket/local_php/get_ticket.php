@@ -22,5 +22,5 @@
     
     // Transforma in json
     header('Content-Type: application/json');
-    //echo json_encode(pg_fetch_all($result));
+    
     echo json_encode($ticketsByYear);
