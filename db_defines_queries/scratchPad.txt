@@ -163,7 +163,7 @@ TODO:
 
 (1) pagina html ricerca
 riaggiustare grafica utente 
-calendario rettivo alle attivita
+calendario rettivo alle attivita -
 prenotazione common spaces utente
 posts e threads
 

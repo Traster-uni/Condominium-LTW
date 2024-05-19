@@ -54,9 +54,10 @@
           <button class="tablinks" onclick="openTab(event, 'Impostazioni')">
             <span class="material-symbols-outlined">settings</span>Impostazioni
           </button>
-          <button class="delete_acc">
-            <span class="material-symbols-outlined">logout</span>Log Out
-          </button>
+          <form action ="global/04-php/logout.php", method="POST">
+            <button class="delete_acc">
+              <span class="material-symbols-outlined">logout</span>Log Out\
+          </form>
         </div>
       </div>
       <div style="background-color: blanchedalmond; flex: 1">

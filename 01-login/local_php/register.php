@@ -31,10 +31,21 @@
         $q = "INSERT INTO ut_registered(nome, cognome, d_nascita, telefono, address, citta_residenza, ut_email, passwd, data_iscrizione) 
                 VALUES ('$nome', '$cognome', '$dnascita', '$telefono', '$address', '$citta', '$email', '$password', '$data')";
         $result = pg_query($connection, $q);
+        pg_close($connection);
+
+        $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=usr_login password=iamdolly");
+        $qry_usr = "SELECT ut_id, ut_email, passwd 
+                            FROM ut_registered ut_r
+                            WHERE ut_r.ut_email = '$email', ut_r.passwd = '$password'";
+        $res_qry_usr = pg_fetch_assoc(pg_query($connection, $qry_usr));
+        // TODO: GESTISCI LA CREAZIONE DELLE VARIABILI $_SESSION 
 
         // Verifica se l'inserimento è avvenuto con successo
         if ($result) {
             echo "Registrazione avvenuta con successo!";
+            $_SESSION["ut_id"] = $qry_pwd_arr["ut_id"];
+            $_SESSION["email"] = $qry_em_arr["ut_email"];
+            $_SESSION["password"] = $qry_pwd_arr["passwd"];
             header("Location: ./02-home.php");
         } else {
             echo "Errore durante la registrazione: " . pg_last_error($connection);

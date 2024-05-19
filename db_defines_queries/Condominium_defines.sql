@@ -256,9 +256,8 @@ CREATE TABLE IF NOT EXISTS common_spaces(
 	common_space_name varchar(50) NOT NULL,
 	int_num integer NOT NULL,
 	floor_num integer NOT NULL,
-	common_space_imgs_dir varchar(100),
 	imgs_dir varchar(100),  
-	PRIMARY KEY (common_space_name)
+	PRIMARY KEY (cs_id)
  );
 
 CREATE TABLE IF NOT EXISTS rental_request(
