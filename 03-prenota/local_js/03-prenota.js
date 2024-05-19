@@ -4,8 +4,6 @@ function popup(button) {
   var imgLuogo = figure.querySelector(".img-luogo");
   var nomeLuogo = nomeLuogo.textContent;
   var imgLuogo = imgLuogo.src;
-  console.log("Nome Luogo:", nomeLuogo);
-  console.log("Image Source:", imgLuogo);
   document.getElementById("nome-popup").textContent = nomeLuogo;
   document.getElementById("img-popup").src = imgLuogo;
 }

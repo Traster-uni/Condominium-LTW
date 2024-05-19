@@ -21,7 +21,7 @@
     <div id="navbar"></div>
     <script>
       $(function () {
-        $("#navbar").load("navbar.html");
+        $("#navbar").load("global/06-html/navbar.html");
       });
     </script>
     <!--end of Navigation bar-->
@@ -39,7 +39,7 @@
         <div id="calendar"></div>
         <script>
           $(function () {
-            $("#calendar").load("calendar-small.html");
+            $("#calendar").load("global/06-html/calendar-small.html");
           });
         </script>
         <!--End of calendar-->

@@ -26,7 +26,7 @@
     <div id="navbar"></div>
     <script>
       $(function () {
-        $("#navbar").load("navbar.html");
+        $("#navbar").load("global/06-html/navbar.html");
       });
     </script>
     <!--end of Navigation bar-->
