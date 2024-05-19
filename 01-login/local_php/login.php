@@ -25,7 +25,7 @@
                             WHERE ut_r.ut_email = '$email'";
             $qry_em_res = pg_query($connection, $qry_email);
             if (!$qry_em_res){ // error checking
-                echo "23: Something went wrong<br>";
+                echo "Something went wrong<br>";
                 echo pg_result_error($qry_em_res);
             }
 
@@ -42,14 +42,14 @@
                             WHERE ut_r.ut_email = '$email'"; // AND ut_r.passwd = $passwd
             $qry_pwd_res = pg_query($connection, $qry_passwd);
             if (!$qry_pwd_res){ // error checking
-                echo "34: Something went wrong<br>";
+                echo "Something went wrong<br>";
                 echo pg_result_error($qry_pwd_res);
             }
 
             // fetch associative array related to qry result
             $qry_pwd_arr = pg_fetch_assoc($qry_pwd_res);
+            
             // check password
-
             if (strcmp($qry_pwd_arr["passwd"], $passwd) == 0){
                 $_SESSION["ut_id"] = $qry_pwd_arr["ut_id"];
                 $_SESSION["email"] = $qry_em_arr["ut_email"];
@@ -58,7 +58,7 @@
                 // chdir("../..");
                 header("Location: ../../02-home.php");
             } else {
-                echo "42: Wrong password, try again<br>";
+                echo "Wrong password, try again<br>";
             }
         }
     }

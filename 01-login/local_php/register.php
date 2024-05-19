@@ -37,7 +37,14 @@
         $qry_usr = "SELECT ut_id, ut_email, passwd 
                             FROM ut_registered ut_r
                             WHERE ut_r.ut_email = '$email', ut_r.passwd = '$password'";
-        $res_qry_usr = pg_fetch_assoc(pg_query($connection, $qry_usr));
+        $qry_usr_res = pg_query($connection, $qry_usr);
+        if (!$qry_usr_res){ // error checking
+            echo "34: Something went wrong<br>";
+            echo pg_result_error($qry_usr_res);
+        }
+        // fetch associative array related to qry result
+        $qry_usr_arr = pg_fetch_assoc($qry_usr_res);
+        
         // TODO: GESTISCI LA CREAZIONE DELLE VARIABILI $_SESSION 
 
         // Verifica se l'inserimento è avvenuto con successo

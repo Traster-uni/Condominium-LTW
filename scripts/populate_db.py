@@ -96,6 +96,6 @@ def insert_data(data:dict, connection:psycopg2.connect, schema_name="null"):
     
 if __name__ == '__main__':
     config = load_config("database.ini")
-    conn = connect(config)
+    conn = connect(config, s_name = "null")
 
 # from https://www.postgresqltutorial.com/postgresql-python/connect/
