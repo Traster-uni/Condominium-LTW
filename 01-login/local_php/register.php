@@ -6,7 +6,7 @@
         echo "Errore, connessione non riuscita.<br>";
         exit;
     } else {
-        echo "connected";
+        echo "connected<br>";
     }
 
     ini_set('display_errors', 1);
@@ -35,11 +35,11 @@
 
         $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=usr_login password=iamdolly");
         $qry_usr = "SELECT ut_id, ut_email, passwd 
-                            FROM ut_registered ut_r
-                            WHERE ut_r.ut_email = '$email', ut_r.passwd = '$password'";
+                    FROM ut_registered ut_r
+                    WHERE ut_r.ut_email = '$email' and ut_r.passwd = '$password'";
         $qry_usr_res = pg_query($connection, $qry_usr);
         if (!$qry_usr_res){ // error checking
-            echo "34: Something went wrong<br>";
+            echo "Something went wrong<br>";
             echo pg_result_error($qry_usr_res);
         }
         // fetch associative array related to qry result
@@ -47,11 +47,11 @@
 
         // Verifica se l'inserimento è avvenuto con successo
         if (count($qry_usr_arr) !== 0) { // if not empty
-            echo "Registrazione avvenuta con successo!";
-            $_SESSION["ut_id"] = $qry_usr_res["ut_id"];
-            $_SESSION["email"] = $qry_usr_res["ut_email"];
-            $_SESSION["password"] = $qry_usr_res["passwd"];
-            header("Location: ./02-home.php");
+            echo "Registrazione avvenuta con successo!<br>";
+            $_SESSION["ut_id"] = $qry_usr_arr["ut_id"];
+            $_SESSION["email"] = $qry_usr_arr["ut_email"];
+            $_SESSION["password"] = $qry_usr_arr["passwd"];
+            header("Location: ../../02-home.php");
         } else {
             echo "Errore durante la registrazione: " . pg_last_error($connection);
         }

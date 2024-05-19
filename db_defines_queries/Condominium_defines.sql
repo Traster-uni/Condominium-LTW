@@ -25,7 +25,7 @@ CHECK(
 	VALUE ~ '^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$'
 );
 
-CREATE TYPE ut_request_stat AS ENUM ('accepted', 'refused', 'aborted');
+CREATE TYPE ut_request_stat AS ENUM ('pending', 'accepted', 'refused', 'aborted', 'abandoned');
 
 CREATE TYPE ticket_status AS ENUM ('open', 'closed');
 

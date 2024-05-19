@@ -191,11 +191,19 @@ OCCHIO:
 On pages that require authentication, check if the session variables are set. If they are not, redirect the user to the login page.
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit();
-}
-
+-- 1. rename the enum type you want to change
+alter type ut_request_stat rename to _ut_request_stat;
+-- 2. create new type
+create type ut_request_stat as enum ('pending', 'accepted', 'refused', 'aborted', 'abandoned');
+-- 3. rename column(s) which uses our enum type
+alter table req_ut_access rename column status to _status;
+-- 4. add new column of new type
+alter table req_ut_access add status ut_request_stat not null default 'pending';
+-- 5. copy values to the new column
+update req_ut_access set status = _status::text::ut_request_stat;
+-- 6. remove old column and type
+alter table req_ut_access drop column _status;
+drop type _ut_request_stat;
 todo: verifica che le immagini di 03-prenota.php siano visualizzate correttamente
 
 tommaso@site.it - service
@@ -203,3 +211,4 @@ tommaso@site.it - service
 // todo : php script, on login check if user is registered to any aptblock
 	if he does, log on aptblock post page
 	else : go to aptblock search page
+

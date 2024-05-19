@@ -39,7 +39,7 @@
 
             $qry_passwd = "SELECT passwd, ut_id
                             FROM ut_registered ut_r
-                            WHERE ut_r.ut_email = '$email'"; // AND ut_r.passwd = $passwd
+                            WHERE ut_r.ut_email = '$email' and ut_r.passwd = '$password'"; // AND ut_r.passwd = $passwd
             $qry_pwd_res = pg_query($connection, $qry_passwd);
             if (!$qry_pwd_res){ // error checking
                 echo "Something went wrong<br>";
