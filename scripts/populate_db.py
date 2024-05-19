@@ -1,6 +1,7 @@
 import os
 import json
 import psycopg2
+import re
 from configparser import ConfigParser
 
 # CONFIGURATION LOADER
@@ -47,12 +48,12 @@ def load_data(fname="data.json"):
 def insert_data(data:dict, connection:psycopg2.connect, schema_name="null"):
     cur = connection.cursor()
     if schema_name not in data.keys():
-        print("no corrisponding key for given schema name")
+        print("no matching key for given schema name")
         return
     if schema_name == "null":
         for table_name in data:
+            keys_list = table_name[0].keys()
             for instance in data[table_name]:
-                keys_list = instance.keys()
                 values_list = instance.values()
                 query_str = "INSERT INTO " + table_name + "("
                 for i,k in enumerate(keys_list):
@@ -70,10 +71,17 @@ def insert_data(data:dict, connection:psycopg2.connect, schema_name="null"):
                 query_str += ");"
                 print(query_str)
                 cur.execute(query_str)
+            
+            for k in keys_list:
+                id_field = re.search("^.*_id$", k).string
+                break
+
+            if id_field in keys_list:
+                cur.execute(f"SELECT setval(pg_get_serial_sequence('{table_name}', '{id_field}'), (SELECT MAX({id_field}) FROM {table_name}) + 1);")
         cur.close()
     else:
+        keys_list = data[schema_name][0].keys()
         for instance in data[schema_name]:
-            keys_list = instance.keys()
             values_list = instance.values()
             query_str = "INSERT INTO " + schema_name + "("
             for i,k in enumerate(keys_list):
@@ -91,11 +99,19 @@ def insert_data(data:dict, connection:psycopg2.connect, schema_name="null"):
             query_str += ");"
             print(query_str)
             cur.execute(query_str)
+        
+        table_name = schema_name
+        for k in keys_list:
+            id_field = re.search("^.*_id$", k).string
+            break
+
+        if id_field in keys_list:
+            cur.execute(f"SELECT setval(pg_get_serial_sequence('{table_name}', '{id_field}'), (SELECT MAX({id_field}) FROM {table_name}) + 1);")
         cur.close()
     return
     
 if __name__ == '__main__':
     config = load_config("database.ini")
-    conn = connect(config, s_name = "null")
+    conn = connect(config, s_name = "common_spaces")
 
 # from https://www.postgresqltutorial.com/postgresql-python/connect/

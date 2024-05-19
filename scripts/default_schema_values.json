@@ -645,22 +645,22 @@
             "cs_id": 1,
             "common_space_name": "Luogo comune 1",
             "int_num": 1,
-            "floor_num,imgs_dir": 1,
-            "imgs_dir": "LTW-Condominium\tests\common_spaces_images\1.jpg"
+            "floor_num": 1,
+            "imgs_dir": "LTW-Condominium\\tests\\common_spaces_images\\1.jpg"
         },
         {
             "cs_id": 2,
             "common_space_name": "Luogo comune 2",
             "int_num": 1,
-            "floor_num,imgs_dir": 1,
-            "imgs_dir": "LTW-Condominium\tests\common_spaces_images\2.jpg"
+            "floor_num": 1,
+            "imgs_dir": "LTW-Condominium\\tests\\common_spaces_images\\2.jpg"
         },
         {
             "cs_id": 3,
             "common_space_name": "Luogo comune 3",
             "int_num": 1,
-            "floor_num,imgs_dir": 1,
-            "imgs_dir": "LTW-Condominium\tests\common_spaces_images\3.jpg"
+            "floor_num": 1,
+            "imgs_dir": "LTW-Condominium\\tests\\common_spaces_images\\3.jpg"
         }
     ]
 }

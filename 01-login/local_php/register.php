@@ -44,11 +44,9 @@
         }
         // fetch associative array related to qry result
         $qry_usr_arr = pg_fetch_assoc($qry_usr_res);
-        
-        // TODO: GESTISCI LA CREAZIONE DELLE VARIABILI $_SESSION 
 
         // Verifica se l'inserimento è avvenuto con successo
-        if ($result) {
+        if (count($qry_usr_arr) !== 0) { // if not empty
             echo "Registrazione avvenuta con successo!";
             $_SESSION["ut_id"] = $qry_pwd_arr["ut_id"];
             $_SESSION["email"] = $qry_em_arr["ut_email"];
