@@ -43,14 +43,14 @@
             echo pg_result_error($qry_usr_res);
         }
         // fetch associative array related to qry result
-        $qry_usr_arr = pg_fetch_assoc($qry_usr_res);
+        $qry_usr_arr = pg_fetch_assoc($qry_usr_res); 
 
         // Verifica se l'inserimento è avvenuto con successo
         if (count($qry_usr_arr) !== 0) { // if not empty
             echo "Registrazione avvenuta con successo!";
-            $_SESSION["ut_id"] = $qry_pwd_arr["ut_id"];
-            $_SESSION["email"] = $qry_em_arr["ut_email"];
-            $_SESSION["password"] = $qry_pwd_arr["passwd"];
+            $_SESSION["ut_id"] = $qry_usr_res["ut_id"];
+            $_SESSION["email"] = $qry_usr_res["ut_email"];
+            $_SESSION["password"] = $qry_usr_res["passwd"];
             header("Location: ./02-home.php");
         } else {
             echo "Errore durante la registrazione: " . pg_last_error($connection);
