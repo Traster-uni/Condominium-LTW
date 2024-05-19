@@ -167,6 +167,9 @@ calendario rettivo alle attivita
 prenotazione common spaces utente
 posts e threads
 
+area utente:
+	popolare pagine, profilo, impostazioni()
+
 admin funcs
  	creazione di Condominio
 	Risposta ticket
@@ -180,7 +183,9 @@ NOTA BENE:
 		new role where all the registered user will login under.
 
 
-
+OCCHIO:
+	PER OGNI UTENTE:
+		GRANT USAGE ON SCHEMA public TO <anyusr>;
 
 3. Restrict Access to Authenticated Users
 On pages that require authentication, check if the session variables are set. If they are not, redirect the user to the login page.
@@ -191,10 +196,20 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-todoç verifica che le immagini di 03-prenota.php siano visualizzate correttamente
+todo: verifica che le immagini di 03-prenota.php siano visualizzate correttamente
 
 tommaso@site.it - service
 
+// register.php gives the following, prolly role related (writeonly)
+connected
+connected
+Warning: pg_query(): 
+	Query failed: ERROR: relation "ut_registered" does not exist LINE 1: 
+		INSERT INTO ut_registered(nome, cognome, d_nascita, telefono... ^ in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\register.php on line 33
 
-Warning: Undefined array key "email" in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\login.php on line 48
-13 service
+Errore durante la registrazione: 
+	ERROR: relation "ut_registered" does not exist LINE 1: INSERT INTO ut_registered(nome, cognome, d_nascita, telefono... ^
+Warning: session_regenerate_id(): Session ID cannot be regenerated when there is no active session in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\register.php on line 46
+
+may need to define a trigger to create users from ut_registered and to give them
+the proper role with minimum requirements

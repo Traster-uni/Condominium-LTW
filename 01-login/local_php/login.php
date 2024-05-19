@@ -54,6 +54,9 @@
                 $_SESSION["ut_id"] = $qry_pwd_arr["ut_id"];
                 $_SESSION["email"] = $qry_em_arr["ut_email"];
                 $_SESSION["password"] = $qry_pwd_arr["passwd"];
+                // login succesfully, enter home menu
+                // chdir("../..");
+                header("Location: ../../02-home.php");
             } else {
                 echo "42: Wrong password, try again<br>";
             }
