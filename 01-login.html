@@ -48,7 +48,7 @@
           <div class="modal-content">
             <div class="modal-header"><h2>Registrazione</h2></div>
             <div class="modal-body">
-              <form action="./01-login/global/upload.php" method="POST" id="registrationForm">
+              <form action="./01-login/local_php/register.php" method="POST" id="registrationForm">
                 <div id="step1" class="form-step">
                   <label for="nome">Nome</label>
                   <input type="text" name="nome" id="nome" required>
@@ -60,15 +60,11 @@
                   <input type="date" name="data-nascita" id="data-nascita">
 
                   <label for="telefono">Telefono</label>
-                  <input type="tel" name="telefono" id="telefono" required>
+                  <input type="tel" name="telefono" id="telefono" maxlength="13" required>
 
                   <label for="fiscal-code">Codice Fiscale</label>
-                  <input type="text" name="fiscal-code" id="fiscal-code">
+                  <input type="text" name="fiscal-code" maxlength="16" id="fiscal-code">
 
-                  <label for="documents" style="padding-right: 7px;">Documenti</label>
-                  <form enctype="multipart/form-data", action="global/04-php/upload.php" method="post">
-                    <input type="file" name="documents" id="documents">
-                  </form>
                   <label for="address">Indirizzo di residenza</label>
                   <input type="text" name="address" id="address" required>
 

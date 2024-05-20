@@ -33,7 +33,8 @@ AS $$
 $$ LANGUAGE plpython3u;
 
 
-CREATE OR REPLACE TRIGGER max_rental_req_accepted_per_user BEFORE INSERT OR UPDATE ON rental_request
+CREATE OR REPLACE TRIGGER max_rental_req_accepted_per_user 
+	BEFORE INSERT OR UPDATE ON rental_request
     FOR EACH ROW EXECUTE FUNCTION max_rental_req_accepted_per_user();
 
 CREATE OR REPLACE FUNCTION rental_req_disj() RETURNS trigger
@@ -69,7 +70,8 @@ AS $$
 		return "OK"
 $$ LANGUAGE plpython3u;
 
-CREATE OR REPLACE TRIGGER rental_req_disj_check BEFORE INSERT OR UPDATE ON rental_request
+CREATE OR REPLACE TRIGGER rental_req_disj_check 
+	BEFORE INSERT OR UPDATE ON rental_request
 	FOR EACH ROW EXECUTE FUNCTION rental_req_disj();
 
 DROP TRIGGER rental_req_disj_check ON rental_request
@@ -99,10 +101,11 @@ AS $$
 	return "OK"
 $$ LANGUAGE plpython3u;
 
-CREATE OR REPLACE TRIGGER insert_aptBlock_on_req_accepted AFTER UPDATE ON req_aptBlock_create
+CREATE OR REPLACE TRIGGER insert_aptBlock_on_req_accepted 
+	AFTER UPDATE ON req_aptBlock_create
 	FOR EACH ROW EXECUTE FUNCTION new_aptBlock();
 
-DROP TRIGGER insert_aptBlock_on_req_accepted on req_aptBlock_create
+--DROP TRIGGER insert_aptBlock_on_req_accepted on req_aptBlock_create
 
 CREATE OR REPLACE FUNCTION define_relative_bulletinBoards() RETURNS trigger
 AS $$
@@ -129,17 +132,62 @@ AS $$
 	return "OK"
 $$ LANGUAGE plpython3u;
 
-CREATE OR REPLACE TRIGGER insert_bulletinBoard_on_aptBlock_creation AFTER INSERT ON aptBlock
+CREATE OR REPLACE TRIGGER insert_bulletinBoard_on_aptBlock_creation 
+	AFTER INSERT ON aptBlock
 	FOR EACH ROW EXECUTE FUNCTION define_relative_bulletinBoards();
 -- Triggers insertion of admin and general board once a new aptBlock has been defined.
 
-CREATE OR REPLACE FUNCTION timestamp_update_on_update() RETURN trigger
+CREATE OR REPLACE FUNCTION timestamp_update_on_update() RETURNS trigger
 AS $$ 
-
+	t_name = TD["table_name"]
+	p_id = TD["args"]["post_id"]
+	qry = f"""
+			UPDATE {t_name}
+			SET time_mod = current_timestamp
+			WHERE {t_name}.post_id = {p_id}
+			"""
+	plpy.prepare(qry)
+	try:
+		plpy.execute(qry)
+	except plpy.SPIError:
+		return "failde to update timestamp"
+	return "OK"
 $$ LANGUAGE plpython3u;
 
-CREATE OR REPLACE TRIGGER timestamp_update_on_update AFTER MODIFY ON tickets
-	FOR EACH ROW EXECUTE timestamp_update_on_update();
+CREATE OR REPLACE TRIGGER timestamp_update_on_update 
+	AFTER UPDATE ON tickets
+	FOR EACH ROW EXECUTE FUNCTION timestamp_update_on_update();
+
+CREATE OR REPLACE FUNCTION create_new_user_on_insert() RETURNS trigger
+AS $$
+	ut_id = TD["new"]["ut_id"]
+	pwd = TD["new"]["passwd"]
+
+	qry_add_usr = f"""
+				CREATE ROLE {ut_id} WITH
+				LOGIN
+				NOSUPERUSER
+				NOCREATEDB
+				NOCREATEROLE
+				INHERIT
+				NOREPLICATION
+				NOBYPASSRLS
+				CONNECTION LIMIT -1
+				PASSWORD '{pwd}';
+
+				GRANT users_rwu TO {ut_id};
+				"""
+	plpy.prepare(qry_add_usr)
+	try:
+		plpy.execute(qry_add_usr)
+	except plpy.SPIError:
+		return "Something went wrong"
+	return "OK"
+$$ LANGUAGE plpython3u;
+
+CREATE OR REPLACE TRIGGER create_new_user_on_insert 
+	AFTER INSERT ON ut_registered
+	FOR EACH ROW EXECUTE FUNCTION create_new_user_on_insert();
 
 -- TO MODIFY TRIGGERS:
 -- DROP TRIGGER rental_req_stamp ON rental_request;

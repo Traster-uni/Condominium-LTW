@@ -175,9 +175,9 @@ CREATE TABLE IF NOT EXISTS posts(
 	bb_id integer,		-- bullettin board where the post is pinned to
 	ut_owner_id integer,
 	title varchar(100) NOT NULL,
-	ttext text[] NOT NULL,
+	ttext text NOT NULL,
 	time_born timestamp DEFAULT current_timestamp, 	-- current_time
-	time_edit timestamp NOT NULL,	-- current_time at time of last modification
+	time_mod NOT NULL,	-- current_time at time of last modification
 	data_json json,		-- to be defined: JSON module for polls and JSON module for payments
 	off_comments bool DEFAULT false,
 	PRIMARY KEY (post_id),
