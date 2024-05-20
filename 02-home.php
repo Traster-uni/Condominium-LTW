@@ -21,7 +21,8 @@
 
       $qry_aptb = "SELECT r_ut_a.aptBlock_id
                     FROM ut_registered ut_r JOIN req_ut_access r_ut_a ON  ut_r.ut_id = r_ut_a.ut_id
-                    WHERE r_ut_a.status = 'accepted'";
+                    WHERE r_ut_a.status = 'accepted'
+                      AND ut_r.ut_id = $usr_id";
       $qry_aptb_res = pg_query($connect, $qry_aptb);
       if (!$qry_aptb_res){ // error checking
         echo "Something went wrong<br>";
