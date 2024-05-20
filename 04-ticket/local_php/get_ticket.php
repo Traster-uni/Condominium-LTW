@@ -6,14 +6,11 @@
 
     // Query per recuperare i ticket dal database
     $q = "SELECT * FROM tickets WHERE ud_id = $user_id";
-    //print_r($q);
     $result = pg_query($connection, $q);
-    //print_r($result);
 
     // Inizializzo l'array dove salvare i dati dei tickets
     $ticketsByYear = array();
 
-    //print_r(pg_fetch_assoc($result));
     // Recupero i dati
     while ($row = pg_fetch_assoc($result)) {
         $year = date('Y', strtotime($row['time_born']));

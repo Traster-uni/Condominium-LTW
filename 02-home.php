@@ -10,7 +10,7 @@
   </head>
   <body>
     <?php
-      session_start();
+      /* session_start();
       if (!isset($_SESSION['ut_id']) && !isset($_SESSION['password'])) {
         header('01-login.html');
         exit();
@@ -29,7 +29,7 @@
         echo pg_result_error($qry_aptb_res);
       }
       $qry_aptb_arr = pg_fetch_assoc($qry_aptb_res);
-      $_SESSION['aptBlock'] = $qry_aptb_arr['aptBlock_id'];
+      $_SESSION['aptBlock'] = $qry_aptb_arr['aptBlock_id']; */
       // if (count($qry_aptb_arr) !== 0){
       //   $_SESSION['aptBlock'] = $qry_aptb_arr['aptBlock_id'];
       //   // may need something else, like redirection
@@ -89,7 +89,10 @@
             >
           </div>
         </div>
+
         <div class="tabcontent" id="tab-admin">
+          <div id="admin-form-container"></div>
+
           <div class="post">
             <h3 class="post-title">Post Admin 1<span class="post-tag-prova">Prova</span></h3>
             <p class="post-content">Contenuto Post Admin 1</p>
@@ -112,24 +115,27 @@
                 <button type="button" class="response-button">Rispondi</button>
             </form>
           </div>
-            <div class="post">
-              <h3 class="post-title">Post Admin 2</h3>
-              <p class="post-content">Contenuto Post Admin 2</p>
-              <span class="post-date">18 Maggio 2024</span>
-            </div>
+
+          <div class="post">
+            <h3 class="post-title">Post Admin 2</h3>
+            <p class="post-content">Contenuto Post Admin 2</p>
+            <span class="post-date">18 Maggio 2024</span>
+          </div>
+
         </div>
 
         <div class="tabcontent" id="tab-utente">
-          <div class="post">
-            <h3 class="post-title">Post Utente 1</h3>
-            <p class="post-content">Contenuto Post Utente 1</p>
-            <span class="post-date">17 Maggio 2024</span>
-          </div>
-          <div class="post">
-            <h3 class="post-title">Post Utente 2</h3>
-            <p class="post-content">Contenuto Post Utente 2</p>
-            <span class="post-date">18 Maggio 2024</span>
-          </div>
+
+          <form action="/02-home/local_php/submit_post.php" class="post-form" id="user-post-form" method="post">
+            <input type="text" id="ud-post-title" name="ud-post-title" placeholder="Titolo del post" required>
+            <textarea id="ud-post-content" name="ud-post-content" placeholder="Scrivi qualcosa..." required></textarea>
+            <input type="submit" value="Invia">
+          </form>
+
+          <div class="posts-container" id="user-posts-container">
+            
+          </div>    
+
         </div>
       </div>
       <div style="background-color: rgb(101, 189, 113); width: 20%">
@@ -146,7 +152,8 @@
       </div>
     </div>
   <script src="./02-home/local_js/02-home.js"></script>
-  <script src="./02-home/local_js/toggle_comments.js"></script>
+  <!-- <script src="./02-home/local_js/toggle_comments.js"></script> -->
   <script>document.getElementById("padmin").click();</script>
+  <script src="02-home/local_js/display_posts_ud.js"></script>
   </body>
 </html>

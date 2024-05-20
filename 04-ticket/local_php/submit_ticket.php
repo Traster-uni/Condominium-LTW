@@ -33,7 +33,7 @@
         // Verifica se l'inserimento è avvenuto con successo
         if ($result_ticket_insert) {
             echo "Ticket sent successfully!";
-            header("Location: /04-ticket.html");
+            header("Location: /04-ticket.php");
         } else {
             echo "Ticket not sent, ERROR: " . pg_result_error($result_ticket_insert);
         }
