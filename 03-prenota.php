@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Prenota</title>
   </head>
-  <body>
+  <body id="body">
     <?php
 
     $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=postgres password=service");
@@ -41,14 +41,22 @@
 
     <div class="flexbox">
       <div style="background-color: rgb(101, 189, 113); width: 20%">
-        <!--Calendar-->
+        <!--Calendario-->
         <div id="calendar"></div>
         <script>
           $(function () {
             $("#calendar").load("global/06-html/calendar-small.html");
           });
         </script>
-        <!--End of calendar-->
+        <!--Fine calendario-->
+        <!--Prenotazioni attive-->
+        <div id="prenotazioni"></div>
+        <script>
+          $(function () {
+            $("#prenotazioni").load("global/06-html/prenotazioni.php");
+          });
+        </script>
+        <!-- Fine prenotazioni -->
       </div>
       <div class="colonna-centrale">
         <div class="luoghi">
@@ -57,26 +65,30 @@
             $name = $row['common_space_name'];
             $img = str_replace("\\", "/", $row['imgs_dir']);
             $img = 'tests/common_spaces_images/' . basename($img);
+            $cs_id = $row['cs_id'];
             ?>
             <figure class="luogo">
+              <p class="cs-id" style="display: none"><?php echo htmlspecialchars($cs_id); ?></p>
               <p class="nome-luogo"><?php echo htmlspecialchars($name); ?></p>
               <p>
                 <img class="immagine img-luogo" src="<?php echo htmlspecialchars($img); ?>">
               </p>
               <div class="overlay">
-                <button class="bottone" href="#" onclick="popup(this), show('popup'), getDays()">
+                <button id="prenota" class="bottone" href="#" onclick="popup(this), show('popup'), getDays()">
                   PRENOTA
                 </button>
               </div>
             </figure>
           <?php endwhile; ?>
+          <div id="backdrop" class="backdrop"></div>
           <div class="popup" id="popup">
             <div>
-              <h3 id="nome-popup" style="font-size: 20px"></h3>
+              <h3 id="nome-popup" style="font-size: 20px; margin-bottom: 17px"></h3>
               <img id="img-popup" src="" class="immagine">
             </div>
 
             <form class="popup-form" action="./03-prenota/local_php/prenotazione.php" method="POST">
+              <input type="hidden" id="cs-id" name="cs_id">
               <div style="text-align: right">
                 <button type="button" class="close" href="#" onclick="hide('popup')"></button>
               </div>

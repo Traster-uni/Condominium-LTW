@@ -148,7 +148,6 @@ showCalendar1(currentMonth1, currentYear1);
 function getDays() {
   // Add event listener to each calendar day
   const calendarDays = document.querySelectorAll(".selectable");
-  console.log(calendarDays);
   calendarDays.forEach((day) => {
     day.addEventListener("click", function () {
       const giorno = this.getAttribute("data-date");
