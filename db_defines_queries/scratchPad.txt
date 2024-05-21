@@ -157,9 +157,6 @@ Value: 7; Failed to write file to disk.
 
 UPLOAD_ERR_EXTENSION
 
-TODO:
-	Autoconnect dal server php su PostgreSQL
-	pagina di login HTML+php
 
 (1) pagina html ricerca
 riaggiustare grafica utente 
@@ -211,4 +208,5 @@ tommaso@site.it - service
 Warning: pg_query():
 	 Query failed: 
 	 	ERROR: spiexceptions.SyntaxError: 
-			syntax error at or near "27" LINE 2: CREATE ROLE 27 WITH ^ QUERY: CREATE ROLE 27 WITH LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT NOREPLICATION NOBYPASSRLS CONNECTION LIMIT -1 PASSWORD 'cognome'; GRANT users_rwu TO 27; CONTEXT: Traceback (most recent call last): PL/Python function "create_new_user_on_insert", line 19, in <module> plpy.prepare(qry_add_usr) PL/Python function "create_new_user_on_insert" in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\register.php on line 33
+			syntax error at or near "27" LINE 2: 
+				CREATE ROLE 27 WITH ^ QUERY: CREATE ROLE 27 WITH LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT NOREPLICATION NOBYPASSRLS CONNECTION LIMIT -1 PASSWORD 'cognome'; GRANT users_rwu TO 27; CONTEXT: Traceback (most recent call last): PL/Python function "create_new_user_on_insert", line 19, in <module> plpy.prepare(qry_add_usr) PL/Python function "create_new_user_on_insert" in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\register.php on line 33

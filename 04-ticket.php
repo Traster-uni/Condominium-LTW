@@ -18,7 +18,7 @@
     <?php
       session_start();
 
-      if (!isset($_SESSION['ut_id'])) {
+      if (!isset($_SESSION['ut_id']) && isset($_SESSION["email"]) && isset($_SESSION["password"])) {
         header('01-login.html');
         exit();
       }

@@ -161,10 +161,11 @@ CREATE OR REPLACE TRIGGER timestamp_update_on_update
 CREATE OR REPLACE FUNCTION create_new_user_on_insert() RETURNS trigger
 AS $$
 	ut_id = TD["new"]["ut_id"]
+	email = TD["new"]["ut_email"]
 	pwd = TD["new"]["passwd"]
-
-	qry_add_usr = f"""
-				CREATE ROLE {ut_id} WITH
+	/* # was '{ut_id}' , try using that alternativley */
+	qry_add_usr = f""" 
+				CREATE ROLE '{email}' WITH
 				LOGIN
 				NOSUPERUSER
 				NOCREATEDB
@@ -175,7 +176,7 @@ AS $$
 				CONNECTION LIMIT -1
 				PASSWORD '{pwd}';
 
-				GRANT users_rwu TO {ut_id};
+				GRANT users_rwu TO '{ut_id}';
 				"""
 	plpy.prepare(qry_add_usr)
 	try:

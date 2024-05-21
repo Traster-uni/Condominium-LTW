@@ -1,6 +1,6 @@
 <?php
     $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
-
+    // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=$_SESSION["email"] password=$_SESSION["password"]");
     //Verifico che la connessione è avvenuta con successo
     if (!$connection) {
         echo "Errore, connessione non riuscita.<br>";
@@ -15,10 +15,11 @@
         $titolo = htmlspecialchars($_POST["titolo"]);
         $comm_text = htmlspecialchars($_POST["descrizione"]);
         $id = 1; // TODO: modify to adapt to instance connection
+        // $id = $_SESSION["ut_id"];
         $data = date("Y-m-d");
 
         //Query per prendere l'id dell'admin
-        $query = "SELECT req_aptblock_create.ut_id AS admin_id 
+        $query = "SELECT req_aptblock_create.ut_id AS admin_id submit_ticket
                     FROM req_ut_access req_ua JOIN req_aptblock_create req_ac 
                         ON req_ua.aptblock_id = req_ac.aptblockreq_id 
                     WHERE req_ua.status = 'accepted' 

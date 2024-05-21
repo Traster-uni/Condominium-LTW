@@ -1,6 +1,13 @@
 <?php
     $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
-
+    // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=$_SESSION["email"] password=$_SESSION["password"]");
+    
+    if (!$connection) {
+        echo "Errore, connessione non riuscita.<br>";
+        exit;
+    } else {
+        echo "Connected";
+    }
     //session_start();
     
     //$aptBlock_id = $_SESSION['aptBlock']; // Recupero l'apt id dalla sessione
