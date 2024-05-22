@@ -1,3 +1,10 @@
+html,
+body {
+  height: 100%;
+  background-color: rgb(101, 189, 113);
+  margin: 0;
+}
+
 .flexbox {
   display: flex;
   flex-direction: row;
@@ -158,6 +165,7 @@
 }
 
 .posts-container {
+  background-color: rgb(101, 189, 113);
   overflow-y: auto;
   border-top: 1px solid #ccc;
 }

@@ -5,8 +5,6 @@
     if (!$connection) {
         echo "Errore, connessione non riuscita.<br>";
         exit;
-    } else {
-        echo "Connected";
     }
     //session_start();
     

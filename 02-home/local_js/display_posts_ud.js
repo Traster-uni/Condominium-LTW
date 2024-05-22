@@ -1,13 +1,22 @@
 async function fetchPosts() {
-    const response = await fetch('/02-home/local_php/get_posts_ud.php', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+    try {
+        const response = await fetch('/02-home/local_php/get_posts_ud.php', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
-    const posts = await response.json();
-    displayPosts(posts);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const posts = await response.json();
+        console.log('Posts fetched successfully:', posts);
+        displayPosts(posts);
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+    }
 }
 
 function displayPosts(posts) {
@@ -34,7 +43,7 @@ function displayPosts(posts) {
     document.querySelectorAll('.toggle-comments').forEach(button => {
         button.addEventListener('click', async function() {
             const postId = this.dataset.postId;
-            const responsesDiv = document.getElementById('responses-${postId}');
+            const responsesDiv = document.getElementById(`responses-${postId}`);
             if (responsesDiv.style.display === 'none') {
                 const comments = await fetchComments(postId);
                 displayComments(responsesDiv, comments);
@@ -53,7 +62,7 @@ function displayPosts(posts) {
             if (responseText) {
                 await postComment(postId, responseText);
                 responseInput.value = '';
-                const responsesDiv = document.getElementById('responses-${postId}');
+                const responsesDiv = document.getElementById(`responses-${postId}`);
                 const comments = await fetchComments(postId);
                 displayComments(responsesDiv, comments);
             }
@@ -61,50 +70,50 @@ function displayPosts(posts) {
     });
 }
 
-/* async function fetchComments(postId) {
-    const response = await fetch('/02-home/local_php/get_comments.php?post_id=${postId}', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
+async function fetchComments(postId) {
+    try {
+        const response = await fetch(`/02-home/local_php/get_comments.php?post_id=${postId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-    });
-    return await response.json();
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+        return [];
+    }
 }
 
-function displayComments(responsesDiv, comments) {
-    responsesDiv.innerHTML = '';
+function displayComments(container, comments) {
+    container.innerHTML = '';
     comments.forEach(comment => {
         const commentElement = document.createElement('div');
         commentElement.classList.add('comment');
         commentElement.innerHTML = `
-            <p>${comment.content}</p>
+            <p class="comment-content">${comment.comm_text}</p>
             <span class="comment-date">${new Date(comment.time_born).toLocaleDateString()}</span>
-            <form class="response-form">
-                <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
-                <button type="button" class="response-button" data-comment-id="${comment.thread_id}">Rispondi</button>
-            </form>
-            <div class="responses" style="display:none;" id="responses-${comment.thread_id}"></div>
         `;
-        responsesDiv.appendChild(commentElement);
-
-        const responsesDivNested = commentElement.querySelector('#responses-${comment.thread_id}');
-        const responsesNested = comment.responses || [];
-        displayComments(responsesDivNested, responsesNested);
+        container.appendChild(commentElement);
     });
 }
 
-async function postComment(postId, commentText, parentId = null) {
-    const body = { post_id: postId, content: commentText };
-    if (parentId !== null) {
-        body.parent_id = parentId;
+async function postComment(postId, content) {
+    try {
+        const response = await fetch('/02-home/local_php/submit_comment.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ post_id: postId, content: content })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error posting comment:', error);
     }
-    await fetch('/02-home/local_php/post_comment.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    });
-} */
+}
 
 document.addEventListener('DOMContentLoaded', fetchPosts);
