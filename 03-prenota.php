@@ -25,10 +25,35 @@
       exit();
     } */
 
-    $result = pg_query($connection, "SELECT * FROM common_spaces");
+    $result1 = pg_query($connection, "SELECT * FROM common_spaces");
+
+    $result2 = pg_query($connection, "SELECT rental_req_id, cs_id, rental_datetime_start, rental_datetime_end FROM rental_request");
+
+    while ($row = pg_fetch_assoc($result2)) {
+      $timestamp_inizio = $row['rental_datetime_start'];
+      $timestamp_fine = $row['rental_datetime_end'];
+      $data_inizio = new DateTime($timestamp_inizio);
+      $data_fine = new DateTime($timestamp_fine);
+      $giorno = $data_inizio->format('d/m/Y');
+      $ora_inizio = $data_inizio->format('H:i');
+      $ora_fine = $data_fine->format('H:i');
+
+      $array[] = [
+        'rental_req_id' => $row['rental_req_id'],
+        'cs_id' => $row['cs_id'],
+        'giorno' => $giorno,
+        'ora_inizio' => $ora_inizio,
+        'ora_fine' => $ora_fine
+      ];
+    }
+
+    $prenotazioni = json_encode($array);
 
     ?>
     
+    <script type="text/javascript">
+      var prenotazioni = <?php echo $prenotazioni; ?>;
+    </script>
     <script src="./03-prenota/local_js/03-prenota.js"></script>
     <!--Navigation bar-->
     <div id="navbar"></div>
@@ -50,17 +75,17 @@
         </script>
         <!--Fine calendario-->
         <!--Prenotazioni attive-->
-        <div id="prenotazioni"></div>
+        <div id="prenotazioni-attive"></div>
         <script>
           $(function () {
-            $("#prenotazioni").load("global/06-html/prenotazioni.php");
+            $("#prenotazioni-attive").load("global/06-html/prenotazioni.php");
           });
         </script>
         <!-- Fine prenotazioni -->
       </div>
       <div class="colonna-centrale">
         <div class="luoghi">
-          <?php while ($row = pg_fetch_assoc($result)): ?>
+          <?php while ($row = pg_fetch_assoc($result1)): ?>
             <?php
             $name = $row['common_space_name'];
             $img = str_replace("\\", "/", $row['imgs_dir']);

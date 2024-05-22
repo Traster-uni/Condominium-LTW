@@ -120,13 +120,6 @@ function showCalendar1(month, year) {
         ) {
           cell.className = "not-selectable";
         }
-
-        // Check if there are events on this date
-        if (hasEventOnDate(date, month, year)) {
-          cell.classList.add("event-marker");
-          cell.appendChild(createEventTooltip(date, month, year));
-        }
-
         row.appendChild(cell);
         date++;
       }
@@ -145,22 +138,54 @@ showCalendar1(currentMonth1, currentYear1);
 
 /* Source: https://www.geeksforgeeks.org/how-to-create-a-dynamic-calendar-in-html-css-javascript/ */
 
+// Prendi i valori della data relativa al giorno clickato sul calendario
 function getDays() {
-  // Add event listener to each calendar day
   const calendarDays = document.querySelectorAll(".selectable");
   calendarDays.forEach((day) => {
     day.addEventListener("click", function () {
       const giorno = this.getAttribute("data-date");
       const mese = this.getAttribute("data-month");
       const anno = this.getAttribute("data-year");
-      document.getElementById("giorno").value = giorno; // Set the value of the hidden input field
-      document.getElementById("mese").value = mese; // Set the value of the hidden input field
-      document.getElementById("anno").value = anno; // Set the value of the hidden input field
-      // Add some visual feedback for the selected date
+      document.getElementById("giorno").value = giorno;
+      document.getElementById("mese").value = mese;
+      document.getElementById("anno").value = anno;
       calendarDays.forEach((day) => {
         day.classList.remove("choosen");
       });
       this.classList.add("choosen");
     });
   });
+  calendarDays.forEach((day) => {
+    day.classList.remove("event-marker");
+  });
+  addReservations();
+}
+
+// Mostra i giorni che hanno prenotazioni per il luogo corrispondente sul calendario
+function addReservations() {
+  let idLuogo = document.getElementById("cs-id").value;
+
+  prenotazioni.forEach(function (item) {
+    if (item.cs_id == idLuogo) {
+      let partiData = item.giorno.split("/");
+      let giorno = parseInt(partiData[0], 10);
+      let mese = parseInt(partiData[1], 10);
+      let anno = parseInt(partiData[2], 10);
+      let selector = `td.selectable[data-date='${giorno}'][data-month='${mese}'][data-year='${anno}']`;
+      let cellRes = document.querySelector(selector);
+      if (cellRes) cellRes.classList.add("event-marker");
+      if (cellRes)
+        cellRes.appendChild(createTooltip(item.ora_inizio, item.ora_fine));
+    }
+  });
+}
+
+// Crea un tooltip contenente l'orario di ogni prenotazione del giorno
+function createTooltip(ora_inizio, ora_fine) {
+  let tooltip = document.createElement("div");
+  tooltip.className = "event-tooltip";
+  let orario = document.createElement("p");
+  orario.innerHTML = `${ora_inizio} - ${ora_fine}`;
+  tooltip.appendChild(orario);
+  return tooltip;
 }

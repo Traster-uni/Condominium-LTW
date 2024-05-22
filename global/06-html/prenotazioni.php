@@ -21,8 +21,8 @@ $result = pg_query($connection, "SELECT * FROM rental_request NATURAL JOIN commo
         $data_inizio = new DateTime($timestamp_inizio);
         $data_fine = new DateTime($timestamp_fine);
         $giorno = $data_inizio->format('d/m/Y');
-        $ora_inizio = $data_inizio->format('h:m');
-        $ora_fine = $data_fine->format('h:m');
+        $ora_inizio = $data_inizio->format('H:i');
+        $ora_fine = $data_fine->format('H:i');
         ?>
         <p><?php echo htmlspecialchars($name); ?> (<?php echo htmlspecialchars($giorno); ?>, <?php echo htmlspecialchars($ora_inizio); ?> - <?php echo htmlspecialchars($ora_fine); ?>)</p>
     <?php endwhile; ?>

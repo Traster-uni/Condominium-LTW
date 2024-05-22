@@ -27,12 +27,12 @@
         $minuto_fine = (int)$minuto_fine;
         $inizio = date("Y-m-d H:i:s", mktime($ora_inizio, $minuto_inizio, 0, $mese, $giorno, $anno));
         $fine = date("Y-m-d H:i:s", mktime($ora_fine, $minuto_fine, 0, $mese, $giorno, $anno));
-        $id_utente = $_SESSION['ut_id'];
+        /* $id_utente = $_SESSION['ut_id']; */
         $id_luogo = intval($_POST["cs_id"]);
 
         //Preparo la query
         $q = "INSERT INTO rental_request(ut_id, cs_id, submit_time, stat, rental_datetime_start, rental_datetime_end)
-        VALUES ('$id_utente', '$id_luogo', '$submit_time', 'pending', '$inizio', '$fine')";
+        VALUES ('1', '$id_luogo', '$submit_time', 'pending', '$inizio', '$fine')";
         $result = pg_query($connection, $q);
 
         // Verifica se l'inserimento è avvenuto con successo
@@ -49,6 +49,5 @@
 ?>
 
 <!--
-TO DO: mostrare le tue prenotazioni già attive a sinistra
-TO DO: mostrare i giorni con almeno una prenotazione presente sul calendario quando prenoti
+ERRORE: A rental request in the same time period already exists quando faccio una prenotazione nello stesso giorno di un'altra anche se hanno orari diversi
 -->
