@@ -28,6 +28,7 @@ AS $$
 			return "OK"
 		if qry_result[0]["num_req"] > 5:
 			raise plpy.error(f"Max num of requests reached for {usr_id}, rolling back")
+			return "ERROR"
 		else:
 			return "OK"
 $$ LANGUAGE plpython3u;
@@ -58,14 +59,12 @@ AS $$
 	try:
 		qry_result = plpy.execute(qry)
 
-	except plpy.SPIError:
-		td = TD["new"]
-		ins_print = f"INSERT INTO python_log (log_message) VALUES ('{td}')"
-		plpy.prepare(ins_print)
-		plpy.execute(qry)
-		return "something went wrong"
+	except plpy.SPIError as e:
+		plpy.error(f"Error rental requests overlapping: {str(e)}")
+		return "ERROR"
 	if qry_result[0]["disj"] == True:
 		raise plpy.error("A rental request in the same time period already exists")
+		return "ERROR"
 	else:
 		return "OK"
 $$ LANGUAGE plpython3u;
@@ -96,8 +95,9 @@ AS $$
 			plpy.prepare(qry)
 			try:
 				plpy.execute(qry)
-			except plpy.SPIError:
-				raise plpy.error(f"Something went wrong, aborting operation: ({aptBlock_id}, '{addr_aptB}', '{city}', '{cap}')")
+			except plpy.SPIError as e:
+				raise plpy.error(f"Something went wrong, aborting operation: ({aptBlock_id}, '{addr_aptB}', '{city}', '{cap}': {str(e)})")
+				return "ERROR"
 	return "OK"
 $$ LANGUAGE plpython3u;
 
@@ -127,8 +127,9 @@ AS $$
 				return "something went wrong with the insertion of the general bboard"
 	try:
 		plpy.execute(qry_admin)
-	except plpy.SPIError:
-		return "something went wrong with the insertion of the admin bboard"
+	except plpy.SPIError as e:
+		raise plpy.error(f"Error creating bullettin board: {str(e)}")
+		return "ERROR"
 	return "OK"
 $$ LANGUAGE plpython3u;
 
@@ -149,8 +150,9 @@ AS $$
 	plpy.prepare(qry)
 	try:
 		plpy.execute(qry)
-	except plpy.SPIError:
-		return "failde to update timestamp"
+	except plpy.SPIError as e:
+		raise plpy.error(f"Error updating timestamp: {str(e)}")
+		return "ERROR"
 	return "OK"
 $$ LANGUAGE plpython3u;
 
@@ -161,10 +163,8 @@ CREATE OR REPLACE TRIGGER timestamp_update_on_update
 CREATE OR REPLACE FUNCTION create_new_user_on_insert() RETURNS trigger
 AS $$
 	ut_id = TD["new"]["ut_id"]
-	email = TD["new"]["ut_email"]
 	pwd = TD["new"]["passwd"]
-	# email = email.replace("@", "AT") # filter @ and . chars
-	# was '{ut_id}' , try using that alternativley
+
 	qry_add_usr = f""" 
 				CREATE ROLE user{ut_id} WITH
 				LOGIN
@@ -183,8 +183,10 @@ AS $$
 	plpy.prepare(qry_add_usr)
 	try:
 		plpy.execute(qry_add_usr)
-	except plpy.SPIError:
-		return "Something went wrong"
+		return "OK"
+	except plpy.SPIError as e:
+		raise plpy.error(f"Error creating user role: {str(e)}")
+		return "ERROR"
 	return "OK"
 $$ LANGUAGE plpython3u;
 

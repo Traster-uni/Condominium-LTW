@@ -179,10 +179,9 @@ NOTA BENE:
 		new user to check on login schema and only the login schema
 		new role where all the registered user will login under.
 
-
-OCCHIO:
-	PER OGNI UTENTE:
-		GRANT USAGE ON SCHEMA public TO <anyusr>;
+----------------- SQL -----------------
+GRANT USAGE ON SCHEMA public TO <anyusr>;
+DELETE FROM ut_registered WHERE ut_id BETWEEN 35 AND 43
 
 3. Restrict Access to Authenticated Users
 On pages that require authentication, check if the session variables are set. If they are not, redirect the user to the login page.
@@ -205,8 +204,20 @@ todo: verifica che le immagini di 03-prenota.php siano visualizzate correttament
 
 tommaso@site.it - service
 
-Warning: pg_query():
-	 Query failed: 
-	 	ERROR: spiexceptions.SyntaxError: 
-			syntax error at or near "27" LINE 2: 
-				CREATE ROLE 27 WITH ^ QUERY: CREATE ROLE 27 WITH LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT NOREPLICATION NOBYPASSRLS CONNECTION LIMIT -1 PASSWORD 'cognome'; GRANT users_rwu TO 27; CONTEXT: Traceback (most recent call last): PL/Python function "create_new_user_on_insert", line 19, in <module> plpy.prepare(qry_add_usr) PL/Python function "create_new_user_on_insert" in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\register.php on line 33
+TODO: Use pg_query_params to execute parameterized queries, preventing SQL injection like this:
+	 $q = "INSERT INTO ut_registered(nome, cognome, d_nascita, telefono, address, citta_residenza, ut_email, passwd) 
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
+    $result = pg_query_params($connection, $q, array($nome, $cognome, $dnascita, $telefono, $address, $citta, $email, $password));
+
+
+Warning: 
+	pg_query(): 
+		Query failed: 
+			ERROR: unexpected return value from trigger procedure 
+			DETAIL: Expected None, "OK", "SKIP", or "MODIFY". 
+			CONTEXT: PL/Python function "create_new_user_on_insert" in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\register.php on line 33
+
+Fatal error: Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, false given in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\register.php:49 Stack trace: #0 {main} thrown in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\register.php on line 49
+INSERT INTO ut_registered(nome, cognome, d_nascita, telefono, address, citta_residenza, ut_email, passwd) 
+                VALUES ('nome7', 'cognome7', '1999-03-01', '2939420940', 'VIa bruh, 69', 'Catanzaro', 'nome7@site.it', '123');
+
