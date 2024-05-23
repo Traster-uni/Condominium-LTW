@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS ut_registered(
 	citta_residenza varchar(100) NOT NULL,
 	ut_email varchar(50) NOT NULL,
 	passwd varchar(50) NOT NULL,
-	data_iscrizione date NOT NULL, -- call current_date at time of insertion
+	data_iscrizione date NOT NULL DEFAULT current_time,
 	PRIMARY KEY (ut_id),
 	FOREIGN KEY (citta_residenza) REFERENCES city(name),
 	UNIQUE (ut_id, ut_email)

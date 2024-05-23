@@ -163,9 +163,10 @@ AS $$
 	ut_id = TD["new"]["ut_id"]
 	email = TD["new"]["ut_email"]
 	pwd = TD["new"]["passwd"]
-	/* # was '{ut_id}' , try using that alternativley */
+	# email = email.replace("@", "AT") # filter @ and . chars
+	# was '{ut_id}' , try using that alternativley
 	qry_add_usr = f""" 
-				CREATE ROLE '{email}' WITH
+				CREATE ROLE user{ut_id} WITH
 				LOGIN
 				NOSUPERUSER
 				NOCREATEDB
@@ -176,7 +177,8 @@ AS $$
 				CONNECTION LIMIT -1
 				PASSWORD '{pwd}';
 
-				GRANT users_rwu TO '{ut_id}';
+				GRANT users_rwu TO user{ut_id};
+				GRANT USAGE ON SCHEMA public TO user{ut_id};
 				"""
 	plpy.prepare(qry_add_usr)
 	try:
