@@ -58,7 +58,7 @@
                 $_SESSION["password"] = $qry_pwd_arr["passwd"];
                 $_SESSION["admin"] = 0;
 
-                $conn = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=".$_SESSION["userID"]." password=".$_SESSION["password"]);
+                $conn = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
                 $qry_adm = "SELECT COUNT(adm.ut_id)
                             FROM aptblock_admin adm 
                                 JOIN ut_registered ut_r ON adm.ut_id = ut_r.ut_id

@@ -209,15 +209,6 @@ TODO: Use pg_query_params to execute parameterized queries, preventing SQL injec
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
     $result = pg_query_params($connection, $q, array($nome, $cognome, $dnascita, $telefono, $address, $citta, $email, $password));
 
-
-Warning: 
-	pg_query(): 
-		Query failed: 
-			ERROR: unexpected return value from trigger procedure 
-			DETAIL: Expected None, "OK", "SKIP", or "MODIFY". 
-			CONTEXT: PL/Python function "create_new_user_on_insert" in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\register.php on line 33
-
-Fatal error: Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, false given in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\register.php:49 Stack trace: #0 {main} thrown in C:\LTW-Condominium\Condominium-LTW\01-login\local_php\register.php on line 49
 INSERT INTO ut_registered(nome, cognome, d_nascita, telefono, address, citta_residenza, ut_email, passwd) 
                 VALUES ('nome7', 'cognome7', '1999-03-01', '2939420940', 'VIa bruh, 69', 'Catanzaro', 'nome7@site.it', '123');
 
