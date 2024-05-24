@@ -168,7 +168,7 @@ area utente:
 	popolare pagine, profilo, impostazioni()
 
 admin funcs
- 	creazione di Condominio
+ 	creazione di Condominio <-
 	Risposta ticket
 	definizione common spaces
 	gestione dei pagamenti --- mock
@@ -183,9 +183,6 @@ NOTA BENE:
 GRANT USAGE ON SCHEMA public TO <anyusr>;
 DELETE FROM ut_registered WHERE ut_id BETWEEN 35 AND 43
 
-3. Restrict Access to Authenticated Users
-On pages that require authentication, check if the session variables are set. If they are not, redirect the user to the login page.
-session_start();
 
 -- 1. rename the enum type you want to change
 alter type ut_request_stat rename to _ut_request_stat;

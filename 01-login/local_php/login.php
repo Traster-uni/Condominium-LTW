@@ -55,7 +55,7 @@
                 $_SESSION["ut_id"] = $qry_pwd_arr["ut_id"];
                 $_SESSION["email"] = $qry_em_arr["ut_email"];
                 $_SESSION["password"] = $qry_pwd_arr["passwd"];
-                $_SESSION["admin"] = 0;
+                $_SESSION["admin"] = false;
                 echo "<br> sessionValue: "; 
                 print_r($_SESSION["ut_id"]);
                 $conn = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
@@ -74,7 +74,7 @@
                 }
 
                 if (count($qry_adm_arr) == 1){
-                    $_SESSION["admin"] = 1;
+                    $_SESSION["admin"] = true;
                 }
                 $id_utente = $_SESSION["ut_id"];
                 $check_registered = pg_query($conn, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
