@@ -18,7 +18,7 @@
     session_start();
 
     if (!isset($_SESSION['ut_id'])) {
-      header('01-login.html');
+      header('./01-login.html');
       exit();
     }
     ?>
@@ -26,7 +26,7 @@
     <div id="navbar"></div>
     <script>
       $(function () {
-        $("#navbar").load("global/06-html/navbar.html");
+        $("#navbar").load("./global/06-html/navbar.html");
       });
     </script>
     <!--end of Navigation bar-->

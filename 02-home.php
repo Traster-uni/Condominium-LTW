@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <link rel="stylesheet" href="./02-home/local_css/02-home.css" />
-    <link rel="stylesheet" href="global/01-css/contatti.css">
+    <link rel="stylesheet" href="./global/01-css/contatti.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   </head>
   <body>
     <?php
-      ini_set('display_errors', 1);
-      ini_set('display_startup_errors', 1);
-      error_reporting(E_ALL);
+      // ini_set('display_errors', 1);
+      // ini_set('display_startup_errors', 1);
+      // error_reporting(E_ALL);
       
       session_start();
       if (!isset($_SESSION['ut_id']) && !isset($_SESSION['password']) && !isset($_SESSION['email'])) {
@@ -66,7 +66,7 @@
         <div id="calendar"></div>
         <script>
           $(function () {
-            $("#calendar").load("global/06-html/calendar-small.html");
+            $("#calendar").load("./global/06-html/calendar-small.html");
           });
         </script>
         <!--End of calendar-->
@@ -133,7 +133,7 @@
 
         <div class="tabcontent" id="tab-utente">
 
-          <form action="/02-home/local_php/submit_post.php" class="post-form" id="user-post-form" method="post">
+          <form action="./02-home/local_php/submit_post.php" class="post-form" id="user-post-form" method="post">
             <input type="text" id="ud-post-title" name="ud-post-title" placeholder="Titolo del post" required>
             <textarea id="ud-post-content" name="ud-post-content" placeholder="Scrivi qualcosa..." required></textarea>
             <input type="submit" value="Invia">
@@ -161,6 +161,6 @@
   <script src="./02-home/local_js/02-home.js"></script>
   <!-- <script src="./02-home/local_js/toggle_comments.js"></script> -->
   <script>document.getElementById("padmin").click();</script>
-  <script src="02-home/local_js/display_posts_ud.js"></script>
+  <script src="./02-home/local_js/display_posts_ud.js"></script>
   </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./03-prenota/local_css/03-prenota.css" />
-    <link rel="stylesheet" href="global/01-css/contatti.css">
+    <link rel="stylesheet" href="./global/01-css/contatti.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Prenota</title>
   </head>
@@ -58,7 +58,7 @@
     <div id="navbar"></div>
     <script>
       $(function () {
-        $("#navbar").load("global/06-html/navbar.html");
+        $("#navbar").load("./global/06-html/navbar.html");
       });
     </script>
     <!--end of Navigation bar-->
@@ -69,7 +69,7 @@
         <div id="calendar"></div>
         <script>
           $(function () {
-            $("#calendar").load("global/06-html/calendar-small.html");
+            $("#calendar").load("./global/06-html/calendar-small.html");
           });
         </script>
         <!--Fine calendario-->
@@ -77,7 +77,7 @@
         <div id="prenotazioni-attive"></div>
         <script>
           $(function () {
-            $("#prenotazioni-attive").load("global/06-html/prenotazioni_accettate.php");
+            $("#prenotazioni-attive").load("./global/06-html/prenotazioni_accettate.php");
           });
         </script>
         <!-- Fine prenotazioni -->
@@ -120,7 +120,7 @@
                 <div id="calendar1"></div>
                 <script>
                   $(function () {
-                    $("#calendar1").load("global/06-html/calendar-prenota.html");
+                    $("#calendar1").load("./global/06-html/calendar-prenota.html");
                   });
                 </script>
                 <input type="hidden" id="giorno" name="giorno">

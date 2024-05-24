@@ -1,6 +1,6 @@
 <?php
+    session_start();
     $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
-    // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=$_SESSION["email"] password=$_SESSION["password"]");
 
     //Verifico che la connessione è avvenuta con successo
     if (!$connection) {
@@ -8,6 +8,12 @@
         exit;
     } else {
         echo "Connected";
+    }
+
+    if (!isset($_SESSION['ut_id'])){
+        echo "<br>no session value";
+        print_r($_SESSION['ut_id']);
+        return;
     }
 
     //Prendo i dati dalla form e li vado ad inserire nella tabella sul DB
@@ -33,14 +39,20 @@
         //Preparo la query
         $q = "INSERT INTO rental_request(ut_id, cs_id, submit_time, stat, rental_datetime_start, rental_datetime_end)
         VALUES ('$id_utente', '$id_luogo', '$submit_time', 'pending', '$inizio', '$fine')";
+        // $q = "INSERT INTO rental_request(ut_id, cs_id, submit_time, stat, rental_datetime_start, rental_datetime_end)
+        // VALUES ('10', '1', '$submit_time', 'pending', '$inizio', '$fine')";
         $result = pg_query($connection, $q);
 
         // Verifica se l'inserimento è avvenuto con successo
         if ($result) {
             echo "Prenotazione avvenuta con successo!";
-            header("Location: /03-prenota.php");
+            header("Location: ../../03-prenota.php");
         } else {
+            print_r($id_utente);
+            print_r($_SESSION['ut_id']);
             echo "Errore durante la prenotazione: " . pg_last_error($connection);
+            
+            // echo "ERROR".pg_result_error($result);
         }
     }
 

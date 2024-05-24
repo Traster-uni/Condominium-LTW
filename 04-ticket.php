@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./04-ticket/local_css/04-ticket.css" />
-    <link rel="stylesheet" href="global/01-css/contatti.css">
+    <link rel="stylesheet" href="./global/01-css/contatti.css">
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -27,7 +27,7 @@
     <div id="navbar"></div>
     <script>
       $(function () {
-        $("#navbar").load("global/06-html/navbar.html");
+        $("#navbar").load("./global/06-html/navbar.html");
       });
     </script>
     <!--end of Navigation bar-->
@@ -37,7 +37,7 @@
         <div id="calendar"></div>
         <script>
           $(function () {
-            $("#calendar").load("global/06-html/calendar-small.html");
+            $("#calendar").load("./global/06-html/calendar-small.html");
           });
         </script>
         <!--End of calendar-->
@@ -48,7 +48,7 @@
           <span class="material-symbols-outlined">add</span>
         </button>
         <div class="collapse" id="formTicket">
-          <form action="/04-ticket/local_php/submit_ticket.php" method="post" name="ticket">
+          <form action="./04-ticket/local_php/submit_ticket.php" method="post" name="ticket">
             <h4>Titolo</h4>
             <input type="text" name="titolo" id="titolo" size="50" required />
             <h4>Descrizione</h4>

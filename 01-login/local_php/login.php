@@ -12,9 +12,9 @@
         echo "connected<br>";
     }
 
-    // ini_set('display_errors', 1);
-    // ini_set('display_startup_errors', 1);
-    // error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["login_button"])){
@@ -53,11 +53,11 @@
             // check password
             if (strcmp($qry_pwd_arr["passwd"], $passwd) == 0){
                 $_SESSION["ut_id"] = $qry_pwd_arr["ut_id"];
-                $_SESSION["userID"] = "user" . $qry_pwd_arr["ut_id"];
                 $_SESSION["email"] = $qry_em_arr["ut_email"];
                 $_SESSION["password"] = $qry_pwd_arr["passwd"];
                 $_SESSION["admin"] = 0;
-
+                echo "<br> sessionValue: "; 
+                print_r($_SESSION["ut_id"]);
                 $conn = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
                 $qry_adm = "SELECT COUNT(adm.ut_id)
                             FROM aptblock_admin adm 

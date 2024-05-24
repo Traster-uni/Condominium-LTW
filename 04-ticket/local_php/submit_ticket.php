@@ -1,6 +1,6 @@
 <?php
     $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
-    // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=$_SESSION["email"] password=$_SESSION["password"]");
+    // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=user_condominium");
     //Verifico che la connessione è avvenuta con successo
     if (!$connection) {
         echo "Errore, connessione non riuscita.<br>";
@@ -34,7 +34,7 @@
         // Verifica se l'inserimento è avvenuto con successo
         if ($result_ticket_insert) {
             echo "Ticket sent successfully!";
-            header("Location: /04-ticket.php");
+            header("Location: ./04-ticket.php");
         } else {
             echo "Ticket not sent, ERROR: " . pg_result_error($result_ticket_insert);
         }
