@@ -12,10 +12,12 @@ $result = pg_query($connection, "SELECT * FROM (rental_request NATURAL JOIN ut_r
 ?>
 
 <div style="background: white; padding: 0px 0px 5px 10px; border-top: 1px solid gray">
-    <p style="font-weight: bold; font-size: 20px">Prenotazioni dei condomini</p>
+    <p style="font-weight: bold; font-size: 20px">Prenotazioni da accettare</p>
     <?php while ($row = pg_fetch_assoc($result)): ?>
         <?php
-        $name = $row['common_space_name'];
+        $nome = $row['nome'];
+        $cognome = $row['cognome'];
+        $nome_luogo = $row['common_space_name'];
         $timestamp_inizio = $row['rental_datetime_start'];
         $timestamp_fine = $row['rental_datetime_end'];
         $data_inizio = new DateTime($timestamp_inizio);
@@ -31,6 +33,6 @@ $result = pg_query($connection, "SELECT * FROM (rental_request NATURAL JOIN ut_r
 <table>
   <tr>
     <th>Nome</th>
-    <th>Contact</th>
-    <th>Country</th>
+    <th>Luogo</th>
+    <th>Data</th>
   </tr>
