@@ -18,10 +18,15 @@
     <?php
       session_start();
 
-      if (!isset($_SESSION['ut_id']) && isset($_SESSION["email"]) && isset($_SESSION["password"])) {
-        header('01-login.html');
-        exit();
-      }
+      if (!isset($_SESSION['ut_id']) && !isset($_SESSION['password']) && !isset($_SESSION['email'])) {
+      $id_utente = $_SESSION["ut_id"];
+        $check_registered = pg_query($conn, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
+        if (!pg_num_rows($check_registered)) {
+          header('01-login2.html');
+        } else {
+          header('01-login1.html');
+        }
+    }
     ?>
     <!--Navigation bar-->
     <div id="navbar"></div>

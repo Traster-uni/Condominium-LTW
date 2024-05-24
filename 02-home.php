@@ -16,7 +16,13 @@
       
       session_start();
       if (!isset($_SESSION['ut_id']) && !isset($_SESSION['password']) && !isset($_SESSION['email'])) {
-        header('01-login.html');
+        $id_utente = $_SESSION["ut_id"];
+          $check_registered = pg_query($conn, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
+          if (!pg_num_rows($check_registered)) {
+            header('01-login2.html');
+          } else {
+            header('01-login1.html');
+          }
         exit();
       } else {
         echo "session set";
