@@ -7,8 +7,8 @@
 </head>
 <body>
     <php>
-    <!-- creation form to define requests values for your appartment block  -->
-    <!-- button on click call to submit, answere with request sent/refused (if error occurs)-->
+    <!-- visualize requests from server -->
+    <!-- accept or decline requests from server -->
     </php>
 </body>
 </html>
