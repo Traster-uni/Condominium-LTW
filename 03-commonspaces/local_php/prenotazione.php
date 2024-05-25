@@ -45,7 +45,7 @@
         // Verifica se l'inserimento è avvenuto con successo
         if ($result) {
             echo "Prenotazione avvenuta con successo!";
-            header("Location: /03-prenota.php");
+            header("Location: /03-commonspaces.php");
         } else {
             echo "Errore durante la prenotazione: " . pg_last_error($connection);
         }

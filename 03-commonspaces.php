@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./03-prenota/local_css/03-prenota.css" />
+    <link rel="stylesheet" href="./03-commonspaces/local_css/03-commonspaces.css" />
     <link rel="stylesheet" href="./global/01-css/contatti.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Prenota</title>
@@ -58,7 +58,7 @@
     <script type="text/javascript">
       var prenotazioni = <?php echo $prenotazioni; ?>;
     </script>
-    <script src="./03-prenota/local_js/03-prenota.js"></script>
+    <script src="./03-commonspaces/local_js/03-commonspaces.js"></script>
     <!--Navigation bar-->
     <div id="navbar"></div>
     <script>
@@ -116,7 +116,7 @@
               <img id="img-popup" src="" class="immagine">
             </div>
 
-            <form class="popup-form" action="./03-prenota/local_php/prenotazione.php" method="POST">
+            <form class="popup-form" action="./03-commonspaces/local_php/prenotazione.php" method="POST">
               <input type="hidden" id="cs-id" name="cs_id">
               <div style="text-align: right">
                 <button type="button" class="close" href="#" onclick="hide('popup')"></button>

@@ -78,15 +78,17 @@
                 }
                 $id_utente = $_SESSION["ut_id"];
                 $check_registered = pg_query($conn, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
-                if (!pg_num_rows($check_registered)) {
+                /* if (!pg_num_rows($check_registered)) {
                     pg_close($conn);
                     header("Location: ../../01-login2.html");
-                     session_regenerate_id(true);
+                    session_regenerate_id(true);
                 } else {
                     pg_close($conn);
                     header("Location: ../../02-home.php");
-                     session_regenerate_id(true);
-                }
+                    session_regenerate_id(true);
+                } */
+                pg_close($conn);
+                header("Location: ../../02-home.php");
             } else {
                 echo "Wrong password, try again<br>";
             }

@@ -30,7 +30,7 @@
 
       $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
 
-      $qry_aptb = "SELECT r_ut_a.aptBlock_id
+      /* $qry_aptb = "SELECT r_ut_a.aptBlock_id
                      FROM ut_registered ut_r JOIN req_ut_access r_ut_a ON  ut_r.ut_id = r_ut_a.ut_id
                     WHERE r_ut_a.status = 'accepted'
                       AND ut_r.ut_id = $usr_id";
@@ -46,7 +46,7 @@
         // may need something else, like redirection
       } else {
         header("Location ../../<.php>;");
-      }
+      } */
     ?>
     <!--Navigation bar-->
     <div id="navbar"></div>
