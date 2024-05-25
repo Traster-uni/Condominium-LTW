@@ -30,6 +30,8 @@ CREATE TYPE ut_request_stat AS ENUM ('pending', 'accepted', 'refused', 'aborted'
 CREATE TYPE ticket_status AS ENUM ('open', 'closed');
 
 CREATE TYPE request_status AS ENUM ('accepted', 'pending', 'refused');
+
+CREATE TYPE bb_type AS ENUM('general', 'admin');
 -- may needs deletion and creation, ALSO THE TABLE THAT USE THIS TYPE MAY NEED TO BE DROPPED FIRST
 -- DROP DOMAIN IF EXISTS request_status 
 
@@ -158,9 +160,9 @@ CREATE TABLE IF NOT EXISTS ut_personal_documents(
 -- [bb](0,N) <---> (0,N) [post] (0,N) <---> (0,1) [thread] (1,N) <---> (1,1) [reply]
 
 CREATE TABLE IF NOT EXISTS aptBlock_bulletinBoard(
-	aptBlock_id integer,
+	aptBlock_id integer NOT NULL,
 	bb_id serial,
-	bb_name varchar(20) NOT NULL,
+	bb_name bb_type NOT NULL,
 	bb_year integer NOT NULL, -- must be 01-01-year
 	--more attributes may be needed
 	PRIMARY KEY (bb_id),

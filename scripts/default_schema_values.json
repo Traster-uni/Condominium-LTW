@@ -616,25 +616,25 @@
     ],
     "aptBlock_bulletinBoard": [
         {
-            "aptBlock_id": 1,
+            "aptblock_id": 1,
             "bb_id": 1,
             "bb_name": "general",
             "bb_year": "2024"
         },
         {
-            "aptBlock_id": 1,
+            "aptblock_id": 1,
             "bb_id": 2,
             "bb_name": "admin",
             "bb_year": "2024"
         },
         {
-            "aptBlock_id": 2,
+            "aptblock_id": 2,
             "bb_id": 3,
             "bb_name": "general",
             "bb_year": "2024"
         },
         {
-            "aptBlock_id": 2,
+            "aptblock_id": 2,
             "bb_id": 4,
             "bb_name": "admin",
             "bb_year": "2024"
