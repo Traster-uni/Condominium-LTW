@@ -39,7 +39,8 @@
         $qry_check_arr = pg_fetch_assoc($qry_check_res);
         if ($email === $qry_check_arr['ut_email']){
             echo "THE ACCOUNT ALREADY EXISTS<br>";
-        } else if ($telefono === $qry_check_arr['telefono']){
+        } 
+        if ($telefono === $qry_check_arr['telefono']){
             echo "THE TELEPHONE NUMBER IT'S ALREADY ASSOCIATED WITH ANOTHER ACCOUNT<br>";
         }
         // else if ($fiscalcode === $qry_check_arr['fiscalcode'])

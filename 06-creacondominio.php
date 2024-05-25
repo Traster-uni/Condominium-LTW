@@ -8,7 +8,7 @@
 <body>
     <php>
     <!-- creation form to define requests values for your appartment block  -->
-    <!-- button on click call to submit, answere with request sent/refused (if error occurs)-->
+    <!-- button on click call to submit, answer with request sent/refused (if error occurs) -->
     </php>
 </body>
 </html>

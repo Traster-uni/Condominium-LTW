@@ -158,21 +158,19 @@ Value: 7; Failed to write file to disk.
 UPLOAD_ERR_EXTENSION
 
 
-(1) pagina html ricerca
+
 riaggiustare grafica utente 
-calendario rettivo alle attivita -
-prenotazione common spaces utente
-posts e threads
+upload documenti previa iscrizione aptblock
 
 area utente:
 	popolare pagine, profilo, impostazioni()
 
 admin funcs
- 	creazione di Condominio <-
-	Risposta ticket
-	definizione common spaces
+ 	creazione di Condominio (in attivita')
+	Risposta ticket (1)
+	definizione common spaces (2)
 	gestione dei pagamenti --- mock
-	definizione tags 
+	definizione tags (3)
 
 NOTA BENE: 
 	System requires specific roles for
