@@ -12,9 +12,7 @@
  *  some sort of identifier derived from the user
  */
 // allow script to wait for a connection
-// set_time_limit(0);
 
-// define($ABS_PATH, "C:\\LTW-Condominium\\Condominiunm-LTW\\tests\\");
 // ini_set('display_errors', 1);
 // error_reporting(E_ALL);
 // print_r($_FILES);
@@ -89,6 +87,7 @@ try {
                 $target_dir = sprintf("users".$div."%s".$div."pictures".$div."photos", $email); // win
                 // $target_dir = sprintf("users/%s/pictures/photos", $email); // Linux
                 $target_fname = $root .$div. $target_dir .$div. $fName;
+                $_SESSION['resource_dir'] = $target_dir;
                 // check for directory
                 if (!file_exists($target_fname)){
                     chdir($root);

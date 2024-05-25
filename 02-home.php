@@ -14,7 +14,7 @@
       // ini_set('display_startup_errors', 1);
       // error_reporting(E_ALL);
       
-      /* session_start();
+      session_start();
       if (!isset($_SESSION['ut_id']) && !isset($_SESSION['password']) && !isset($_SESSION['email'])) {
         $id_utente = $_SESSION["ut_id"];
           $check_registered = pg_query($conn, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
@@ -26,29 +26,27 @@
         exit();
       } else {
         echo "session set";
-      } */
+      }
 
-      // $usr_id = $_SESSION['ut_id'];
-      // $pswd = $_SESSION['password'];
-      // $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=$usr_id password=$pswd");
+      $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
 
-      // $qry_aptb = "SELECT r_ut_a.aptBlock_id
-      //               FROM ut_registered ut_r JOIN req_ut_access r_ut_a ON  ut_r.ut_id = r_ut_a.ut_id
-      //               WHERE r_ut_a.status = 'accepted'
-      //                 AND ut_r.ut_id = $usr_id";
-      // $qry_aptb_res = pg_query($connect, $qry_aptb);
-      // if (!$qry_aptb_res){ // error checking
-      //   echo "Something went wrong<br>";
-      //   echo pg_result_error($qry_aptb_res);
-      // }
-      // $qry_aptb_arr = pg_fetch_assoc($qry_aptb_res);
-      // $_SESSION['aptBlock'] = $qry_aptb_arr['aptBlock_id'];
-      // if (count($qry_aptb_arr) !== 0){
-      //   $_SESSION['aptBlock'] = $qry_aptb_arr['aptBlock_id'];
-      //   // may need something else, like redirection
-      // } else {
-      //   header("Location ../../<.php>;");
-      // }
+      $qry_aptb = "SELECT r_ut_a.aptBlock_id
+                     FROM ut_registered ut_r JOIN req_ut_access r_ut_a ON  ut_r.ut_id = r_ut_a.ut_id
+                    WHERE r_ut_a.status = 'accepted'
+                      AND ut_r.ut_id = $usr_id";
+      $qry_aptb_res = pg_query($connect, $qry_aptb);
+      if (!$qry_aptb_res){ // error checking
+        echo "Something went wrong<br>";
+        echo pg_result_error($qry_aptb_res);
+      }
+      $qry_aptb_arr = pg_fetch_assoc($qry_aptb_res);
+      $_SESSION['aptBlock'] = $qry_aptb_arr['aptBlock_id'];
+      if (count($qry_aptb_arr) !== 0){
+        $_SESSION['aptBlock'] = $qry_aptb_arr['aptBlock_id'];
+        // may need something else, like redirection
+      } else {
+        header("Location ../../<.php>;");
+      }
     ?>
     <!--Navigation bar-->
     <div id="navbar"></div>

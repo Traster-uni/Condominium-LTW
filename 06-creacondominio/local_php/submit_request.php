@@ -40,7 +40,7 @@
         $qry_em_arr = pg_fetch_assoc($qry_chk_res);
         if ($qry_chk_arr['city'] === $city && $qry_chk_arr['adr_aptb'] === $address ){
                 echo "it already exists an appartament block with the same address in the same city<br>";
-                //refresh
+                //refresh ??
         }
 
         $qry_insrt = "INSERT INTO req_aptblock_create(ut_id, stat, addr_aptb, city, cap) 

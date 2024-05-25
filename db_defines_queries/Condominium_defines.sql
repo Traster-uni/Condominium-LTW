@@ -253,11 +253,13 @@ CREATE TABLE IF NOT EXISTS tags_tickets(
  
 CREATE TABLE IF NOT EXISTS common_spaces(
 	cs_id serial,
+	aptb_id integer,
 	common_space_name varchar(50) NOT NULL,
 	int_num integer NOT NULL,
 	floor_num integer NOT NULL,
 	imgs_dir varchar(100),  
-	PRIMARY KEY (cs_id)
+	PRIMARY KEY (cs_id),
+	FOREIGN KEY  (aptb_id) REFERENCES TO aptBlock(aptBlock_id)
  );
 
 CREATE TABLE IF NOT EXISTS rental_request(
