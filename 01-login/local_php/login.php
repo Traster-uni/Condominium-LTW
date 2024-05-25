@@ -78,17 +78,26 @@
                 }
                 $id_utente = $_SESSION["ut_id"];
                 $check_registered = pg_query($conn, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
+                $check_admin = pg_query($conn, "SELECT ut_id FROM aptblock_admin WHERE ut_ID = $id_utente");
                 /* if (!pg_num_rows($check_registered)) {
                     pg_close($conn);
-                    header("Location: ../../01-login2.html");
+                    header("Location: ../../01-login_utente.html");
                     session_regenerate_id(true);
                 } else {
                     pg_close($conn);
                     header("Location: ../../02-home.php");
                     session_regenerate_id(true);
                 } */
-                pg_close($conn);
-                header("Location: ../../02-home.php");
+
+                if (pg_num_rows($check_admin)) {
+                    pg_close($conn);
+                    header("Location: ../../01-login_admin.html");
+                    session_regenerate_id(true);
+                } else {
+                    pg_close($conn);
+                    header("Location: ../../02-home.php");
+                    session_regenerate_id(true);
+                }
             } else {
                 echo "Wrong password, try again<br>";
             }
