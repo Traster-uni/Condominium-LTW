@@ -138,7 +138,7 @@ showCalendar1(currentMonth1, currentYear1);
 
 /* Source: https://www.geeksforgeeks.org/how-to-create-a-dynamic-calendar-in-html-css-javascript/ */
 
-// Prendi i valori della data relativa al giorno clickato sul calendario
+// Prendi i valori della data relativa al giorno cliccato sul calendario
 function getDays() {
   const calendarDays = document.querySelectorAll(".selectable");
   calendarDays.forEach((day) => {

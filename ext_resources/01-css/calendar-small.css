@@ -159,15 +159,13 @@ body {
 /* Date picker */
 
 .today {
-  background-color: rgb(181, 255, 188);
+  background-color: #80f0ff;
   font-weight: bold;
-  outline: 1px dashed #00bcd4;
 }
 
 .date-picker.selected {
-  background-color: rgb(181, 255, 188);
+  background-color: #80f0ff;
   font-weight: bold;
-  outline: 1px dashed #00bcd4;
 }
 
 .date-picker.selected span {
@@ -182,12 +180,13 @@ body {
 }
 
 .selectable:hover {
-  background-color: rgba(86, 213, 255, 0.651);
+  background-color: lightgreen;
   cursor: pointer;
 }
 
-.choosen {
-  background-color: rgb(86, 213, 255);
+.choosen,
+.choosen:hover {
+  background-color: #2f9b3d;
 }
 
 /* Header for month and year */

@@ -157,7 +157,7 @@
                   type="submit"
                   value="Conferma"
                   class="submit"
-                  onclick="checkTime(event)"
+                  onclick="checkTime(event), checkDay(event)"
                 />
               </div>
             </form>

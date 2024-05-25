@@ -78,7 +78,7 @@
                 }
                 $id_utente = $_SESSION["ut_id"];
                 $check_registered = pg_query($conn, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
-                $check_admin = pg_query($conn, "SELECT ut_id FROM aptblock_admin WHERE ut_ID = $id_utente");
+                $check_admin = pg_query($conn, "SELECT ut_id FROM aptblock_admin WHERE ut_id = $id_utente");
                 /* if (!pg_num_rows($check_registered)) {
                     pg_close($conn);
                     header("Location: ../../01-login_utente.html");
@@ -91,7 +91,7 @@
 
                 if (pg_num_rows($check_admin)) {
                     pg_close($conn);
-                    header("Location: ../../01-login_admin.html");
+                    header("Location: ../../01-login_admin.php");
                     session_regenerate_id(true);
                 } else {
                     pg_close($conn);

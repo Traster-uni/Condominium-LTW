@@ -30,6 +30,53 @@
     </style>
   </head>
   <body>
+
+    <?php
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
+    session_start();
+    // Verifico che la connessione è avvenuta con successo
+    if (!$connection) {
+      echo "Errore, connessione non riuscita.<br>";
+      exit;
+    }
+
+    $id_admin = $_SESSION['ut_id'];
+
+    // Se l'admin ha già un condominio lo reindirizzo direttamente alla home
+    $check_aptblock = pg_query($connection, "SELECT ut_id FROM req_aptblock_create WHERE ut_id = $id_admin AND stat = 'accepted'");
+    if (pg_num_rows($check_aptblock)) {
+      pg_close($connection);
+      header("Location: ../../02-home.php");
+      session_regenerate_id(true);
+    }
+
+    $result_exists = pg_query($connection, "SELECT city, addr_aptb FROM req_aptblock_create WHERE stat = 'accepted'");
+    $result_sent = pg_query($connection, "SELECT city, addr_aptb FROM req_aptblock_create WHERE ut_id = $id_admin AND stat = 'pending'");
+
+    // Array per controllare se esiste già un condominio con la città e l'indirizzo messi in input
+    while ($row = pg_fetch_assoc($result_exists)) {
+      $array_exists[] = [
+        'città' => $row['city'],
+        'indirizzo' => $row['addr_aptb']
+      ];
+    }
+    // Array per controllare se esiste già una richiesta da parte dell'admin per un condominio con la città e l'indirizzo messi in input
+    while ($row = pg_fetch_assoc($result_sent)) {
+      $array_sent[] = [
+        'città' => $row['city'],
+        'indirizzo' => $row['addr_aptb']
+      ];
+    }
+
+    $check_exists = json_encode($array_exists);
+    $check_sent = json_encode($array_sent);
+    ?>
+
+    <script type="text/javascript">
+      var check_exists = <?php echo $check_exists; ?>;
+      var check_sent = <?php echo $check_sent; ?>;
+    </script>
+
     <div class="grid">
       <div class="lightgreen"></div>
 
@@ -39,7 +86,13 @@
         </header>
 
         <div class="buttons">
-            <button class="button" id="aptblock-button"> CREA CONDOMINIO </button>
+          <?php
+          $check_request = pg_query($connection, "SELECT ut_id FROM req_aptblock_create WHERE ut_id = $id_admin AND stat = 'pending'");
+          if (pg_num_rows($check_request) > 0): ?>
+          <p>Hai inviato una richiesta per la creazione di un condominio. Attendi che venga accettata o inviane un'altra.</p>
+          <?php endif; ?>
+
+          <button class="button" id="aptblock-button"> CREA CONDOMINIO </button>
         </div>
 
         <!--Modale per la registrazione-->
@@ -80,7 +133,7 @@
                 <label for="cap">CAP</label>
                 <input type="text" inputmode="numeric" name="cap" id="cap" required>
 
-                <input type="submit" value="Invia">
+                <input type="submit" value="Invia" id="submit">
 
               </form>
             </div>
