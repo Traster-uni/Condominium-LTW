@@ -14,7 +14,7 @@
       // ini_set('display_startup_errors', 1);
       // error_reporting(E_ALL);
       
-      session_start();
+      /* session_start();
       if (!isset($_SESSION['ut_id']) && !isset($_SESSION['password']) && !isset($_SESSION['email'])) {
         $id_utente = $_SESSION["ut_id"];
           $check_registered = pg_query($conn, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
@@ -26,7 +26,7 @@
         exit();
       } else {
         echo "session set";
-      }
+      } */
 
       // $usr_id = $_SESSION['ut_id'];
       // $pswd = $_SESSION['password'];

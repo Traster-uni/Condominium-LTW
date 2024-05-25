@@ -76,20 +76,16 @@ body {
   display: none;
 }
 
-.response-form {
-  display: flex;
+.response-form, .comment-form {
   margin-top: 10px;
 }
 
-.response-input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 10px;
+.response-input, .comment-input {
+  width: 80%;
+  padding: 5px;
 }
 
-.response-button {
+.response-button, .comment-button {
   padding: 10px 20px;
   background-color: #4CAF50;
   color: white;
@@ -110,12 +106,19 @@ body {
   margin: 0 0 10px;
 }
 
-.post-date {
+.post-date, .thread-date {
   font-size: 0.9em;
   color: #888;
 }
 
-.toggle-comments {
+.thread {
+  border: 1px solid #ddd;
+  padding: 8px;
+  margin: 8px 0 0 10px;
+  background-color: #f9f9f9;
+}
+
+.toggle-comments, .toggle-thread-comments {
   background-color: #008CBA;
   color: white;
   padding: 5px 10px;
@@ -127,6 +130,23 @@ body {
 
 .toggle-comments:hover {
   background-color: #007bb5;
+}
+
+.comment {
+  border: 1px solid #eee;
+  padding: 6px;
+  margin: 6px 0 0 40px;
+  background-color: #f1f1f1;
+}
+
+.comment-content {
+  font-size: 1em;
+  margin: 5px 0;
+}
+
+.comment-date {
+  font-size: 0.8em;
+  color: #999;
 }
 
 .post-tag-prova {

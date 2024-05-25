@@ -11,11 +11,29 @@
     //$aptBlock_id = $_SESSION['aptBlock']; // Recupero l'apt id dalla sessione
     $aptblock_id = 1;
 
-    $query = "SELECT post_id, ut_owner_id, title, ttext, time_born, time_mod, off_comments
-                FROM aptblock aptb JOIN aptblock_bulletinboard aptb_bb ON aptb.aptblock_id = aptb_bb.aptblock_id
-                JOIN posts ON posts.bb_id = aptb_bb.bb_id
-                WHERE $aptblock_id = aptb.aptblock_id
-                ORDER BY time_born DESC";
+    $query = "SELECT 
+                    posts.post_id, 
+                    posts.ut_owner_id, 
+                    utreg.nome AS nome, 
+                    utreg.cognome AS cognome, 
+                    posts.title, 
+                    posts.ttext, 
+                    posts.time_born, 
+                    posts.time_mod, 
+                    posts.off_comments
+                FROM 
+                    aptblock aptb 
+                JOIN 
+                    aptblock_bulletinboard aptb_bb ON aptb.aptblock_id = aptb_bb.aptblock_id
+                JOIN 
+                    posts ON posts.bb_id = aptb_bb.bb_id
+                JOIN 
+                    ut_registered utreg ON posts.ut_owner_id = utreg.ut_id
+                WHERE 
+                    $aptblock_id = aptb.aptblock_id
+                ORDER BY 
+                    posts.time_born DESC";
+
     $result = pg_query($connection, $query);
 
     $posts = [];
