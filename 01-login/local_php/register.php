@@ -1,13 +1,6 @@
 <?php
     
     session_start();
-    //Verifico che la connessione è avvenuta con successo
-    if (!$connection) {
-        echo "Errore, connessione non riuscita.<br>";
-        exit;
-    } else {
-        echo "connected<br>";
-    }
 
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
@@ -28,6 +21,13 @@
 
 
         $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=usr_login password=iamdolly");
+        //Verifico che la connessione è avvenuta con successo
+        if (!$connection) {
+            echo "Errore, connessione non riuscita.<br>";
+            exit;
+        } else {
+            echo "connected<br>";
+        }
         $qry_check = "SELECT *
                         FROM ut_registered
                        WHERE ut_registered.ut_email = $email";
@@ -45,6 +45,7 @@
         }
         // else if ($fiscalcode === $qry_check_arr['fiscalcode'])
         pg_close($connection);
+
 
         $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=usr_register password=iamdolly");
         //Preparo la query
@@ -75,10 +76,10 @@
         } else {
             echo "Errore durante la registrazione: " . pg_last_error($connection);
         }
+        pg_close($connection);
     }
 
     // Chiudi la connessione al database
-    pg_close($connection);
     session_regenerate_id(true);
 ?>
     
