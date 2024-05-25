@@ -1,7 +1,7 @@
 .flexbox {
   display: flex;
   flex-direction: row;
-  height: 93.1vh;
+  height: 92.4vh;
   padding-top: 34px;
 }
 
@@ -39,7 +39,6 @@
 .nome-luogo {
   margin-top: 5px;
   margin-bottom: 5px;
-  border-color: lightgr;
 }
 
 .immagine {
@@ -51,6 +50,7 @@
   margin: 0;
   display: block;
   z-index: 0;
+  border-top: 2px solid black;
 }
 
 .overlay {
