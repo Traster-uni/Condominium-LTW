@@ -9,7 +9,7 @@ body {
   display: flex;
   flex-direction: row;
   height: 93.1vh;
-  padding-top: 49px;
+  padding-top: 30px;
 }
 
 .bacheca {
@@ -52,7 +52,7 @@ body {
   background: #eee;
   color: #333;
 }
-  
+
 .tabcontent {
   display: none;
 }
@@ -62,7 +62,7 @@ body {
   padding: 30px;
   margin: 5px 0;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .post.response {
@@ -76,18 +76,21 @@ body {
   display: none;
 }
 
-.response-form, .comment-form {
+.response-form,
+.comment-form {
   margin-top: 10px;
 }
 
-.response-input, .comment-input {
+.response-input,
+.comment-input {
   width: 80%;
   padding: 5px;
 }
 
-.response-button, .comment-button {
+.response-button,
+.comment-button {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 4px;
@@ -106,7 +109,8 @@ body {
   margin: 0 0 10px;
 }
 
-.post-date, .thread-date {
+.post-date,
+.thread-date {
   font-size: 0.9em;
   color: #888;
 }
@@ -118,8 +122,9 @@ body {
   background-color: #f9f9f9;
 }
 
-.toggle-comments, .toggle-thread-comments {
-  background-color: #008CBA;
+.toggle-comments,
+.toggle-thread-comments {
+  background-color: #008cba;
   color: white;
   padding: 5px 10px;
   border: none;
@@ -165,7 +170,8 @@ body {
   margin-right: 20px;
 }
 
-.post-form input, .post-form textarea {
+.post-form input,
+.post-form textarea {
   display: block;
   width: 100%;
   margin-bottom: 10px;
