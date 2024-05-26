@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,39 +18,32 @@
   </head>
   <body>
     <?php
-    session_start();
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+      session_start();
+      if (!isset($_SESSION['ut_id']) && !isset($_SESSION['email'])) {
+        header("Location: ../../01-login.php");
+        exit();
+      }
+      // ini_set('display_errors', 1);
+      // ini_set('display_startup_errors', 1);
+      // error_reporting(E_ALL);
 
-    $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
-    if (!$connect) {
-      echo "Errore, connessione non riuscita.<br>";
-      exit();
-    }
-    if (!isset($_SESSION['ut_id']) && !isset($_SESSION['email'])) {
-      header("Location: ../../01-login.php");
-      exit();
-    }
-    $id_utente = $_SESSION["ut_id"];
-    $qry_check_res = pg_query($connect, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
-    $qry_check_arr = pg_num_rows($check_registered);
-    if (!$qry_check_arr) {
-      header('01-login2.html');
-    } else {
-      header('01-login1.html');
-    }
+      $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
+      if (!$connect) {
+        echo "Errore, connessione non riuscita.<br>";
+        exit();
+      }
 
-    $qry_name = "SELECT ut_r.nome
-                  FROM ut_registered ut_r
-                  WHERE ut_r.ut_id = $id_utente";
-    $qry_name_res = pg_query($connect, $qry_name);
-    if (!$qry_name_res){ // error checking
-      echo "Something went wrong<br>";
-      echo pg_result_error($qry_name_res);
-    }
-    $qry_name_arr = pg_fetch_assoc($qry_check_res);
-    $nome = $qry_name_arr['nome'];
+      $id_utente = $_SESSION["ut_id"];
+      $qry_pdata = "SELECT *
+                    FROM ut_registered ut_r
+                    WHERE ut_r.ut_id = $id_utente";
+      $qry_pdata_res = pg_query($connect, $qry_pdata);
+      if (!$qry_pdata_res){ // error checking
+        echo "42: Something went wrong<br>";
+        echo pg_result_error($qry_pdata_res);
+      }
+      $qry_name_arr = pg_fetch_assoc($qry_pdata_res);
+      $nome_cognome = $qry_pdata_arr['nome'] . " " . $qry_pdata_arr['cognome'];
 
     ?>
     <!--Navigation bar-->
@@ -64,8 +60,7 @@
         <div class="profile-pic" style="text-align: center">
           <img src="./global/02-images/default-pic.png" alt="Profile-Pic" />
           <div class="dati" style="text-align: center">
-            <!-- <h2> Mario Rossi </h2> -->
-            <!-- <h2><?php echo htmlspecialchars($qry_name_arr['nome'])?></h2> -->
+            <h2><?php echo htmlspecialchars($nome_cognome)?></h2>
           </div>
         </div>
         <!-- Tabs Impostazioni -->
@@ -92,10 +87,14 @@
       <div style="background-color: white; flex: 1">
         <!-- Tab Content-->
         <section id="Profilo" class="tabcontent">
-          <h2>Profilo</h2>
+          <h2> PROFILO </h2>
         </section>
-        <section id="Condominio" class="tabcontent">
-          <h2>Condominio</h2>
+        <section id="Storico Condimini" class="tabcontent">
+          <script>
+            $(function () {
+              $("#storico-condomini").load("./05-areautente/local_php/storico_condomini.php");
+            });
+          </script>
         </section>
         <section id="Impostazioni" class="tabcontent">
           <h2>Impostazioni</h2>

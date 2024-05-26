@@ -40,7 +40,7 @@ parametro che mi dice se è post utente o post admin
 
 
 SELECT aptb.aptblock_id, aptb_bb.bb_id, aptb_bb.bb_name, pt.post_id, pt.ut_owner_id ut_id, 
-		ut_r.nome, ut_r.cognome, pt.title, pt.ttext, pt.time_born, pt.time_edit, pt.off_comments
+		ut_r.nome, ut_r.cognome, pt.title, pt.ttext, pt.time_born, pt.time_mod, pt.off_comments
 FROM aptblock aptb 
 	JOIN aptblock_bulletinboard aptb_bb ON aptb.aptblock_id = aptb_bb.aptblock_id
 	JOIN posts pt ON pt.bb_id = aptb_bb.bb_id
@@ -53,12 +53,19 @@ INSERT INTO posts(post_id, bb_id, ut_owner_id, title, ttext)
 	VALUES (1, 1, 1, 'abracadabra', 'text');
 
 
+ALTER TABLE posts
+	RENAME COLUMN time_edit TO time_mod
 
 
+SELECT ut_id, ut_email, passwd
+FROM ut_registered ut_r
+WHERE ut_r.ut_email = 'tommaso@site.it' AND ut_r.passwd = 'service'
 
 
-
-
-
-
+SELECT aptb.aptblock_id as id, addr_aptb, city, cap, time_born as data_richiesta, time_mod as data_verifica
+FROM ut_registered ut_r 
+	JOIN req_ut_access rutc ON ut_r.ut_id = rutc.ut_id
+	JOIN aptblock aptb ON rutc.aptblock_id = aptb.aptblock_id
+WHERE ut_r.ut_id = $utid
+ORDER BY (time_mod) ASC
 

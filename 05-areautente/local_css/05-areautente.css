@@ -9,6 +9,8 @@ body {
 .flexbox {
   min-height: 92.4vh;
   margin-top: 70px;
+  flex-direction: row;
+  display: flex;
 }
 
 .profile-pic img {

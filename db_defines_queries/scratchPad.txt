@@ -166,16 +166,13 @@ area utente:
 	popolare pagine, profilo, impostazioni()
 
 admin funcs
- 	creazione di Condominio (in attivita')
-	Risposta ticket (1)
-	definizione common spaces (2)
+ 	creazione di Condominio (in attivita') <-
+	Risposta ticket (1) 
+	definizione common spaces (2) 
 	gestione dei pagamenti --- mock
 	definizione tags (3)
 
-NOTA BENE: 
-	System requires specific roles for
-		new user to check on login schema and only the login schema
-		new role where all the registered user will login under.
+TODO: COMPLETA AREA UTENTE
 
 ----------------- SQL -----------------
 GRANT USAGE ON SCHEMA public TO <anyusr>;
@@ -196,7 +193,7 @@ update req_ut_access set status = _status::text::ut_request_stat;
 alter table req_ut_access drop column _status;
 drop type _ut_request_stat;
 todo: verifica che le immagini di 03-prenota.php siano visualizzate correttamente
-
+---------------- SQL END ----------------
 tommaso@site.it - service
 
 TODO: Use pg_query_params to execute parameterized queries, preventing SQL injection like this:
@@ -207,3 +204,5 @@ TODO: Use pg_query_params to execute parameterized queries, preventing SQL injec
 INSERT INTO ut_registered(nome, cognome, d_nascita, telefono, address, citta_residenza, ut_email, passwd) 
                 VALUES ('nome7', 'cognome7', '1999-03-01', '2939420940', 'VIa bruh, 69', 'Catanzaro', 'nome7@site.it', '123');
 
+
+// todo: scopri perche' lo storico condomini non si vede
