@@ -46,7 +46,7 @@
       $qry_name_arr = pg_fetch_assoc($qry_check_res);
       $nome = $qry_name_arr['nome'];
     }else{
-      header("Location: ./01-login.html");
+      header("Location: ./01-login.php");
       exit();
     }
     ?>

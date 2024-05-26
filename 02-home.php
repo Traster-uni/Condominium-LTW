@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,11 +13,10 @@
   </head>
   <body>
     <?php
-      session_start();
 
-      ini_set('display_errors', 1);
-      ini_set('display_startup_errors', 1);
-      error_reporting(E_ALL);
+      // ini_set('display_errors', 1);
+      // ini_set('display_startup_errors', 1);
+      // error_reporting(E_ALL);
       
       $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
       if (!$connect) {
@@ -22,7 +24,7 @@
         exit;
       }
 
-      if (!isset($_SESSION['ut_id']) && !isset($_SESSION['password']) && !isset($_SESSION['email'])) {
+      if (!isset($_SESSION['ut_id'])) {
         $id_utente = $_SESSION["ut_id"];
           $check_registered = pg_query($connect, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
           if (!pg_num_rows($check_registered)) {
@@ -33,7 +35,7 @@
         exit();
       } else {
         echo "<br> no session!";
-        header("Location: ./01-login.html");
+        header("Location: ./01-login.php");
       }
 
       // $qry_aptb = "SELECT r_ut_a.aptBlock_id

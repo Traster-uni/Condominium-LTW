@@ -11,9 +11,9 @@
         echo "connected<br>";
     }
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["login_button"])){
@@ -34,7 +34,6 @@
             // close connection
             pg_close($connection);
             if ($qry_empw_arr){
-                print_r($qry_empw_arr);
                 if ($qry_empw_arr["ut_email"] === $email){
                     
                     $_SESSION["ut_id"] = $qry_empw_arr["ut_id"];
