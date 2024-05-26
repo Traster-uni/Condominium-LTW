@@ -25,30 +25,30 @@
       echo "Errore, connessione non riuscita.<br>";
       exit();
     }
-    if (isset($_SESSION['ut_id']) && isset($_SESSION['email'])) {
-      $id_utente = $_SESSION["ut_id"];
-      $qry_check_res = pg_query($connect, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
-      $qry_check_arr = pg_num_rows($check_registered);
-      if (!$qry_check_arr) {
-        header('01-login2.html');
-      } else {
-        header('01-login1.html');
-      }
-
-      $qry_name = "SELECT ut_r.nome
-                    FROM ut_registered ut_r
-                    WHERE ut_r.ut_id = $id_utente";
-      $qry_name_res = pg_query($connect, $qry_name);
-      if (!$qry_name_res){ // error checking
-        echo "Something went wrong<br>";
-        echo pg_result_error($qry_name_res);
-      }
-      $qry_name_arr = pg_fetch_assoc($qry_check_res);
-      $nome = $qry_name_arr['nome'];
-    }else{
+    if (!isset($_SESSION['ut_id']) && !isset($_SESSION['email'])) {
       header("Location: ../../01-login.php");
       exit();
     }
+    $id_utente = $_SESSION["ut_id"];
+    $qry_check_res = pg_query($connect, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
+    $qry_check_arr = pg_num_rows($check_registered);
+    if (!$qry_check_arr) {
+      header('01-login2.html');
+    } else {
+      header('01-login1.html');
+    }
+
+    $qry_name = "SELECT ut_r.nome
+                  FROM ut_registered ut_r
+                  WHERE ut_r.ut_id = $id_utente";
+    $qry_name_res = pg_query($connect, $qry_name);
+    if (!$qry_name_res){ // error checking
+      echo "Something went wrong<br>";
+      echo pg_result_error($qry_name_res);
+    }
+    $qry_name_arr = pg_fetch_assoc($qry_check_res);
+    $nome = $qry_name_arr['nome'];
+
     ?>
     <!--Navigation bar-->
     <div id="navbar"></div>
