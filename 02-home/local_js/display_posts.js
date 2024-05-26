@@ -1,9 +1,11 @@
-document.addEventListener('DOMContentLoaded', fetchPostsUd);
-document.addEventListener('DOMContentLoaded', fetchPostsAdmin);
+document.addEventListener('DOMContentLoaded', async() => {
+    await fetchPosts();
+    await checkUserRole();
+});
 
-async function fetchPostsUd() {
+async function checkUserRole() {
     try {
-        const response = await fetch('/02-home/local_php/get_posts_ud.php', {
+        const response = await fetch('/global/04-php/get_user_role.php', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -14,45 +16,77 @@ async function fetchPostsUd() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const postsUd = await response.json();
-        console.log('Posts fetched successfully:', postsUd);
-        displayPostsUd(postsUd);
+        const data = await response.json();
+        console.log('User role fetched successfully:', data);
+
+        if (data.role === 'admin') {
+            enableAdminPosting();
+            enableAdminFeatures();
+        }
+    } catch (error) {
+        console.error('Error fetching user role:', error);
+    }
+}
+
+function enableAdminPosting() {
+    const adminPostContainer = document.getElementById('admin-form-container');
+    if (adminPostContainer) {
+        adminPostContainer.innerHTML = `
+            <form action="./02-home/local_php/submit_post_admin.php" class="post-form" id="admin-post-form" method="post">
+                <input type="text" id="admin-post-title" name="admin-post-title" placeholder="Titolo del post" required>
+                <textarea id="admin-post-content" name="admin-post-content" placeholder="Scrivi qualcosa..." required></textarea>
+                <input type="submit" value="Invia">
+            </form>
+        `;
+    }
+}
+
+async function fetchPosts() {
+    try {
+        const response = await fetch('/02-home/local_php/get_post.php', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const posts = await response.json();
+        console.log('Posts fetched successfully:', posts);
+        displayPosts(posts);
     } catch (error) {
         console.error('Error fetching posts:', error);
     }
 }
 
-async function fetchPostsAdmin() {
-    try {
-        const response = await fetch('/02-home/local_php/get_posts_admn.php', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+function displayPosts(posts) {
+    const userPosts = posts.filter(post => post.bb_name === 'general');
+    const adminPosts = posts.filter(post => post.bb_name === 'admin');
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const postsAdmin = await response.json();
-        console.log('Posts fetched successfully:', postsAdmin);
-        displayPostsAdmin(postsAdmin);
-    } catch (error) {
-        console.error('Error fetching posts:', error);
-    }
+    displayPostsUd(userPosts);
+    displayPostsAdmin(adminPosts);
 }
 
 function displayPostsAdmin(posts) {
     const postContainer = document.getElementById('admin-posts-container');
     postContainer.innerHTML = '';
 
+    if (posts.length === 0) {
+        postContainer.innerHTML = '<p>Nessun post presente</p>';
+        return;
+    }
+
     posts.forEach(post => {
         const postElement = document.createElement('div');
         postElement.classList.add('post');
+        postElement.dataset.postId = post.post_id;
+
         postElement.innerHTML = `
-            <div class="post-author">${post.nome} ${post.cognome}</div>
-            <h3 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h3>
+            <h3 class="post-author">${post.nome} ${post.cognome}</h3>
+            <h4 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h4>
             <p class="post-content">${post.ttext}</p>
             <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
             <button type="button" class="toggle-comments" data-post-id="${post.post_id}">Commenti</button>
@@ -72,9 +106,15 @@ function displayPostsUd(posts) {
     const postContainer = document.getElementById('user-posts-container');
     postContainer.innerHTML = '';
 
+    if (posts.length === 0) {
+        postContainer.innerHTML = '<p>Nessun post presente</p>';
+        return;
+    }
+
     posts.forEach(post => {
         const postElement = document.createElement('div');
         postElement.classList.add('post');
+        postElement.dataset.postId = post.post_id;
         postElement.innerHTML = `
             <h3 class="post-author">${post.nome} ${post.cognome}</h3>
             <h4 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h4>
@@ -160,6 +200,7 @@ function displayThreads(container, threads) {
     threads.forEach(thread => {
         const threadElement = document.createElement('div');
         threadElement.classList.add('thread');
+        threadElement.dataset.threadId = thread.thread_id;
         threadElement.innerHTML = `
             <h5 class="comment-author">${thread.nome} ${thread.cognome}</h5>
             <p class="thread-content">${thread.comm_text}</p>
@@ -193,6 +234,7 @@ function displayComments(container, comments) {
     comments.forEach(comment => {
         const commentElement = document.createElement('div');
         commentElement.classList.add('comment');
+        commentElement.dataset.commentId = comment.comment_id;
         commentElement.innerHTML = `
             <h5 class="comment-author">${comment.nome} ${comment.cognome}</h5>
             <p class="comment-content">${comment.comm_text}</p>
@@ -245,9 +287,64 @@ async function postThread(postId, content) {
         const threads = await fetchThread(postId);
         displayThreads(responsesDiv, threads);
         responsesDiv.style.display = 'block';
+        //updateCommentCount(postId, threads.length);
 
         return await response.json();
     } catch (error) {
         console.error('Error posting thread:', error);
+    }
+}
+
+/* function updateCommentCount(postId, count) {
+    const commentCountElement = document.querySelector(`.toggle-comments[data-post-id="${postId}"] .comment-count`);
+    if (commentCountElement) {
+        commentCountElement.textContent = count;
+    }
+} */
+
+function enableAdminFeatures() {
+    // Mostra i controlli di moderazione per i post
+    const postContainers = document.querySelectorAll('.post');
+    postContainers.forEach(container => {
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Elimina Post';
+        deleteButton.classList.add('delete-post-button');
+        deleteButton.dataset.postId = container.dataset.postId; // Aggiungi l'ID del post come attributo dei dati
+        container.appendChild(deleteButton);
+    });
+
+    // Aggiungi gestore di eventi per eliminare i post
+    postContainers.forEach(container => {
+        container.addEventListener('click', async(event) => {
+            if (event.target.classList.contains('delete-post-button')) {
+                const postId = event.target.dataset.postId;
+                await deletePost(postId);
+            }
+        });
+    });
+}
+
+async function deletePost(postId) {
+    try {
+        // Chiedi conferma prima di procedere con l'eliminazione
+        const confirmation = confirm("Sei sicuro di voler eliminare questo post?");
+        if (!confirmation) {
+            return; // L'utente ha annullato l'operazione di eliminazione
+        }
+        const response = await fetch(`/02-home/local_php/delete_post.php?post_id=${postId}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // Rimuovi il post dalla UI dopo l'eliminazione
+        const postContainer = document.querySelector(`.post[data-post-id="${postId}"]`);
+        postContainer.remove();
+
+        console.log('Post deleted successfully');
+    } catch (error) {
+        console.error('Error deleting post:', error);
     }
 }

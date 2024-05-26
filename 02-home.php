@@ -9,6 +9,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="./02-home/local_css/02-home.css" />
     <link rel="stylesheet" href="./global/01-css/contatti.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   </head>
   <body>
@@ -37,12 +38,12 @@
     </script>
     <!--end of Navigation bar-->
     <!-- search bar -->
-    <div class="topnav">
+    <!-- <div class="topnav">
       <a class="active" href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
       <input type="text" placeholder="Search..">
-    </div>
+    </div> -->
     <!-- end of search bar -->
     <div class="flexbox">
       <div style="background-color: rgb(101, 189, 113); width: 20%">
@@ -82,6 +83,7 @@
         </div>
 
         <div class="tabcontent" id="tab-admin">
+
           <div id="admin-form-container">
 
           </div>
@@ -94,7 +96,7 @@
 
         <div class="tabcontent" id="tab-utente">
 
-          <form action="./02-home/local_php/submit_post.php" class="post-form" id="user-post-form" method="post">
+          <form action="./02-home/local_php/submit_post_ud.php" class="post-form" id="user-post-form" method="post">
             <input type="text" id="ud-post-title" name="ud-post-title" placeholder="Titolo del post" required>
             <textarea id="ud-post-content" name="ud-post-content" placeholder="Scrivi qualcosa..." required></textarea>
             <input type="submit" value="Invia">
@@ -120,8 +122,8 @@
       </div>
     </div>
   <script src="./02-home/local_js/02-home.js"></script>
-  <!-- <script src="./02-home/local_js/toggle_comments.js"></script> -->
   <script>document.getElementById("padmin").click();</script>
-  <script src="./02-home/local_js/display_posts_ud.js"></script>
+  <script src="./02-home/local_js/display_posts.js"></script>
+  <!-- <script src="./02-home/local_js/admin_features.js"></script> -->
   </body>
 </html>

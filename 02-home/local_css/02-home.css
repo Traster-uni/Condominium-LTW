@@ -195,3 +195,18 @@ body {
   overflow-y: auto;
   border-top: 1px solid #ccc;
 }
+
+.delete-post-button {
+  margin-top: 3px;
+  padding: 5px 10px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-post-button:hover {
+  background-color: #c0392b;
+}
+
