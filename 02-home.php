@@ -33,7 +33,7 @@
         exit();
       } else {
         echo "<br> no session!";
-        // header("Location: ./01-login.php");
+        header("Location: ./01-login.php");
       }
 
       // $qry_aptb = "SELECT r_ut_a.aptBlock_id
