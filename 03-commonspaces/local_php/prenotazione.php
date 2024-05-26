@@ -39,7 +39,7 @@
 
         //Preparo la query
         $q = "INSERT INTO rental_request(ut_id, cs_id, submit_time, stat, rental_datetime_start, rental_datetime_end)
-        VALUES ('$id_utente', '$id_luogo', '$submit_time', 'pending', '$inizio', '$fine')";
+        VALUES ('1', '$id_luogo', '$submit_time', 'pending', '$inizio', '$fine')";
         $result = pg_query($connection, $q);
 
         // Verifica se l'inserimento è avvenuto con successo

@@ -35,8 +35,8 @@
       });
     </script>
     <!--end of Navigation bar-->
-    <div class="flexbox">
-      <div style="background-color: rgb(101, 189, 113); width: 20%">
+    <div class="grid">
+      <div style="background-color: rgb(101, 189, 113)">
         <!--Calendar-->
         <div id="calendar"></div>
         <script>
@@ -45,8 +45,16 @@
           });
         </script>
         <!--End of calendar-->
+        <!--Prenotazioni attive-->
+        <div id="prenotazioni-attive"></div>
+        <script>
+          $(function () {
+            $("#prenotazioni-attive").load("./global/06-html/prenotazioni_accettate.php");
+          });
+        </script>
+        <!-- Fine prenotazioni -->
       </div>
-      <div style="background-color: rgb(255, 255, 255); flex: 1">
+      <div style="background-color: rgb(255, 255, 255)">
         <button data-toggle="collapse" data-toggle="formTicket" class="openBtn">
           <h1>Nuovo Ticket</h1>
           <span class="material-symbols-outlined">add</span>
@@ -80,7 +88,7 @@
         </div>
       </div>
 
-      <div style="background-color: rgb(101, 189, 113); width: 20%">
+      <div style="background-color: rgb(101, 189, 113)">
         <div class="contatti-utili">
           <ul>
             <li class="contatti-utili__nome">

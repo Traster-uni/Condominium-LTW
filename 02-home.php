@@ -24,9 +24,28 @@
         exit;
       }
 
-      if (!isset($_SESSION['ut_id']) && !isset($_SESSION['email'])) {
-        header("Location: ../../01-login.php");
-      } 
+      if (!isset($_SESSION['ut_id'])  && !isset($_SESSION['email'])) {
+        header("Location: ./01-login.php");
+      }
+
+      // $qry_aptb = "SELECT r_ut_a.aptBlock_id
+      //                FROM ut_registered ut_r JOIN req_ut_access r_ut_a ON  ut_r.ut_id = r_ut_a.ut_id
+      //               WHERE r_ut_a.status = 'accepted'
+      //                 AND ut_r.ut_id = $usr_id";
+      // $qry_aptb_res = pg_query($connect, $qry_aptb);
+      // if (!$qry_aptb_res){ // error checking
+      //   echo "Something went wrong<br>";
+      //   echo pg_result_error($qry_aptb_res);
+      // }
+      // $qry_aptb_arr = pg_fetch_assoc($qry_aptb_res);
+      // $_SESSION['aptBlock'] = $qry_aptb_arr['aptBlock_id'];
+      // if (count($qry_aptb_arr) !== 0){
+      //   $_SESSION['aptBlock'] = $qry_aptb_arr['aptBlock_id'];
+      //   // may need something else, like redirection
+      // } else {
+      //   header("Location ../../<.php>;");
+      // } 
+      // pg_close($connect);
     ?>
     <!--Navigation bar-->
     <div id="navbar"></div>
@@ -36,16 +55,8 @@
       });
     </script>
     <!--end of Navigation bar-->
-    <!-- search bar -->
-    <div class="topnav">
-      <a class="active" href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <input type="text" placeholder="Search..">
-    </div>
-    <!-- end of search bar -->
-    <div class="flexbox">
-      <div style="background-color: rgb(101, 189, 113); width: 20%">
+    <div class="grid">
+      <div style="background-color: rgb(101, 189, 113)">
         <!--Calendar-->
         <div id="calendar"></div>
         <script>
@@ -54,8 +65,16 @@
           });
         </script>
         <!--End of calendar-->
+        <!--Prenotazioni attive-->
+        <div id="prenotazioni-attive"></div>
+        <script>
+          $(function () {
+            $("#prenotazioni-attive").load("./global/06-html/prenotazioni_accettate.php");
+          });
+        </script>
+        <!-- Fine prenotazioni -->
       </div>
-      <div style="background-color: rgb(255, 255, 255); flex: 1">
+      <div style="background-color: rgb(255, 255, 255)">
         <div class="bacheca">
           <div class="bacheca-types">
             <input
@@ -106,7 +125,7 @@
 
         </div>
       </div>
-      <div style="background-color: rgb(101, 189, 113); width: 20%">
+      <div style="background-color: rgb(101, 189, 113)">
         <div class="contatti-utili">
           <ul>
             <li class="contatti-utili__nome">
