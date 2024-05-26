@@ -83,19 +83,29 @@ function displayPostsAdmin(posts) {
         const postElement = document.createElement('div');
         postElement.classList.add('post');
         postElement.dataset.postId = post.post_id;
-
-        postElement.innerHTML = `
-            <h3 class="post-author">${post.nome} ${post.cognome}</h3>
-            <h4 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h4>
-            <p class="post-content">${post.ttext}</p>
-            <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
-            <button type="button" class="toggle-comments" data-post-id="${post.post_id}">Commenti</button>
-            <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
-            <form class="response-form">
-                <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
-                <button type="button" class="response-button" data-post-id="${post.post_id}">Rispondi</button>
-            </form>
-        `;
+        
+        if (post.off_comments === "f") {
+            postElement.innerHTML = `
+                <h3 class="post-author">${post.nome} ${post.cognome}</h3>
+                <h4 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h4>
+                <p class="post-content">${post.ttext}</p>
+                <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
+                <button type="button" class="toggle-comments" data-post-id="${post.post_id}">Commenti</button>
+                <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
+                <form class="response-form">
+                    <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
+                    <button type="button" class="response-button" data-post-id="${post.post_id}">Rispondi</button>
+                </form>
+            `;
+        } else {
+            postElement.innerHTML = `
+                <h3 class="post-author">${post.nome} ${post.cognome}</h3>
+                <h4 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h4>
+                <p class="post-content">${post.ttext}</p>
+                <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
+                <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
+            `;
+        }
         postContainer.appendChild(postElement);
     });
 
@@ -115,18 +125,28 @@ function displayPostsUd(posts) {
         const postElement = document.createElement('div');
         postElement.classList.add('post');
         postElement.dataset.postId = post.post_id;
-        postElement.innerHTML = `
-            <h3 class="post-author">${post.nome} ${post.cognome}</h3>
-            <h4 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h4>
-            <p class="post-content">${post.ttext}</p>
-            <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
-            <button type="button" class="toggle-comments" data-post-id="${post.post_id}">Commenti</button>
-            <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
-            <form class="response-form">
-                <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
-                <button type="button" class="response-button" data-post-id="${post.post_id}">Rispondi</button>
-            </form>
-        `;
+        if (post.off_comments === "f") {
+            postElement.innerHTML = `
+                <h3 class="post-author">${post.nome} ${post.cognome}</h3>
+                <h4 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h4>
+                <p class="post-content">${post.ttext}</p>
+                <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
+                <button type="button" class="toggle-comments" data-post-id="${post.post_id}">Commenti</button>
+                <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
+                <form class="response-form">
+                    <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
+                    <button type="button" class="response-button" data-post-id="${post.post_id}">Rispondi</button>
+                </form>
+            `;
+        } else {
+            postElement.innerHTML = `
+                <h3 class="post-author">${post.nome} ${post.cognome}</h3>
+                <h4 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h4>
+                <p class="post-content">${post.ttext}</p>
+                <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
+                <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
+            `;
+        }
         postContainer.appendChild(postElement);
     });
 
@@ -287,20 +307,12 @@ async function postThread(postId, content) {
         const threads = await fetchThread(postId);
         displayThreads(responsesDiv, threads);
         responsesDiv.style.display = 'block';
-        //updateCommentCount(postId, threads.length);
 
         return await response.json();
     } catch (error) {
         console.error('Error posting thread:', error);
     }
 }
-
-/* function updateCommentCount(postId, count) {
-    const commentCountElement = document.querySelector(`.toggle-comments[data-post-id="${postId}"] .comment-count`);
-    if (commentCountElement) {
-        commentCountElement.textContent = count;
-    }
-} */
 
 function enableAdminFeatures() {
     // Mostra i controlli di moderazione per i post
@@ -329,7 +341,7 @@ async function deletePost(postId) {
         // Chiedi conferma prima di procedere con l'eliminazione
         const confirmation = confirm("Sei sicuro di voler eliminare questo post?");
         if (!confirmation) {
-            return; // L'utente ha annullato l'operazione di eliminazione
+            return; // L'admin ha annullato l'operazione di eliminazione
         }
         const response = await fetch(`/02-home/local_php/delete_post.php?post_id=${postId}`, {
             method: 'DELETE'
