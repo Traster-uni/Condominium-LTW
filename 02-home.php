@@ -11,9 +11,11 @@
   <body>
     <?php
       session_start();
-      // ini_set('display_errors', 1);
-      // ini_set('display_startup_errors', 1);
-      // error_reporting(E_ALL);
+
+      ini_set('display_errors', 1);
+      ini_set('display_startup_errors', 1);
+      error_reporting(E_ALL);
+      
       $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
       if (!$connect) {
         echo "Errore, connessione non riuscita.<br>";
@@ -30,7 +32,8 @@
           }
         exit();
       } else {
-        echo "session set";
+        echo "<br> no session!";
+        // header("Location: ./01-login.php");
       }
 
       // $qry_aptb = "SELECT r_ut_a.aptBlock_id
