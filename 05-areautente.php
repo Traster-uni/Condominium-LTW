@@ -16,19 +16,38 @@
   <body>
     <?php
     session_start();
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
     $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
     if (!$connect) {
       echo "Errore, connessione non riuscita.<br>";
-      exit;
+      exit();
     }
     if (!isset($_SESSION['ut_id']) && !isset($_SESSION['password']) && !isset($_SESSION['email'])) {
       $id_utente = $_SESSION["ut_id"];
-        $check_registered = pg_query($connect, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
-        if (!pg_num_rows($check_registered)) {
-          header('01-login2.html');
-        } else {
-          header('01-login1.html');
-        }
+      $qry_check_res = pg_query($connect, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
+      $qry_check_arr = pg_num_rows($check_registered);
+      if (!$qry_check_arr) {
+        header('01-login2.html');
+      } else {
+        header('01-login1.html');
+      }
+
+      $qry_name = "SELECT ut_r.nome
+                    FROM ut_registered ut_r
+                    WHERE ut_r.ut_id = $id_utente";
+      $qry_name_res = pg_query($connect, $qry_name);
+      if (!$qry_name_res){ // error checking
+        echo "Something went wrong<br>";
+        echo pg_result_error($qry_name_res);
+      }
+      $qry_name_arr = pg_fetch_assoc($qry_check_res);
+      $nome = $qry_name_arr['nome'];
+    }else{
+      header("Location: ./01-login.html");
+      exit();
     }
     ?>
     <!--Navigation bar-->
@@ -45,7 +64,8 @@
         <div class="profile-pic" style="text-align: center">
           <img src="./global/02-images/default-pic.png" alt="Profile-Pic" />
           <div class="dati" style="text-align: center">
-            <h2>Mario Rossi</h2>
+            <!-- <h2> Mario Rossi </h2> -->
+            <!-- <h2><?php echo htmlspecialchars($qry_name_arr['nome'])?></h2> -->
           </div>
         </div>
         <!-- Tabs Impostazioni -->
@@ -65,7 +85,7 @@
           </button>
           <form action ="global/04-php/logout.php", method="POST">
             <button class="delete_acc">
-              <span class="material-symbols-outlined">logout</span>Log Out\
+              <span class="material-symbols-outlined">logout</span>Log Out
           </form>
         </div>
       </div>
