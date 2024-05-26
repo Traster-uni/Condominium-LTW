@@ -27,6 +27,7 @@
       //   }
       header("Location: ../../01-login.php");
     }
+    
     $array = array();
     $result1 = pg_query($connect, "SELECT * FROM common_spaces");
 
@@ -59,16 +60,16 @@
     </script>
     <script src="./03-commonspaces/local_js/03-commonspaces.js"></script>
     <!--Navigation bar-->
-    <!-- <div id="navbar"></div>
+    <div id="navbar"></div>
     <script>
       $(function () {
         $("#navbar").load("./global/06-html/navbar.html");
       });
-    </script> -->
+    </script>
     <!--end of Navigation bar-->
 
-    <div class="flexbox">
-      <div style="background-color: rgb(101, 189, 113); width: 20%">
+    <div class="grid">
+      <div style="background-color: rgb(101, 189, 113)">
         <!--Calendario-->
         <div id="calendar"></div>
         <script>
@@ -163,7 +164,7 @@
           </div>
         </div>
       </div>
-      <div style="background-color: rgb(101, 189, 113); width: 20%">
+      <div style="background-color: rgb(101, 189, 113)">
         <div class="contatti-utili">
           <ul>
             <li class="contatti-utili__nome">Nome - Amministratore Cellulare</li>

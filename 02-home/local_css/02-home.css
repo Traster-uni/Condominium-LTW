@@ -1,15 +1,8 @@
-html,
-body {
-  height: 100%;
-  background-color: rgb(101, 189, 113);
-  margin: 0;
-}
-
-.flexbox {
-  display: flex;
-  flex-direction: row;
-  height: 93.1vh;
-  padding-top: 30px;
+.grid {
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  min-height: 100vh;
+  margin-top: 70px;
 }
 
 .bacheca {

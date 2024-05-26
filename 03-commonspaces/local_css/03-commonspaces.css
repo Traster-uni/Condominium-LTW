@@ -1,8 +1,8 @@
-.flexbox {
-  display: flex;
-  flex-direction: row;
-  height: 92.4vh;
-  padding-top: 34px;
+.grid {
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  min-height: 100vh;
+  margin-top: 70px;
 }
 
 .colonna-centrale {
@@ -50,6 +50,9 @@
   margin: 0;
   display: block;
   z-index: 0;
+}
+
+.img-luogo {
   border-top: 2px solid black;
 }
 

@@ -50,3 +50,5 @@ function checkDay(event) {
     alert("Devi selezionare un giorno per la tua prenotazione");
   }
 }
+
+// CONTROLLA CHE L'ORARIO NON VADA IN CONFLITTO CON PRENOTAZIONE GIA' ESISTENTE
