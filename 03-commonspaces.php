@@ -11,10 +11,15 @@
   <body id="body">
     <?php
     session_start();
+    $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
+    if (!$connect) {
+      echo "Errore, connessione non riuscita.<br>";
+      exit;
+    }
 
     if (!isset($_SESSION['ut_id']) && !isset($_SESSION['password']) && !isset($_SESSION['email'])) {
       $id_utente = $_SESSION["ut_id"];
-        $check_registered = pg_query($conn, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
+        $check_registered = pg_query($connect, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
         if (!pg_num_rows($check_registered)) {
           header('01-login2.html');
         } else {
@@ -22,16 +27,11 @@
         }
     }
 
-    /* $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=postgres password=service"); */
-    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
-    if (!$connection) {
-      echo "Errore, connessione non riuscita.<br>";
-      exit;
-    }
 
-    $result1 = pg_query($connection, "SELECT * FROM common_spaces");
 
-    $result2 = pg_query($connection, "SELECT rental_req_id, cs_id, rental_datetime_start, rental_datetime_end FROM rental_request");
+    $result1 = pg_query($connect, "SELECT * FROM common_spaces");
+
+    $result2 = pg_query($connect, "SELECT rental_req_id, cs_id, rental_datetime_start, rental_datetime_end FROM rental_request");
 
     while ($row = pg_fetch_assoc($result2)) {
       $timestamp_inizio = $row['rental_datetime_start'];

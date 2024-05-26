@@ -18,8 +18,8 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["login_button"])){
-            $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-            $passwd = $_POST["password"];
+            $email = filter_var(htmlspecialchars($_POST['email']), FILTER_VALIDATE_EMAIL);
+            $passwd = htmlspecialchars($_POST["password"]);
             $qry_email = "SELECT ut_email
                             FROM ut_registered ut_r
                             WHERE ut_r.ut_email = '$email'";

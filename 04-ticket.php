@@ -17,10 +17,15 @@
   <body>
     <?php
       session_start();
+      $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
+      if (!$connect) {
+        echo "Errore, connessione non riuscita.<br>";
+        exit;
+      }
 
       if (!isset($_SESSION['ut_id']) && !isset($_SESSION['password']) && !isset($_SESSION['email'])) {
       $id_utente = $_SESSION["ut_id"];
-        $check_registered = pg_query($conn, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
+        $check_registered = pg_query($connect, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
         if (!pg_num_rows($check_registered)) {
           header('01-login2.html');
         } else {

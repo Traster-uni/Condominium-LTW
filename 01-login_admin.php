@@ -87,6 +87,8 @@
 
         <div class="buttons">
           <?php
+          // should be done before, to correctly close the connection also pg_query doesn't return an array
+          //    call pg_fetch_assoc() on pg_query() result => pg_fetch_assoc(pg_query())
           $check_request = pg_query($connection, "SELECT ut_id FROM req_aptblock_create WHERE ut_id = $id_admin AND stat = 'pending'");
           if (pg_num_rows($check_request) > 0): ?>
           <p>Hai inviato una richiesta per la creazione di un condominio. Attendi che venga accettata o inviane un'altra.</p>

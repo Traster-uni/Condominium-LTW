@@ -13,7 +13,7 @@
         $cognome = htmlspecialchars($_POST["cognome"]);
         $dnascita = htmlspecialchars($_POST["data-nascita"]);
         $telefono = htmlspecialchars($_POST["telefono"]);
-        $fiscalcode = htmlspecialchars($_POST["fiscal-code"]); //
+        $fiscalcode = htmlspecialchars($_POST["fiscal-code"]); // NOT USED
         $address = htmlspecialchars($_POST["address"]);
         $citta = htmlspecialchars($_POST["citta"]);
         $email = htmlspecialchars($_POST["email"]);
@@ -28,7 +28,7 @@
         } else {
             echo "connected<br>";
         }
-        $qry_check = "SELECT *
+        $qry_check = "SELECT ut_email
                         FROM ut_registered
                        WHERE ut_registered.ut_email = $email";
         $qry_check_res = pg_query($connection, $qry_check);
@@ -38,7 +38,7 @@
         }
         $qry_check_arr = pg_fetch_assoc($qry_check_res);
         if ($email === $qry_check_arr['ut_email']){
-            echo "THE ACCOUNT ALREADY EXISTS<br>";
+            echo "THIS EMAIL IS ALREADY IN USE<br>";
         } 
         if ($telefono === $qry_check_arr['telefono']){
             echo "THE TELEPHONE NUMBER IT'S ALREADY ASSOCIATED WITH ANOTHER ACCOUNT<br>";

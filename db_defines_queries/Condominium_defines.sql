@@ -95,8 +95,8 @@ CREATE TABLE IF NOT EXISTS aptBlock_admin(
 CREATE TABLE IF NOT EXISTS req_aptBlock_create(
 	ut_id integer,
 	aptBlockReq_id serial,
-	time_born timestamp DEFAULT current_timestamp,
-	time_mod timestamp,
+	time_born timestamp NOT NULL DEFAULT current_timestamp,
+	time_mod timestamp NOT NULL DEFAULT current_timestamp, --updated on mod
 	stat request_status NOT NULL,
 	addr_aptB varchar(50) NOT NULL,
 	city varchar(50) NOT NULL,
@@ -124,8 +124,8 @@ CREATE TABLE IF NOT EXISTS req_ut_access(
 	ut_id integer,
 	utReq_id serial,
 	aptBlock_id integer,
-	time_born timestamp DEFAULT current_timestamp,
-	time_mod timestamp NOT NULL,
+	time_born timestamp NOT NULL DEFAULT current_timestamp,
+	time_mod timestamp NOT NULL DEFAULT current_timestamp, -- updated on mod
 	status ut_request_stat NOT NULL,
 	PRIMARY KEY (utReq_id),
 	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id),
@@ -178,8 +178,8 @@ CREATE TABLE IF NOT EXISTS posts(
 	ut_owner_id integer,
 	title varchar(100) NOT NULL,
 	ttext text NOT NULL,
-	time_born timestamp DEFAULT current_timestamp, 	-- current_time
-	time_mod NOT NULL,	-- current_time at time of last modification
+	time_born timestamp NOT NULL DEFAULT current_timestamp,
+	time_mod timestamp NOT NULL DEFAULT current_timestamp,
 	data_json json,		-- to be defined: JSON module for polls and JSON module for payments
 	off_comments bool DEFAULT false,
 	PRIMARY KEY (post_id),
