@@ -35,7 +35,8 @@
             pg_close($connection);
             if ($qry_empw_arr){
                 if ($qry_empw_arr["ut_email"] === $email){
-                    
+                    $s= session_save_path();
+                    echo "session path: $s";
                     $_SESSION["ut_id"] = $qry_empw_arr["ut_id"];
                     $_SESSION["email"] = $qry_empw_arr["ut_email"];
                     $_SESSION["admin"] = false;

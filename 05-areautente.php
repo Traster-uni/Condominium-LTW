@@ -25,7 +25,7 @@
       echo "Errore, connessione non riuscita.<br>";
       exit();
     }
-    if (!isset($_SESSION['ut_id']) && !isset($_SESSION['password']) && !isset($_SESSION['email'])) {
+    if (isset($_SESSION['ut_id']) && isset($_SESSION['email'])) {
       $id_utente = $_SESSION["ut_id"];
       $qry_check_res = pg_query($connect, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
       $qry_check_arr = pg_num_rows($check_registered);
@@ -46,7 +46,7 @@
       $qry_name_arr = pg_fetch_assoc($qry_check_res);
       $nome = $qry_name_arr['nome'];
     }else{
-      header("Location: ./01-login.php");
+      header("Location: ../../01-login.php");
       exit();
     }
     ?>

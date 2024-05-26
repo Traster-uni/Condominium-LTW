@@ -17,18 +17,17 @@
       exit;
     }
 
-    if (!isset($_SESSION['ut_id']) && !isset($_SESSION['password']) && !isset($_SESSION['email'])) {
-      $id_utente = $_SESSION["ut_id"];
-        $check_registered = pg_query($connect, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
-        if (!pg_num_rows($check_registered)) {
-          header('01-login2.html');
-        } else {
-          header('01-login1.html');
-        }
+    if (!isset($_SESSION['ut_id'])  && !isset($_SESSION['email'])) {
+      // $id_utente = $_SESSION["ut_id"];
+      //   $check_registered = pg_query($connect, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
+      //   if (!pg_num_rows($check_registered)) {
+      //     header('01-login2.html');
+      //   } else {
+      //     header('01-login1.html');
+      //   }
+      header("Location: ../../01-login.php");
     }
-
-
-
+    $array = array();
     $result1 = pg_query($connect, "SELECT * FROM common_spaces");
 
     $result2 = pg_query($connect, "SELECT rental_req_id, cs_id, rental_datetime_start, rental_datetime_end FROM rental_request");
@@ -60,12 +59,12 @@
     </script>
     <script src="./03-commonspaces/local_js/03-commonspaces.js"></script>
     <!--Navigation bar-->
-    <div id="navbar"></div>
+    <!-- <div id="navbar"></div>
     <script>
       $(function () {
         $("#navbar").load("./global/06-html/navbar.html");
       });
-    </script>
+    </script> -->
     <!--end of Navigation bar-->
 
     <div class="flexbox">
