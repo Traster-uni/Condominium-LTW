@@ -63,17 +63,17 @@ try {
         }
         // Os sensitive div and root 
         $div = "\\";
-        $root = $_SERVER["SCRIPT_FILENAME"]."\\..\\..\\..\\tests";
+        $root = $_SERVER["DOCUMENT_ROOT"]."\\tests";
         switch($_SERVER["HTTP_SEC_CH_UA_PLATFORM"]){
             case "Windows":
                 $div = "\\";
-                $root = $_SERVER["SCRIPT_FILENAME"]."\\..\\..\\..\\tests";
+                $root = $_SERVER["DOCUMENT_ROOT"]."\\tests";
             case "Linux":
                 $div = "/";
-                $root = $_SERVER["SCRIPT_FILENAME"]."/../../../tests";
+                $root = $_SERVER["DOCUMENT_ROOT"]."/tests";
             case "macOS":
                 $div = "/";
-                $root = $_SERVER["SCRIPT_FILENAME"]."/../../../tests";
+                $root = $_SERVER["DOCUMENT_ROOT"]."/tests";
         }
 
         // execute upload

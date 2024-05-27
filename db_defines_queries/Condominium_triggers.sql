@@ -178,7 +178,8 @@ AS $$
 			return "ERROR"
 
 		elif rq_status_new == "accepted":
-			qry = f"INSERT INTO ut_owner VALUES({rq_id}, {img_dir})"
+			qry = f"""INSERT INTO ut_owner(utreq_id, ut_ownership_doc_fname) 
+					VALUES({rq_id}, '{img_dir}')"""
 			plpy.prepare(qry)
 			try:
 				plpy.execute(qry)

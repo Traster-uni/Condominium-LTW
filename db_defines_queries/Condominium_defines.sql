@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS req_ut_access(
 
 CREATE TABLE IF NOT EXISTS ut_owner(
 	utReq_id integer,
-	ut_ownership_doc_fname varchar(100) NOT NULL,
+	ut_ownership_doc_fname varchar(300) NOT NULL,
 	PRIMARY KEY (utReq_id),
 	FOREIGN KEY (utReq_id) REFERENCES req_ut_access(utReq_id),
 	UNIQUE(codice_fiscale)
