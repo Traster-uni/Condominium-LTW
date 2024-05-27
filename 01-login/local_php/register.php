@@ -19,32 +19,17 @@
         $email = htmlspecialchars($_POST["email"]);
         $password = htmlspecialchars($_POST["password"]);
 
-
-        $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=usr_login password=iamdolly");
+        // TODO: Controlla se email, telefono, sono gia stati utilizzati nel sistema
+        // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=usr_login password=iamdolly");
         //Verifico che la connessione è avvenuta con successo
-        if (!$connection) {
-            echo "Errore, connessione non riuscita.<br>";
-            exit;
-        } else {
-            echo "connected<br>";
-        }
-        $qry_check = "SELECT ut_email
-                        FROM ut_registered
-                       WHERE ut_registered.ut_email = $email";
-        $qry_check_res = pg_query($connection, $qry_check);
-        if (!$qry_check_res){
-            echo "Something went wrong<br>";
-            echo pg_result_error($qry_usr_res);
-        }
-        $qry_check_arr = pg_fetch_assoc($qry_check_res);
-        if ($email === $qry_check_arr['ut_email']){
-            echo "THIS EMAIL IS ALREADY IN USE<br>";
-        } 
-        if ($telefono === $qry_check_arr['telefono']){
-            echo "THE TELEPHONE NUMBER IT'S ALREADY ASSOCIATED WITH ANOTHER ACCOUNT<br>";
-        }
-        // else if ($fiscalcode === $qry_check_arr['fiscalcode'])
-        pg_close($connection);
+        // if (!$connection) {
+        //     echo "Errore, connessione non riuscita.<br>";
+        //     exit;
+        // } else {
+        //     echo "connected<br>";
+        // }
+
+        // pg_close($connection);
 
 
         $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=usr_register password=iamdolly");
