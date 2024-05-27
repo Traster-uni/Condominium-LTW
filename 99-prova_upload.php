@@ -10,7 +10,7 @@
     <title>Prova Upload</title>
 </head>
 <body>
-    <form enctype="multipart/form-data", action="global/04-php/upload.php" method="post">
+    <form enctype="multipart/form-data", action="./global/04-php/upload.php" method="post">
         <input type="text" name="email" id="email" method="post">
         <br>
         <input type="file" name="upload-img" id="upload-img">

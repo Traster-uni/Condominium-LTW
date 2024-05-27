@@ -13,8 +13,9 @@
  */
 // allow script to wait for a connection
 
-// ini_set('display_errors', 1);
-// error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 // print_r($_FILES);
 // print_r($_FILES['upload-img']['error']);
 try {
@@ -61,6 +62,8 @@ try {
             throw new RuntimeException('Invalid file format.');
         }
         // Os sensitive div and root 
+        $div = "\\";
+        $root = $_SERVER["SCRIPT_FILENAME"]."\\..\\..\\..\\tests";
         switch($_SERVER["HTTP_SEC_CH_UA_PLATFORM"]){
             case "Windows":
                 $div = "\\";
@@ -97,7 +100,7 @@ try {
                 // actually upload the file
                 if (move_uploaded_file($_FILES["upload-img"]["tmp_name"], $target_fname)) {
                     // usr feedback and refresh
-                    echo "File uploaded correctly<br><br>";
+                    echo "<br>File uploaded correctly<br><br>";
                     echo "Upload: " . $_FILES["upload-img"]["name"] . "<br>";
                     echo "Type: " . $_FILES["upload-img"]["type"] . "<br>";
                     echo "Size: " . ($_FILES["upload-img"]["size"] / 1024) . " kB<br>";
@@ -114,7 +117,7 @@ try {
     echo $e->getMessage();
 }
 // page refresh
-header("Location: ../../prova_upload.php");
+// header("Location: ../../99-prova_upload.php");
 
 ?>
 
