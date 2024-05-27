@@ -9,9 +9,9 @@
         echo "connected<br>";
     }
 
-    /* ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL); */
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
@@ -22,9 +22,9 @@
 
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                print_r($_FILES);
-            // Check for: Undefined | Multiple Files | $_FILES Corruption Attack
-            // courtesy of user CertaiN (user contributed notes): https://www.php.net/manual/it/features.file-upload.php
+                // print_r($_SERVER);
+                // Check for: Undefined | Multiple Files | $_FILES Corruption Attack
+                // courtesy of user CertaiN (user contributed notes): https://www.php.net/manual/it/features.file-upload.php
                 if (isset($_FILES['upload-img']['error']) || is_array($_FILES['upload-img']['error'])) {
                     // Check $_FILES['upload-img']['error'] value.
                     // courtesy of user CertaiN (user contributed notes): https://www.php.net/manual/it/features.file-upload.php
@@ -67,13 +67,13 @@
                 $div = "\\";
                 $root = $_SERVER["DOCUMENT_ROOT"]."\\tests";
                 switch($_SERVER["HTTP_SEC_CH_UA_PLATFORM"]){
-                    case "Windows":
+                    case $_SERVER["HTTP_SEC_CH_UA_PLATFORM"] == "Windows":
                         $div = "\\";
                         $root = $_SERVER["DOCUMENT_ROOT"]."\\tests";
-                    case "Linux":
+                    case $_SERVER["HTTP_SEC_CH_UA_PLATFORM"] == "Linux":
                         $div = "/";
                         $root = $_SERVER["DOCUMENT_ROOT"]."/tests";
-                    case "macOS":
+                    case $_SERVER["HTTP_SEC_CH_UA_PLATFORM"] == "macOS":
                         $div = "/";
                         $root = $_SERVER["DOCUMENT_ROOT"]."/tests";
                 }
@@ -93,7 +93,6 @@
                         // $target_dir = sprintf("users/%s/pictures/photos", $email); // Linux
                         $target_fname = $root .$div. $target_dir .$div. $fName;
                         $_SESSION['resource_dir'] = $target_dir;
-                        print_r($root);
                         // check for directory
                         if (!file_exists($target_fname)){
                             chdir($root);

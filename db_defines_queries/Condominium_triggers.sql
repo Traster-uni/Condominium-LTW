@@ -1,22 +1,22 @@
 CREATE OR REPLACE FUNCTION max_rental_req_accepted_per_user() RETURNS trigger
 AS $$
-	usr_id 	= TD["new"]["ut_id"]
-	rt_id	= TD["new"]["rental_req_id"]
+	owner_id = TD["new"]["ut_owner_id"]
+	rt_id	 = TD["new"]["rental_req_id"]
 	qry = f"""
-			SELECT r_req.ut_id, count(r_req.rental_req_id) as num_req
+			SELECT r_req.ut_owner_id, count(r_req.rental_req_id) as num_req
 			FROM rental_request r_req
-			WHERE r_req.ut_id = {usr_id}
+			WHERE r_req.ut_owner_id = {owner_id}
 				AND	(r_req.stat ='pending' OR r_req.stat = 'accepted')
 				AND r_req.rental_datetime_start BETWEEN date_trunc('day', current_timestamp) AND date_trunc('day', current_timestamp) + INTERVAL '30 days'
-			GROUP BY (r_req.ut_id)
+			GROUP BY (r_req.ut_owner_id)
 			"""
 	qry2 =	f"""
-			SELECT r_req.ut_id, count(r_req.rental_req_id) as conum_requnt
+			SELECT r_req.ut_owner_id, count(r_req.rental_req_id) as conum_requnt
 			FROM rental_request r_req
-			WHERE r_req.ut_id = {usr_id}
+			WHERE r_req.ut_owner_id = {owner_id}
 				AND	(r_req.stat ='pending' OR r_req.stat = 'accepted')
 				AND date_part('month', r_req.rental_datetime_start) = date_part('month', current_timestamp)
-			GROUP BY (r_req.ut_id)
+			GROUP BY (r_req.ut_owner_id)
 			"""
 	plpy.prepare(qry)
 	try:
@@ -27,7 +27,7 @@ AS $$
 		if len(qry_result) == 0:
 			return "OK"
 		if qry_result[0]["num_req"] > 5:
-			raise plpy.error(f"Max num of requests reached for {usr_id}, rolling back")
+			raise plpy.error(f"Max num of requests reached for owner {owner_id}, rolling back")
 			return "ERROR"
 		else:
 			return "OK"
@@ -40,7 +40,7 @@ CREATE OR REPLACE TRIGGER max_rental_req_accepted_per_user
 
 CREATE OR REPLACE FUNCTION rental_req_disj() RETURNS trigger
 AS $$
-	usr_id		= TD["new"]["ut_id"]
+	owner_id 	= TD["new"]["ut_owner_id"]
 	rt_id		= TD["new"]["rental_req_id"]
 	rt_dt_s		= TD["new"]["rental_datetime_start"]
 	rt_dt_e		= TD["new"]["rental_datetime_end"]

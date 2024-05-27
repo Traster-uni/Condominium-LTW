@@ -1,5 +1,8 @@
 <?php
     session_start();
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
     $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
     // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=$_SESSION["email"] password=$_SESSION["password"]");
 
@@ -31,24 +34,31 @@
         $id_utente = $_SESSION['ut_id'];
         $id_luogo = intval($_POST["cs_id"]);
 
-        $check1 = pg_query($connection, "SELECT utreq_id as ut_id FROM ut_owner");
-        $check2 = pg_fetch_assoc($check1);
-        if (in_array($id_utente, $check2)) {
-            echo "Errore, l'utente non fa parte di un condominio";
-        }
+        $qry_chk1 = "SELECT ut_r.ut_id, req_a.aptblock_id, ut_o.utreq_id as ut_owner_id
+                        FROM ut_registered ut_r 
+                            JOIN req_ut_access req_a ON ut_r.ut_id = req_a.ut_id
+                            JOIN ut_owner ut_o ON ut_o.utreq_id = req_a.utreq_id
+                        WHERE ut_r.ut_id = $id_utente;";
+        $qry_chk1_res = pg_query($connection, $qry_chk1);
+        $qry_chk1_arr = pg_fetch_assoc($qry_chk1_res);
+        if (in_array($id_utente, $qry_chk1_arr)) {
+            $owner_id = $qry_chk1_arr['ut_owner_id'];
+            //Preparo la query
+            $q = "INSERT INTO rental_request(ut_owner_id, cs_id, submit_time, stat, rental_datetime_start, rental_datetime_end)
+            VALUES ('$owner_id', '$id_luogo', '$submit_time', 'pending', '$inizio', '$fine')";
+            $result = pg_query($connection, $q);
 
-        //Preparo la query
-        $q = "INSERT INTO rental_request(ut_id, cs_id, submit_time, stat, rental_datetime_start, rental_datetime_end)
-        VALUES ('$id_utente', '$id_luogo', '$submit_time', 'pending', '$inizio', '$fine')";
-        $result = pg_query($connection, $q);
-
-        // Verifica se l'inserimento è avvenuto con successo
-        if ($result) {
-            echo "Prenotazione avvenuta con successo!";
-            header("Location: /03-commonspaces.php");
+            // Verifica se l'inserimento è avvenuto con successo
+            if ($result) {
+                echo "Prenotazione avvenuta con successo!";
+                header("Location: /03-commonspaces.php");
+            } else {
+                echo "Errore durante la prenotazione: " . pg_last_error($connection);
+            }
         } else {
-            echo "Errore durante la prenotazione: " . pg_last_error($connection);
+            echo "<br>ERRORE: l'utente non fa parte di alcun appartamento<br>";
         }
+        
     }
 
     // Chiudi la connessione al database

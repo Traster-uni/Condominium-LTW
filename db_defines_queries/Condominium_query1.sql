@@ -69,3 +69,5 @@ FROM ut_registered ut_r
 WHERE ut_r.ut_id = $utid
 ORDER BY (time_mod) ASC
 
+ALTER TABLE req_ut_access
+	ALTER COLUMN status SET DEFAULT 'pending'

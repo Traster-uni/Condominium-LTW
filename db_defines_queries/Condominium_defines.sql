@@ -35,11 +35,6 @@ CREATE TYPE bb_type AS ENUM('general', 'admin');
 -- may needs deletion and creation, ALSO THE TABLE THAT USE THIS TYPE MAY NEED TO BE DROPPED FIRST
 -- DROP DOMAIN IF EXISTS request_status 
 
-ALTER TABLE tickets
-	ADD COLUMN status ticket_status NOT NULL
-ALTER TABLE rental_request
-	RENAME COLUMN rental_datatime_start TO rental_datetime_start
-	RENAME COLUMN rental_datatime_end TO rental_datetime_start
 ---------------------------------------------
 
 CREATE TABLE IF NOT EXISTS region(
@@ -121,8 +116,8 @@ CREATE TABLE IF NOT EXISTS aptBlock(
 -- DROP TABLE IF EXISTS aptBlock CASCADE
 
 CREATE TABLE IF NOT EXISTS req_ut_access(
-	ut_id integer,
 	utReq_id serial,
+	ut_id integer,
 	aptBlock_id integer,
 	time_born timestamp NOT NULL DEFAULT current_timestamp,
 	time_mod timestamp NOT NULL DEFAULT current_timestamp, -- updated on mod
@@ -267,15 +262,15 @@ CREATE TABLE IF NOT EXISTS common_spaces(
 
 CREATE TABLE IF NOT EXISTS rental_request(
 	rental_req_id serial,
-	ut_id integer,
-	adm_id integer,
+	ut_owner_id integer,
+	cs_id integer,
 	rental_datetime_start timestamp NOT NULL, 
 	rental_datetime_end timestamp NOT NULL CHECK(rental_datetime_end > rental_datetime_start),
 	submit_time timestamp NOT NULL,
 	stat request_status NOT NULL,
 	PRIMARY KEY (rental_req_id),
-	FOREIGN KEY (ut_id) REFERENCES ut_owner(utReq_id),
-	FOREIGN KEY (adm_id) REFERENCES aptBlock_admin(ut_id)
+	FOREIGN KEY (ut_owner_id) REFERENCES ut_owner(utReq_id),
+	FOREIGN KEY (cs_id) REFERENCES common_spaces(cs_id)
 );
 
 CREATE TABLE thread_comments (
@@ -292,9 +287,4 @@ CREATE TABLE thread_comments (
 
 -------------------------------------------------------------------------------
 
-ALTER TABLE rental_request
-	RENAME COLUMN rental_time TO rental_datetime_start
-	ALTER COLUMN rental_datetime_start TYPE timestamp NOT NULL 
-	DROP COLUMN period
-	ADD COLUMN rental_datetime_end timestamp NOT NULL CHECK(rental_datetime_end > rental_datetime_start),
 	
