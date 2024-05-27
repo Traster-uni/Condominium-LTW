@@ -57,7 +57,7 @@
             $_SESSION["ut_id"] = $qry_usr_arr["ut_id"];
             $_SESSION["email"] = $qry_usr_arr["ut_email"];
             $_SESSION["password"] = $qry_usr_arr["passwd"];
-            header("Location: ../../02-home.php");
+            header("Location: ../../01-login_utente.php");
         } else {
             echo "Errore durante la registrazione: " . pg_last_error($connection);
         }

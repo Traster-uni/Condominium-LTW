@@ -32,8 +32,8 @@
   <body>
 
     <?php
-    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
     session_start();
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
     // Verifico che la connessione è avvenuta con successo
     if (!$connection) {
       echo "Errore, connessione non riuscita.<br>";
@@ -52,6 +52,8 @@
 
     $result_exists = pg_query($connection, "SELECT city, addr_aptb FROM req_aptblock_create WHERE stat = 'accepted'");
     $result_sent = pg_query($connection, "SELECT city, addr_aptb FROM req_aptblock_create WHERE ut_id = $id_admin AND stat = 'pending'");
+    $array_exists = array();
+    $array_sent = array();
 
     // Array per controllare se esiste già un condominio con la città e l'indirizzo messi in input
     while ($row = pg_fetch_assoc($result_exists)) {
@@ -70,6 +72,9 @@
 
     $check_exists = json_encode($array_exists);
     $check_sent = json_encode($array_sent);
+
+    $check_request = pg_query($connection, "SELECT ut_id FROM req_aptblock_create WHERE ut_id = $id_admin AND stat = 'pending'");
+    pg_close($connection);
     ?>
 
     <script type="text/javascript">
@@ -87,9 +92,6 @@
 
         <div class="buttons">
           <?php
-          // should be done before, to correctly close the connection also pg_query doesn't return an array
-          //    call pg_fetch_assoc() on pg_query() result => pg_fetch_assoc(pg_query())
-          $check_request = pg_query($connection, "SELECT ut_id FROM req_aptblock_create WHERE ut_id = $id_admin AND stat = 'pending'");
           if (pg_num_rows($check_request) > 0): ?>
           <p>Hai inviato una richiesta per la creazione di un condominio. Attendi che venga accettata o inviane un'altra.</p>
           <?php endif; ?>
