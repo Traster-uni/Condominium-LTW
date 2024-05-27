@@ -160,6 +160,38 @@ CREATE OR REPLACE TRIGGER timestamp_update_on_update
 	AFTER UPDATE ON tickets
 	FOR EACH ROW EXECUTE FUNCTION timestamp_update_on_update();
 
+CREATE OR REPLACE FUNCTION ut_owner_on_accepted_req() RETURNS trigger
+AS $$
+	rq_status_old = TD["old"]["stat"]
+	rq_status_new = TD["new"]["stat"]
+
+	rq_id = TD['old']['utreq_id']
+
+	if rq_status_old == "pending":
+		if rq_status_new == "refused":
+			raise plpy.error(f"The request was refused by the appartment block admin, aborting operation")
+			return "ERROR"
+
+		elif rq_status_new == "aborted":
+			raise plpy.error("The request was aborted by the user, aborting operation")
+			return "ERROR"
+
+		elif rq_status_new == "accepted":
+			qry = f"INSERT INTO ut_owner VALUES({rq_id})"
+			plpy.prepare(qry)
+			try:
+				plpy.execute(qry)
+			except plpy.SPIError as e:
+				raise plpy.error(f"Something went wrong, aborting operation: ({rq_id}: {str(e)})")
+				return "ERROR"
+
+	return "OK"	
+$$ LANGUAGE plpython3u;
+
+CREATE OR REPLACE TRIGGER ut_owner_on_accepted_req 
+	AFTER UPDATE ON req_ut_access
+	FOR EACH ROW EXECUTE FUNCTION ut_owner_on_accepted_req();
+
 -- TO MODIFY TRIGGERS:
 -- DROP TRIGGER rental_req_stamp ON rental_request;
 -- DROP FUNCTION max_rental_req_accepted_per_user();
