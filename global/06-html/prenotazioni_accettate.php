@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=postgres password=service");
 /* $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=".$_SESSION['email']." password=".$_SESSION['password']); */
 if (!$connection) {
@@ -7,7 +7,8 @@ if (!$connection) {
     exit;
 }
 
-$result = pg_query($connection, "SELECT * FROM rental_request NATURAL JOIN common_spaces ORDER BY rental_datetime_start ASC ");
+$id_utente = $_SESSION['ut_id'];
+$result = pg_query($connection, "SELECT * FROM rental_request NATURAL JOIN common_spaces WHERE ut_id = $id_utente ORDER BY rental_datetime_start ASC ");
 
 ?>
 

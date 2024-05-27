@@ -87,7 +87,7 @@
 
       <div>
         <header class="title center green">
-            <h1 class="logo">CONDOMINIUM</h1>
+          <h1 class="logo">CONDOMINIUM</h1>
         </header>
 
         <div class="buttons">
