@@ -277,6 +277,15 @@ CREATE TABLE IF NOT EXISTS rental_request(
 	FOREIGN KEY (ut_id) REFERENCES ut_owner(utReq_id),
 	FOREIGN KEY (adm_id) REFERENCES aptBlock_admin(ut_id)
 );
+
+CREATE TABLE thread_comments (
+    comment_id SERIAL,
+    thread_id INT,
+    comm_text TEXT NOT NULL,
+    time_born TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (comment_id),
+    FOREIGN KEY (thread_id) REFERENCES post_thread(thread_id) ON DELETE CASCADE
+);;
  -- TRIGGER: max n rental_req accepted per user
  -- TRIGGER: rental_req acceptable if within x days from current_date
  -- TRIGGER: for each user there can't be multiple rental_req in the same period/day
