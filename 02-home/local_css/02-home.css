@@ -189,8 +189,9 @@
   border-top: 1px solid #ccc;
 }
 
-.delete-post-button {
+.delete-post-button, .enable-disable-comment-button {
   margin-top: 3px;
+  margin-right: 3px;
   padding: 5px 10px;
   background-color: #e74c3c;
   color: white;
@@ -203,3 +204,10 @@
   background-color: #c0392b;
 }
 
+.enable-disable-comment-button {
+  background-color: rgb(122, 63, 231);
+}
+
+.enable-disable-comment-button:hover {
+  background-color: rgb(88, 46, 167)
+}

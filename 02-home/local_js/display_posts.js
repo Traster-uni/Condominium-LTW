@@ -83,6 +83,7 @@ function displayPostsAdmin(posts) {
         const postElement = document.createElement('div');
         postElement.classList.add('post');
         postElement.dataset.postId = post.post_id;
+        postElement.dataset.offComments = post.off_comments;
         
         if (post.off_comments === "f") {
             postElement.innerHTML = `
@@ -125,6 +126,8 @@ function displayPostsUd(posts) {
         const postElement = document.createElement('div');
         postElement.classList.add('post');
         postElement.dataset.postId = post.post_id;
+        postElement.dataset.offComments = post.off_comments;
+
         if (post.off_comments === "f") {
             postElement.innerHTML = `
                 <h3 class="post-author">${post.nome} ${post.cognome}</h3>
@@ -334,6 +337,25 @@ function enableAdminFeatures() {
             }
         });
     });
+
+    // Enable/disable dei commenti
+    postContainers.forEach(container => {
+        const toggleButton = document.createElement('button');
+        const txt = container.dataset.offComments === 't' ? 'Abilita commenti' : 'Disabilita commenti';
+        toggleButton.textContent = txt;
+        toggleButton.classList.add('enable-disable-comment-button');
+        toggleButton.dataset.postId = container.dataset.postId; // Aggiungi l'ID del post come attributo dei dati
+        toggleButton.addEventListener('click', async(event) =>{
+            if (container.dataset.offComments === 't') {
+                const postId = event.target.dataset.postId;
+                await enableDisableComment(postId, 'enable');
+            } else {
+                const postId = event.target.dataset.postId;
+                await enableDisableComment(postId, 'disable');
+            }
+        })
+        container.appendChild(toggleButton);
+    });
 }
 
 async function deletePost(postId) {
@@ -358,5 +380,52 @@ async function deletePost(postId) {
         console.log('Post deleted successfully');
     } catch (error) {
         console.error('Error deleting post:', error);
+    }
+}
+
+async function enableDisableComment(postId, action) {
+    try {
+        const confirmationMsg = action === 'disable' ?  
+            "Sei sicuro di voler silenziare questo post?" :
+            "Sei sicuro di voler abilitare i commenti su questo post?";
+        const confirmation = confirm(confirmationMsg);
+
+        if (!confirmation) {
+            return; // L'admin ha annullato l'operazione
+        }
+        const response = await fetch(`/02-home/local_php/enable_disable_comment.php?post_id=${postId}&action=${action}`, {
+            method: 'GET'
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // Aggiorna il post nella UI
+        updatePostElement(postId, action);
+
+    } catch (error) {
+        console.error('Error disabling post:', error);
+    }
+}
+
+function updatePostElement(postId, action) {
+    const postElement = document.querySelector(`.post[data-post-id="${postId}"]`);
+    const toggleButton = postElement.querySelector('.enable-disable-comment-button');
+    const responsesDiv = postElement.querySelector('.responses');
+    const responseForm = postElement.querySelector('.response-form');
+
+    if (action === 'disable') {
+        postElement.dataset.offComments = 't';
+        toggleButton.textContent = 'Abilita commenti';
+        if (responseForm) {
+            responseForm.style.display = 'none';
+        }
+    } else {
+        postElement.dataset.offComments = 'f';
+        toggleButton.textContent = 'Disabilita commenti';
+        if (responseForm) {
+            responseForm.style.display = 'block';
+        }
     }
 }
