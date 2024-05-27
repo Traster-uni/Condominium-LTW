@@ -162,10 +162,11 @@ CREATE OR REPLACE TRIGGER timestamp_update_on_update
 
 CREATE OR REPLACE FUNCTION ut_owner_on_accepted_req() RETURNS trigger
 AS $$
-	rq_status_old = TD["old"]["stat"]
-	rq_status_new = TD["new"]["stat"]
+	rq_status_old = TD["old"]["status"]
+	rq_status_new = TD["new"]["status"]
 
 	rq_id = TD['old']['utreq_id']
+	rq_img_dir = TD['old']['img_dir']
 
 	if rq_status_old == "pending":
 		if rq_status_new == "refused":
@@ -177,7 +178,7 @@ AS $$
 			return "ERROR"
 
 		elif rq_status_new == "accepted":
-			qry = f"INSERT INTO ut_owner VALUES({rq_id})"
+			qry = f"INSERT INTO ut_owner VALUES({rq_id}, {img_dir})"
 			plpy.prepare(qry)
 			try:
 				plpy.execute(qry)

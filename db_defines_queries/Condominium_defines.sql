@@ -127,6 +127,7 @@ CREATE TABLE IF NOT EXISTS req_ut_access(
 	time_born timestamp NOT NULL DEFAULT current_timestamp,
 	time_mod timestamp NOT NULL DEFAULT current_timestamp, -- updated on mod
 	status ut_request_stat NOT NULL,
+	img_dir varchar(50),
 	PRIMARY KEY (utReq_id),
 	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id),
 	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id),
