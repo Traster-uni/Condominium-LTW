@@ -49,6 +49,7 @@
   border-right: none;
   cursor: pointer;
   background-color: transparent;
+  margin-bottom: 8px;
 }
 
 .tablinks:hover,
@@ -78,4 +79,19 @@ table tr td {
 
 .pending {
   color: orange;
+}
+
+.modal-content {
+  width: 60%;
+  max-width: 2000px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
 }

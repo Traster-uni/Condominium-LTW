@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./04-ticket/local_css/04-ticket.css" />
     <link rel="stylesheet" href="./global/01-css/contatti.css">
+    <link rel="stylesheet" href="./global/01-css/popup.css">
+    <link rel="stylesheet" href="./04-ticket/local_css/04-ticket.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -81,6 +82,20 @@
             />
             <input type="reset" />
           </form>
+        </div>
+
+        <!-- Modale -->
+        <div id="ticket-modal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Dettagli del Ticket</h2>
+            <p id="ticket-creation-date"></p>
+            <p id="ticket-status"></p>
+            <p id="ticket-lastReply"></p>
+            <p id="ticket-title"></p>
+            <p id="ticket-content"></p>
+            <div id="ticket-replies"></div>
+          </div>
         </div>
 
         <div class="tab">
