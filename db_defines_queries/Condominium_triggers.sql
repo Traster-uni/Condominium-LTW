@@ -166,14 +166,14 @@ AS $$
 	req_id = TD["new"]["utreq_id"]
 	qry = f"""
 			UPDATE {t_name}
-			SET time_mod = current_timestamp
+			SET time_mod = NOW()::timestamp
 			WHERE {t_name}.utreq_id = {req_id}
 			"""
 	plpy.prepare(qry)
 	try:
 		plpy.execute(qry)
 	except plpy.SPIError as e:
-		raise plpy.error(f"Error updating timestamp: {str(e)}")
+		raise plpy.error(f"Error updating timestamp")
 		return "ERROR"
 	return "OK"
 $$ LANGUAGE plpython3u;
