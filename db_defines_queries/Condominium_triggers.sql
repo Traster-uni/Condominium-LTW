@@ -141,7 +141,7 @@ CREATE OR REPLACE TRIGGER insert_bulletinBoard_on_aptBlock_creation
 CREATE OR REPLACE FUNCTION timestamp_update_on_update_ticket() RETURNS trigger
 AS $$ 
 	t_name = TD["table_name"]
-	p_id = TD["args"]["post_id"]
+	p_id = TD["new"]["post_id"]
 	qry = f"""
 			UPDATE {t_name}
 			SET time_mod = current_timestamp
@@ -163,7 +163,7 @@ CREATE OR REPLACE TRIGGER timestamp_update_on_update_ticket
 CREATE OR REPLACE FUNCTION timestamp_update_on_update_req_ut_access() RETURNS trigger
 AS $$ 
 	t_name = TD["table_name"]
-	req_id = TD["args"]["utreq_id"]
+	req_id = TD["new"]["utreq_id"]
 	qry = f"""
 			UPDATE {t_name}
 			SET time_mod = current_timestamp
