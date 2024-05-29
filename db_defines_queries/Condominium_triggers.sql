@@ -138,7 +138,7 @@ CREATE OR REPLACE TRIGGER insert_bulletinBoard_on_aptBlock_creation
 	FOR EACH ROW EXECUTE FUNCTION define_relative_bulletinBoards();
 -- Triggers insertion of admin and general board once a new aptBlock has been defined.
 
-CREATE OR REPLACE FUNCTION timestamp_update_on_update() RETURNS trigger
+CREATE OR REPLACE FUNCTION timestamp_update_on_update_ticket() RETURNS trigger
 AS $$ 
 	t_name = TD["table_name"]
 	p_id = TD["args"]["post_id"]
@@ -156,9 +156,31 @@ AS $$
 	return "OK"
 $$ LANGUAGE plpython3u;
 
-CREATE OR REPLACE TRIGGER timestamp_update_on_update 
+CREATE OR REPLACE TRIGGER timestamp_update_on_update_ticket
 	AFTER UPDATE ON tickets
-	FOR EACH ROW EXECUTE FUNCTION timestamp_update_on_update();
+	FOR EACH ROW EXECUTE FUNCTION timestamp_update_on_update_ticket();
+
+CREATE OR REPLACE FUNCTION timestamp_update_on_update_req_ut_access() RETURNS trigger
+AS $$ 
+	t_name = TD["table_name"]
+	req_id = TD["args"]["utreq_id"]
+	qry = f"""
+			UPDATE {t_name}
+			SET time_mod = current_timestamp
+			WHERE {t_name}.utreq_id = {req_id}
+			"""
+	plpy.prepare(qry)
+	try:
+		plpy.execute(qry)
+	except plpy.SPIError as e:
+		raise plpy.error(f"Error updating timestamp: {str(e)}")
+		return "ERROR"
+	return "OK"
+$$ LANGUAGE plpython3u;
+
+CREATE OR REPLACE TRIGGER timestamp_update_on_update_req_ut_access
+	AFTER UPDATE ON req_ut_access
+	FOR EACH ROW EXECUTE FUNCTION timestamp_update_on_update_req_ut_access();
 
 CREATE OR REPLACE FUNCTION ut_owner_on_accepted_req() RETURNS trigger
 AS $$
