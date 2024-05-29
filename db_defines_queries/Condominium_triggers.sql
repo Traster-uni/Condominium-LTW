@@ -60,7 +60,7 @@ AS $$
 		qry_result = plpy.execute(qry)
 
 	except plpy.SPIError as e:
-		plpy.error(f"Error rental requests overlapping: {str(e)}")
+		plpy.error(f"Error rental requests overlapping")
 		return "ERROR"
 	if qry_result[0]["disj"] == True:
 		raise plpy.error("A rental request in the same time period already exists")
@@ -96,7 +96,7 @@ AS $$
 			try:
 				plpy.execute(qry)
 			except plpy.SPIError as e:
-				raise plpy.error(f"Something went wrong, aborting operation: ({aptBlock_id}, '{addr_aptB}', '{city}', '{cap}': {str(e)})")
+				raise plpy.error(f"Something went wrong, aborting operation: ({aptBlock_id}, '{addr_aptB}', '{city}', '{cap}')")
 				return "ERROR"
 	return "OK"
 $$ LANGUAGE plpython3u;
@@ -128,7 +128,7 @@ AS $$
 	try:
 		plpy.execute(qry_admin)
 	except plpy.SPIError as e:
-		raise plpy.error(f"Error creating bullettin board: {str(e)}")
+		raise plpy.error(f"Error creating bullettin board")
 		return "ERROR"
 	return "OK"
 $$ LANGUAGE plpython3u;
@@ -142,17 +142,24 @@ CREATE OR REPLACE FUNCTION timestamp_update_on_update_ticket() RETURNS trigger
 AS $$ 
 	t_name = TD["table_name"]
 	p_id = TD["new"]["post_id"]
+	t_status_new = TD["new"]["status"]
+	t_status_old = TD["old"]["status"]
 	qry = f"""
 			UPDATE {t_name}
-			SET time_mod = current_timestamp
+			SET time_mod = NOW()::timestamp
 			WHERE {t_name}.post_id = {p_id}
 			"""
-	plpy.prepare(qry)
-	try:
-		plpy.execute(qry)
-	except plpy.SPIError as e:
-		raise plpy.error(f"Error updating timestamp: {str(e)}")
-		return "ERROR"
+
+	if t_status_old == 'open':
+		if t_status_new == 'closed':
+			try:
+				plpy.prepare(qry)
+				plpy.execute(qry)
+
+			except plpy.SPIError as e:
+				raise plpy.error(f"Error updating timestamp")
+				return "ERROR"
+				
 	return "OK"
 $$ LANGUAGE plpython3u;
 
@@ -164,17 +171,24 @@ CREATE OR REPLACE FUNCTION timestamp_update_on_update_req_ut_access() RETURNS tr
 AS $$ 
 	t_name = TD["table_name"]
 	req_id = TD["new"]["utreq_id"]
+	status_old = TD["old"]["status"]
+	status_new = TD["new"]["status"]
 	qry = f"""
 			UPDATE {t_name}
 			SET time_mod = NOW()::timestamp
 			WHERE {t_name}.utreq_id = {req_id}
 			"""
-	plpy.prepare(qry)
-	try:
-		plpy.execute(qry)
-	except plpy.SPIError as e:
-		raise plpy.error(f"Error updating timestamp")
-		return "ERROR"
+
+	if status_old == "pending":
+		if status_new == "accepted" or status_new == 'refused':
+			try:
+				plpy.prepare(qry)
+				plpy.execute(qry)
+
+			except plpy.SPIError as e:
+				raise plpy.error(f"Error updating timestamp")
+				return "ERROR"
+
 	return "OK"
 $$ LANGUAGE plpython3u;
 
@@ -206,7 +220,7 @@ AS $$
 			try:
 				plpy.execute(qry)
 			except plpy.SPIError as e:
-				raise plpy.error(f"Something went wrong, aborting operation: ({rq_id}: {str(e)})")
+				raise plpy.error(f"Something went wrong, aborting operation: ({rq_id})")
 				return "ERROR"
 
 	return "OK"	
