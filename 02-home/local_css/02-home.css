@@ -211,3 +211,7 @@
 .enable-disable-comment-button:hover {
   background-color: rgb(88, 46, 167)
 }
+
+.tags{
+  margin-bottom: 10px;
+}

@@ -34,6 +34,16 @@ function enableAdminPosting() {
         adminPostContainer.innerHTML = `
             <form action="./02-home/local_php/submit_post_admin.php" class="post-form" id="admin-post-form" method="post">
                 <input type="text" id="admin-post-title" name="admin-post-title" placeholder="Titolo del post" required>
+                <select class="tags" name="tags" id="tags" required>
+                    <option value="">tags</option>
+                    <option value="Evento">Evento con allert</option>
+                    <option value="Riunione">Riunione con allert</option>
+                    <option value="Avvertenze">Avvertenze con allert</option>
+                    <option value="Danni spazi comuni">Danni spazi comuni</option>
+                    <option value="Danno palazzina">Danno palazzina</option>
+                    <option value="Lamentela">Lamentela</option>
+                    <option value="Proposta condomino">Proposta condomino</option>
+                </select>
                 <textarea id="admin-post-content" name="admin-post-content" placeholder="Scrivi qualcosa..." required></textarea>
                 <input type="submit" value="Invia">
             </form>

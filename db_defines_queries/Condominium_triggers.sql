@@ -38,6 +38,11 @@ CREATE OR REPLACE TRIGGER max_rental_req_accepted_per_user
 	BEFORE INSERT OR UPDATE ON rental_request
     FOR EACH ROW EXECUTE FUNCTION max_rental_req_accepted_per_user();
 
+
+"rental_req_id","ut_owner_id","cs_id","submit_time","		   stat",		"rental_datetime_start","rental_datetime_end"
+	153,		28,				1,		"2024-05-30 13:43:36", "accepted","2024-06-05 14:00:00","2024-06-05 16:00:00" accettata
+	153,		30,				1,		"2024-05-30 13:44:36", "pending", "2024-06-05 17:00:00","2024-06-05 18:00:00" genera errore
+
 CREATE OR REPLACE FUNCTION rental_req_disj() RETURNS trigger
 AS $$
 	owner_id 	= TD["new"]["ut_owner_id"]
@@ -45,26 +50,46 @@ AS $$
 	rt_dt_s		= TD["new"]["rental_datetime_start"]
 	rt_dt_e		= TD["new"]["rental_datetime_end"]
 	
-	qry = f"""
+	qry_day_disj = f"""
 		SELECT EXISTS(
 			SELECT rr.rental_req_id 
 			FROM rental_request rr
-			WHERE date_part('day', timestamp '{rt_dt_s}') 
-				BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
-			AND date_part('day', timestamp '{rt_dt_e}') 
-				BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
-		) as disj
+			WHERE (
+			date_part('day', timestamp '2024-06-05 17:00:00') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
+			OR 
+			date_part('day', timestamp '2024-06-05 18:00:00') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
+			)
+		) as day_disj
 		"""
-	plpy.prepare(qry)
-	try:
-		qry_result = plpy.execute(qry)
 
+	qry_hour_disj = f"""
+		SELECT EXISTS(
+			SELECT rr.rental_req_id
+			FROM rental_request rr
+			WHERE 
+			date_part('day', timestamp '2024-06-05 17:00:00') = date_part('day', rr.rental_datetime_start) AND 
+			date_part('day', timestamp '2024-06-05 18:00:00') = date_part('day', rr.rental_datetime_end) 
+			AND(
+			date_part('hour', timestamp '2024-06-05 17:00:00') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)	
+			OR
+			date_part('hour', timestamp '2024-06-05 18:00:00') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)
+			)
+		) as hour_disj
+		"""
+	plpy.prepare(qry_day_disj)
+	plpy.prepare(qry_hour_disj)
+	try:
+		qry_day_res = plpy.execute(qry_day_disj)
+		qry_hour_res = plpy.execute(qry_hour_disj)
 	except plpy.SPIError as e:
 		plpy.error(f"Error rental requests overlapping")
 		return "ERROR"
-	if qry_result[0]["disj"] == True:
-		raise plpy.error("A rental request in the same time period already exists")
-		return "ERROR"
+	if qry_day_res[0]["day_disj"] == True:
+		if qry_hour_res[0]["hour_disj"] == True:
+			raise plpy.error("A rental request in the same time period already exists")
+			return "ERROR"
+		else:
+			return "OK"
 	else:
 		return "OK"
 $$ LANGUAGE plpython3u;
