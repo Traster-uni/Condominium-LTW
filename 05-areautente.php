@@ -9,6 +9,15 @@
     <title>Area Utente</title>
     <link rel="stylesheet" href="./02-home/local_css/02-home.css" />
     <link rel="stylesheet" href="./05-areautente/local_css/05-areautente.css" />
+    <link rel="stylesheet" href="./global/01-css/fonts.css">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
@@ -48,12 +57,12 @@
       
     ?>
     <!--Navigation bar-->
-    <!-- <div id="navbar"></div>
+    <div id="navbar"></div>
     <script>
       $(function () {
         $("#navbar").load("./global/06-html/navbar.html");
       });
-    </script> -->
+    </script>
     <div id="storico condomini"></div>
     <script>
       $(function () {
