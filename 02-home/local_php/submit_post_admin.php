@@ -16,21 +16,28 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_SESSION['admin']) && $_SESSION['admin']) {
+        if (isset($_SESSION['admin'])) {
 
             //$aptblock_id = $_SESSION['aptBlock'];
             $aptblock_id = 1;
             $user_id = $_SESSION['user_id'];
             $title = htmlspecialchars($_POST["admin-post-title"]);
             $content = htmlspecialchars($_POST["admin-post-content"]);
-
+            $name_tag = htmlspecialchars($_POST["tags"]);
+            
+            $qry_post = "SELECT last_value+1 AS new_id FROM posts_post_id_seq";
             $qry_bb_id = "SELECT bb_id 
                             FROM aptblock_bulletinboard 
                             WHERE aptblock_id = $aptblock_id AND bb_name = 'admin'";
+
             $bb_id = pg_fetch_result(pg_query($connection, $qry_bb_id), 0, 'bb_id');
+            $new_id = pg_fetch_result(pg_query($connection, $qry_post), 0, 'new_id');
 
             $qry_post = "INSERT INTO posts(bb_id, ut_owner_id, title, ttext, time_born, time_mod)
-                            VALUES ('$bb_id', '$user_id', '$title', '$content', NOW(), NOW())";
+                            VALUES ('$bb_id', '$user_id', '$title', '$content', NOW(), NOW());
+                        INSERT INTO tags_posts(name_tag, post_id)
+                            VALUES ('$name_tag', $new_id);";
+            
             $result_post_insert = pg_query($connection, $qry_post);
 
             // Verifica se l'inserimento è avvenuto con successo

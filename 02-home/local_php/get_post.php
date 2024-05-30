@@ -19,15 +19,15 @@ if (!$connection) {
 // $aptBlock_id = $_SESSION['aptBlock']; // Recupero l'apt id dalla sessione
 $aptblock_id = 1;
 
-$query = "SELECT aptb.aptblock_id, aptb_bb.bb_id, aptb_bb.bb_name, pt.post_id, pt.ut_owner_id ut_id, 
+$query = "SELECT DISTINCT aptb.aptblock_id, aptb_bb.bb_id, aptb_bb.bb_name, pt.post_id, pt.ut_owner_id ut_id, 
             ut_r.nome, ut_r.cognome, pt.title, pt.ttext, pt.time_born, pt.time_mod, pt.off_comments,
             tp.name_tag, t.evento
             FROM aptblock aptb 
             JOIN aptblock_bulletinboard aptb_bb ON aptb.aptblock_id = aptb_bb.aptblock_id
             JOIN posts pt ON pt.bb_id = aptb_bb.bb_id
-            JOIN ut_registered ut_r ON ut_r.ut_id = pt.ut_owner_id
-            JOIN tags_posts tp ON tp.post_id = pt.post_id
-            JOIN tags t ON tp.name_tag = tp.name_tag
+            LEFT JOIN ut_registered ut_r ON ut_r.ut_id = pt.ut_owner_id
+            LEFT JOIN tags_posts tp ON tp.post_id = pt.post_id
+            LEFT JOIN tags t ON tp.name_tag = tp.name_tag
             WHERE aptb.aptblock_id = $aptblock_id
             ORDER BY time_born DESC";
 
