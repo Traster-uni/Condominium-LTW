@@ -23,12 +23,11 @@ if (!$qry_aptb_res){ // error checking
     echo "57: Something went wrong<br>";
     echo pg_result_error($qry_aptb_res);
 }
-$qry_aptb_arr = pg_fetch_assoc($qry_aptb_res);
 ?>
 
 <div style="background: white; padding: 0px 0px 5px 10px; border-top: 1px solid gray">
     <p style="font-weight: bold; font-size: 20px">Storico Condomini</p>
-    <?php while($row = $qry_aptb_arr) : ?>
+    <?php while ($row = pg_fetch_assoc($qry_aptb_res)): ?>
         <?php
         $id = $row['id'];
         $addr = $row['addr_aptb'];
