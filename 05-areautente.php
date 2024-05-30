@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./02-home/local_css/02-home.css" />
     <link rel="stylesheet" href="./05-areautente/local_css/05-areautente.css" />
     <link rel="stylesheet" href="./global/01-css/fonts.css">
+    <link rel="stylesheet" href="./global/01-css/tab.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Lato"
@@ -103,12 +104,24 @@
       <div style="background-color: white; flex: 1">
         <!-- Tab Content-->
         <section id="Profilo" class="tabcontent">
-          <h2> PROFILO </h2>
+          <div style="background: white; padding: 0px 0px 5px 10px; border-top: 1px solid gray">
+            <p style="font-weight: bold; font-size: 20px">Dati Profilo</p>
+            <?php while ($row = pg_fetch_assoc($qry_pdata_res)): ?>
+              <?php
+              $n_m = $qry_pdata_arr['nome'] . " " . $qry_pdata_arr['cognome'];
+              $dnascita = $row['dnascita'];
+              $discrizione = new DateTime($row['data_iscrizione']);
+              $email = $row['ut_email'];
+              $d = $discrizione->format('d/m/Y');
+              ?>
+              <p><pre class="tab2">      <?php echo htmlspecialchars($n_m); ?> - <?php echo htmlspecialchars($dnascita); ?> <?php echo htmlspecialchars($tel); ?> <?php echo htmlspecialchars($email); ?> ( <?php echo htmlspecialchars($d); ?> )</pre></span></p>
+            <?php endwhile; ?>
         </section>
-        <section id="Storico Condimini" class="tabcontent">
+        <section id="Condominio" class="tabcontent">
+          <div id="Condominio"></div>
           <script>
             $(function () {
-              $("#storico-condomini").load("./05-areautente/local_php/storico_condomini.php");
+              $("#Condominio").load("./05-areautente/local_php/storico_condomini.php");
             });
           </script>
         </section>
