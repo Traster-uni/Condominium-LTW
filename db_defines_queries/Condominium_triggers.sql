@@ -39,10 +39,6 @@ CREATE OR REPLACE TRIGGER max_rental_req_accepted_per_user
     FOR EACH ROW EXECUTE FUNCTION max_rental_req_accepted_per_user();
 
 
-"rental_req_id","ut_owner_id","cs_id","submit_time","		   stat",		"rental_datetime_start","rental_datetime_end"
-	153,		28,				1,		"2024-05-30 13:43:36", "accepted","2024-06-05 14:00:00","2024-06-05 16:00:00" accettata
-	153,		30,				1,		"2024-05-30 13:44:36", "pending", "2024-06-05 17:00:00","2024-06-05 18:00:00" genera errore
-
 CREATE OR REPLACE FUNCTION rental_req_disj() RETURNS trigger
 AS $$
 	owner_id 	= TD["new"]["ut_owner_id"]
