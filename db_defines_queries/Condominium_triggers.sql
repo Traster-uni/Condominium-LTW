@@ -206,12 +206,10 @@ AS $$
 
 	if rq_status_old == "pending":
 		if rq_status_new == "refused":
-			raise plpy.error(f"The request was refused by the appartment block admin, aborting operation")
-			return "ERROR"
+			return "OK"
 
 		elif rq_status_new == "aborted":
-			raise plpy.error("The request was aborted by the user, aborting operation")
-			return "ERROR"
+			return "OK"
 
 		elif rq_status_new == "accepted":
 			qry = f"""INSERT INTO ut_owner(utreq_id, ut_ownership_doc_fname) 

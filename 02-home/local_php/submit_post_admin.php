@@ -1,11 +1,15 @@
 <?php
-    session_start();
-    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
-    // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=$_SESSION["email"] password=$_SESSION["password"]");
+    // session_start();
+    // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
     
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
     //Verifico che la connessione è avvenuta con successo
     if (!$connection) {
         echo "Errore, connessione non riuscita.<br>";
+        pg_close($connection);
         exit;
     } else {
         echo "connected";
@@ -20,7 +24,8 @@
             $title = htmlspecialchars($_POST["admin-post-title"]);
             $content = htmlspecialchars($_POST["admin-post-content"]);
 
-            $qry_bb_id = "SELECT bb_id FROM aptblock_bulletinboard 
+            $qry_bb_id = "SELECT bb_id 
+                            FROM aptblock_bulletinboard 
                             WHERE aptblock_id = $aptblock_id AND bb_name = 'admin'";
             $bb_id = pg_fetch_result(pg_query($connection, $qry_bb_id), 0, 'bb_id');
 
