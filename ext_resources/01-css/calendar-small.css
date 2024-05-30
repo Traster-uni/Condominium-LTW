@@ -25,6 +25,17 @@ body {
   margin-top: 20px;
 }
 
+.container-calendar-prenota {
+  background: #ffffff;
+  padding: 15px;
+  max-width: auto;
+  margin: 0 auto;
+  overflow: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
 /* Event section styling */
 #event-section {
   padding: 10px;

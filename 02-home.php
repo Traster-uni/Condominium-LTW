@@ -17,7 +17,6 @@
       href="https://fonts.googleapis.com/css?family=Montserrat"
     />
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
     <?php
