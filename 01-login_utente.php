@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./01-login/local_css/01-login.css" />
     <link rel="stylesheet" href="./global/01-css/popup.css">
+    <link rel="stylesheet" href="./global/01-css/fonts.css">
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Lato"
@@ -17,17 +18,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    
-    <style>
-      body,
-      h1 {
-        margin: 0;
-        font-family: "Lato", sans-serif;
-      }
-      button {
-        font-family: "Montserrat", sans-serif;
-      }
-    </style>
   </head>
   <body>
 

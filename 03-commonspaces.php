@@ -5,21 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./03-commonspaces/local_css/03-commonspaces.css" />
     <link rel="stylesheet" href="./global/01-css/contatti.css">
+    <link rel="stylesheet" href="./global/01-css/fonts.css">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+    />
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Prenota</title>
   </head>
   <body id="body">
+    <script src="./03-commonspaces/local_js/03-commonspaces.js"></script>
     <?php
     session_start();
-    $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
-    if (!$connect) {
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
+    if (!$connection) {
       echo "Errore, connessione non riuscita.<br>";
       exit;
     }
 
     if (!isset($_SESSION['ut_id'])  && !isset($_SESSION['email'])) {
       // $id_utente = $_SESSION["ut_id"];
-      //   $check_registered = pg_query($connect, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
+      //   $check_registered = pg_query($connection, "SELECT utreq_id FROM ut_owner WHERE utreq_id = $id_utente");
       //   if (!pg_num_rows($check_registered)) {
       //     header('01-login2.html');
       //   } else {
@@ -27,11 +38,13 @@
       //   }
       header("Location: ../../01-login.php");
     }
+
+    $id_utente = $_SESSION["ut_id"];
+    $check_admin = pg_num_rows(pg_query($connection, "SELECT ut_id FROM aptblock_admin WHERE ut_id = $id_utente"));
     
     $array = array();
-    $result1 = pg_query($connect, "SELECT * FROM common_spaces");
-
-    $result2 = pg_query($connect, "SELECT rental_req_id, cs_id, rental_datetime_start, rental_datetime_end FROM rental_request");
+    $result1 = pg_query($connection, "SELECT * FROM common_spaces");
+    $result2 = pg_query($connection, "SELECT rental_req_id, cs_id, rental_datetime_start, rental_datetime_end FROM rental_request");
 
     while ($row = pg_fetch_assoc($result2)) {
       $timestamp_inizio = $row['rental_datetime_start'];
@@ -54,11 +67,10 @@
     $prenotazioni = json_encode($array);
 
     ?>
-    
+
     <script type="text/javascript">
       var prenotazioni = <?php echo $prenotazioni; ?>;
     </script>
-    <script src="./03-commonspaces/local_js/03-commonspaces.js"></script>
     <!--Navigation bar-->
     <div id="navbar"></div>
     <script>
@@ -78,14 +90,21 @@
           });
         </script>
         <!--Fine calendario-->
-        <!--Prenotazioni attive-->
-        <div id="prenotazioni-attive"></div>
-        <script>
-          $(function () {
-            $("#prenotazioni-attive").load("./global/06-html/prenotazioni_accettate.php");
-          });
-        </script>
-        <!-- Fine prenotazioni -->
+        <?php if ($check_admin): ?>
+          <div id="richieste-pending"></div>
+          <script>
+            $(function () {
+              $("#richieste-pending").load("./global/06-html/richieste_pending.php");
+            });
+          </script>
+        <?php else: ?>
+          <div id="prenotazioni-attive"></div>
+          <script>
+            $(function () {
+              $("#prenotazioni-attive").load("./global/06-html/prenotazioni_attive.php");
+            });
+          </script>
+        <?php endif; ?>
       </div>
       <div class="colonna-centrale">
         <div class="luoghi">
@@ -122,10 +141,10 @@
                 <button type="button" class="close" href="#" onclick="hide('popup')"></button>
               </div>
               <div style="text-align: center">
-                <div id="calendar1"></div>
+                <div id="calendar-prenota"></div>
                 <script>
                   $(function () {
-                    $("#calendar1").load("./global/06-html/calendar-prenota.html");
+                    $("#calendar-prenota").load("./global/06-html/calendar-prenota.html");
                   });
                 </script>
                 <input type="hidden" id="giorno" name="giorno">

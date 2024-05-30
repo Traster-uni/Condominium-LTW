@@ -6,7 +6,7 @@
         echo "Errore, connessione non riuscita.<br>";
         exit;
     } else {
-        echo "connected<br>";
+        echo "Connected<br>";
     }
 
     // ini_set('display_errors', 1);
