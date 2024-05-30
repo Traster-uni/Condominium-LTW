@@ -99,7 +99,7 @@
   grid-template-columns: 300px 400px;
   align-self: center;
   justify-self: center;
-  height: 340px;
+  height: 360px;
   position: fixed;
   padding: 10px;
   top: 25%;
@@ -165,6 +165,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 5px;
 }
 
 .submit {
