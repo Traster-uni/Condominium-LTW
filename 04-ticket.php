@@ -74,8 +74,8 @@
           </script>
         <?php endif; ?>
       </div>
-      <div style="background-color: rgb(255, 255, 255)">
-        <button data-toggle="collapse" data-toggle="formTicket" class="openBtn">
+      <div id="central-body" style="background-color: rgb(255, 255, 255)">
+        <!-- <button data-toggle="collapse" data-toggle="formTicket" class="openBtn">
           <h1>Nuovo Ticket</h1>
           <span class="material-symbols-outlined">add</span>
         </button>
@@ -101,6 +101,10 @@
             />
             <input type="reset" />
           </form>
+        </div> -->
+
+        <div id="form-container">
+          
         </div>
 
         <!-- Modale -->
@@ -108,16 +112,16 @@
           <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Dettagli del Ticket</h2>
+            <p id="ticket-title" class="ticket-title"></p>
             <p id="ticket-creation-date"></p>
             <p id="ticket-status"></p>
             <p id="ticket-lastReply"></p>
-            <p id="ticket-title"></p>
             <p id="ticket-content"></p>
             <div id="ticket-replies"></div>
           </div>
         </div>
 
-        <div class="tab">
+        <div class="tab" id="ticket-tab">
           
         </div>
       </div>
@@ -136,8 +140,9 @@
       </div>
     </div>
     
-    <script src="./04-ticket/local_js/04-ticket.js"></script>
-    <script src="./04-ticket/local_js/04-submitTicket.js"></script>
     <script src="./04-ticket/local_js/04-visualizeTicket.js"></script>
+    <!-- <script src="./04-ticket/local_js/04-ticket.js"></script> -->
+    <script src="./04-ticket/local_js/04-submitTicket.js"></script>
+    
   </body>
 </html>

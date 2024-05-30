@@ -83,7 +83,8 @@ table tr td {
 
 .modal-content {
   width: 60%;
-  max-width: 2000px;
+  max-width: auto;
+  overflow-y: auto;
 }
 
 textarea {
@@ -94,4 +95,18 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: none;
+}
+
+.response-text {
+  margin: 3px;
+}
+
+.response-time {
+  font-size: smaller;
+  margin-bottom: 20px;
+}
+
+.ticket-title {
+  font-size: large;
+  font-weight: 700;
 }

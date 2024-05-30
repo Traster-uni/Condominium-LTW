@@ -24,6 +24,11 @@
         }
         $isAdmin = pg_fetch_result($adminResult, 0, 0) > 0;
 
+        // Recupera nome e cognome dell'utente
+        $result = pg_query_params($connection, "SELECT nome, cognome FROM ut_registered WHERE ut_id = $1", [$ut_id]);
+        $user = pg_fetch_assoc($result);
+        $sender_name = $user['nome'] . ' ' . $user['cognome'];
+
         // Inserimento della risposta
         $insertQuery = "INSERT INTO ticket_responses (ticket_id, ut_id, response_text, response_time) VALUES ($1, $2, $3, NOW())";
         $insertResult = pg_query_params($connection, $insertQuery, array($ticket_id, $ut_id, $response_text));
@@ -38,6 +43,6 @@
             throw new Exception('Errore nell\'aggiornamento del ticket');
         }
 
-        echo json_encode(['success' => true, 'role' => $isAdmin ? 'admin' : 'user']);
+        echo json_encode(['success' => true, 'role' => $isAdmin ? 'admin' : 'user', 'sender_name' => $sender_name]);
     }
     pg_close($connection);

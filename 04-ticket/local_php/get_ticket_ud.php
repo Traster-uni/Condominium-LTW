@@ -11,7 +11,7 @@
     // $user_id = $_SESSION["ut_id"];
 
     // Query per recuperare i ticket dal database
-    $q = "SELECT t.*, tr.response_text, tr.response_time, ur.ut_id,
+    $q = "SELECT t.*, tr.response_text, tr.response_time, ur.ut_id, ur.nome, ur.cognome,
                 CASE 
                     WHEN (SELECT COUNT(*) FROM aptblock_admin aa WHERE aa.ut_id = ur.ut_id) > 0 THEN 'admin'
                     ELSE 'user'
@@ -20,6 +20,7 @@
             LEFT JOIN ticket_responses tr ON t.ticket_id = tr.ticket_id
             LEFT JOIN ut_registered ur ON tr.ut_id = ur.ut_id
             ORDER BY t.time_lastreplay DESC";
+                
     $result = pg_query($connection, $q);
 
     // Inizializzo l'array dove salvare i dati dei tickets
@@ -45,7 +46,8 @@
             $ticketsByYear[$year][$row['ticket_id']]['replies'][] = [
                 'response_text' => $row['response_text'],
                 'response_time' => $row['response_time'],
-                'role' => $row['role']
+                'role' => $row['role'],
+                'sender_name' => $row['nome'] . ' ' . $row['cognome']
             ];
         }
     }
