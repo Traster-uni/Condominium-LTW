@@ -73,7 +73,7 @@ CREATE OR REPLACE TRIGGER rental_req_disj_check
 	BEFORE INSERT OR UPDATE ON rental_request
 	FOR EACH ROW EXECUTE FUNCTION rental_req_disj();
 
-DROP TRIGGER rental_req_disj_check ON rental_request
+
 
 CREATE OR REPLACE FUNCTION new_aptBlock() RETURNS trigger
 AS $$
@@ -105,7 +105,7 @@ CREATE OR REPLACE TRIGGER insert_aptBlock_on_req_accepted
 	AFTER UPDATE ON req_aptBlock_create
 	FOR EACH ROW EXECUTE FUNCTION new_aptBlock();
 
---DROP TRIGGER insert_aptBlock_on_req_accepted on req_aptBlock_create
+
 
 CREATE OR REPLACE FUNCTION define_relative_bulletinBoards() RETURNS trigger
 AS $$

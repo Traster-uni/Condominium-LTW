@@ -1,9 +1,16 @@
 <?php
+session_start();
 $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
 if (!$connect) {
   echo "Errore, connessione non riuscita.<br>";
   exit();
 }
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+$id_utente = $_SESSION["ut_id"];
 
 $qry_aptb = "SELECT aptb.aptblock_id as id, addr_aptb, city, cap, time_born as data_richiesta, time_mod as data_verifica
             FROM ut_registered ut_r 
@@ -32,5 +39,5 @@ $qry_aptb_arr = pg_fetch_assoc($qry_aptb_res);
         $d_b = $timestamp_b->format('d/m/Y');
         $d_m = $timestamp_m->format('d/m/Y');
         ?>
-        <p><?php echo htmlspecialchars($id); ?>  <?php echo htmlspecialchars($addr); ?>  <?php echo htmlspecialchars($city); ?>  <?php echo htmlspecialchars($cap); ?>(<?php echo htmlspecialchars($d_b); ?> | <?php echo htmlspecialchars($d_m); ?> )</p>
+        <p>&emsp<?php echo htmlspecialchars($id); ?>  <?php echo htmlspecialchars($addr); ?>  <?php echo htmlspecialchars($city); ?>  <?php echo htmlspecialchars($cap); ?>(<?php echo htmlspecialchars($d_b); ?> | <?php echo htmlspecialchars($d_m); ?> )</p>
     <?php endwhile; ?>

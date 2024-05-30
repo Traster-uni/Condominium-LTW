@@ -18,14 +18,13 @@
   </head>
   <body>
     <?php
-      session_start();
       if (!isset($_SESSION['ut_id']) && !isset($_SESSION['email'])) {
-        header("Location: ../../01-login.php");
+        header("Location: ./01-login.php");
         exit();
       }
-      // ini_set('display_errors', 1);
-      // ini_set('display_startup_errors', 1);
-      // error_reporting(E_ALL);
+      ini_set('display_errors', 1);
+      ini_set('display_startup_errors', 1);
+      error_reporting(E_ALL);
 
       $connect = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
       if (!$connect) {
@@ -34,23 +33,31 @@
       }
 
       $id_utente = $_SESSION["ut_id"];
-      $qry_pdata = "SELECT *
-                    FROM ut_registered ut_r
-                    WHERE ut_r.ut_id = $id_utente";
+      $qry_pdata = "SELECT ut_r.*, req_a.aptblock_id, ut_o.utreq_id as ut_owner_id
+                    FROM ut_registered ut_r 
+                    JOIN req_ut_access req_a ON ut_r.ut_id = req_a.ut_id
+                    JOIN ut_owner ut_o ON ut_o.utreq_id = req_a.utreq_id
+                    WHERE ut_r.ut_id = $id_utente;";
       $qry_pdata_res = pg_query($connect, $qry_pdata);
       if (!$qry_pdata_res){ // error checking
         echo "42: Something went wrong<br>";
         echo pg_result_error($qry_pdata_res);
       }
-      $qry_name_arr = pg_fetch_assoc($qry_pdata_res);
+      $qry_pdata_arr = pg_fetch_assoc($qry_pdata_res);
       $nome_cognome = $qry_pdata_arr['nome'] . " " . $qry_pdata_arr['cognome'];
-
+      
     ?>
     <!--Navigation bar-->
-    <div id="navbar"></div>
+    <!-- <div id="navbar"></div>
     <script>
       $(function () {
         $("#navbar").load("./global/06-html/navbar.html");
+      });
+    </script> -->
+    <div id="storico condomini"></div>
+    <script>
+      $(function () {
+        $("#storico-condomini").load("./05-areautente/local_php/storico_condomini.php");
       });
     </script>
     <!--end of Navigation bar-->
@@ -60,7 +67,7 @@
         <div class="profile-pic" style="text-align: center">
           <img src="./global/02-images/default-pic.png" alt="Profile-Pic" />
           <div class="dati" style="text-align: center">
-            <h2><?php echo htmlspecialchars($nome_cognome)?></h2>
+            <h2> <?php echo $nome_cognome ?></h2>
           </div>
         </div>
         <!-- Tabs Impostazioni -->
