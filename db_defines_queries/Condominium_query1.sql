@@ -71,3 +71,13 @@ ORDER BY (time_mod) ASC
 
 ALTER TABLE req_ut_access
 	ALTER COLUMN status SET DEFAULT 'pending'
+
+ALTER TABLE tags
+	ALTER COLUMN name_tag TYPE varchar(20)
+	ADD COLUMN evento bool
+
+ALTER TABLE tags_posts
+	ALTER COLUMN name_tag TYPE varchar(20)
+	
+ALTER TABLE tags_tickets
+	ALTER COLUMN name_tag TYPE varchar(20)

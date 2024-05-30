@@ -213,11 +213,12 @@ CREATE TABLE IF NOT EXISTS reply_thread(
 
 
 CREATE TABLE IF NOT EXISTS tags(
-	name_tag varchar(10) PRIMARY KEY
+	name_tag varchar(20) PRIMARY KEY
+	evento bool
 );
 
 CREATE TABLE IF NOT EXISTS tags_posts(
-	name_tag varchar(10),
+	name_tag varchar(20),
 	post_id integer,
 	PRIMARY KEY (name_tag, post_id),
 	FOREIGN KEY (name_tag) REFERENCES tags(name_tag),
@@ -242,7 +243,7 @@ CREATE TABLE IF NOT EXISTS tickets(
 -- TRIGGER: max 5 tickets per ud_id
 
 CREATE TABLE IF NOT EXISTS tags_tickets(
-	name_tag varchar(10),
+	name_tag varchar(20),
 	ticket_id integer,
 	PRIMARY KEY (name_tag, ticket_id),
 	FOREIGN KEY (name_tag) REFERENCES tags(name_tag),

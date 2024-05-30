@@ -662,5 +662,35 @@
             "floor_num": 1,
             "imgs_dir": "LTW-Condominium\\tests\\common_spaces_images\\3.jpg"
         }
+    ],
+    "tags":[
+        {
+            "name_tag": "Evento",
+            "evento": "true"
+        },
+        {
+            "name_tag": "Riunione",
+            "evento": "true"
+        },
+        {
+            "name_tag": "Avvertenze",
+            "evento": "true"
+        },
+        {
+            "name_tag": "Danni spazi comuni",
+            "evento": "false"
+        },
+        {
+            "name_tag": "Danno palazzina",
+            "evento": "false"
+        },
+        {
+            "name_tag": "Lamentela",
+            "evento": "false"
+        },
+        {
+            "name_tag": "Proposta conodmino",
+            "evento": "false"
+        }
     ]
 }

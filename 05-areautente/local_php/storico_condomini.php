@@ -38,5 +38,5 @@ if (!$qry_aptb_res){ // error checking
         $d_b = $timestamp_b->format('d/m/Y');
         $d_m = $timestamp_m->format('d/m/Y');
         ?>
-        <p><pre class="tab2">      <?php echo htmlspecialchars($id); ?> - <?php echo htmlspecialchars($addr); ?> <?php echo htmlspecialchars($city); ?> <?php echo htmlspecialchars($cap); ?> ( <?php echo htmlspecialchars($d_b); ?> | <?php echo htmlspecialchars($d_m); ?> )</pre></span></p>
+        <p><pre class="tab2">  <?php echo htmlspecialchars($id); ?> - <?php echo htmlspecialchars($addr); ?> in <?php echo htmlspecialchars($city); ?> <?php echo htmlspecialchars($cap); ?> ( Ingresso richiesto: <?php echo htmlspecialchars($d_b); ?> | Accettato: <?php echo htmlspecialchars($d_m); ?> )</pre></span></p>
     <?php endwhile; ?>

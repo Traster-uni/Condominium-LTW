@@ -45,7 +45,7 @@ def load_data(fname="data.json"):
         data = json.load(f)
     return data
 
-def insert_data(data:dict, connection:psycopg2.connect, schema_name="null"):
+def insert_data(data, connection, schema_name="null"):
     cur = connection.cursor()
     if schema_name not in data.keys():
         print("no matching key for given schema name")
@@ -73,7 +73,7 @@ def insert_data(data:dict, connection:psycopg2.connect, schema_name="null"):
                 cur.execute(query_str)
             
             for k in keys_list:
-                id_field = re.search("^.*_id$", k).string
+                id_field = str(re.search("^.*_id$", k))
                 break
 
             if id_field in keys_list:
@@ -102,7 +102,7 @@ def insert_data(data:dict, connection:psycopg2.connect, schema_name="null"):
         
         table_name = schema_name
         for k in keys_list:
-            id_field = re.search("^.*_id$", k).string
+            id_field = str(re.search("^.*_id$", k))
             break
 
         if id_field in keys_list:
@@ -112,6 +112,6 @@ def insert_data(data:dict, connection:psycopg2.connect, schema_name="null"):
     
 if __name__ == '__main__':
     config = load_config("database.ini")
-    conn = connect(config, s_name = "aptBlock_bulletinBoard")
+    conn = connect(config, s_name = "tags")
 
 # from https://www.postgresqltutorial.com/postgresql-python/connect/

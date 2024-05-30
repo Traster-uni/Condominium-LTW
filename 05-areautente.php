@@ -5,11 +5,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Area Utente</title>
-    <link rel="stylesheet" href="./02-home/local_css/02-home.css" />
-    <link rel="stylesheet" href="./05-areautente/local_css/05-areautente.css" />
-    <link rel="stylesheet" href="./global/01-css/fonts.css">
+    <link rel="stylesheet" href="./02-home/local_css/02-home.css"/>
+    <link rel="stylesheet" href="./05-areautente/local_css/05-areautente.css"/>
+    <link rel="stylesheet" href="./global/01-css/fonts.css"/>
     <link rel="stylesheet" href="./global/01-css/tab.css" />
     <link
       rel="stylesheet"
@@ -43,10 +43,8 @@
       }
 
       $id_utente = $_SESSION["ut_id"];
-      $qry_pdata = "SELECT ut_r.*, req_a.aptblock_id, ut_o.utreq_id as ut_owner_id
+      $qry_pdata = "SELECT ut_r.nome, ut_r.cognome
                     FROM ut_registered ut_r 
-                    JOIN req_ut_access req_a ON ut_r.ut_id = req_a.ut_id
-                    JOIN ut_owner ut_o ON ut_o.utreq_id = req_a.utreq_id
                     WHERE ut_r.ut_id = $id_utente;";
       $qry_pdata_res = pg_query($connect, $qry_pdata);
       if (!$qry_pdata_res){ // error checking
@@ -104,18 +102,12 @@
       <div style="background-color: white; flex: 1">
         <!-- Tab Content-->
         <section id="Profilo" class="tabcontent">
-          <div style="background: white; padding: 0px 0px 5px 10px; border-top: 1px solid gray">
-            <p style="font-weight: bold; font-size: 20px">Dati Profilo</p>
-            <?php while ($row = pg_fetch_assoc($qry_pdata_res)): ?>
-              <?php
-              $n_m = $qry_pdata_arr['nome'] . " " . $qry_pdata_arr['cognome'];
-              $dnascita = $row['dnascita'];
-              $discrizione = new DateTime($row['data_iscrizione']);
-              $email = $row['ut_email'];
-              $d = $discrizione->format('d/m/Y');
-              ?>
-              <p><pre class="tab2">      <?php echo htmlspecialchars($n_m); ?> - <?php echo htmlspecialchars($dnascita); ?> <?php echo htmlspecialchars($tel); ?> <?php echo htmlspecialchars($email); ?> ( <?php echo htmlspecialchars($d); ?> )</pre></span></p>
-            <?php endwhile; ?>
+          <div id="Profilo"></div>
+          <script>
+            $(function () {
+              $("#Profilo").load("./05-areautente/local_php/dati_personali.php");
+            });
+          </script>
         </section>
         <section id="Condominio" class="tabcontent">
           <div id="Condominio"></div>
