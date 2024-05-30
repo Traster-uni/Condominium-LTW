@@ -280,7 +280,15 @@ CREATE TABLE thread_comments (
     time_born TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (comment_id),
     FOREIGN KEY (thread_id) REFERENCES post_thread(thread_id) ON DELETE CASCADE
-);;
+);
+
+CREATE TABLE ticket_responses (
+    response_id SERIAL PRIMARY KEY,
+    ticket_id INTEGER REFERENCES tickets(ticket_id),
+    response_text TEXT NOT NULL,
+    ut_id INTEGER REFERENCES ut_registered(ut_id) NOT NULL, -- "user" o "admin"
+    response_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
  -- TRIGGER: max n rental_req accepted per user
  -- TRIGGER: rental_req acceptable if within x days from current_date
  -- TRIGGER: for each user there can't be multiple rental_req in the same period/day
