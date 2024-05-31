@@ -22,6 +22,8 @@ async function checkUserRole() {
         if (data.role === 'admin') {
             enableAdminPosting();
             enableAdminFeatures();
+        } else {
+            enableUserPosting();
         }
     } catch (error) {
         console.error('Error fetching user role:', error);
@@ -45,6 +47,26 @@ function enableAdminPosting() {
                     <option value="Proposta condomino">Proposta condomino</option>
                 </select>
                 <textarea id="admin-post-content" name="admin-post-content" placeholder="Scrivi qualcosa..." required></textarea>
+                <input type="submit" value="Invia">
+            </form>
+        `;
+    }
+}
+
+function enableUserPosting() {
+    const userPostContainer = document.getElementById('user-form-container');
+    if (userPostContainer) {
+        userPostContainer.innerHTML = `
+            <form action="./02-home/local_php/submit_post_ud.php" class="post-form" id="user-post-form" method="post">
+                <input type="text" id="ud-post-title" name="ud-post-title" placeholder="Titolo del post" required>
+                <select class="tags" name="tags" id="tags" required>
+                    <option value="">tags</option>
+                    <option value="Danni spazi comuni">Danni spazi comuni</option>
+                    <option value="Danno palazzina">Danno palazzina</option>
+                    <option value="Lamentela">Lamentela</option>
+                    <option value="Proposta condomino">Proposta condomino</option>
+                </select>
+                <textarea id="ud-post-content" name="ud-post-content" placeholder="Scrivi qualcosa..." required></textarea>
                 <input type="submit" value="Invia">
             </form>
         `;

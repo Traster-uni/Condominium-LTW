@@ -115,8 +115,11 @@
         </div>
 
         <div class="tabcontent" id="tab-utente">
+            
+          <div id="user-form-container">
 
-          <form action="./02-home/local_php/submit_post_ud.php" class="post-form" id="user-post-form" method="post">
+          </div>
+          <!-- <form action="./02-home/local_php/submit_post_ud.php" class="post-form" id="user-post-form" method="post">
             <input type="text" id="ud-post-title" name="ud-post-title" placeholder="Titolo del post" required>
             <select class="tags" name="tags" id="tags" required>
               <option value="">tags</option>
@@ -127,7 +130,7 @@
             </select>
             <textarea id="ud-post-content" name="ud-post-content" placeholder="Scrivi qualcosa..." required></textarea>
             <input type="submit" value="Invia">
-          </form>
+          </form> -->
 
           <div class="posts-container" id="user-posts-container">
             
