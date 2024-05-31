@@ -97,7 +97,7 @@ CREATE OR REPLACE TRIGGER rental_req_disj_check
 	FOR EACH ROW EXECUTE FUNCTION rental_req_disj();
 
 
-CREATE OR REPLACE FUNCTION rental_req_disj() RETURNS trigger
+CREATE OR REPLACE FUNCTION rental_req_del_on_accepted() RETURNS trigger
 AS $$
 	rt_dt_s	= TD["new"]["rental_datetime_start"]
 	rt_dt_e	= TD["new"]["rental_datetime_end"]
@@ -124,7 +124,7 @@ AS $$
 			OR
 			date_part('hour', timestamp '{rt_dt_e}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)
 			)
-			AND rr.stat = 'accepted'
+			AND rr.stat = 'pending'
 			"""
 	plpy.prepare(qry_day_join)
 	plpy.prepare(qry_hour_join)
