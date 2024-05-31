@@ -1,5 +1,5 @@
 <?php
-    // session_start();
+    session_start();
     // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
     
     ini_set('display_errors', 1);
@@ -12,7 +12,7 @@
         pg_close($connection);
         exit;
     } else {
-        echo "connected";
+        echo "connected<br>";
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -20,22 +20,24 @@
 
             //$aptblock_id = $_SESSION['aptBlock'];
             $aptblock_id = 1;
-            $user_id = $_SESSION['user_id'];
+            $user_id = $_SESSION['ut_id'];
             $title = htmlspecialchars($_POST["admin-post-title"]);
             $content = htmlspecialchars($_POST["admin-post-content"]);
             $name_tag = htmlspecialchars($_POST["tags"]);
+            $time_event = new DateTime(htmlspecialchars($_POST["event-datetime"]));
+            $time_event_f = $time_event->format('Y-m-d H:i:s');
             
-            $qry_post = "SELECT last_value+1 AS new_id FROM posts_post_id_seq";
+            $qry_post_id = "SELECT last_value+1 AS new_id FROM posts_post_id_seq";
             $qry_bb_id = "SELECT bb_id 
                             FROM aptblock_bulletinboard 
                             WHERE aptblock_id = $aptblock_id AND bb_name = 'admin'";
 
             $bb_id = pg_fetch_result(pg_query($connection, $qry_bb_id), 0, 'bb_id');
-            $new_id = pg_fetch_result(pg_query($connection, $qry_post), 0, 'new_id');
-
-            $qry_post = "INSERT INTO posts(bb_id, ut_owner_id, title, ttext, time_born, time_mod)
-                            VALUES ('$bb_id', '$user_id', '$title', '$content', NOW(), NOW());
-                        INSERT INTO tags_posts(name_tag, post_id)
+            $new_id = pg_fetch_result(pg_query($connection, $qry_post_id), 0, 'new_id');
+            echo "($bb_id, $user_id, '$title', '$content', $time_event_f)<br>";
+            $qry_post = "INSERT INTO posts(bb_id, ut_owner_id, title, ttext, time_born, time_event)
+                            VALUES ($bb_id, $user_id, '$title', '$content', NOW(), '$time_event_f');
+                         INSERT INTO tags_posts(name_tag, post_id)
                             VALUES ('$name_tag', $new_id);";
             
             $result_post_insert = pg_query($connection, $qry_post);

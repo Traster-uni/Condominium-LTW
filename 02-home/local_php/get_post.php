@@ -8,7 +8,6 @@ error_reporting(E_ALL);
 $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
 
 
-
 if (!$connection) {
     echo "Errore, connessione non riuscita.<br>";
     pg_close($connection);

@@ -46,6 +46,7 @@ function enableAdminPosting() {
                     <option value="Lamentela">Lamentela</option>
                     <option value="Proposta condomino">Proposta condomino</option>
                 </select>
+                <input type="datetime-local" id="event-datetime" name="event-datetime" style="margin-right: 20px"/>
                 <textarea id="admin-post-content" name="admin-post-content" placeholder="Scrivi qualcosa..." required></textarea>
                 <input type="submit" value="Invia">
             </form>
