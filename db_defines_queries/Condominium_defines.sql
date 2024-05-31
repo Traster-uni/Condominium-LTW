@@ -176,6 +176,7 @@ CREATE TABLE IF NOT EXISTS posts(
 	ttext text NOT NULL,
 	time_born timestamp NOT NULL DEFAULT current_timestamp,
 	time_mod timestamp NOT NULL DEFAULT current_timestamp,
+	time_event timestamp,
 	data_json json,		-- to be defined: JSON module for polls and JSON module for payments
 	off_comments bool DEFAULT false,
 	PRIMARY KEY (post_id),
