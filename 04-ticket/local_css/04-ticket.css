@@ -84,7 +84,6 @@ table tr td {
 .modal-content {
   width: 60%;
   max-width: auto;
-  overflow-y: auto;
 }
 
 textarea {
@@ -109,4 +108,19 @@ textarea {
 .ticket-title {
   font-size: large;
   font-weight: 700;
+}
+
+.ticket-replies{
+  max-height: 450px;
+  overflow-y: auto;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px; 
+}
+
+.button-container button {
+  margin-top: 10px;
 }

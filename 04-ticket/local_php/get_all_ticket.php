@@ -7,7 +7,7 @@
     }
     
     // Controllo se l'utente è autenticato
-    $user_id = 2; //IMPORTANTE: da modificare, user di prova
+    $user_id = 1; //IMPORTANTE: da modificare, user di prova
     // $user_id = $_SESSION["ut_id"];
 
     // Query per recuperare i ticket dal database
@@ -19,6 +19,7 @@
             FROM tickets t
             LEFT JOIN ticket_responses tr ON t.ticket_id = tr.ticket_id
             LEFT JOIN ut_registered ur ON tr.ut_id = ur.ut_id
+            WHERE aptblock_admin = $user_id
             ORDER BY t.time_lastreplay DESC";
                 
     $result = pg_query($connection, $q);

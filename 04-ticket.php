@@ -117,7 +117,8 @@
             <p id="ticket-status"></p>
             <p id="ticket-lastReply"></p>
             <p id="ticket-content"></p>
-            <div id="ticket-replies"></div>
+            <div id="ticket-replies" class="ticket-replies"></div>
+            <div id="ticket-response-form"></div>
           </div>
         </div>
 
