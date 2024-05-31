@@ -101,6 +101,8 @@ CREATE OR REPLACE FUNCTION rental_req_del_on_accepted() RETURNS trigger
 AS $$
 	rt_dt_s	= TD["new"]["rental_datetime_start"]
 	rt_dt_e	= TD["new"]["rental_datetime_end"]
+	rt_status_new = TD["new"]["stat"]
+	rt_status_old = TD["old"]["stat"]
 
 	qry_day_join = f"""
 			SELECT rr.rental_req_id 
@@ -132,36 +134,37 @@ AS $$
 			"""
 	plpy.prepare(qry_day_join)
 	plpy.prepare(qry_hour_join)
-
-	try:
-		qry_day_res = plpy.execute(qry_day_join)
-		qry_hour_res = plpy.execute(qry_hour_join)
-
-	except plpy.SPIError as e:
-		plpy.error("Error while executing queries")
-		return "ERROR"
 	
-	for i in range(len(qry_hour_res)):
-		q = f"UPDATE rental_request rr SET rr.stat = 'refused' where rr.rental_req_id = {qry_day_res[i]['rental_req_id']}"
-		plpy.prepare(q)
-
+	if rt_status_old == 'pending' and rt_status_new == 'accepted'
 		try:
-			plpy.execute(q)
+			qry_day_res = plpy.execute(qry_day_join)
+			qry_hour_res = plpy.execute(qry_hour_join)
 
 		except plpy.SPIError as e:
 			plpy.error("Error while executing queries")
 			return "ERROR"
+		
+		for i in range(len(qry_hour_res)):
+			q = f"UPDATE rental_request SET rental_request.stat = 'refused' where rental_request.rental_req_id = {qry_day_res[i]['rental_req_id']}"
+			plpy.prepare(q)
 
-	for i in range(len(qry_hour_res)):
-		q = f"UPDATE rental_request rr SET rr.stat = 'refused' where rr.rental_req_id = {qry_hour_res[i]['rental_req_id']}"
-		plpy.prepare(q)
+			try:
+				plpy.execute(q)
 
-		try:
-			plpy.execute(q)
+			except plpy.SPIError as e:
+				plpy.error("Error while executing queries")
+				return "ERROR"
 
-		except plpy.SPIError as e:
-			plpy.error("Error while executing queries")
-			return "ERROR"
+		for i in range(len(qry_hour_res)):
+			q = f"UPDATE rental_request rental_request SET rental_request.stat = 'refused' where rental_request.rental_req_id = {qry_hour_res[i]['rental_req_id']}"
+			plpy.prepare(q)
+
+			try:
+				plpy.execute(q)
+
+			except plpy.SPIError as e:
+				plpy.error("Error while executing queries")
+				return "ERROR"
 
 $$ LANGUAGE plpython3u;
 
