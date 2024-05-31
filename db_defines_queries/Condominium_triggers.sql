@@ -109,6 +109,13 @@ AS $$
 			date_part('day', timestamp '{rt_dt_s}') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
 			OR 
 			date_part('day', timestamp '{rt_dt_e}') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
+			)OR(
+			date_part('day', timestamp '{rt_dt_s}') = date_part('day', rr.rental_datetime_start) AND 
+			date_part('day', timestamp '{rt_dt_e}') = date_part('day', rr.rental_datetime_end) 
+			)AND(
+			date_part('hour', timestamp '{rt_dt_s}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)	
+			OR
+			date_part('hour', timestamp '{rt_dt_e}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)
 			)
 			AND rr.stat = 'pending'
 			"""
@@ -138,7 +145,7 @@ AS $$
 		return "ERROR"
 	
 	for i in range(len(qry_hour_res)):
-		q = f"DELETE FROM rental_request where rental_request.rental_req_id = {qry_day_res[i]['rental_req_id']}"
+		q = f"UPDATE rental_request rr SET rr.stat = 'refused' where rr.rental_req_id = {qry_day_res[i]['rental_req_id']}"
 		plpy.prepare(q)
 
 		try:
@@ -149,7 +156,7 @@ AS $$
 			return "ERROR"
 
 	for i in range(len(qry_hour_res)):
-		q = f"DELETE FROM rental_request where rental_request.rental_req_id = {qry_hour_res[i]['rental_req_id']}"
+		q = f"UPDATE rental_request rr SET rr.stat = 'refused' where rr.rental_req_id = {qry_hour_res[i]['rental_req_id']}"
 		plpy.prepare(q)
 
 		try:
