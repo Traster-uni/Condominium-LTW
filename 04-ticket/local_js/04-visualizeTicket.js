@@ -18,10 +18,10 @@ async function checkUserRole() {
         const data = await response.json();
         console.log('User role fetched successfully:', data);
 
-        if (data.role !== 'user') {
-            fetchAndDisplayTickets('04-ticket/local_php/get_ticket_ud.php', 'user'); //DA CAMBIARE
-        } else {
-            fetchAndDisplayTickets('04-ticket/local_php/get_ticket_ud.php');
+        if (data.role === 'user') {
+            fetchAndDisplayTickets('04-ticket/local_php/get_ticket_ud.php', 'user');
+        } else if (data.role === 'admin') {
+            fetchAndDisplayTickets('04-ticket/local_php/get_all_ticket.php', 'admin');
         }
     } catch (error) {
         console.error('Error fetching user role:', error);
@@ -44,7 +44,7 @@ function enableTicketPosting() {
                     <textarea class="descrizione" name="descrizione" id="descrizione" cols="50" rows="10" minlength="50" required></textarea>
                     <br />
                     <input type="file" name="file" id="file" />
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Invia" />
                     <input type="reset" />
                 </form>
             </div>
@@ -71,7 +71,7 @@ function enableTicketPosting() {
     });
 }
 
-async function fetchAndDisplayTickets(fetchUrl, role = null) {
+async function fetchAndDisplayTickets(fetchUrl, currentUserRole) {
     try {
         const response = await fetch(fetchUrl);
         const tickets = await response.json();
@@ -81,20 +81,20 @@ async function fetchAndDisplayTickets(fetchUrl, role = null) {
         const openTicketsCount = Object.values(tickets).filter(ticket => ticket.status === 'open').length;
 
         // Se l'utente ha meno di 5 ticket aperti, abilita l'invio di nuovi ticket
-        if (openTicketsCount < 5 && role === 'user') {
+        if (openTicketsCount < 5 && currentUserRole === 'user') {
             enableTicketPosting();
-        } else if (openTicketsCount >= 5 && role === 'user') {
+        } else if (openTicketsCount >= 5 && currentUserRole === 'user') {
             alert("Troppi ticket aperti, devi assicurarti di concluderne qualcuno prima di inviarne di nuovi")
         }
 
         // Visualizza i ticket
-        displayTickets(tickets);
+        displayTickets(tickets, currentUserRole);
     } catch (error) {
         console.error('Error fetching tickets:', error);
     }
 }
 
-function displayTickets(ticketsByYear) {
+function displayTickets(ticketsByYear, currentUserRole) {
     const tabContainer = document.getElementById('ticket-tab');
     if (!tabContainer) {
         console.error('Tab container not found');
@@ -178,6 +178,7 @@ function displayTickets(ticketsByYear) {
     const ticketStatus = document.getElementById('ticket-status');
     const ticketContent = document.getElementById('ticket-content');
     const ticketReplies = document.getElementById('ticket-replies');
+    const ticketResponseForm = document.getElementById('ticket-response-form');
     const span = document.getElementsByClassName('close')[0];
 
     document.addEventListener('click', function(event) {
@@ -185,7 +186,7 @@ function displayTickets(ticketsByYear) {
             const ticketId = event.target.getAttribute('data-ticket-id');
             const ticket = findTicketById(ticketId, ticketsByYear);
             if (ticket) {
-                ticketTitle.textContent = `${ticket.title}`;
+                ticketTitle.textContent = `Titolo: ${ticket.title}`;
                 ticketCreationDate.textContent = `Data Creazione: ${ticket.time_born}`;
                 ticketStatus.textContent = `Status: ${ticket.status}`;
                 ticketContent.textContent = `${ticket.comm_text}`;
@@ -208,9 +209,11 @@ function displayTickets(ticketsByYear) {
                 const responseForm = document.createElement('div');
                 responseForm.innerHTML = `
                     <textarea id="responseText" placeholder="Scrivi la tua risposta qui..." rows="4" cols="50"></textarea>
-                    <button id="sendResponse" type="button">Invia</button>
+                    <div class="button-container">
+                        <button id="sendResponse" type="button">Invia</button>
+                    </div>
                 `;
-                ticketReplies.appendChild(responseForm);
+                ticketResponseForm.appendChild(responseForm);
             
                 const responseText = responseForm.querySelector('#responseText');
                 const sendResponse = responseForm.querySelector('#sendResponse');
@@ -224,6 +227,17 @@ function displayTickets(ticketsByYear) {
                 }
             
                 sendResponse.setAttribute('data-ticket-id', ticketId);
+
+                // Aggiunge il pulsante "Chiudi Ticket" per gli admin
+                if (currentUserRole === 'admin') {
+                    const closeButton = document.createElement('button');
+                    closeButton.textContent = 'Chiudi Ticket';
+                    closeButton.id = 'close-ticket';
+                    closeButton.setAttribute('data-ticket-id', ticketId);
+                    closeButton.addEventListener('click', closeTicket);
+                    responseForm.querySelector('.button-container').appendChild(closeButton);
+                }
+
                 modal.style.display = "block";
             }
         }
@@ -296,6 +310,35 @@ function displayTickets(ticketsByYear) {
             alert('Errore nell\'invio della risposta. Riprova.');
         });
     };
+
+    function closeTicket(event) {
+        const ticketId = event.target.getAttribute('data-ticket-id');
+        if (confirm('Sei sicuro di voler chiudere questo ticket?')) {
+            fetch('04-ticket/local_php/close_ticket.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ticket_id: ticketId
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Ticket chiuso con successo!');
+                    modal.style.display = "none";
+                    fetchAndDisplayTickets('04-ticket/local_php/get_ticket_ud.php', 'admin');
+                } else {
+                    alert('Errore nella chiusura del ticket. Riprova.');
+                }
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Errore nella chiusura del ticket. Riprova.');
+            });
+        }
+    }
 }
 
 function openTab(evt, year) {
