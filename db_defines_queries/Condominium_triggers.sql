@@ -97,6 +97,73 @@ CREATE OR REPLACE TRIGGER rental_req_disj_check
 	FOR EACH ROW EXECUTE FUNCTION rental_req_disj();
 
 
+CREATE OR REPLACE FUNCTION rental_req_disj() RETURNS trigger
+AS $$
+	rt_dt_s	= TD["new"]["rental_datetime_start"]
+	rt_dt_e	= TD["new"]["rental_datetime_end"]
+
+	qry_day_join = f"""
+			SELECT rr.rental_req_id 
+			FROM rental_request rr
+			WHERE (
+			date_part('day', timestamp '{rt_dt_s}') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
+			OR 
+			date_part('day', timestamp '{rt_dt_e}') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
+			)
+			AND rr.stat = 'pending'
+			"""
+	
+	qry_hour_join = f"""
+			SELECT rr.rental_req_id
+			FROM rental_request rr
+			WHERE 
+			date_part('day', timestamp '{rt_dt_s}') = date_part('day', rr.rental_datetime_start) AND 
+			date_part('day', timestamp '{rt_dt_e}') = date_part('day', rr.rental_datetime_end) 
+			AND(
+			date_part('hour', timestamp '{rt_dt_s}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)	
+			OR
+			date_part('hour', timestamp '{rt_dt_e}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)
+			)
+			AND rr.stat = 'accepted'
+			"""
+	plpy.prepare(qry_day_join)
+	plpy.prepare(qry_hour_join)
+
+	try:
+		qry_day_res = plpy.execute(qry_day_join)
+		qry_hour_res = plpy.execute(qry_hour_join)
+
+	except plpy.SPIError as e:
+		plpy.error("Error while executing queries")
+		return "ERROR"
+	
+	for row in qry_day_res:
+		q = f"DELETE FROM rental_request where rental_request.rental_req_id = {qry_day_res[i]['rental_req_id']}"
+		plpy.prepare(q)
+
+		try:
+			plpy.execute(q)
+
+		except plpy.SPIError as e:
+			plpy.error("Error while executing queries")
+			return "ERROR"
+
+	for i in range(len(qry_hour_res)):
+		q = f"DELETE FROM rental_request where rental_request.rental_req_id = {qry_hour_res[i]['rental_req_id']}"
+		plpy.prepare(q)
+
+		try:
+			plpy.execute(q)
+
+		except plpy.SPIError as e:
+			plpy.error("Error while executing queries")
+			return "ERROR"
+
+$$ LANGUAGE plpython3u;
+
+CREATE OR REPLACE TRIGGER rental_req_del_on_accepted
+	AFTER UPDATE ON rental_request
+	FOR EACH ROW EXECUTE FUNCTION rental_req_del_on_accepted();
 
 CREATE OR REPLACE FUNCTION new_aptBlock() RETURNS trigger
 AS $$
