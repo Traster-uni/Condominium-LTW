@@ -55,6 +55,7 @@ AS $$
 			OR 
 			date_part('day', timestamp '{rt_dt_e}') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
 			)
+			AND rr.stat = 'accepted'
 		) as day_disj
 		"""
 
@@ -70,6 +71,7 @@ AS $$
 			OR
 			date_part('hour', timestamp '{rt_dt_e}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)
 			)
+			AND rr.stat = 'accepted'
 		) as hour_disj
 		"""
 	plpy.prepare(qry_day_disj)
