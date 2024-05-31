@@ -45,8 +45,9 @@ AS $$
 	rt_id		= TD["new"]["rental_req_id"]
 	rt_dt_s		= TD["new"]["rental_datetime_start"]
 	rt_dt_e		= TD["new"]["rental_datetime_end"]
+	rt_cs_id = TD["new"]["cs_id"]
 	
-	qry_day_disj = f"""
+	qry_disj = f"""
 		SELECT EXISTS(
 			SELECT rr.rental_req_id 
 			FROM rental_request rr
@@ -54,40 +55,24 @@ AS $$
 			date_part('day', timestamp '{rt_dt_s}') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
 			OR 
 			date_part('day', timestamp '{rt_dt_e}') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
-			)
-			AND rr.stat = 'accepted'
-		) as day_disj
-		"""
-
-	qry_hour_disj = f"""
-		SELECT EXISTS(
-			SELECT rr.rental_req_id
-			FROM rental_request rr
-			WHERE 
-			date_part('day', timestamp '{rt_dt_s}') = date_part('day', rr.rental_datetime_start) AND 
-			date_part('day', timestamp '{rt_dt_e}') = date_part('day', rr.rental_datetime_end) 
-			AND(
+			)AND(
 			date_part('hour', timestamp '{rt_dt_s}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)	
 			OR
 			date_part('hour', timestamp '{rt_dt_e}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)
 			)
-			AND rr.stat = 'accepted'
-		) as hour_disj
+			AND rr.stat = 'pending' AND rr.cs_id = {rt_cs_id}
+		) as disj
 		"""
-	plpy.prepare(qry_day_disj)
-	plpy.prepare(qry_hour_disj)
+
+	plpy.prepare(qry_disj)
 	try:
-		qry_day_res = plpy.execute(qry_day_disj)
-		qry_hour_res = plpy.execute(qry_hour_disj)
+		qry_res = plpy.execute(qry_disj)
 	except plpy.SPIError as e:
 		plpy.error(f"Error rental requests overlapping")
 		return "ERROR"
-	if qry_day_res[0]["day_disj"] == True:
-		if qry_hour_res[0]["hour_disj"] == True:
-			raise plpy.error("A rental request in the same time period already exists")
-			return "ERROR"
-		else:
-			return "OK"
+	if qry_res[0]["disj"] == True:
+		raise plpy.error("A rental request in the same time period already exists")
+		return "ERROR"
 	else:
 		return "OK"
 $$ LANGUAGE plpython3u;
@@ -103,7 +88,8 @@ AS $$
 	rt_dt_e	= TD["new"]["rental_datetime_end"]
 	rt_status_new = TD["new"]["stat"]
 	rt_status_old = TD["old"]["stat"]
-
+	rt_cs_id = TD["new"]["cs_id"]
+	
 	qry_day_join = f"""
 			SELECT rr.rental_req_id 
 			FROM rental_request rr
@@ -116,47 +102,23 @@ AS $$
 			OR
 			date_part('hour', timestamp '{rt_dt_e}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)
 			)
-			AND rr.stat = 'pending'
+			AND rr.stat = 'pending' AND rr.cs_id = {rt_cs_id}
 			"""
 	
-	qry_hour_join = f"""
-			SELECT rr.rental_req_id
-			FROM rental_request rr
-			WHERE 
-			date_part('day', timestamp '{rt_dt_s}') = date_part('day', rr.rental_datetime_start) AND 
-			date_part('day', timestamp '{rt_dt_e}') = date_part('day', rr.rental_datetime_end) 
-			AND(
-			date_part('hour', timestamp '{rt_dt_s}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)	
-			OR
-			date_part('hour', timestamp '{rt_dt_e}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)
-			)
-			AND rr.stat = 'pending'
-			"""
+	
 	plpy.prepare(qry_day_join)
-	plpy.prepare(qry_hour_join)
 	
-	if rt_status_old == 'pending' and rt_status_new == 'accepted'
+	if rt_status_old == 'pending' and rt_status_new == 'accepted':
 		try:
 			qry_day_res = plpy.execute(qry_day_join)
-			qry_hour_res = plpy.execute(qry_hour_join)
 
 		except plpy.SPIError as e:
 			plpy.error("Error while executing queries")
 			return "ERROR"
 		
-		for i in range(len(qry_hour_res)):
-			q = f"UPDATE rental_request SET rental_request.stat = 'refused' where rental_request.rental_req_id = {qry_day_res[i]['rental_req_id']}"
-			plpy.prepare(q)
-
-			try:
-				plpy.execute(q)
-
-			except plpy.SPIError as e:
-				plpy.error("Error while executing queries")
-				return "ERROR"
-
-		for i in range(len(qry_hour_res)):
-			q = f"UPDATE rental_request rental_request SET rental_request.stat = 'refused' where rental_request.rental_req_id = {qry_hour_res[i]['rental_req_id']}"
+		
+		for i in range(len(qry_day_res)):
+			q = f"UPDATE rental_request SET stat = 'refused' where rental_request.rental_req_id = {qry_day_res[i]['rental_req_id']}"
 			plpy.prepare(q)
 
 			try:
