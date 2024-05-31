@@ -137,7 +137,7 @@ AS $$
 		plpy.error("Error while executing queries")
 		return "ERROR"
 	
-	for i in qry_day_res:
+	for i in range(len(qry_hour_res)):
 		q = f"DELETE FROM rental_request where rental_request.rental_req_id = {qry_day_res[i]['rental_req_id']}"
 		plpy.prepare(q)
 
