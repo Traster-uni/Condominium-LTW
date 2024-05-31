@@ -60,7 +60,7 @@ AS $$
 			OR
 			date_part('hour', timestamp '{rt_dt_e}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)
 			)
-			AND rr.stat = 'pending' AND rr.cs_id = {rt_cs_id}
+			AND rr.stat = 'accepted' AND rr.cs_id = {rt_cs_id}
 		) as disj
 		"""
 
