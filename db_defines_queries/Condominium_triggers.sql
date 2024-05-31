@@ -91,7 +91,7 @@ AS $$
 $$ LANGUAGE plpython3u;
 
 CREATE OR REPLACE TRIGGER rental_req_disj_check 
-	BEFORE INSERT OR UPDATE ON rental_request
+	BEFORE INSERT ON rental_request
 	FOR EACH ROW EXECUTE FUNCTION rental_req_disj();
 
 
