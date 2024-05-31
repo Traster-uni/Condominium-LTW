@@ -20,8 +20,8 @@ if (!$connection) {
 $aptblock_id = 1;
 
 $query = "SELECT DISTINCT aptb.aptblock_id, aptb_bb.bb_id, aptb_bb.bb_name, pt.post_id, pt.ut_owner_id ut_id, 
-            ut_r.nome, ut_r.cognome, pt.title, pt.ttext, pt.time_born, pt.time_mod, pt.off_comments,
-            tp.name_tag, t.evento
+            ut_r.nome, ut_r.cognome, pt.title, pt.ttext, pt.time_born, pt.time_mod, pt.time_event, pt.off_comments,
+            tp.name_tag
             FROM aptblock aptb 
             JOIN aptblock_bulletinboard aptb_bb ON aptb.aptblock_id = aptb_bb.aptblock_id
             JOIN posts pt ON pt.bb_id = aptb_bb.bb_id
