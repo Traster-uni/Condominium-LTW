@@ -120,8 +120,7 @@ function displayPostsAdmin(posts) {
         if (post.off_comments === "f") {
             postElement.innerHTML = `
                 <h3 class="post-author">${post.nome} ${post.cognome}</h3>
-                <h4 class="post-tags">${post.name_tag}</h4>
-                <h5 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h5>
+                <h5 class="post-title">${post.title} <span class="post-tag-prova">${post.name_tag}</span></h5>
                 <p class="post-content">${post.ttext}</p>
                 <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
                 <button type="button" class="toggle-comments" data-post-id="${post.post_id}">Commenti</button>
@@ -134,8 +133,7 @@ function displayPostsAdmin(posts) {
         } else {
             postElement.innerHTML = `
                 <h3 class="post-author">${post.nome} ${post.cognome}</h3>
-                <h4 class="post-tags">${post.name_tag}</h4>
-                <h5 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h5>
+                <h5 class="post-title">${post.title} <span class="post-tag-prova">${post.name_tag}</span></h5>
                 <p class="post-content">${post.ttext}</p>
                 <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
                 <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
@@ -165,8 +163,7 @@ function displayPostsUd(posts) {
         if (post.off_comments === "f") {
             postElement.innerHTML = `
                 <h3 class="post-author">${post.nome} ${post.cognome}</h3>
-                <h4 class="post-tags">${post.name_tag}</h4>
-                <h5 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h5>
+                <h5 class="post-title">${post.title} <span class="post-tag-prova">${post.name_tag}</span></h5>
                 <p class="post-content">${post.ttext}</p>
                 <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
                 <button type="button" class="toggle-comments" data-post-id="${post.post_id}">Commenti</button>
@@ -179,8 +176,7 @@ function displayPostsUd(posts) {
         } else {
             postElement.innerHTML = `
                 <h3 class="post-author">${post.nome} ${post.cognome}</h3>
-                <h4 class="post-tags">${post.name_tag}</h4>
-                <h5 class="post-title">${post.title} <span class="post-tag-prova">Tag</span></h5>
+                <h5 class="post-title">${post.title} <span class="post-tag-prova">${post.name_tag}</span></h5>
                 <p class="post-content">${post.ttext}</p>
                 <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
                 <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
