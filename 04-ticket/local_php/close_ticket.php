@@ -18,6 +18,8 @@
         if (!$result) {
             throw new Exception('Errore nell\'aggiornamento del ticket');
         }
+
+        echo json_encode(['success' => true]);
     }
     
     pg_free_result($result);

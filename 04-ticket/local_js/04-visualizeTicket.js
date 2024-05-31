@@ -205,6 +205,11 @@ function displayTickets(ticketsByYear, currentUserRole) {
                     `;
                     ticketReplies.appendChild(replyElement);
                 });
+
+                // Rimuovi eventuali form di risposta esistenti
+                while (ticketResponseForm.firstChild) {
+                    ticketResponseForm.removeChild(ticketResponseForm.firstChild);
+                }
             
                 const responseForm = document.createElement('div');
                 responseForm.innerHTML = `
