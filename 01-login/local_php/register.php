@@ -19,19 +19,6 @@
         $email = htmlspecialchars($_POST["email"]);
         $password = htmlspecialchars($_POST["password"]);
 
-        // TODO: Controlla se email, telefono, sono gia stati utilizzati nel sistema
-        // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=usr_login password=iamdolly");
-        //Verifico che la connessione è avvenuta con successo
-        // if (!$connection) {
-        //     echo "Errore, connessione non riuscita.<br>";
-        //     exit;
-        // } else {
-        //     echo "connected<br>";
-        // }
-
-        // pg_close($connection);
-
-
         $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=usr_register password=iamdolly");
         //Preparo la query
         $q = "INSERT INTO ut_registered(nome, cognome, d_nascita, telefono, address, citta_residenza, ut_email, passwd) 

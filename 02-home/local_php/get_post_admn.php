@@ -7,7 +7,7 @@
         exit;
     }
     //session_start();
-    //$aptBlock_id = $_SESSION['aptBlock']; // Recupero l'apt id dalla sessione
+    //$aptBlock_id = $_SESSION['aptblock_id']; // Recupero l'apt id dalla sessione
     $aptblock_id = 1;
 
     $query = "SELECT sub2.aptblock_id, 

@@ -32,7 +32,7 @@
         exit;
       }
 
-      if (!isset($_SESSION['ut_id'])  && !isset($_SESSION['email'])) {
+      if (!isset($_SESSION['ut_id']) && !isset($_SESSION['email']) && !isset($_SESSION['aptblock_id'])) {
         header("Location: ./01-login.php");
       }
 

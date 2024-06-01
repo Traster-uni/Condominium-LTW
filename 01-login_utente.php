@@ -45,7 +45,8 @@
 
     // Array per controllare se l'utente ha già fatto richiesta per questo condominio
     while ($row = pg_fetch_assoc($result_sent)) {
-      $array_sent[] = $row['aptblock_id'];  
+      $array_sent[] = $row['aptblock_id']; 
+      $_SESSION['aptblock_id'] = $row['aptblock_id']; 
     }
     $check_sent = json_encode($array_sent);
 

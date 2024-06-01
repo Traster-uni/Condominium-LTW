@@ -7,8 +7,8 @@
     }
     
     // Controllo se l'utente è autenticato
-    $user_id = 7; //IMPORTANTE: da modificare, user di prova
-    // $user_id = $_SESSION["ut_id"];
+   
+    $user_id = $_SESSION["ut_id"];
 
     // Query per recuperare i ticket dal database
     $q = "SELECT t.*, tr.response_text, tr.response_time, ur.ut_id, ur.nome, ur.cognome,

@@ -18,7 +18,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_SESSION['admin'])) {
 
-            //$aptblock_id = $_SESSION['aptBlock'];
+            //$aptblock_id = $_SESSION['aptblock_id'];
             $aptblock_id = 1;
             $user_id = $_SESSION['ut_id'];
             $title = htmlspecialchars($_POST["admin-post-title"]);

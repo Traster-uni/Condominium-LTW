@@ -1,7 +1,6 @@
 <?php
     //session_start()
-    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
-    // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=user_condominium");
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=user_condominium");
     //Verifico che la connessione è avvenuta con successo
     if (!$connection) {
         echo "Errore, connessione non riuscita.<br>";
@@ -13,8 +12,8 @@
 
         $titolo = htmlspecialchars($_POST["titolo"]);
         $comm_text = htmlspecialchars($_POST["descrizione"]);
-        $id = 2; // TODO: modify to adapt to instance connection
-        // $id = $_SESSION["ut_id"];
+        // $id = 2; // TODO: modify to adapt to instance connection
+        $id = $_SESSION["ut_id"];
         $data = date("Y-m-d");
 
         //Query per prendere l'id dell'admin

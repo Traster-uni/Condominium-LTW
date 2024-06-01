@@ -1,36 +1,32 @@
 <?php
-    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
-    // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
+    session_start();
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
     
     if (!$connection) {
         echo "Errore, connessione non riuscita.<br>";
         exit;
     }
-    //session_start();
     
-    //$aptBlock_id = $_SESSION['aptBlock']; // Recupero l'apt id dalla sessione
-    $aptblock_id = 1;
+    $aptBlock_id = $_SESSION['aptblock_id']; // Recupero l'apt id dalla sessione
 
     $query = "SELECT 
                     posts.post_id, 
-                    posts.ut_owner_id, 
-                    utreg.nome AS nome, 
-                    utreg.cognome AS cognome, 
+                    ut_r.ut_id, 
+                    ut_r.nome AS nome, 
+                    ut_r.cognome AS cognome, 
                     posts.title, 
                     posts.ttext, 
                     posts.time_born, 
                     posts.time_mod, 
                     posts.off_comments
-                FROM 
-                    aptblock aptb 
-                JOIN 
-                    aptblock_bulletinboard aptb_bb ON aptb.aptblock_id = aptb_bb.aptblock_id
-                JOIN 
-                    posts ON posts.bb_id = aptb_bb.bb_id
-                JOIN 
-                    ut_registered utreg ON posts.ut_owner_id = utreg.ut_id
+                FROM aptblock aptb 
+                    JOIN aptblock_bulletinboard aptb_bb ON aptb.aptblock_id = aptb_bb.aptblock_id
+                    JOIN posts ON posts.bb_id = aptb_bb.bb_id
+                    JOIN ut_owner ut_o ON ut_o.utreq_id = posts.ut_owner_id
+                    JOIN req_ut_access req_id ON req_id.utreq_id = ut_o.utreq_id
+                    JOIN ut_registered ut_r ON req_id.ut_id = ut_r.ut_id
                 WHERE 
-                    $aptblock_id = aptb.aptblock_id
+                    aptb.aptblock_id = $aptBlock_id
                 ORDER BY 
                     posts.time_born DESC";
 

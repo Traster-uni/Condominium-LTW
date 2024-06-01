@@ -3,8 +3,7 @@
     //session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $user_id = 2;
-        //$user_id = $_SESSION['user_id'];
+        $user_id = $_SESSION['ut_id'];
         $data = json_decode(file_get_contents('php://input'), true);
         $thread_id = $data['thread_id'];
         $comm_text = $data['content'];
