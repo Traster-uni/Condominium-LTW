@@ -6,26 +6,41 @@ if (!$connect) {
   exit();
 }
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 $id_utente = $_SESSION["ut_id"];
 
-$qry_pdata = "SELECT ut_r.*, req_a.aptblock_id, ut_o.utreq_id as ut_owner_id
-              FROM ut_registered ut_r 
-              JOIN req_ut_access req_a ON ut_r.ut_id = req_a.ut_id
-              JOIN ut_owner ut_o ON ut_o.utreq_id = req_a.utreq_id
-              WHERE ut_r.ut_id = $id_utente;";
-$qry_pdata_res = pg_query($connect, $qry_pdata);
-if (!$qry_pdata_res){ // error checking
-  echo "42: Something went wrong<br>";
-  echo pg_result_error($qry_pdata_res);
+if ($_SESSION['admin']){
+    $qry_pdata = "SELECT ut_r.*, adm.adm_telephone
+                      FROM ut_registered ut_r
+                        JOIN aptblock_admin adm ON adm.ut_id = ut_r.ut_id 
+                      WHERE ut_r.ut_id = $id_utente";
+    $qry_pdata_res = pg_query($connect, $qry_pdata);
+
+    if (!$qry_pdata_res){ // error checking
+        echo "42: Something went wrong<br>";
+        echo pg_result_error($qry_pdata_res);
+    }
+
+} else {
+    $qry_pdata = "SELECT ut_r.*, req_a.aptblock_id, ut_o.utreq_id as ut_owner_id
+                      FROM ut_registered ut_r 
+                      JOIN req_ut_access req_a ON ut_r.ut_id = req_a.ut_id
+                      JOIN ut_owner ut_o ON ut_o.utreq_id = req_a.utreq_id
+                      WHERE ut_r.ut_id = $id_utente;";
+    $qry_pdata_res = pg_query($connect, $qry_pdata);
+
+    if (!$qry_pdata_res){ // error checking
+        echo "42: Something went wrong<br>";
+        echo pg_result_error($qry_pdata_res);
+    }
 }
 ?>
 
 <div style="background: white; padding: 0px 0px 5px 10px; border-top: 1px solid gray">
-    <p style="font-weight: bold; font-size: 20px">Storico Condomini</p>
+    <p style="font-weight: bold; font-size: 20px">Dati personali</p>
     <?php while ($row = pg_fetch_assoc($qry_pdata_res)): ?>
         <?php
         $n_m = $row['nome'] . " " . $row['cognome'];
@@ -35,5 +50,9 @@ if (!$qry_pdata_res){ // error checking
         $email = $row['ut_email'];
         $d = $discrizione->format('d/m/Y');
         ?>
-        <p><pre class="tab2">      <?php echo htmlspecialchars($n_m); ?> - <?php echo htmlspecialchars($dnascita); ?>    telefono: <?php echo htmlspecialchars($tel); ?>    indirizzo email:<?php echo htmlspecialchars($email); ?> ( data iscrizione: <?php echo htmlspecialchars($d); ?> )</pre></span></p>
+        <p><pre class="tab2">  <?php echo htmlspecialchars($n_m); ?></pre></p>
+        <p><pre class="tab2">  data di nascita: <?php echo htmlspecialchars($dnascita); ?></pre></p>
+        <p><pre class="tab2">  telefono: <?php echo htmlspecialchars($tel); ?></pre></p>
+        <p><pre class="tab2">  email: <?php echo htmlspecialchars($email); ?></pre></p>
+        <p><pre class="tab2">  data iscrizione: <?php echo htmlspecialchars($d);?></pre></p>
     <?php endwhile; ?>

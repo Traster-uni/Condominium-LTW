@@ -74,7 +74,7 @@ function enableTicketPosting() {
 async function fetchAndDisplayTickets(fetchUrl, currentUserRole) {
     try {
         const response = await fetch(fetchUrl);
-        const tickets = await response.json();
+        const tickets = await response.json(); // <---
         console.log('Tickets fetched successfully:', tickets);
 
         // Conta il numero di ticket aperti dell'utente
