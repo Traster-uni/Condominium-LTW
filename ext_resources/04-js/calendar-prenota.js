@@ -173,9 +173,17 @@ function addReservations() {
       let anno = parseInt(partiData[2], 10);
       let selector = `td.selectable[data-date='${giorno}'][data-month='${mese}'][data-year='${anno}']`;
       let cellRes = document.querySelector(selector);
-      if (cellRes) cellRes.classList.add("event-marker");
-      if (cellRes)
-        cellRes.appendChild(createTooltip(item.ora_inizio, item.ora_fine));
+      if (cellRes) {
+        if (cellRes.classList.contains("event-marker")) {
+          let orario = document.createElement("p");
+          orario.innerHTML = `${item.ora_inizio} - ${item.ora_fine}`;
+          let tooltip = cellRes.querySelector("div.event-tooltip");
+          tooltip.appendChild(orario);
+        } else {
+          cellRes.classList.add("event-marker");
+          cellRes.appendChild(createTooltip(item.ora_inizio, item.ora_fine));
+        }
+      }
     }
   });
 }
