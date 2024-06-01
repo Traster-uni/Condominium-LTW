@@ -43,7 +43,7 @@ function enableTicketPosting() {
                     <h4>Descrizione</h4>
                     <textarea class="descrizione" name="descrizione" id="descrizione" cols="50" rows="10" minlength="50" required></textarea>
                     <br />
-                    <input type="file" name="file" id="file" />
+                    <input type="file" name="upload-img" id="upload-img" />
                     <input type="submit" value="Invia" />
                     <input type="reset" />
                 </form>
@@ -123,6 +123,10 @@ function displayTickets(ticketsByYear, currentUserRole) {
 
     Object.entries(ticketsByYear).forEach(([year, ticketsObj]) => {
         const tickets = Object.values(ticketsObj);
+
+        // Ordino in base all'ultima risposta
+        tickets.sort((a, b) => new Date(b.time_lastreplay) - new Date(a.time_lastreplay));
+
         const section = document.createElement('section');
         section.id = year;
         section.className = 'tabcontent';
@@ -190,6 +194,22 @@ function displayTickets(ticketsByYear, currentUserRole) {
                 ticketCreationDate.textContent = `Data Creazione: ${ticket.time_born}`;
                 ticketStatus.textContent = `Status: ${ticket.status}`;
                 ticketContent.textContent = `${ticket.comm_text}`;
+
+                if (ticket.imgs_fname) {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = ticket.imgs_fname;
+                    imgElement.className = 'ticket-image';
+                    imgElement.style.maxWidth = '200px';
+                    imgElement.style.cursor = 'pointer';
+                    imgElement.addEventListener('click', function() {
+                        if (imgElement.style.maxWidth === '200px') {
+                            imgElement.style.maxWidth = '100%';
+                        } else {
+                            imgElement.style.maxWidth = '200px';
+                        }
+                    });
+                    ticketContent.appendChild(imgElement);
+                }
                 
                 ticketReplies.innerHTML = '';
                 ticket.replies.sort((a, b) => new Date(a.response_time) - new Date(b.response_time));

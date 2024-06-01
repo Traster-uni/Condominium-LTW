@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
     if (!$connection) {
         echo "Errore, connessione non riuscita.<br>";
@@ -37,6 +38,7 @@
                 'status' => $row['status'],
                 'time_lastreplay' => $row['time_lastreplay'],
                 'comm_text' => $row['comm_text'],
+                'imgs_fname' => $row['imgs_fname'],
                 'replies' => []
             ];
         }
