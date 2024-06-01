@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-ini_set('display_errors', 1);
+/* ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-// $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
+error_reporting(E_ALL); */
+
 $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
 
 
@@ -15,8 +15,7 @@ if (!$connection) {
 }
 
 
-// $aptBlock_id = $_SESSION['aptblock_id']; // Recupero l'apt id dalla sessione
-$aptblock_id = 1;
+$aptblock_id = $_SESSION['aptblock_id']; // Recupero l'apt id dalla sessione
 
 $query = "SELECT DISTINCT 
             aptb.aptblock_id, aptb_bb.bb_id, aptb_bb.bb_name, pt.post_id, ut_r.ut_id, 

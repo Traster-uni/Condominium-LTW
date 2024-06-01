@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./01-login/local_css/01-login.css" />
     <link rel="stylesheet" href="./global/01-css/popup.css">
     <link rel="stylesheet" href="./global/01-css/fonts.css">
+    <link rel="stylesheet" href="global/01-css/global.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Lato"
@@ -33,8 +34,9 @@
     $id_utente = $_SESSION['ut_id'];
 
     // Se l'utente ha già un condominio lo reindirizzo direttamente alla home
-    $check_access = pg_query($connection, "SELECT ut_id FROM req_ut_access WHERE ut_id = $id_utente AND status = 'accepted'");
+    $check_access = pg_query($connection, "SELECT aptblock_id FROM req_ut_access WHERE ut_id = $id_utente AND status = 'accepted'");
     if (pg_num_rows($check_access)) {
+      $_SESSION['aptblock_id'] = pg_fetch_result($check_access, 0, 0);
       pg_close($connection);
       header("Location: ../../02-home.php");
       session_regenerate_id(true);
@@ -45,8 +47,7 @@
 
     // Array per controllare se l'utente ha già fatto richiesta per questo condominio
     while ($row = pg_fetch_assoc($result_sent)) {
-      $array_sent[] = $row['aptblock_id']; 
-      $_SESSION['aptblock_id'] = $row['aptblock_id']; 
+      $array_sent[] = $row['aptblock_id'];
     }
     $check_sent = json_encode($array_sent);
 

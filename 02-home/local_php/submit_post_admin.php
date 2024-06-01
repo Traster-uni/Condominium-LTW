@@ -31,12 +31,16 @@
             $qry_bb_id = "SELECT bb_id 
                             FROM aptblock_bulletinboard 
                             WHERE aptblock_id = $aptblock_id AND bb_name = 'admin'";
-
+            $qry_ut_owner_id = "SELECT utreq_id as ut_owner_id
+                            FROM req_ut_access NATURAL JOIN ut_owner NATURAL JOIN ut_registered
+                            WHERE ut_registered.ut_id = $user_id";
+            
             $bb_id = pg_fetch_result(pg_query($connection, $qry_bb_id), 0, 'bb_id');
+            $ut_owner_id = pg_fetch_result(pg_query($connection, $qry_ut_owner_id), 0, 'ut_owner_id');
             $new_id = pg_fetch_result(pg_query($connection, $qry_post_id), 0, 'new_id');
             echo "($bb_id, $user_id, '$title', '$content', $time_event_f)<br>";
             $qry_post = "INSERT INTO posts(bb_id, ut_owner_id, title, ttext, time_born, time_event)
-                            VALUES ($bb_id, $user_id, '$title', '$content', NOW(), '$time_event_f');
+                            VALUES ($bb_id, $ut_owner_id, '$title', '$content', NOW(), '$time_event_f');
                          INSERT INTO tags_posts(name_tag, post_id)
                             VALUES ('$name_tag', $new_id);";
             
