@@ -11,16 +11,16 @@
 
     // Query per recuperare i ticket dal database
     $q = "SELECT t.*, tr.response_text, tr.response_time, ur.ut_id, ur.nome, ur.cognome,
-                CASE 
-                    WHEN (SELECT COUNT(*) FROM aptblock_admin aa WHERE aa.ut_id = ur.ut_id) > 0 THEN 'admin'
-                    ELSE 'user'
-                END as role
+            CASE 
+                WHEN (SELECT COUNT(*) FROM aptblock_admin aa WHERE aa.ut_id = ur.ut_id) > 0 THEN 'admin'
+                ELSE 'user'
+            END as role
             FROM tickets t
             LEFT JOIN ticket_responses tr ON t.ticket_id = tr.ticket_id
             LEFT JOIN ut_registered ur ON tr.ut_id = ur.ut_id
-            WHERE ud_id = $user_id
-            ORDER BY t.time_lastreplay DESC;";
-                
+            WHERE aptblock_admin = $user_id
+            ORDER BY t.time_lastreplay DESC";
+                        
     $result = pg_query($connection, $q);
 
     // Inizializzo l'array dove salvare i dati dei tickets
@@ -38,7 +38,7 @@
                 'status' => $row['status'],
                 'time_lastreplay' => $row['time_lastreplay'],
                 'comm_text' => $row['comm_text'],
-                'imgs_fname' => $row['imgs_fname'],
+                'img_fname' => $row['img_fname'],
                 'replies' => []
             ];
         }
