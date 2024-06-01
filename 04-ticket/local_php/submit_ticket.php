@@ -102,8 +102,7 @@
         $titolo = htmlspecialchars($_POST["titolo"]);
         $comm_text = htmlspecialchars($_POST["descrizione"]);
         
-        // $id = $_SESSION["ut_id"];
-        $id = 13;
+        $id = $_SESSION["ut_id"];
         $data = date("Y-m-d H:i:s");
 
         //Query per prendere l'id dell'admin
@@ -117,7 +116,7 @@
                             FROM ut_registered ut_r 
                             JOIN req_ut_access req_a ON ut_r.ut_id = req_a.ut_id
                             JOIN ut_owner ut_o ON ut_o.utreq_id = req_a.utreq_id
-                            WHERE ut_r.ut_id = 13";
+                            WHERE ut_r.ut_id = $id";
         $ut_owner_id = pg_fetch_result(pg_query($connection, $qry_ut_owner), 0, 'ut_owner_id');
 
         //Preparo la query
