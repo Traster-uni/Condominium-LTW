@@ -1,14 +1,18 @@
 <?php
     session_start();
-    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
-    // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
     if (!$connection) {
         echo "Errore, connessione non riuscita.<br>";
         exit;
     }
-    
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
     // Controllo se l'utente è autenticato
-   
+    if (!isset($_SESSION['ut_id']) && !isset($_SESSION['email']) && !isset($_SESSION['aptblock_id'])) {
+        header("Location: ./01-login.php");
+    }
+
     $user_id = $_SESSION["ut_id"];
 
     // Query per recuperare i ticket dal database
@@ -40,7 +44,7 @@
                 'status' => $row['status'],
                 'time_lastreplay' => $row['time_lastreplay'],
                 'comm_text' => $row['comm_text'],
-                'imgs_fname' => $row['imgs_fname'],
+                'img_fname' => $row['img_fname'],
                 'replies' => []
             ];
         }

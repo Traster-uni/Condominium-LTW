@@ -6,13 +6,12 @@ if (!$connect) {
   exit();
 }
 
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $id_utente = $_SESSION["ut_id"];
-
-if ($_SESSION['admin']){
+if ($_SESSION['admin'] === "t"){
     $qry_pdata = "SELECT ut_r.*, adm.adm_telephone
                       FROM ut_registered ut_r
                         JOIN aptblock_admin adm ON adm.ut_id = ut_r.ut_id 
@@ -50,9 +49,9 @@ if ($_SESSION['admin']){
         $email = $row['ut_email'];
         $d = $discrizione->format('d/m/Y');
         ?>
-        <p><pre class="tab2">  <?php echo htmlspecialchars($n_m); ?></pre></p>
-        <p><pre class="tab2">  data di nascita: <?php echo htmlspecialchars($dnascita); ?></pre></p>
-        <p><pre class="tab2">  telefono: <?php echo htmlspecialchars($tel); ?></pre></p>
-        <p><pre class="tab2">  email: <?php echo htmlspecialchars($email); ?></pre></p>
+        <p><pre class="tab2">  <?php echo htmlspecialchars($n_m);?></pre></p>
+        <p><pre class="tab2">  data di nascita: <?php echo htmlspecialchars($dnascita);?></pre></p>
+        <p><pre class="tab2">  telefono: <?php echo htmlspecialchars($tel);?></pre></p>
+        <p><pre class="tab2">  email: <?php echo htmlspecialchars($email);?></pre></p>
         <p><pre class="tab2">  data iscrizione: <?php echo htmlspecialchars($d);?></pre></p>
     <?php endwhile; ?>

@@ -25,7 +25,7 @@
             $qry_empw_arr = array();
             $qry_empw_res = pg_query($connection, $qry_empw);
             if (!$qry_empw_res){ // error checking
-                echo "Something went wrong<br>";
+                echo "Something went wrong, check your email or password<br>";
                 echo pg_result_error($qry_empw_res);
             }
 
@@ -36,7 +36,6 @@
             if ($qry_empw_arr){
                 if ($qry_empw_arr["ut_email"] === $email){
                     $s= session_save_path();
-                    echo "session path: $s";
                     $_SESSION["ut_id"] = $qry_empw_arr["ut_id"];
                     $_SESSION["email"] = $qry_empw_arr["ut_email"];
                     $_SESSION["admin"] = false;
@@ -48,17 +47,14 @@
                     } else {
                         echo "connected<br>";
                     }
-                    $qry_adm = "SELECT COUNT(adm.ut_id)
-                                FROM aptblock_admin adm 
-                                    JOIN ut_registered ut_r ON adm.ut_id = ut_r.ut_id
-                                WHERE ut_r.ut_id = ".$_SESSION["ut_id"];
-                    $qry_adm_result = pg_query($conn, $qry_adm);
-                    $qry_adm_arr = pg_fetch_assoc($qry_adm_result);
-                    if (count($qry_adm_arr) == 1){
-                        $_SESSION["admin"] = true;
-                    }
-                    $id_utente = $_SESSION["ut_id"];
-                    $check_admin = pg_query($conn, "SELECT ut_id FROM aptblock_admin WHERE ut_id = $id_utente");
+                    $qry_adm = "SELECT EXISTS(SELECT adm.ut_id
+                                                FROM aptblock_admin adm 
+                                                JOIN ut_registered ut_r ON adm.ut_id = ut_r.ut_id
+                                                WHERE ut_r.ut_id =". $_SESSION["ut_id"] .")";
+                    $qry_adm_res = pg_query($conn, $qry_adm);
+                    $_SESSION["admin"] = pg_fetch_array($qry_adm_res)[0];
+                    $check_admin = pg_query($conn, "SELECT ut_id FROM aptblock_admin WHERE ut_id =".$_SESSION["ut_id"]);
+
                     if (pg_num_rows($check_admin)) {
                         pg_close($conn);
                         header("Location: ../../01-login_admin.php");

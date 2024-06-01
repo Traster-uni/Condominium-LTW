@@ -10,7 +10,7 @@
   max-height: 0;
   overflow: hidden;
   padding-left: 3%;
-  padding-right: 3%;
+  padding-right: 4%;
   padding-top: 1%;
 }
 
@@ -88,8 +88,6 @@ table tr td {
 
 textarea {
   width: 100%;
-  padding: 10px;
-  margin-top: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;

@@ -28,9 +28,8 @@
   </head>
   <body>
     <?php
-      if (!isset($_SESSION['ut_id']) && !isset($_SESSION['email'])) {
-        header("Location: ./01-login.php");
-        exit();
+      if (!isset($_SESSION['ut_id']) && !isset($_SESSION['email']) && !isset($_SESSION['admin'])) {
+          header("Location: ../../01-login.php");
       }
       ini_set('display_errors', 1);
       ini_set('display_startup_errors', 1);

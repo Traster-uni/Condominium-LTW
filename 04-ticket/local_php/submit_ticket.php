@@ -7,6 +7,12 @@
         exit;
     }
 
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
+    if (!isset($_SESSION['ut_id']) && !isset($_SESSION['email']) && !isset($_SESSION['aptblock_id'])) {
+        header("Location: ./01-login.php");
+    }
     //Prendo i dati dalla form e li vado ad inserire nella tabella sul DB
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $target_fname = null;
@@ -96,7 +102,8 @@
         $titolo = htmlspecialchars($_POST["titolo"]);
         $comm_text = htmlspecialchars($_POST["descrizione"]);
         
-        $id = $_SESSION["ut_id"];
+        // $id = $_SESSION["ut_id"];
+        $id = 13;
         $data = date("Y-m-d H:i:s");
 
         //Query per prendere l'id dell'admin
@@ -106,14 +113,21 @@
                     WHERE req_ut_access.status = 'accepted' 
                     AND req_ut_access.ut_id = $id";
         $admin_id = pg_fetch_result(pg_query($connection, $query), 0, 'admin_id');
+        $qry_ut_owner = "SELECT ut_o.utreq_id as ut_owner_id
+                            FROM ut_registered ut_r 
+                            JOIN req_ut_access req_a ON ut_r.ut_id = req_a.ut_id
+                            JOIN ut_owner ut_o ON ut_o.utreq_id = req_a.utreq_id
+                            WHERE ut_r.ut_id = 13";
+        $ut_owner_id = pg_fetch_result(pg_query($connection, $qry_ut_owner), 0, 'ut_owner_id');
 
         //Preparo la query
         if ($target_fname) {
-            $qry_ticket = "INSERT INTO tickets(ud_id, aptblock_admin, title, comm_text, imgs_fname, time_born, time_lastreplay, status) 
-                        VALUES ('$id', '$admin_id', '$titolo', '$comm_text', '$target_fname', '$data', '$data', 'open')";
+            //                                                                          changed, was imgs_fname
+            $qry_ticket = "INSERT INTO tickets(ud_id, aptblock_admin, title, comm_text, img_fname, time_born, time_lastreplay, status) 
+                        VALUES ($ut_owner_id, $admin_id, '$titolo', '$comm_text', '$target_fname', '$data', '$data', 'open')";
         } else {
             $qry_ticket = "INSERT INTO tickets(ud_id, aptblock_admin, title, comm_text, time_born, time_lastreplay, status) 
-                        VALUES ('$id', '$admin_id', '$titolo', '$comm_text', '$data', '$data', 'open')";
+                        VALUES ($ut_owner_id, $admin_id, '$titolo', '$comm_text', '$data', '$data', 'open')";
         }
         $result_ticket_insert = pg_query($connection, $qry_ticket);
 

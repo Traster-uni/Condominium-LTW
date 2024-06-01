@@ -11,7 +11,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $id_utente = $_SESSION["ut_id"];
-if ($_SESSION['admin']){
+if ($_SESSION['admin'] === "t"){
     $qry_aptb = "SELECT aptb.aptblock_id as id, aptb.addr_aptb, raptc.city, raptc.cap, time_born, time_mod
                     FROM ut_registered ut_r 
                     JOIN req_aptblock_create raptc ON ut_r.ut_id = raptc.ut_id
