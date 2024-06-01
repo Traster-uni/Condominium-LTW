@@ -108,7 +108,7 @@
 
           </div>
 
-          <div class="post-container" id="admin-posts-container">
+          <div class="posts-container" id="admin-posts-container">
 
           </div>
 

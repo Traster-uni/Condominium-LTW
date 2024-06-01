@@ -83,7 +83,7 @@
 .response-button,
 .comment-button {
   padding: 10px 20px;
-  background-color: #4caf50;
+  background-color: #00a6d6;
   color: white;
   border: none;
   border-radius: 4px;
@@ -91,7 +91,7 @@
 }
 
 .response-button:hover {
-  background-color: #45a049;
+  background-color: #80f0ff;
 }
 
 .post-title {
@@ -184,7 +184,7 @@
 }
 
 .posts-container {
-  background-color: rgb(101, 189, 113);
+  background-color: rgb(166 123 91);
   overflow-y: auto;
   border-top: 1px solid #ccc;
 }

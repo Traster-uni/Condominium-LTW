@@ -187,19 +187,19 @@ body {
 
 /* Hover effect for date cells */
 .date-picker:hover {
-  background-color: green;
+  background-color: #00a6d6;
   color: white;
   cursor: pointer;
 }
 
 .selectable:hover {
-  background-color: lightgreen;
+  background-color: #80f0ff;
   cursor: pointer;
 }
 
 .choosen,
 .choosen:hover {
-  background-color: #2f9b3d;
+  background-color: #80f0ff;
 }
 
 /* Header for month and year */
