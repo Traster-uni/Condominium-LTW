@@ -71,7 +71,7 @@
     <!--end of Navigation bar-->
 
     <div class="flexbox">
-      <div style="background-color: rgb(101, 189, 113); width: 20%">
+      <div style="background-color: #A67B5B; width: 20%">
         <div class="profile-pic" style="text-align: center">
           <img src="./global/02-images/default-pic.png" alt="Profile-Pic" />
           <div class="dati" style="text-align: center">

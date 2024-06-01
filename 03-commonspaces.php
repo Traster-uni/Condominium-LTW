@@ -74,7 +74,7 @@
     <!--end of Navigation bar-->
 
     <div class="grid">
-      <div style="background-color: rgb(101, 189, 113)">
+      <div style="background-color: #A67B5B">
         <!--Calendario-->
         <div id="calendar"></div>
         <script>
@@ -217,7 +217,7 @@
           </div>
         <?php endif; ?>
       </div>
-      <div style="background-color: rgb(101, 189, 113)">
+      <div style="background-color: #A67B5B">
         <div id="contatti"></div>
         <script>
           $(function () {

@@ -16,11 +16,11 @@ p {
 }
 
 .green {
-  background-color: #2f9b3d;
+  background-color: #00a6d6;
 }
 
 .lightgreen {
-  background-color: rgb(101, 189, 113);
+  background-color: #a67b5b;
 }
 
 .grid {
@@ -36,7 +36,7 @@ p {
 }
 
 .button {
-  background-color: #2f9b3d;
+  background-color: #00a6d6;
   color: #ffffff;
   font-size: 20px;
   padding: 15px 30px;
@@ -49,7 +49,7 @@ p {
   margin: 6px;
 }
 .button:hover {
-  background-color: #4db65b;
+  background-color: #51cff1;
 }
 
 .close {
@@ -86,7 +86,7 @@ p {
 }
 
 .id-button {
-  background-color: #2f9b3d;
+  background-color: #00a6d6;
   color: #ffffff;
   font-size: 20px;
   padding: 15px;
@@ -102,7 +102,7 @@ p {
 }
 
 .id-button:hover {
-  background-color: #4db65b;
+  background-color: #51cff1;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
