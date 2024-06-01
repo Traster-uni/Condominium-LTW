@@ -51,4 +51,24 @@ function checkDay(event) {
   }
 }
 
-// CONTROLLA CHE L'ORARIO NON VADA IN CONFLITTO CON PRENOTAZIONE GIA' ESISTENTE
+function removeRefusedForms(inizio1, fine1) {
+  let prenotazioni = document.getElementById("prenotazioni-pending");
+  let forms = prenotazioni.getElementsByTagName("form");
+  let formsArray = Array.from(forms);
+
+  formsArray.forEach(function (form) {
+    let inizio2 = document.getElementById("time-inizio-" + form.id);
+    let fine2 = document.getElementById("time-fine-" + form.id);
+
+    if (
+      (inizio2.value >= inizio1 && inizio2.value <= fine1) ||
+      (fine2.value >= inizio1 && fine2.value <= fine1) ||
+      (inizio1 >= inizio2.value && inizio1 <= fine2.value) ||
+      (fine1 >= inizio2.value && fine1 <= fine2.value)
+    ) {
+      $(form).fadeOut(300, function () {
+        form.remove();
+      });
+    }
+  });
+}

@@ -38,8 +38,8 @@
                     <p><?php echo htmlspecialchars($nome);?> <?php echo htmlspecialchars($cognome);?> (<?php echo htmlspecialchars($data);?>)</p>
                     <input type="hidden" name="req_id" value="<?php echo htmlspecialchars($req_id); ?>">
                     <div>
-                        <button class="accetta" type="submit" name="stato" value="accepted" onclick="handleRequest(event, 'accepted', <?php echo htmlspecialchars($req_id); ?>)">Accetta</button>
-                        <button class="rifiuta" type="submit" name="stato" value="refused" onclick="handleRequest(event, 'refused', <?php echo htmlspecialchars($req_id); ?>)">Rifiuta</button>
+                        <button class="accetta" type="submit" name="stato" value="accepted" onclick="handleRequest(event, 'accepted', './global/04-php/request_update.php', <?php echo htmlspecialchars($req_id); ?>)">Accetta</button>
+                        <button class="rifiuta" type="submit" name="stato" value="refused" onclick="handleRequest(event, 'refused', './global/04-php/request_update.php', <?php echo htmlspecialchars($req_id); ?>)">Rifiuta</button>
                     </div>
                 </form>
             <?php endwhile; ?>

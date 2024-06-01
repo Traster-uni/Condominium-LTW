@@ -8,7 +8,7 @@ if (!$connection) {
 }
 
 $id_utente = $_SESSION['ut_id'];
-$result = pg_query($connection, "SELECT * FROM (rental_request JOIN req_ut_access ON ut_owner_id = utreq_id) NATURAL JOIN common_spaces WHERE ut_id = $id_utente AND stat = 'accepted' ORDER BY rental_datetime_start ASC ");
+$result = pg_query($connection, "SELECT * FROM (rental_request JOIN req_ut_access ON ut_owner_id = utreq_id) NATURAL JOIN common_spaces WHERE ut_id = $id_utente AND stat = 'accepted' ORDER BY rental_datetime_start ASC");
 
 ?>
 

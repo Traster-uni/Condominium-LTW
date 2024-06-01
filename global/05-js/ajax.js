@@ -1,9 +1,9 @@
-function handleRequest(event, action, reqId) {
+function handleRequest(event, stato, action, reqId) {
   event.preventDefault();
   $.ajax({
     type: "POST",
-    url: "./global/04-php/request_update.php",
-    data: { req_id: reqId, stato: action },
+    url: action,
+    data: { req_id: reqId, stato: stato },
     success: function (response) {
       const form = $(`#${reqId}`);
       form.fadeOut(300, function () {

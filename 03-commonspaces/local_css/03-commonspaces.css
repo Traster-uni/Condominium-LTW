@@ -23,7 +23,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   text-align: center;
-  margin-top: 3px;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
 .luogo {
@@ -32,8 +33,8 @@
   position: relative;
   overflow: hidden;
   font-size: 20px;
-  margin-top: -3px;
   margin-left: -3px;
+  margin-right: -3px;
 }
 
 .nome-luogo {
@@ -187,10 +188,59 @@
   background-color: #3bbd4c;
 }
 
-.test {
-  background-color: white;
+.prenotazioni-pending {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px;
+  font-size: 18px;
 }
 
-.test:hover {
-  cursor: pointer;
+.prenotazioni-pending form {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 calc(33.3333% - 10px);
+  max-width: calc(33.3333% - 10px);
+  background-color: rgba(101, 189, 113, 0.651);
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px;
+  margin: 5px;
+}
+
+.prenotazioni-pending form div {
+  flex: 1;
+}
+
+.prenotazioni-pending form p {
+  margin-bottom: 10px;
+}
+
+.prenotazioni-pending button {
+  width: 80px;
+  height: 30px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 0.2px;
+  transition: 0.3s;
+}
+
+@media (max-width: 1400px) {
+  .prenotazioni-pending form {
+    flex: 1 1 calc(50% - 10px); /* Adjust for the margin */
+    max-width: calc(50% - 10px); /* Adjust for the margin */
+  }
+}
+
+@media (max-width: 1000px) {
+  .prenotazioni-pending form {
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin: 5px 0; /* No horizontal margin on small screens */
+  }
+}
+
+.prenotazioni-pending img {
+  max-height: 100px;
 }
