@@ -218,14 +218,12 @@
         <?php endif; ?>
       </div>
       <div style="background-color: rgb(101, 189, 113)">
-        <div class="contatti-utili">
-          <ul>
-            <li class="contatti-utili__nome">Nome - Amministratore Cellulare</li>
-            <li class="contatti-utili__nome">Nome - Elettricista Cellulare</li>
-            <li class="contatti-utili__nome">Nome - Fabbro Cellulare</li>
-            <li class="contatti-utili__nome">Nome - Idraulico Cellulare</li>
-          </ul>
-        </div>
+        <div id="contatti"></div>
+        <script>
+          $(function () {
+            $("#contatti").load("./global/06-html/contatti-utili.html");
+          });
+        </script>
       </div>
     </div>
   </body>
