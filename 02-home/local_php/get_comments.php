@@ -8,7 +8,7 @@
             $query = "SELECT post_thread.*, ut_registered.nome, ut_registered.cognome 
                         FROM post_thread
                         JOIN ut_registered ON post_thread.ud_id = ut_registered.ut_id
-                        WHERE post_id = $1 
+                        WHERE post_id = $post_id
                         ORDER BY time_born DESC";
             $result = pg_query_params($connection, $query, array($post_id));
 
@@ -17,7 +17,7 @@
             $query = "SELECT thread_comments.*, ut_registered.nome, ut_registered.cognome 
                         FROM thread_comments
                         JOIN ut_registered ON thread_comments.ut_id = ut_registered.ut_id
-                        WHERE thread_id = $1 
+                        WHERE thread_id = $post_id
                         ORDER BY time_born ASC";
             $result = pg_query_params($connection, $query, array($thread_id));
 

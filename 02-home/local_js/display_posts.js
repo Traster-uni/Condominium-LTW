@@ -117,6 +117,7 @@ function displayPostsAdmin(posts) {
         postElement.classList.add('post');
         postElement.dataset.postId = post.post_id;
         postElement.dataset.offComments = post.off_comments;
+        postElement.dataset.bbName = post.bb_name;
         
         if (post.off_comments === "f") {
             postElement.innerHTML = `
@@ -124,11 +125,11 @@ function displayPostsAdmin(posts) {
                 <h5 class="post-title">${post.title} <span class="post-tag-prova">${post.name_tag}</span></h5>
                 <p class="post-content">${post.ttext}</p>
                 <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
-                <button type="button" class="toggle-comments" data-post-id="${post.post_id}">Commenti</button>
+                <button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bbName="${post.bb_name}">Commenti</button>
                 <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
                 <form class="response-form">
                     <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
-                    <button type="button" class="response-button" data-post-id="${post.post_id}">Rispondi</button>
+                    <button type="button" class="response-button" data-post-id="${post.post_id}" data-bbName="${post.bb_name}">Rispondi</button>
                 </form>
             `;
         } else {
@@ -160,18 +161,19 @@ function displayPostsUd(posts) {
         postElement.classList.add('post');
         postElement.dataset.postId = post.post_id;
         postElement.dataset.offComments = post.off_comments;
-
+        postElement.dataset.bbName = post.bb_name;
+        
         if (post.off_comments === "f") {
             postElement.innerHTML = `
                 <h3 class="post-author">${post.nome} ${post.cognome}</h3>
                 <h5 class="post-title">${post.title} <span class="post-tag-prova">${post.name_tag}</span></h5>
                 <p class="post-content">${post.ttext}</p>
                 <span class="post-date">${new Date(post.time_born).toLocaleDateString()}</span>
-                <button type="button" class="toggle-comments" data-post-id="${post.post_id}">Commenti</button>
+                <button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bbName="${post.bb_name}">Commenti</button>
                 <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
                 <form class="response-form">
                     <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
-                    <button type="button" class="response-button" data-post-id="${post.post_id}">Rispondi</button>
+                    <button type="button" class="response-button" data-post-id="${post.post_id}" data-bbName="${post.bb_name}">Rispondi</button>
                 </form>
             `;
         } else {
@@ -261,11 +263,11 @@ function displayThreads(container, threads) {
             <h5 class="comment-author">${thread.nome} ${thread.cognome}</h5>
             <p class="thread-content">${thread.comm_text}</p>
             <span class="thread-date">${new Date(thread.time_born).toLocaleDateString()}</span>
-            <button type="button" class="toggle-thread-comments" data-thread-id="${thread.thread_id}">Commenti</button>
+            <button type="button" class="toggle-thread-comments" data-thread-id="${thread.thread_id}" data-bbName="${post.bb_name}">Commenti</button>
             <div class="comments" id="comments-${thread.thread_id}" style="display:none;"></div>
             <form class="comment-form">
                 <input type="text" placeholder="Aggiungi un commento..." class="comment-input">
-                <button type="button" class="comment-button" data-thread-id="${thread.thread_id}">Commenta</button>
+                <button type="button" class="comment-button" data-thread-id="${thread.thread_id}" data-bbName="${post.bb_name}">Commenta</button>
             </form>
         `;
         container.appendChild(threadElement);
@@ -366,7 +368,8 @@ function enableAdminFeatures() {
         container.addEventListener('click', async(event) => {
             if (event.target.classList.contains('delete-post-button')) {
                 const postId = event.target.dataset.postId;
-                await deletePost(postId);
+                const type =event.target.dataset.bbName;
+                await deletePost(postId, type);
             }
         });
     });
@@ -381,24 +384,26 @@ function enableAdminFeatures() {
         toggleButton.addEventListener('click', async(event) =>{
             if (container.dataset.offComments === 't') {
                 const postId = event.target.dataset.postId;
-                await enableDisableComment(postId, 'enable');
+                const type = event.target.dataset.bbName;
+                await enableDisableComment(postId, 'enable', type);
             } else {
                 const postId = event.target.dataset.postId;
-                await enableDisableComment(postId, 'disable');
+                const type = event.target.dataset.bbName;
+                await enableDisableComment(postId, 'disable', type);
             }
         })
         container.appendChild(toggleButton);
     });
 }
 
-async function deletePost(postId) {
+async function deletePost(postId, type) {
     try {
         // Chiedi conferma prima di procedere con l'eliminazione
         const confirmation = confirm("Sei sicuro di voler eliminare questo post?");
         if (!confirmation) {
             return; // L'admin ha annullato l'operazione di eliminazione
         }
-        const response = await fetch(`/02-home/local_php/delete_post.php?post_id=${postId}`, {
+        const response = await fetch(`/02-home/local_php/delete_post.php?post_id=${postId}&type=${type}`, {
             method: 'DELETE'
         });
 
@@ -416,7 +421,7 @@ async function deletePost(postId) {
     }
 }
 
-async function enableDisableComment(postId, action) {
+async function enableDisableComment(postId, action, type) {
     try {
         const confirmationMsg = action === 'disable' ?  
             "Sei sicuro di voler silenziare questo post?" :
@@ -426,7 +431,7 @@ async function enableDisableComment(postId, action) {
         if (!confirmation) {
             return; // L'admin ha annullato l'operazione
         }
-        const response = await fetch(`/02-home/local_php/enable_disable_comment.php?post_id=${postId}&action=${action}`, {
+        const response = await fetch(`/02-home/local_php/enable_disable_comment.php?post_id=${postId}&action=${action}&type=${type}`, {
             method: 'GET'
         });
 

@@ -184,6 +184,24 @@ CREATE TABLE IF NOT EXISTS posts(
 	FOREIGN KEY (ut_owner_id) REFERENCES ut_owner(utReq_id),
 	UNIQUE (post_id, bb_id)
 );
+-- NEW!!
+CREATE TABLE IF NOT EXISTS posts_admin(
+	post_id serial,
+	bb_id integer,		-- bullettin board where the post is pinned to
+	aptblockreq_id integer,
+	title varchar(100) NOT NULL,
+	ttext text NOT NULL,
+	time_born timestamp NOT NULL DEFAULT current_timestamp,
+	time_mod timestamp NOT NULL DEFAULT current_timestamp,
+	time_event timestamp,
+	data_json json,		-- to be defined: JSON module for polls and JSON module for payments
+	off_comments bool DEFAULT false,
+	PRIMARY KEY (post_id),
+	FOREIGN KEY (bb_id) REFERENCES aptBlock_bulletinBoard(bb_id),
+	FOREIGN KEY (aptblockreq_id) REFERENCES req_aptBlock_create(aptblockreq_id),
+	UNIQUE (post_id, bb_id)
+);
+
 
 -- may needs deletion and creation
 -- DROP TABLE IF EXISTS post_thread CASCADE

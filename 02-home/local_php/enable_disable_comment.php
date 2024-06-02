@@ -1,15 +1,24 @@
 <?php 
-    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
-    // $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
+    session_start();
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
 
     $post_id = $_GET['post_id'];
+    $post_type = $_GET['type'];
     $action = $_GET['action']; // 'disable' or 'enable
 
     if($action === 'disable') {
-        $query = "UPDATE posts SET off_comments = 't' WHERE post_id = $1";
+        if ($post_type === 'general'){
+            $query = "UPDATE posts SET off_comments = 't' WHERE post_id = $1";
+        } else if ($post_typepe === 'admin'){
+            $query = "UPDATE posts_admin SET off_comments = 't' WHERE post_id = $1";
+        }
 
     } else if ($action === 'enable') {
-        $query = "UPDATE posts SET off_comments = 'f' WHERE post_id = $1";
+        if ($post_type === 'general') {
+            $query = "UPDATE posts SET off_comments = 'f' WHERE post_id = $1";
+        } else if ($post_type === 'admin'){
+            $query = "UPDATE posts SET off_comments = 'f' WHERE post_id = $1";
+        }
 
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Invalid action']);

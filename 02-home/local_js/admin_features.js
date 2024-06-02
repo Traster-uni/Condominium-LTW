@@ -59,7 +59,8 @@ function enableAdminFeatures() {
         container.addEventListener('click', async(event) => {
             if (event.target.classList.contains('delete-post-button')) {
                 const postId = event.target.dataset.postId;
-                await deletePost(postId);
+                const type = event.target.dataset.bb_name;
+                await deletePost(postId, type);
             }
         });
     });
@@ -86,12 +87,12 @@ function enableAdminFeatures() {
 }
 
 // Funzione per eleminiare un post con relativi thread e commenti
-async function deletePost(postId) {
+async function deletePost(postId, type) {
     try {
         const confirmation = confirm('Sei sicuro di voler eliminare questo post?');
         if (!confirmation) return; // Annulla l'eliminazione se l'utente clicca su "Annulla" nella conferma
 
-        const response = await fetch(`/02-home/local_php/delete_post.php?post_id=${postId}`, {
+        const response = await fetch(`/02-home/local_php/delete_post.php?post_id=${postId}&type=${type}`, {
             method: 'DELETE'
         });
 
