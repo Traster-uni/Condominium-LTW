@@ -3,25 +3,27 @@
     //session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        print_r($_SERVER['REQUEST_METHOD']);
         $user_id = $_SESSION['ut_id'];
         $data = json_decode(file_get_contents('php://input'), true);
-        $thread_id = $data['thread_id'];
+        echo "$data";
+        $post_id = $data['post_id'];
         $comm_text = $data['content'];
         $type = $data['type'];
         
         if ($type === "admin") {
-            $query = "INSERT INTO thread_admin_comments (thread_id, comm_text, ut_id, time_born) 
-                        VALUES ($thread_id, $comm_text, $user_id, NOW())";
+            $query = "INSERT INTO thread_admin_comments (post_admin_id, comm_text, ut_id, time_born) 
+                        VALUES ($post_id, $comm_text, $user_id, NOW())";
         } else if ($type === "general"){
-            $query = "INSERT INTO thread_comments (thread_id, comm_text, ut_id, time_born) 
-                        VALUES ($thread_id, $comm_text, $user_id, NOW())";
+            $query = "INSERT INTO thread_comments (post_id, comm_text, ut_id, time_born) 
+                        VALUES ($post_id, $comm_text, $user_id, NOW())";
         }
         $result = pg_query($connection, $query);
 
         if ($result) {
             echo json_encode(['status' => 'success']);
         } else {
-            echo json_encode(['status' => 'error']);
+            echo json_encode(['status' => $_SESSION['ut_id']]);
         }
 
         pg_close($connection);

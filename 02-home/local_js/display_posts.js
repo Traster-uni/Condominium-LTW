@@ -267,27 +267,29 @@ async function gestoreClick(event) {
         }
     }
 
-  if (event.target.classList.contains("toggle-thread-comments")) {
-    const threadId = event.target.dataset.threadId;
-    const commentsDiv = document.getElementById(`comments-${threadId}`);
-    if (commentsDiv.style.display === "none") {
-      const comments = await fetchThreadComments(threadId);
-      displayComments(commentsDiv, comments);
-      commentsDiv.style.display = "block";
-    } else {
-      commentsDiv.style.display = "none";
+    if (event.target.classList.contains("toggle-thread-comments")) {
+        const threadId = event.target.dataset.threadId;
+        const commentsDiv = document.getElementById(`comments-${threadId}`);
+        if (commentsDiv.style.display === "none") {
+            const comments = await fetchThreadComments(threadId);
+            displayComments(commentsDiv, comments);
+            commentsDiv.style.display = "block";
+        } else {
+            commentsDiv.style.display = "none";
+        }
     }
-  }
 
-  if (event.target.classList.contains("comment-button")) {
-    const threadId = event.target.dataset.threadId;
-    const commentInput = event.target.previousElementSibling;
-    const commentText = commentInput.value;
-    if (commentText) {
-      await postComment(threadId, commentText);
-      commentInput.value = "";
+    if (event.target.classList.contains("comment-button")) {
+        const postId = event.target.dataset.postId;
+        console.log(postId);
+        const commentInput = event.target.previousElementSibling;
+        const commentText = commentInput.value;
+        const type = event.target.dataset.bbName;
+        if (commentText) {
+            await postComment(postId, commentText, type);
+            commentInput.value = "";
+        }
     }
-  }
 }
 
 async function fetchThread(postId, type) {
@@ -314,20 +316,16 @@ function displayThreads(container, threads) {
     threadElement.innerHTML = `
             <h5 class="comment-author">${thread.nome} ${thread.cognome}</h5>
             <p class="thread-content">${thread.comm_text}</p>
-            <span class="thread-date">${new Date(
-              thread.time_born
-            ).toLocaleDateString()}</span>
+            <span class="thread-date">${new Date(thread.time_born).toLocaleDateString()}</span>
             <button type="button" class="toggle-thread-comments" data-thread-id="${
               thread.thread_id
-            }" data-bb-name="${post.bb_name}">Commenti</button>
-            <div class="comments" id="comments-${
-              thread.thread_id
-            }" style="display:none;"></div>
+            }>Commenti</button>
+            <div class="comments" id="comments-${thread.thread_id}" style="display:none;"></div>
             <form class="comment-form">
                 <input type="text" placeholder="Aggiungi un commento..." class="comment-input">
                 <button type="button" class="comment-button" data-thread-id="${
                   thread.thread_id
-                }" data-bb-name="${post.bb_name}">Commenta</button>
+                }>Commenta</button>
             </form>
         `;
     container.appendChild(threadElement);
@@ -346,7 +344,7 @@ async function fetchThreadComments(threadId) {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        ///////////////////
+
         console.log('Threads fetched successfully:', threadComments);
         return await response.json();
     } catch (error) {
@@ -372,14 +370,14 @@ function displayComments(container, comments) {
   });
 }
 
-async function postComment(threadId, content, type) {
+async function postComment(postId, content, type) {
     try {
         const response = await fetch('/02-home/local_php/submit_comment.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ thread_id: threadId, content: content, type: type })
+            body: JSON.stringify({ postId: postId, content: content, type: type })
         });
 
     if (!response.ok) {
@@ -404,7 +402,7 @@ async function postThread(postId, content, type) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ post_id: postId, content: content, type: type })
+            body: JSON.stringify({ postId: postId, content: content, type: type })
         });
 
     if (!response.ok) {

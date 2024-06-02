@@ -1,9 +1,9 @@
 <?php
     session_start();
     $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
     //Verifico che la connessione è avvenuta con successo
     if (!$connection) {
         echo "Errore, connessione non riuscita.<br>";
