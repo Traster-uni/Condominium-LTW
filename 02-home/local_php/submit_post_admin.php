@@ -39,8 +39,8 @@
             $aptblockreq_id = pg_fetch_result(pg_query($connection, $qry_aptblockreq_id), 0, 'aptblockreq_id');
             $new_id = pg_fetch_result(pg_query($connection, $qry_post_id), 0, 'new_id');
             echo "($bb_id, $user_id, '$title', '$content', $time_event_f)<br>";
-            $qry_post = "INSERT INTO posts_admin(bb_id, aptblockreq_id, title, ttext, time_born, time_event)
-                            VALUES ($bb_id, $aptblockreq_id, '$title', '$content', NOW(), '$time_event_f');
+            $qry_post = "INSERT INTO posts_admin(bb_id, aptblockreq_id, title, ttext, time_event)
+                            VALUES ($bb_id, $aptblockreq_id, '$title', '$content', '$time_event_f');
                          INSERT INTO tags_posts_admin(name_tag, post_admin_id)
                             VALUES ('$name_tag', $new_id);";
             

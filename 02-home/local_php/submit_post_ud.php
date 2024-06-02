@@ -32,8 +32,8 @@
         $new_id = pg_fetch_result(pg_query($connection, $qry_post), 0, 'new_id');
         $ut_owner_id = pg_fetch_result(pg_query($connection, $qry_ut_owner_id), 0, 'ut_owner_id');
         echo "<br>$bb_id, $ut_owner_id, '$title', '$content', '$name_tag', $new_id<br>";
-        $qry_post = "INSERT INTO posts(bb_id, ut_owner_id, title, ttext, time_born, time_mod)
-                        VALUES ($bb_id, $ut_owner_id, '$title', '$content', NOW(), NOW());
+        $qry_post = "INSERT INTO posts(bb_id, ut_owner_id, title, ttext)
+                        VALUES ($bb_id, $ut_owner_id, '$title', '$content');
                      INSERT INTO tags_posts(name_tag, post_id)
                         VALUES ('$name_tag', $new_id);";
         $result_post_insert = pg_query($connection, $qry_post);
