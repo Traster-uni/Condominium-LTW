@@ -6,14 +6,15 @@
         
         $post_id = $_GET['post_id'];
         $post_type = $_GET['type'];
+        echo "$post_id, $post_type";
         if ($post_type === 'general'){
             $del_qry = "DELETE FROM tags_posts 
-                            WHERE post_id = $post_id;
+                            WHERE post_admin_id = $post_id;
                         DELETE FROM posts 
                             WHERE post_id = $post_id;";
         } else if ($post_type === 'admin'){
-            $del_qry = "DELETE FROM tags_posts 
-                            WHERE post_id = $post_id;
+            $del_qry = "DELETE FROM tags_posts_admin 
+                            WHERE post_admin_id = $post_id;
                         DELETE FROM posts_admin 
                             WHERE post_id = $post_id;";
         }

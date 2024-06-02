@@ -244,6 +244,14 @@ CREATE TABLE IF NOT EXISTS tags_posts(
 	FOREIGN KEY (post_id) REFERENCES posts(post_id)
 );
 
+CREATE TABLE IF NOT EXISTS tags_posts_admin(
+	name_tag varchar(20),
+	post_admin_id integer,
+	PRIMARY KEY (name_tag, post_admin_id),
+	FOREIGN KEY (name_tag) REFERENCES tags(name_tag),
+	FOREIGN KEY (post_admin_id) REFERENCES posts_admin(post_id)
+);
+
 -- tickets are a special kind of threads
 CREATE TABLE IF NOT EXISTS tickets(		
 	ticket_id serial,

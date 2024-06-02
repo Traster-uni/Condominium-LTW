@@ -41,7 +41,7 @@
             echo "($bb_id, $user_id, '$title', '$content', $time_event_f)<br>";
             $qry_post = "INSERT INTO posts_admin(bb_id, aptblockreq_id, title, ttext, time_born, time_event)
                             VALUES ($bb_id, $aptblockreq_id, '$title', '$content', NOW(), '$time_event_f');
-                         INSERT INTO tags_posts(name_tag, post_id)
+                         INSERT INTO tags_posts_admin(name_tag, post_admin_id)
                             VALUES ('$name_tag', $new_id);";
             
             $result_post_insert = pg_query($connection, $qry_post);

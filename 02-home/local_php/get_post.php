@@ -70,7 +70,7 @@ $query = "SELECT
                 JOIN req_aptblock_create r_aptb_c ON aptb.aptblock_id = r_aptb_c.aptblockreq_id
                 JOIN aptblock_admin aptb_adm ON r_aptb_c.ut_id = aptb_adm.ut_id
                 JOIN ut_registered ut_r ON r_aptb_c.ut_id = ut_r.ut_id
-                JOIN tags_posts tp ON tp.post_id = pt_a.post_id
+                JOIN tags_posts_admin tp ON tp.post_admin_id = pt_a.post_id
                 LEFT JOIN tags t ON tp.name_tag = tp.name_tag
                 WHERE r_aptb_c.stat = 'accepted'
             ) as allposts

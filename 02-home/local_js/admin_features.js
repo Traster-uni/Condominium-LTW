@@ -31,6 +31,7 @@ function enableAdminFeatures() {
         deleteButton.textContent = 'Elimina Post';
         deleteButton.classList.add('delete-post-button');
         deleteButton.dataset.postId = container.dataset.postId; // Aggiungi l'ID del post come attributo dei dati
+        deleteButton.dataset.bbName = container.dataset.bbName;
         container.appendChild(deleteButton);
     });
 
@@ -41,6 +42,7 @@ function enableAdminFeatures() {
         deleteButton.textContent = 'Elimina Thread';
         deleteButton.classList.add('delete-thread-button');
         deleteButton.dataset.threadId = container.dataset.threadId; // Aggiungi l'ID del thread come attributo dei dati
+        deleteButton.dataset.bbName = container.dataset.bbName;
         container.appendChild(deleteButton);
     });
 
@@ -51,6 +53,7 @@ function enableAdminFeatures() {
         deleteButton.textContent = 'Elimina Commento';
         deleteButton.classList.add('delete-comment-button');
         deleteButton.dataset.commentId = container.dataset.commentId; // Aggiungi l'ID del commento come attributo dei dati
+        deleteButton.dataset.bbName = container.dataset.bbName;
         container.appendChild(deleteButton);
     });
 
@@ -59,7 +62,7 @@ function enableAdminFeatures() {
         container.addEventListener('click', async(event) => {
             if (event.target.classList.contains('delete-post-button')) {
                 const postId = event.target.dataset.postId;
-                const type = event.target.dataset.bb_name;
+                const type = event.target.dataset.bbName;
                 await deletePost(postId, type);
             }
         });
@@ -70,6 +73,7 @@ function enableAdminFeatures() {
         container.addEventListener('click', async(event) => {
             if (event.target.classList.contains('delete-thread-button')) {
                 const threadId = event.target.dataset.threadId;
+                const type = event.target.dataset.bbName;
                 await deleteThread(threadId);
             }
         });
@@ -80,6 +84,7 @@ function enableAdminFeatures() {
         container.addEventListener('click', async(event) => {
             if (event.target.classList.contains('delete-comment-button')) {
                 const commentId = event.target.dataset.commentId;
+                const type = event.target.dataset.bbName;
                 await deleteComment(commentId);
             }
         });
