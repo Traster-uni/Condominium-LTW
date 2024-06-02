@@ -39,11 +39,18 @@
             $aptblockreq_id = pg_fetch_result(pg_query($connection, $qry_aptblockreq_id), 0, 'aptblockreq_id');
             $new_id = pg_fetch_result(pg_query($connection, $qry_post_id), 0, 'new_id');
             echo "($bb_id, $user_id, '$title', '$content', $time_event_f)<br>";
-            $qry_post = "INSERT INTO posts_admin(bb_id, aptblockreq_id, title, ttext, time_event)
-                            VALUES ($bb_id, $aptblockreq_id, '$title', '$content', '$time_event_f');
-                         INSERT INTO tags_posts_admin(name_tag, post_admin_id)
-                            VALUES ('$name_tag', $new_id);";
-            
+
+            if ($name_tag === 'Evento' || $name_tag === 'Riunione' || $name_tag === 'Avvertenze') {
+                $qry_post = "INSERT INTO posts_admin(bb_id, aptblockreq_id, title, ttext, time_event)
+                                VALUES ($bb_id, $aptblockreq_id, '$title', '$content', '$time_event_f');
+                            INSERT INTO tags_posts_admin(name_tag, post_admin_id)
+                                VALUES ('$name_tag', $new_id);";
+            } else {
+                $qry_post = "INSERT INTO posts_admin(bb_id, aptblockreq_id, title, ttext, time_event)
+                                VALUES ($bb_id, $aptblockreq_id, '$title', '$content', NULL);
+                            INSERT INTO tags_posts_admin(name_tag, post_admin_id)
+                                VALUES ('$name_tag', $new_id);";
+            }
             $result_post_insert = pg_query($connection, $qry_post);
 
             // Verifica se l'inserimento è avvenuto con successo
