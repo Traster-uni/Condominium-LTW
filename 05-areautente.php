@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./05-areautente/local_css/05-areautente.css"/>
     <link rel="stylesheet" href="./global/01-css/fonts.css"/>
     <link rel="stylesheet" href="./global/01-css/tab.css" />
+    <link rel="stylesheet" href="global/01-css/global.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Lato"

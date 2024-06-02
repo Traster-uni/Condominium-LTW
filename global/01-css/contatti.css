@@ -13,3 +13,11 @@
 .contatti li {
   margin: 10px;
 }
+
+.contatti p {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 15px;
+}

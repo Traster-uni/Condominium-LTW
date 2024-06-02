@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./global/01-css/popup.css">
     <link rel="stylesheet" href="./04-ticket/local_css/04-ticket.css" />
     <link rel="stylesheet" href="./global/01-css/fonts.css">
+    <link rel="stylesheet" href="global/01-css/global.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Lato"

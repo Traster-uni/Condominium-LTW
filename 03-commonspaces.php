@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="./03-commonspaces/local_css/03-commonspaces.css" />
     <link rel="stylesheet" href="./global/01-css/contatti.css">
     <link rel="stylesheet" href="./global/01-css/fonts.css">
+    <link rel="stylesheet" href="global/01-css/global.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Lato"

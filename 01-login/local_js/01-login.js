@@ -40,7 +40,7 @@ window.onclick = function (event) {
 };
 
 // Script per scorrere il form
-nextBtn.onclick = () => {
+/* nextBtn.onclick = () => {
   if (currentStep < formSteps.length - 1) {
     currentStep++;
     showStep(currentStep);
@@ -52,4 +52,4 @@ prevBtn.onclick = () => {
     currentStep--;
     showStep(currentStep);
   }
-};
+}; */

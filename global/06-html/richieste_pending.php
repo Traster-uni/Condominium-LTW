@@ -24,7 +24,7 @@
         ?>
 
         <div class="richieste">
-            <p style="font-weight: bold; font-size: 20px; text-align: center;">Richieste di accesso</p>
+            <p class="titolo">Richieste di accesso</p>
             <?php while ($row = pg_fetch_assoc($result)): ?>
                 <?php
                 $req_id = $row['utreq_id'];

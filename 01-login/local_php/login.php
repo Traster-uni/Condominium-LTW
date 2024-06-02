@@ -19,6 +19,7 @@
         if (isset($_POST["login_button"])){
             $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
             $passwd = $_POST["password"];
+
             $qry_empw = "SELECT ut_id, ut_email
                             FROM ut_registered ut_r
                             WHERE ut_r.ut_email = '$email' AND ut_r.passwd = '$passwd'";
@@ -34,37 +35,35 @@
             // close connection
             pg_close($connection);
             if ($qry_empw_arr){
-                if ($qry_empw_arr["ut_email"] === $email){
-                    $s= session_save_path();
-                    $_SESSION["ut_id"] = $qry_empw_arr["ut_id"];
-                    $_SESSION["email"] = $qry_empw_arr["ut_email"];
-                    $_SESSION["admin"] = false;
+                $s = session_save_path();
+                $_SESSION["ut_id"] = $qry_empw_arr["ut_id"];
+                $_SESSION["email"] = $qry_empw_arr["ut_email"];
+                $_SESSION["admin"] = false;
 
-                    $conn = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
-                    if (!$conn) {
-                        echo "Errore, connessione non riuscita.<br>";
-                        exit;
-                    } else {
-                        echo "connected<br>";
-                    }
-                    $qry_adm = "SELECT EXISTS(SELECT adm.ut_id
-                                                FROM aptblock_admin adm 
-                                                JOIN ut_registered ut_r ON adm.ut_id = ut_r.ut_id
-                                                WHERE ut_r.ut_id =". $_SESSION["ut_id"] .")";
-                    $qry_adm_res = pg_query($conn, $qry_adm);
-                    $_SESSION["admin"] = pg_fetch_array($qry_adm_res)[0];
-                    $check_admin = pg_query($conn, "SELECT ut_id FROM aptblock_admin WHERE ut_id =".$_SESSION["ut_id"]);
+                $conn = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
+                if (!$conn) {
+                    echo "Errore, connessione non riuscita.<br>";
+                    exit;
+                } else {
+                    echo "connected<br>";
+                }
+                $qry_adm = "SELECT EXISTS(SELECT adm.ut_id
+                                            FROM aptblock_admin adm 
+                                            JOIN ut_registered ut_r ON adm.ut_id = ut_r.ut_id
+                                            WHERE ut_r.ut_id =". $_SESSION["ut_id"] .")";
+                $qry_adm_res = pg_query($conn, $qry_adm);
+                $_SESSION["admin"] = pg_fetch_array($qry_adm_res)[0];
+                $check_admin = pg_query($conn, "SELECT ut_id FROM aptblock_admin WHERE ut_id =".$_SESSION["ut_id"]);
 
-                    if (pg_num_rows($check_admin)) {
-                        pg_close($conn);
-                        header("Location: ../../01-login_admin.php");
-                    } else {
-                        pg_close($conn);
-                        header("Location: ../../01-login_utente.php");
-                    }
+                if (pg_num_rows($check_admin)) {
+                    pg_close($conn);
+                    header("Location: ../../01-login_admin.php");
+                } else {
+                    pg_close($conn);
+                    header("Location: ../../01-login_utente.php");
                 }
             } else {
-                exit("wrong email or password");
+                echo "Wrong email or password";
             }
         }
     }
