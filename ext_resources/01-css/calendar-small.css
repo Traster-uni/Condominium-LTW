@@ -13,11 +13,10 @@ body {
 
 /* Calendar container */
 .container-calendar {
+  position: relative;
   background: #ffffff;
   padding: 15px;
   max-width: auto;
-  margin: 0 auto;
-  overflow: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
   border-radius: 5px;
@@ -29,7 +28,6 @@ body {
   padding: 15px;
   max-width: auto;
   margin: 0 auto;
-  overflow: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
   border-radius: 5px;
@@ -96,8 +94,7 @@ body {
   padding: 10px;
   border-radius: 4px;
   bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: -10px;
   display: none;
   transition: all 0.3s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -255,3 +252,12 @@ body {
 }
 
 /* Source: https://www.geeksforgeeks.org/how-to-create-a-dynamic-calendar-in-html-css-javascript/ */
+
+@media (max-width: 1650px) {
+  .container-calendar {
+    overflow: auto;
+  }
+  .event-tooltip li {
+    font-size: 12px;
+  }
+}

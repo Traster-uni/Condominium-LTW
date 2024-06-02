@@ -187,7 +187,7 @@ function showCalendar(month, year) {
         // Check if there are events on this date
         if (hasEventOnDate(date, month, year)) {
           cell.classList.add("event-marker");
-          cell.appendChild(createEventTooltip(date, month, year));
+          cell.appendChild(createEventTooltip1(date, month, year));
         }
 
         row.appendChild(cell);
@@ -201,7 +201,7 @@ function showCalendar(month, year) {
 }
 
 // Function to create an event tooltip
-function createEventTooltip(date, month, year) {
+function createEventTooltip1(date, month, year) {
   let tooltip = document.createElement("div");
   tooltip.className = "event-tooltip";
   let eventsOnDate = getEventsOnDate(date, month, year);
@@ -287,14 +287,14 @@ function displayEventsTooltips(posts) {
         tooltip.appendChild(info);
       } else {
         cellRes.classList.add("event-marker");
-        cellRes.appendChild(createTooltip(info));
+        cellRes.appendChild(createEventTooltip(info));
       }
     }
   });
 }
 
 // Crea un tooltip contenente l'evento nel giorno corrispondente
-function createTooltip(info) {
+function createEventTooltip(info) {
   let tooltip = document.createElement("div");
   tooltip.className = "event-tooltip";
   tooltip.appendChild(info);
