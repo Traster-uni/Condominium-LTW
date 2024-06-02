@@ -175,7 +175,7 @@ function addReservations() {
       let cellRes = document.querySelector(selector);
       if (cellRes) {
         if (cellRes.classList.contains("event-marker")) {
-          let orario = document.createElement("p");
+          let orario = document.createElement("li");
           orario.innerHTML = `${item.ora_inizio} - ${item.ora_fine}`;
           let tooltip = cellRes.querySelector("div.event-tooltip");
           tooltip.appendChild(orario);
@@ -192,7 +192,7 @@ function addReservations() {
 function createTooltip(ora_inizio, ora_fine) {
   let tooltip = document.createElement("div");
   tooltip.className = "event-tooltip";
-  let orario = document.createElement("p");
+  let orario = document.createElement("li");
   orario.innerHTML = `${ora_inizio} - ${ora_fine}`;
   tooltip.appendChild(orario);
   return tooltip;

@@ -27,6 +27,7 @@ $query = "SELECT
             allposts.ttext, 
             allposts.time_born, 
             allposts.time_mod, 
+            allposts.time_event,
             allposts.off_comments,
             allposts.name_tag
         FROM (
@@ -40,6 +41,7 @@ $query = "SELECT
                     pt.ttext, 
                     pt.time_born, 
                     pt.time_mod, 
+                    pt.time_event,
                     pt.off_comments,
                     tp.name_tag
                 FROM aptblock aptb 
@@ -62,6 +64,7 @@ $query = "SELECT
                     pt_a.ttext, 
                     pt_a.time_born, 
                     pt_a.time_mod, 
+                    pt_a.time_event,
                     pt_a.off_comments,
                     tp.name_tag
                 FROM aptblock aptb 

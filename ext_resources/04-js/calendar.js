@@ -48,7 +48,7 @@ function deleteEvent(eventId) {
 }
 
 // Function to display reminders
-function displayReminders() {
+/* function displayReminders() {
   reminderList.innerHTML = "";
   for (let i = 0; i < events.length; i++) {
     let event = events[i];
@@ -74,7 +74,7 @@ function displayReminders() {
       reminderList.appendChild(listItem);
     }
   }
-}
+} */
 
 // Function to generate a range of
 // years for the year select input
@@ -197,7 +197,7 @@ function showCalendar(month, year) {
     tbl.appendChild(row);
   }
 
-  displayReminders();
+  /* displayReminders(); */
 }
 
 // Function to create an event tooltip
@@ -244,3 +244,59 @@ function daysInMonth(iMonth, iYear) {
 showCalendar(currentMonth, currentYear);
 
 /* Source: https://www.geeksforgeeks.org/how-to-create-a-dynamic-calendar-in-html-css-javascript/ */
+
+fetchPosts();
+
+async function fetchPosts() {
+  try {
+    const response = await fetch("/02-home/local_php/get_post.php", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const posts = await response.json();
+    displayEventsTooltips(posts);
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+}
+
+// Mostra i giorni che hanno eventi per il luogo corrispondente sul calendario
+function displayEventsTooltips(posts) {
+  const eventi = posts.filter(
+    (post) => post.bb_name === "admin" && post.time_event != null
+  );
+  eventi.forEach(function (evento) {
+    let [data, orario] = evento.time_event.split(" ");
+    let [anno, mese, giorno] = data.split("-").map(Number);
+    let [ora, minuto] = orario.split(":");
+    orario = `${ora}:${minuto}`;
+    let selector = `td.date-picker[data-date='${giorno}'][data-month='${mese}'][data-year='${anno}']`;
+    let cellRes = document.querySelector(selector);
+    if (cellRes) {
+      let info = document.createElement("li");
+      info.innerHTML = `${evento.title} (${orario})`;
+      if (cellRes.classList.contains("event-marker")) {
+        let tooltip = cellRes.querySelector("div.event-tooltip");
+        tooltip.appendChild(info);
+      } else {
+        cellRes.classList.add("event-marker");
+        cellRes.appendChild(createTooltip(info));
+      }
+    }
+  });
+}
+
+// Crea un tooltip contenente l'evento nel giorno corrispondente
+function createTooltip(info) {
+  let tooltip = document.createElement("div");
+  tooltip.className = "event-tooltip";
+  tooltip.appendChild(info);
+  return tooltip;
+}

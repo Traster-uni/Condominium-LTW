@@ -53,6 +53,7 @@
 .post {
   background-color: white;
   padding: 30px;
+  padding-top: 0;
   margin: 5px 0;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -96,16 +97,28 @@
 
 .post-title {
   margin: 0 0 10px;
+  font-size: 22px;
+}
+
+.author-time {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
 }
 
 .post-content {
-  margin: 0 0 10px;
+  margin: 0 0 40px;
 }
 
 .post-date,
 .thread-date {
-  font-size: 0.9em;
+  font-size: 16px;
   color: #888;
+}
+
+.post-author {
+  font-size: 19px;
 }
 
 .thread {
@@ -189,7 +202,8 @@
   border-top: 1px solid #ccc;
 }
 
-.delete-post-button, .enable-disable-comment-button {
+.delete-post-button,
+.enable-disable-comment-button {
   margin-top: 3px;
   margin-right: 3px;
   padding: 5px 10px;
@@ -209,9 +223,9 @@
 }
 
 .enable-disable-comment-button:hover {
-  background-color: rgb(88, 46, 167)
+  background-color: rgb(88, 46, 167);
 }
 
-.tags{
+.tags {
   margin-bottom: 10px;
 }

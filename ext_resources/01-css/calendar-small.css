@@ -102,11 +102,21 @@ body {
   transition: all 0.3s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  width: 100px;
+  width: max-content;
 }
 
 .event-marker:hover .event-tooltip {
   display: block;
+}
+
+.event-tooltip li {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.event-tooltip li:last-child {
+  margin-bottom: 0;
 }
 
 /* Reminder section styling */
@@ -189,7 +199,6 @@ body {
 .date-picker:hover {
   background-color: #00a6d6;
   color: white;
-  cursor: pointer;
 }
 
 .selectable:hover {
