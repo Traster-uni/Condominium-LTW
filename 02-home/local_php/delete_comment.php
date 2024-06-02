@@ -5,7 +5,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
 
         $comment_id = $_GET['comment_id'];
-
+        // type needed
         $del_qry = "DELETE FROM thread_comment 
                     WHERE comment_id = $comment_id";
         $result = pg_query($connection, $del_qry);

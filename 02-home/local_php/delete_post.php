@@ -6,7 +6,7 @@
         
         $post_id = $_GET['post_id'];
         $post_type = $_GET['type'];
-        echo "$post_id, $post_type";
+
         if ($post_type === 'general'){
             $del_qry = "DELETE FROM tags_posts 
                             WHERE post_admin_id = $post_id;

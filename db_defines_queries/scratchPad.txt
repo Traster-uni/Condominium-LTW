@@ -192,7 +192,7 @@ update req_ut_access set status = _status::text::ut_request_stat;
 -- 6. remove old column and type
 alter table req_ut_access drop column _status;
 drop type _ut_request_stat;
-todo: verifica che le immagini di 03-prenota.php siano visualizzate correttamente
+
 ---------------- SQL END ----------------
 tommaso@site.it - service
 
@@ -204,5 +204,10 @@ TODO: Use pg_query_params to execute parameterized queries, preventing SQL injec
 INSERT INTO ut_registered(nome, cognome, d_nascita, telefono, address, citta_residenza, ut_email, passwd) 
                 VALUES ('nome7', 'cognome7', '1999-03-01', '2939420940', 'VIa bruh, 69', 'Catanzaro', 'nome7@site.it', '123');
 
+//todo: form del selettore tempo eventi admin da organizzare accanto
+// 		alla lista dei tags
+//todo: misalligned input elements on the right side
 
-// todo: scopri perche' lo storico condomini non si vede
+// todo: submit_ticket.php errore server generico 500
+// 			04-ticket.php faild 
+

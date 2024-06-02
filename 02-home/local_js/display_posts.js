@@ -239,32 +239,33 @@ function displayPostsUd(posts) {
 }
 
 async function gestoreClick(event) {
-  if (event.target.classList.contains("toggle-comments")) {
-    const postId = event.target.dataset.postId;
-    const type = event.target.dataset.bb_name;
-    const responsesDiv = document.getElementById(`responses-${postId}`);
-    if (responsesDiv.style.display === "none") {
-      const threads = await fetchThread(postId);
-      displayThreads(responsesDiv, threads);
-      responsesDiv.style.display = "block";
-    } else {
-      responsesDiv.style.display = "none";
+    if (event.target.classList.contains('toggle-comments')) {
+        const postId = event.target.dataset.postId;
+        const type = event.target.dataset.bbName;
+        console.log(type);
+        const responsesDiv = document.getElementById(`responses-${postId}`);
+        if (responsesDiv.style.display === 'none') {
+            const threads = await fetchThread(postId, type);
+            displayThreads(responsesDiv, threads);
+            responsesDiv.style.display = 'block';
+        } else {
+            responsesDiv.style.display = 'none';
+        }
     }
-  }
 
-  if (event.target.classList.contains("response-button")) {
-    const postId = event.target.dataset.postId;
-    const type = event.target.dataset.bb_name;
-    const responseInput = event.target.previousElementSibling;
-    const responseText = responseInput.value;
-    if (responseText) {
-      await postThread(postId, responseText);
-      responseInput.value = "";
-      const responsesDiv = document.getElementById(`responses-${postId}`);
-      const threads = await fetchThread(postId, type);
-      displayThreads(responsesDiv, threads);
+    if (event.target.classList.contains('response-button')) {
+        const postId = event.target.dataset.postId;
+        const type = event.target.dataset.bbName;
+        const responseInput = event.target.previousElementSibling;
+        const responseText = responseInput.value;
+        if (responseText) {
+            await postThread(postId, responseText, type);
+            responseInput.value = '';
+            const responsesDiv = document.getElementById(`responses-${postId}`);
+            const threads = await fetchThread(postId, type);
+            displayThreads(responsesDiv, threads);
+        }
     }
-  }
 
   if (event.target.classList.contains("toggle-thread-comments")) {
     const threadId = event.target.dataset.threadId;
@@ -290,18 +291,18 @@ async function gestoreClick(event) {
 }
 
 async function fetchThread(postId, type) {
-  try {
-    const response = await fetch(
-      `/02-home/local_php/get_comments.php?post_id=${postId}&type=${type}`
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+        const response = await fetch(`/02-home/local_php/get_comments.php?post_id=${postId}&type=${type}`, {
+            method: 'GET'
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching threads:', error);
+        return [];
     }
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching threads:", error);
-    return [];
-  }
 }
 
 function displayThreads(container, threads) {
@@ -334,18 +335,24 @@ function displayThreads(container, threads) {
 }
 
 async function fetchThreadComments(threadId) {
-  try {
-    const response = await fetch(
-      `/02-home/local_php/get_comments.php?thread_id=${threadId}`
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+        const response = await fetch(`/02-home/local_php/get_comments.php?thread_id=${threadId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        ///////////////////
+        console.log('Threads fetched successfully:', threadComments);
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching thread comments:', error);
+        return [];
     }
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching thread comments:", error);
-    return [];
-  }
 }
 
 function displayComments(container, comments) {
@@ -365,24 +372,24 @@ function displayComments(container, comments) {
   });
 }
 
-async function postComment(threadId, content) {
-  try {
-    const response = await fetch("/02-home/local_php/submit_comment.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ thread_id: threadId, content: content }),
-    });
+async function postComment(threadId, content, type) {
+    try {
+        const response = await fetch('/02-home/local_php/submit_comment.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ thread_id: threadId, content: content, type: type })
+        });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const commentsDiv = document.getElementById(`comments-${threadId}`);
-    const comments = await fetchThreadComments(threadId);
-    displayComments(commentsDiv, comments);
-    commentsDiv.style.display = "block";
+        const commentsDiv = document.getElementById(`comments-${threadId}`);
+        // const comments = await fetchThreadComments(threadId);
+        displayComments(commentsDiv, comments);
+        commentsDiv.style.display = 'block';
 
     return await response.json();
   } catch (error) {
@@ -390,24 +397,24 @@ async function postComment(threadId, content) {
   }
 }
 
-async function postThread(postId, content) {
-  try {
-    const response = await fetch("/02-home/local_php/submit_thread.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ post_id: postId, content: content }),
-    });
+async function postThread(postId, content, type) {
+    try {
+        const response = await fetch('/02-home/local_php/submit_thread.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ post_id: postId, content: content, type: type })
+        });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const responsesDiv = document.getElementById(`responses-${postId}`);
-    const threads = await fetchThread(postId);
-    displayThreads(responsesDiv, threads);
-    responsesDiv.style.display = "block";
+        const responsesDiv = document.getElementById(`responses-${postId}`);
+        const threads = await fetchThread(postId, type);
+        displayThreads(responsesDiv, threads);
+        responsesDiv.style.display = 'block';
 
     return await response.json();
   } catch (error) {

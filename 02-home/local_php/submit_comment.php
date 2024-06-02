@@ -7,10 +7,16 @@
         $data = json_decode(file_get_contents('php://input'), true);
         $thread_id = $data['thread_id'];
         $comm_text = $data['content'];
+        $type = $data['type'];
         
-        $query = "INSERT INTO thread_comments (thread_id, comm_text, ut_id, time_born) 
-                    VALUES ($1, $2, $3, NOW())";
-        $result = pg_query_params($connection, $query, array($thread_id, $comm_text, $user_id));
+        if ($type === "admin") {
+            $query = "INSERT INTO thread_admin_comments (thread_id, comm_text, ut_id, time_born) 
+                        VALUES ($thread_id, $comm_text, $user_id, NOW())";
+        } else if ($type === "general"){
+            $query = "INSERT INTO thread_comments (thread_id, comm_text, ut_id, time_born) 
+                        VALUES ($thread_id, $comm_text, $user_id, NOW())";
+        }
+        $result = pg_query($connection, $query);
 
         if ($result) {
             echo json_encode(['status' => 'success']);

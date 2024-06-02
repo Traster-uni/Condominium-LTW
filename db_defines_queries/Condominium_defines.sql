@@ -207,15 +207,28 @@ CREATE TABLE IF NOT EXISTS posts_admin(
 -- DROP TABLE IF EXISTS post_thread CASCADE
 CREATE TABLE IF NOT EXISTS post_thread(		
 	thread_id serial,
-	ud_id integer,
+	ut_id integer,
 	post_id integer,	-- therad is related to a certain post
 	comm_text text,
 	time_born timestamp DEFAULT current_timestamp, 		-- current_time
 	time_lastReplay timestamp NOT NULL, -- current_time last reply
 	PRIMARY KEY (thread_id),
 	FOREIGN KEY (post_id) REFERENCES posts(post_id),
-	FOREIGN KEY (ud_id) REFERENCES ut_owner(utReq_id),
+	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id),
 	UNIQUE (thread_id, post_id)
+);
+--NEW!
+CREATE TABLE IF NOT EXISTS post_thread_admin(		
+	thread_id serial,
+	ut_id integer,
+	post_admin_id integer,	-- therad is related to a certain post
+	comm_text text,
+	time_born timestamp DEFAULT current_timestamp, 		-- current_time
+	time_lastReplay timestamp NOT NULL, -- current_time last reply
+	PRIMARY KEY (thread_id),
+	FOREIGN KEY (post_admin_id) REFERENCES posts_admin(post_id),
+	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id),
+	UNIQUE (thread_id, post_admin_id)
 );
 
 -- used for post_thread and tickets
@@ -301,14 +314,30 @@ CREATE TABLE IF NOT EXISTS rental_request(
 	FOREIGN KEY (cs_id) REFERENCES common_spaces(cs_id)
 );
 
+
 CREATE TABLE thread_comments (
+	comment_id SERIAL,
+	thread_id integer,
+	ut_id integer,
+	comm_text TEXT NOT NULL,
+	time_born TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (comment_id),
+	FOREIGN KEY (thread_id) REFERENCES post_thread(thread_id) ON DELETE CASCADE,
+	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
+);
+
+-- NEW!
+CREATE TABLE thread_admin_comments (
     comment_id SERIAL,
-    thread_id INT,
+	thread_id integer,
+	ut_id integer,
     comm_text TEXT NOT NULL,
     time_born TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (comment_id),
-    FOREIGN KEY (thread_id) REFERENCES post_thread(thread_id) ON DELETE CASCADE
+    FOREIGN KEY (thread_id) REFERENCES post_thread_admin(thread_id) ON DELETE CASCADE,
+	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
 );
+
 
 CREATE TABLE ticket_responses (
     response_id SERIAL PRIMARY KEY,
