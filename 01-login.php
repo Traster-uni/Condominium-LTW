@@ -25,7 +25,6 @@
   </head>
   <body>
     <div class="grid">
-      <div class="lightgreen"></div>
       <div>
         <header class="title center green">
           <h1 class="logo">CONDOMINIUM</h1>
