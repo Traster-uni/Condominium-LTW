@@ -65,7 +65,7 @@ function enableUserPosting() {
                     <option value="Danni spazi comuni">Danni spazi comuni</option>
                     <option value="Danno palazzina">Danno palazzina</option>
                     <option value="Lamentela">Lamentela</option>
-                    <option value="Proposta condomino">Proposta condomino</option>
+                    <option value="Proposta condominio">Proposta condominio</option>
                 </select>
                 <textarea id="ud-post-content" name="ud-post-content" placeholder="Scrivi qualcosa..." required></textarea>
                 <input type="submit" value="Invia">

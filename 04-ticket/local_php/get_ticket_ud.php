@@ -18,7 +18,7 @@
             FROM tickets t
             LEFT JOIN ticket_responses tr ON t.ticket_id = tr.ticket_id
             LEFT JOIN ut_registered ur ON tr.ut_id = ur.ut_id
-            WHERE aptblock_admin = $user_id
+            WHERE ud_id = $user_id
             ORDER BY t.time_lastreplay DESC";
                         
     $result = pg_query($connection, $q);
