@@ -183,6 +183,7 @@ function displayTickets(ticketsByYear, currentUserRole) {
     const ticketContent = document.getElementById('ticket-content');
     const ticketReplies = document.getElementById('ticket-replies');
     const ticketResponseForm = document.getElementById('ticket-response-form');
+    const ticketImg = document.getElementById('img-ticket-content');
     const span = document.getElementsByClassName('close')[0];
 
     document.addEventListener('click', function(event) {
@@ -195,9 +196,11 @@ function displayTickets(ticketsByYear, currentUserRole) {
                 ticketStatus.textContent = `Status: ${ticket.status}`;
                 ticketContent.textContent = `${ticket.comm_text}`;
 
-                if (ticket.imgs_fname) {
+                ticketImg.innerHTML = '';
+
+                if (ticket.img_fname) {
                     const imgElement = document.createElement('img');
-                    imgElement.src = ticket.imgs_fname;
+                    imgElement.src = ticket.img_fname;
                     imgElement.className = 'ticket-image';
                     imgElement.style.maxWidth = '200px';
                     imgElement.style.cursor = 'pointer';
@@ -208,7 +211,7 @@ function displayTickets(ticketsByYear, currentUserRole) {
                             imgElement.style.maxWidth = '200px';
                         }
                     });
-                    ticketContent.appendChild(imgElement);
+                    ticketImg.appendChild(imgElement);
                 }
                 
                 ticketReplies.innerHTML = '';
@@ -254,7 +257,7 @@ function displayTickets(ticketsByYear, currentUserRole) {
                 sendResponse.setAttribute('data-ticket-id', ticketId);
 
                 // Aggiunge il pulsante "Chiudi Ticket" per gli admin
-                if (currentUserRole === 'admin') {
+                if (currentUserRole === 'admin' && ticket.status === 'open') {
                     const closeButton = document.createElement('button');
                     closeButton.textContent = 'Chiudi Ticket';
                     closeButton.id = 'close-ticket';
@@ -356,7 +359,7 @@ function displayTickets(ticketsByYear, currentUserRole) {
                 if (data.success) {
                     alert('Ticket chiuso con successo!');
                     modal.style.display = "none";
-                    fetchAndDisplayTickets('04-ticket/local_php/get_ticket_ud.php', 'admin');
+                    location.reload();
                 } else {
                     alert('Errore nella chiusura del ticket. Riprova.');
                 }

@@ -60,7 +60,7 @@
     
             // Set paths according to OS
             $div = DIRECTORY_SEPARATOR;
-            $root = $_SERVER["DOCUMENT_ROOT"] . $div . "tests";
+            $root = $_SERVER["DOCUMENT_ROOT"] . $div . "04-ticket" . $div . "ticket_imgs";
     
             // Ensure email is set in session
             if (!isset($_SESSION['email'])) {
@@ -71,10 +71,12 @@
             $email = $_SESSION['email'];
             $fName = strtolower(basename($_FILES["upload-img"]["name"]));
             $fName = str_replace(" ", "_", $fName);
+            $data = date("Y-m-d_H-i-s");
     
-            $target_dir = sprintf("users%s%s%spictures%sphotos", $div, $email, $div, $div);
+            $target_dir = "users" . $div . $email . $div . "pictures" . $div . $data;
+            //$target_dir = sprintf("users%s%s%spictures%s%s", $div, $email, $div, $div, $data);
+            $relative_path = "04-ticket" . $div . "ticket_imgs" . $div . $target_dir . $div . $fName; // Store relative path
             $target_fname = $root . $div . $target_dir . $div . $fName;
-            $_SESSION['resource_dir'] = $target_dir;
     
             // Create directory if it doesn't exist
             if (!file_exists($root . $div . $target_dir)) {
@@ -91,7 +93,7 @@
                 echo "Type: " . $_FILES["upload-img"]["type"] . "<br>";
                 echo "Size: " . ($_FILES["upload-img"]["size"] / 1024) . " kB<br>";
                 echo "Temp file: " . $_FILES["upload-img"]["tmp_name"] . "<br>";
-                echo "LOCATION: $target_dir";
+                echo "LOCATION: $relative_path";
             } else {
                 echo "File was not uploaded correctly.";
                 exit;
@@ -120,10 +122,10 @@
         $ut_owner_id = pg_fetch_result(pg_query($connection, $qry_ut_owner), 0, 'ut_owner_id'); */
 
         //Preparo la query
-        if ($target_fname) {
+        if ($relative_path) {
             //                                                                          changed, was imgs_fname
             $qry_ticket = "INSERT INTO tickets(ud_id, aptblock_admin, title, comm_text, img_fname, time_born, time_lastreplay, status) 
-                        VALUES ($id, $admin_id, '$titolo', '$comm_text', '$target_fname', '$data', '$data', 'open')";
+                        VALUES ($id, $admin_id, '$titolo', '$comm_text', '$relative_path', '$data', '$data', 'open')";
         } else {
             $qry_ticket = "INSERT INTO tickets(ud_id, aptblock_admin, title, comm_text, time_born, time_lastreplay, status) 
                         VALUES ($id, $admin_id, '$titolo', '$comm_text', '$data', '$data', 'open')";
