@@ -109,7 +109,7 @@
 
         <!-- Modale -->
         <div id="ticket-modal" class="modal">
-          <div class="modal-content">
+          <div class="modal-content" id="modal-content">
             <span class="close">&times;</span>
             <h2>Dettagli del Ticket</h2>
             <p id="ticket-title" class="ticket-title"></p>
@@ -117,6 +117,7 @@
             <p id="ticket-status"></p>
             <p id="ticket-lastReply"></p>
             <div id="ticket-content" class="ticket-content"></div>
+            <div id="img-ticket-content"></div>
             <div id="ticket-replies" class="ticket-replies"></div>
             <div id="ticket-response-form"></div>
           </div>
