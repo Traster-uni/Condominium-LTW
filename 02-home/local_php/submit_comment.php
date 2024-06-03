@@ -1,6 +1,6 @@
 <?php
+    session_start();
     $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
-    //session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         print_r($_SERVER['REQUEST_METHOD']);
