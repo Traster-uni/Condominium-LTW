@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2 (Ubuntu 16.2-1.pgdg22.04+1)
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-06-03 11:02:23
+-- Started on 2024-06-03 11:38:23
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,7 +18,7 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-DROP DATABASE IF EXISTS condominium_ltw;
+DROP DATABASE condominium_ltw;
 --
 -- TOC entry 3720 (class 1262 OID 16389)
 -- Name: condominium_ltw; Type: DATABASE; Schema: -; Owner: admin
@@ -166,7 +166,7 @@ $$;
 ALTER FUNCTION public.define_relative_bulletinboards() OWNER TO admin;
 
 --
--- TOC entry 273 (class 1255 OID 17685)
+-- TOC entry 271 (class 1255 OID 17685)
 -- Name: max_rental_req_accepted_per_user(); Type: FUNCTION; Schema: public; Owner: admin
 --
 
@@ -210,7 +210,7 @@ $$;
 ALTER FUNCTION public.max_rental_req_accepted_per_user() OWNER TO admin;
 
 --
--- TOC entry 276 (class 1255 OID 17617)
+-- TOC entry 275 (class 1255 OID 17617)
 -- Name: new_aptblock(); Type: FUNCTION; Schema: public; Owner: admin
 --
 
@@ -245,7 +245,7 @@ $$;
 ALTER FUNCTION public.new_aptblock() OWNER TO admin;
 
 --
--- TOC entry 277 (class 1255 OID 17888)
+-- TOC entry 276 (class 1255 OID 17888)
 -- Name: rental_req_del_on_accepted(); Type: FUNCTION; Schema: public; Owner: admin
 --
 
@@ -302,7 +302,7 @@ $$;
 ALTER FUNCTION public.rental_req_del_on_accepted() OWNER TO admin;
 
 --
--- TOC entry 275 (class 1255 OID 17614)
+-- TOC entry 277 (class 1255 OID 17614)
 -- Name: rental_req_disj(); Type: FUNCTION; Schema: public; Owner: admin
 --
 
@@ -349,7 +349,7 @@ $$;
 ALTER FUNCTION public.rental_req_disj() OWNER TO admin;
 
 --
--- TOC entry 271 (class 1255 OID 17838)
+-- TOC entry 273 (class 1255 OID 17838)
 -- Name: timestamp_update_on_update_req_ut_access(); Type: FUNCTION; Schema: public; Owner: admin
 --
 
@@ -383,7 +383,7 @@ $$;
 ALTER FUNCTION public.timestamp_update_on_update_req_ut_access() OWNER TO admin;
 
 --
--- TOC entry 274 (class 1255 OID 17840)
+-- TOC entry 272 (class 1255 OID 17840)
 -- Name: timestamp_update_on_update_ticket(); Type: FUNCTION; Schema: public; Owner: admin
 --
 
@@ -417,7 +417,7 @@ $$;
 ALTER FUNCTION public.timestamp_update_on_update_ticket() OWNER TO admin;
 
 --
--- TOC entry 272 (class 1255 OID 17811)
+-- TOC entry 274 (class 1255 OID 17811)
 -- Name: ut_owner_on_accepted_req(); Type: FUNCTION; Schema: public; Owner: admin
 --
 
@@ -2674,7 +2674,7 @@ GRANT USAGE ON SCHEMA public TO user_condominium;
 
 --
 -- TOC entry 3723 (class 0 OID 0)
--- Dependencies: 271
+-- Dependencies: 273
 -- Name: FUNCTION timestamp_update_on_update_req_ut_access(); Type: ACL; Schema: public; Owner: admin
 --
 
@@ -2683,7 +2683,7 @@ GRANT ALL ON FUNCTION public.timestamp_update_on_update_req_ut_access() TO users
 
 --
 -- TOC entry 3724 (class 0 OID 0)
--- Dependencies: 274
+-- Dependencies: 272
 -- Name: FUNCTION timestamp_update_on_update_ticket(); Type: ACL; Schema: public; Owner: admin
 --
 
@@ -3074,7 +3074,7 @@ GRANT UPDATE ON SEQUENCE public.ut_registered_ut_id_seq TO writeonly;
 GRANT ALL ON SEQUENCE public.ut_registered_ut_id_seq TO users_rwu;
 
 
--- Completed on 2024-06-03 11:02:24
+-- Completed on 2024-06-03 11:38:24
 
 --
 -- PostgreSQL database dump complete
