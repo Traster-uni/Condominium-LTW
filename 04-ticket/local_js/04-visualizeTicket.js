@@ -319,11 +319,14 @@ function displayTickets(ticketsByYear, currentUserRole) {
                 const senderName = data.sender_name;
                 replyElement.innerHTML = `
                     <strong>${senderName}:</strong>
-                    <p>${response}</p>
-                    <small>${new Date().toLocaleString()}</small>
+                    <p class="response-text">${response}</p>
+                    <p class="response-time">${new Date().toLocaleString()}</p>
                 `;
-                const responseForm = document.querySelector('#responseText').parentElement;
-                document.getElementById('ticket-replies').insertBefore(replyElement, responseForm);
+
+                const ticketReplies = document.getElementById('ticket-replies')
+                ticketReplies.appendChild(replyElement);
+                //const responseForm = document.querySelector('#responseText').parentElement;
+                //document.getElementById('ticket-replies').insertBefore(replyElement, responseForm);
 
                 document.getElementById('responseText').value = "";
             } else {

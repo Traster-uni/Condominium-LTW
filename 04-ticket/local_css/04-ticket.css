@@ -122,3 +122,9 @@ textarea {
 .button-container button {
   margin-top: 10px;
 }
+
+.ticket-content {
+  word-wrap: break-word;
+  white-space: pre-line;
+  margin-bottom: 10px;
+}

@@ -144,7 +144,7 @@ function displayPostsAdmin(posts) {
       data_evento = "";
     }
 
-    if (post.off_comments === "f") {
+    /* if (post.off_comments === "f") {
       postElement.innerHTML = `
                 <div class="author-time">
                 <p class="post-author">${post.nome} ${post.cognome}</p>
@@ -177,7 +177,31 @@ function displayPostsAdmin(posts) {
                 <p class="post-content">${post.ttext}</p>
                 <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
             `;
-    }
+    } */
+
+    postElement.innerHTML = `
+      <div class="author-time">
+        <p class="post-author">${post.nome} ${post.cognome}</p>
+        <span class="post-date">${data_pubblicazione}</span>
+      </div>
+      <h5 class="post-title">
+        ${post.title}
+        ${data_evento}
+        <span class="post-tag-prova">${post.name_tag}</span>
+      </h5>
+      <p class="post-content">${post.ttext}</p>
+      ${
+        post.off_comments === "f"
+          ? `<button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Commenti</button>`
+          : ""
+      }
+      <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
+      <form class="response-form" style="${post.off_comments === "f" ? "display:block;" : "display:none;"}">
+        <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
+        <button type="button" class="response-button" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Rispondi</button>
+      </form>
+    `;
+
     postContainer.appendChild(postElement);
   });
 
@@ -206,7 +230,7 @@ function displayPostsUd(posts) {
       year: "numeric",
     }).format(time_born);
 
-    if (post.off_comments === "f") {
+    /* if (post.off_comments === "f") {
       postElement.innerHTML = `
                 <div class="author-time">
                 <p class="post-author">${post.nome} ${post.cognome}</p>
@@ -231,7 +255,26 @@ function displayPostsUd(posts) {
                 <p class="post-content">${post.ttext}</p>
                 <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
             `;
-    }
+    } */
+
+    postElement.innerHTML = `
+      <div class="author-time">
+        <p class="post-author">${post.nome} ${post.cognome}</p>
+        <span class="post-date">${data_pubblicazione}</span>
+      </div>
+      <h5 class="post-title">${post.title} <span class="post-tag-prova">${post.name_tag}</span></h5>
+      <p class="post-content">${post.ttext}</p>
+      ${
+        post.off_comments === "f"
+          ? `<button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Commenti</button>`
+          : ""
+      }
+      <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
+      <form class="response-form" style="${post.off_comments === "f" ? "display:block;" : "display:none;"}">
+        <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
+        <button type="button" class="response-button" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Rispondi</button>
+      </form>
+    `;
     postContainer.appendChild(postElement);
   });
 
@@ -242,11 +285,10 @@ async function gestoreClick(event) {
     if (event.target.classList.contains('toggle-comments')) {
         const postId = event.target.dataset.postId;
         const type = event.target.dataset.bbName;
-        console.log(type);
         const responsesDiv = document.getElementById(`responses-${postId}`);
         if (responsesDiv.style.display === 'none') {
             const threads = await fetchThread(postId, type);
-            displayThreads(responsesDiv, threads);
+            displayThreads(responsesDiv, threads, type);
             responsesDiv.style.display = 'block';
         } else {
             responsesDiv.style.display = 'none';
@@ -263,15 +305,16 @@ async function gestoreClick(event) {
             responseInput.value = '';
             const responsesDiv = document.getElementById(`responses-${postId}`);
             const threads = await fetchThread(postId, type);
-            displayThreads(responsesDiv, threads);
+            displayThreads(responsesDiv, threads, type);
         }
     }
 
     if (event.target.classList.contains("toggle-thread-comments")) {
         const threadId = event.target.dataset.threadId;
+        const type = event.target.dataset.bbName;
         const commentsDiv = document.getElementById(`comments-${threadId}`);
         if (commentsDiv.style.display === "none") {
-            const comments = await fetchThreadComments(threadId);
+            const comments = await fetchThreadComments(threadId, type);
             displayComments(commentsDiv, comments);
             commentsDiv.style.display = "block";
         } else {
@@ -280,13 +323,12 @@ async function gestoreClick(event) {
     }
 
     if (event.target.classList.contains("comment-button")) {
-        const postId = event.target.dataset.postId;
-        console.log(postId);
+        const threadId = event.target.dataset.threadId;
         const commentInput = event.target.previousElementSibling;
         const commentText = commentInput.value;
         const type = event.target.dataset.bbName;
         if (commentText) {
-            await postComment(postId, commentText, type);
+            await postComment(threadId, commentText, type);
             commentInput.value = "";
         }
     }
@@ -307,7 +349,7 @@ async function fetchThread(postId, type) {
     }
 }
 
-function displayThreads(container, threads) {
+function displayThreads(container, threads, type) {
   container.innerHTML = "";
   threads.forEach((thread) => {
     const threadElement = document.createElement("div");
@@ -319,22 +361,20 @@ function displayThreads(container, threads) {
             <span class="thread-date">${new Date(thread.time_born).toLocaleDateString()}</span>
             <button type="button" class="toggle-thread-comments" data-thread-id="${
               thread.thread_id
-            }>Commenti</button>
+            }" data-bb-name="${type}">Commenti</button>
             <div class="comments" id="comments-${thread.thread_id}" style="display:none;"></div>
             <form class="comment-form">
                 <input type="text" placeholder="Aggiungi un commento..." class="comment-input">
-                <button type="button" class="comment-button" data-thread-id="${
-                  thread.thread_id
-                }>Commenta</button>
+                <button type="button" class="comment-button" data-thread-id="${thread.thread_id}" data-bb-name="${type}">Commenta</button>
             </form>
         `;
     container.appendChild(threadElement);
   });
 }
 
-async function fetchThreadComments(threadId) {
+async function fetchThreadComments(threadId, type) {
     try {
-        const response = await fetch(`/02-home/local_php/get_comments.php?thread_id=${threadId}`, {
+        const response = await fetch(`/02-home/local_php/get_comments.php?thread_id=${threadId}&type=${type}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -345,9 +385,10 @@ async function fetchThreadComments(threadId) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+        const threadComments = await response.json();
         console.log('Threads fetched successfully:', threadComments);
-        return await response.json();
-    } catch (error) {
+        return threadComments;
+      } catch (error) {
         console.error('Error fetching thread comments:', error);
         return [];
     }
@@ -355,42 +396,40 @@ async function fetchThreadComments(threadId) {
 
 function displayComments(container, comments) {
   container.innerHTML = "";
-  comments.forEach((comment) => {
+  comments.forEach(comment => {
     const commentElement = document.createElement("div");
     commentElement.classList.add("comment");
     commentElement.dataset.commentId = comment.comment_id;
     commentElement.innerHTML = `
             <h5 class="comment-author">${comment.nome} ${comment.cognome}</h5>
             <p class="comment-content">${comment.comm_text}</p>
-            <span class="comment-date">${new Date(
-              comment.time_born
-            ).toLocaleDateString()}</span>
+            <span class="comment-date">${new Date(comment.time_born).toLocaleDateString()}</span>
         `;
     container.appendChild(commentElement);
   });
 }
 
-async function postComment(postId, content, type) {
+async function postComment(threadId, content, type) {
     try {
         const response = await fetch('/02-home/local_php/submit_comment.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ postId: postId, content: content, type: type })
+            body: JSON.stringify({ threadId: threadId, content: content, type: type })
         });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-        const commentsDiv = document.getElementById(`comments-${threadId}`);
-        // const comments = await fetchThreadComments(threadId);
-        displayComments(commentsDiv, comments);
-        commentsDiv.style.display = 'block';
+      const commentsDiv = document.getElementById(`comments-${threadId}`);
+      const comments = await fetchThreadComments(threadId, type);
+      displayComments(commentsDiv, comments);
+      commentsDiv.style.display = 'block';
 
-    return await response.json();
-  } catch (error) {
+      return await response.json();
+    } catch (error) {
     console.error("Error posting comment:", error);
   }
 }
@@ -455,15 +494,10 @@ function enableAdminFeatures() {
     toggleButton.dataset.postId = container.dataset.postId; // Aggiungi l'ID del post come attributo dei dati
     toggleButton.dataset.bbName = container.dataset.bbName;
     toggleButton.addEventListener("click", async (event) => {
-      if (container.dataset.offComments === "t") {
-        const postId = event.target.dataset.postId;
-        const type = event.target.dataset.bbName;
-        await enableDisableComment(postId, "enable", type);
-      } else {
-        const postId = event.target.dataset.postId;
-        const type = event.target.dataset.bbName;
-        await enableDisableComment(postId, "disable", type);
-      }
+      const postId = event.target.dataset.postId;
+      const type = event.target.dataset.bbName;
+      const action = container.dataset.offComments === "t" ? "enable" : "disable";
+      await enableDisableComment(postId, action, type);
     });
     container.appendChild(toggleButton);
   });
@@ -535,8 +569,8 @@ function updatePostElement(postId, action, type) {
   const toggleButton = postElement.querySelector(
     ".enable-disable-comment-button"
   );
-  const responsesDiv = postElement.querySelector(".responses");
   const responseForm = postElement.querySelector(".response-form");
+  const commentsButton = postElement.querySelector(".toggle-comments");
 
   if (action === "disable") {
     postElement.dataset.offComments = "t";
@@ -544,11 +578,17 @@ function updatePostElement(postId, action, type) {
     if (responseForm) {
       responseForm.style.display = "none";
     }
+    if (commentsButton) {
+      commentsButton.style.display = "none";
+    }
   } else {
     postElement.dataset.offComments = "f";
     toggleButton.textContent = "Disabilita commenti";
     if (responseForm) {
       responseForm.style.display = "block";
+    }
+    if (commentsButton) {
+      commentsButton.style.display = "inline-block";
     }
   }
 }

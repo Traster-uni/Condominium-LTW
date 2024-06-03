@@ -112,6 +112,6 @@ def insert_data(data, connection, schema_name="null"):
     
 if __name__ == '__main__':
     config = load_config("database.ini")
-    conn = connect(config, s_name = "tags")
+    conn = connect(config)
 
 # from https://www.postgresqltutorial.com/postgresql-python/connect/

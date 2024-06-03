@@ -1,9 +1,8 @@
 <?php
-    //session_start()
-    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
+    session_start();
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
 
-    //$ut_id = $_SESSION['ut_id'];
-    $ut_id = 7;
+    $ut_id = $_SESSION['ut_id'];
     $data = json_decode(file_get_contents('php://input'), true);
 
     if (!isset($data['ticket_id'], $data['response_text'])) {
@@ -17,8 +16,8 @@
         $response_text = $data['response_text'];
 
         // Verifica se l'utente è un admin
-        $adminQuery = "SELECT COUNT(*) FROM aptblock_admin WHERE ut_id = $1";
-        $adminResult = pg_query_params($connection, $adminQuery, array($ut_id));
+        $adminQuery = "SELECT COUNT(*) FROM aptblock_admin WHERE ut_id = $ut_id";
+        $adminResult = pg_query($connection, $adminQuery);
         if (!$adminResult) {
             throw new Exception('Errore nella verifica dell\'admin');
         }

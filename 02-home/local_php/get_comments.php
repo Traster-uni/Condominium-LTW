@@ -23,6 +23,27 @@
            
             $result = pg_query($connection, $query);
 
+        } else if (isset($_GET['thread_id']) && isset($_GET['type'])){
+            $type = $_GET['type'];
+            $thread_id = $_GET['thread_id'];
+
+            if ($type === 'admin'){
+                $query = "SELECT thread_admin_comments.*, ut_registered.nome, ut_registered.cognome 
+                            FROM thread_admin_comments
+                            JOIN ut_registered ON thread_admin_comments.ut_id = ut_registered.ut_id
+                            WHERE thread_id = $thread_id
+                            ORDER BY time_born DESC";
+
+            } else if ($type === 'general'){
+                $query = "SELECT thread_comments.*, ut_registered.nome, ut_registered.cognome 
+                            FROM thread_comments
+                            JOIN ut_registered ON thread_comments.ut_id = ut_registered.ut_id
+                            WHERE thread_id = $thread_id
+                            ORDER BY time_born DESC";
+            }
+           
+            $result = pg_query($connection, $query);
+            
         } else {
             die('Invalid request');
         }

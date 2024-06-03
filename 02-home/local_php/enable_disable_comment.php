@@ -9,15 +9,15 @@
     if($action === 'disable') {
         if ($post_type === 'general'){
             $query = "UPDATE posts SET off_comments = 't' WHERE post_id = $1";
-        } else if ($post_typepe === 'admin'){
-            $query = "UPDATE posts_admin SET off_comments = 't' WHERE post_admin_id = $1";
+        } else if ($post_type === 'admin'){
+            $query = "UPDATE posts_admin SET off_comments = 't' WHERE post_id = $1";
         }
 
     } else if ($action === 'enable') {
         if ($post_type === 'general') {
             $query = "UPDATE posts SET off_comments = 'f' WHERE post_id = $1";
         } else if ($post_type === 'admin'){
-            $query = "UPDATE posts_admin SET off_comments = 'f' WHERE post_admin_id = $1";
+            $query = "UPDATE posts_admin SET off_comments = 'f' WHERE post_id = $1";
         }
 
     } else {
