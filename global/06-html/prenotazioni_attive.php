@@ -33,7 +33,7 @@
                 $ora_inizio = $data_inizio->format('H:i');
                 $ora_fine = $data_fine->format('H:i');
                 ?>
-                <li><?php echo htmlspecialchars($name); ?> (<?php echo htmlspecialchars($giorno); ?>, <?php echo htmlspecialchars($ora_inizio); ?> - <?php echo htmlspecialchars($ora_fine); ?>)</li>
+                <p>&#x2022; <?php echo htmlspecialchars($name); ?> (<?php echo htmlspecialchars($giorno); ?>, <?php echo htmlspecialchars($ora_inizio); ?> - <?php echo htmlspecialchars($ora_fine); ?>)</p>
             <?php endwhile; ?>
         </div>
     </body>

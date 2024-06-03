@@ -41,7 +41,7 @@ p {
   font-size: 20px;
   padding: 15px 30px;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 5px;
   font-weight: 600;
   letter-spacing: 1px;
   cursor: pointer;
@@ -71,7 +71,7 @@ p {
 }
 
 .id {
-  border-radius: 8px;
+  border-radius: 5px;
   border-style: solid;
   height: 50.5px;
   width: 220px;
@@ -91,7 +91,7 @@ p {
   font-size: 20px;
   padding: 15px;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 5px;
   font-weight: 600;
   letter-spacing: 1px;
   cursor: pointer;

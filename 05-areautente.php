@@ -9,7 +9,6 @@
     <title>Area Utente</title>
     <link rel="stylesheet" href="./02-home/local_css/02-home.css"/>
     <link rel="stylesheet" href="./05-areautente/local_css/05-areautente.css"/>
-    <link rel="stylesheet" href="./global/01-css/fonts.css"/>
     <link rel="stylesheet" href="./global/01-css/tab.css" />
     <link rel="stylesheet" href="global/01-css/global.css" />
     <link
@@ -17,8 +16,8 @@
       href="https://fonts.googleapis.com/css?family=Lato"
     />
     <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Montserrat"
     />
     <link
       rel="stylesheet"

@@ -1,7 +1,6 @@
 a {
   text-decoration: none;
   color: #000;
-  font-family: "Lato", sans-serif;
   &:hover {
     color: white;
     background: #00a6d6;

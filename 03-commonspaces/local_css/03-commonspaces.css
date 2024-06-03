@@ -83,7 +83,7 @@
   font-size: 20px;
   padding: 15px 30px;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 5px;
   font-weight: 200;
   letter-spacing: 1px;
   cursor: pointer;
@@ -175,7 +175,7 @@
   font-size: 20px;
   padding: 5px 10px;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 5px;
   font-weight: 100;
   letter-spacing: 1px;
   cursor: pointer;

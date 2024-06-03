@@ -6,15 +6,14 @@
     <link rel="stylesheet" href="./global/01-css/contatti.css">
     <link rel="stylesheet" href="./global/01-css/popup.css">
     <link rel="stylesheet" href="./04-ticket/local_css/04-ticket.css" />
-    <link rel="stylesheet" href="./global/01-css/fonts.css">
     <link rel="stylesheet" href="global/01-css/global.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Lato"
     />
     <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Montserrat"
     />
     <link
       rel="stylesheet"

@@ -9,7 +9,10 @@
   display: table;
   width: 100%;
   margin: 0;
+  margin-top: 10px;
   padding: 0;
+  border-radius: 5px;
+  background-color: white;
 }
 
 .bacheca-types {
@@ -26,24 +29,16 @@
 
 .bacheca-types__label {
   display: block;
-  margin: 0 -1px -1px 0; /* -1px margin removes double-thickness borders between items */
   padding: 1em 0.25em;
-
-  border: 1px solid #ddd;
-
-  font: 14px/1.5 sans-serif;
   text-align: center;
-
   cursor: pointer;
-}
-
-.bacheca-types__label:hover {
-  background: #fafafa;
+  font-size: 20px;
+  border-radius: 5px;
+  transition: 0.4s;
 }
 
 .bacheca-types__input:checked + .bacheca-types__label {
-  background: #eee;
-  color: #333;
+  background: rgba(158, 232, 255, 0.87);
 }
 
 .tabcontent {
@@ -54,8 +49,8 @@
   background-color: white;
   padding: 30px;
   padding-top: 0;
-  margin: 5px 0;
-  border-radius: 8px;
+  margin: 10px 0;
+  border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -170,10 +165,10 @@
 }
 
 .post-form {
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
   margin-top: 10px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  margin-right: 20px;
 }
 
 .post-form input,
@@ -199,7 +194,6 @@
 .posts-container {
   background-color: rgb(166 123 91);
   overflow-y: auto;
-  border-top: 1px solid #ccc;
 }
 
 .delete-post-button,

@@ -7,15 +7,14 @@
     <link rel="stylesheet" href="./02-home/local_css/02-home.css" />
     <link rel="stylesheet" href="./global/01-css/contatti.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="./global/01-css/fonts.css">
     <link rel="stylesheet" href="global/01-css/global.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Lato"
     />
     <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Montserrat"
     />
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   </head>
@@ -50,7 +49,7 @@
     </script>
     <!--end of Navigation bar-->
     <div class="grid">
-      <div style="background-color: #A67B5B">
+      <div class="brown">
         <!--Calendar-->
         <div id="calendar"></div>
         <script>
@@ -77,7 +76,7 @@
         <?php endif; ?>
 
       </div>
-      <div style="background-color: rgb(255, 255, 255)">
+      <div class="brown">
         <div class="bacheca">
           <div class="bacheca-types">
             <input
@@ -87,7 +86,7 @@
               value="padmin"
               id="padmin"
               onclick="showTab('tab-admin')">
-            <label class="bacheca-types__label" for="padmin">Post Admin</label>
+            <label class="bacheca-types__label" for="padmin">Post admin</label>
           </div>
           <div class="bacheca-types">
             <input
@@ -98,7 +97,7 @@
               id="putente"
               onclick="showTab('tab-utente')">
             <label class="bacheca-types__label" for="putente"
-              >Post Utente</label
+              >Post utenti</label
             >
           </div>
         </div>
@@ -127,7 +126,7 @@
 
         </div>
       </div>
-      <div style="background-color: #A67B5B">
+      <div class="brown">
         <div id="contatti"></div>
         <script>
           $(function () {

@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./03-commonspaces/local_css/03-commonspaces.css" />
     <link rel="stylesheet" href="./global/01-css/contatti.css">
-    <link rel="stylesheet" href="./global/01-css/fonts.css">
     <link rel="stylesheet" href="global/01-css/global.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Lato"
     />
     <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Montserrat"
     />
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Prenota</title>
