@@ -66,9 +66,8 @@
   background-color: #fefefe;
   margin: auto;
   padding: 10px 30px 20px 20px;
-  border: 1px solid #888;
   border-radius: 7px;
-  max-width: 600px;
+  max-width: 500px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
@@ -128,11 +127,15 @@
 }
 
 .modal-body form div select {
-  height: 25px;
-  width: 70%;
+  height: 30px;
+  width: 70.8%;
   border: 1px solid #c0c0c0;
   border-radius: 5px;
-  margin-bottom: 10px;
+}
+
+.modal-body form div input[type="date"] {
+  height: 30px;
+  width: 70.5%;
 }
 
 .submit {
@@ -164,7 +167,6 @@ input[type="file"] {
 label {
   display: block;
   margin-bottom: 5px;
-  font-weight: bold;
 }
 
 .modal-body form select {

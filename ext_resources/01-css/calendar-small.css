@@ -199,13 +199,13 @@ body {
 }
 
 .selectable:hover {
-  background-color: #80f0ff;
+  background-color: #00a6d6;
   cursor: pointer;
 }
 
 .choosen,
 .choosen:hover {
-  background-color: #80f0ff;
+  background-color: #00a6d6;
 }
 
 /* Header for month and year */

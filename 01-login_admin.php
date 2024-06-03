@@ -73,96 +73,82 @@
       var check_sent = <?php echo $check_sent; ?>;
     </script>
 
-    <div class="grid">
-      <div class="lightgreen"></div>
-
-      <div>
-        <header class="title center green">
-          <h1 class="logo">CONDOMINIUM</h1>
-        </header>
-
-        <div class="buttons">
-          <?php
-          if (pg_num_rows($check_request) > 0): ?>
-          <p>Hai inviato una richiesta per la creazione di un condominio. Attendi che venga accettata o inviane un'altra.</p>
+    <div class="container">
+      <div class="top blue">
+        <h1 class="logo">CONDOMINIUM</h1>
+      </div>
+      <div class="bottom">
+        <div class="left">
+          <p class="sottotitolo">La community per il tuo condominio</p>
+          <div class="buttons">
+            <button class="button" id="aptblock-button"> CREA CONDOMINIO </button>
+          </div>
+          <?php if (pg_num_rows($check_request) > 0): ?>
+            <p>Hai inviato una richiesta per la creazione di un condominio. Attendi che venga accettata o inviane un'altra.</p>
           <?php endif; ?>
 
-          <button class="button" id="aptblock-button"> CREA CONDOMINIO </button>
-        </div>
-
-        <!--Modale per la registrazione-->
-        <div class="modal" id="modal-aptblock">
-          <div class="modal-content">
-            <div class="modal-header"><h2>Creazione condominio</h2></div>
-            <div class="modal-body">
-              <form action="./01-login/local_php/new_aptblock.php" method="POST" id="aptblockForm">
-
-                <label for="città">Città</label>
-                <select name="città" id="città" required>
-                    <option value="">Seleziona</option>
-                    <option value="Torino">Torino</option>
-                    <option value="Aosta">Aosta</option>
-                    <option value="Milano">Milano</option>
-                    <option value="Trento">Trento</option>
-                    <option value="Venezia">Venezia</option>
-                    <option value="Trieste">Trieste</option>
-                    <option value="Genova">Genova</option>
-                    <option value="Bologna">Bologna</option>
-                    <option value="Firenze">Firenze</option>
-                    <option value="Perugia">Perugia</option>
-                    <option value="Ancona">Ancona</option>
-                    <option value="Roma">Roma</option>
-                    <option value="L Aquila">L'Aquila</option>
-                    <option value="Campobasso">Campobasso</option>
-                    <option value="Napoli">Napoli</option>
-                    <option value="Bari">Bari</option>
-                    <option value="Potenza">Potenza</option>
-                    <option value="Catanzaro">Catanzaro</option>
-                    <option value="Palermo">Palermo</option>
-                    <option value="Cagliari">Cagliari</option>
-                </select>
-                
-                <label for="indirizzo">Indirizzo</label>
-                <input type="text" name="indirizzo" id="indirizzo" required>
-
-                <label for="cap">CAP</label>
-                <input type="text" inputmode="numeric" name="cap" id="cap" required>
-
-                <input type="submit" value="Invia" id="submit">
-
-              </form>
-            </div>
-            <div class="modal-footer"></div>
-          </div>
-        </div>
-
-        <div style="padding-left: 40px; padding-right: 40px">
-          <div>
-            <div>
-              <h1>Lorem Ipsum</h1>
-              <h3>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </h3>
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                anim id est laborum consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat.
-              </p>
+          <!--Modale per la creazione condominio-->
+          <div class="modal" id="modal-aptblock">
+            <div class="modal-content">
+              <div class="modal-header"><h2>Creazione condominio</h2></div>
+              <div class="modal-body">
+                <form action="./01-login/local_php/new_aptblock.php" method="POST" id="aptblockForm">
+                  <div>
+                    <label for="città">Città:</label>
+                    <select name="città" id="città" required>
+                      <option value="">Seleziona</option>
+                      <option value="Torino">Torino</option>
+                      <option value="Aosta">Aosta</option>
+                      <option value="Milano">Milano</option>
+                      <option value="Trento">Trento</option>
+                      <option value="Venezia">Venezia</option>
+                      <option value="Trieste">Trieste</option>
+                      <option value="Genova">Genova</option>
+                      <option value="Bologna">Bologna</option>
+                      <option value="Firenze">Firenze</option>
+                      <option value="Perugia">Perugia</option>
+                      <option value="Ancona">Ancona</option>
+                      <option value="Roma">Roma</option>
+                      <option value="L Aquila">L'Aquila</option>
+                      <option value="Campobasso">Campobasso</option>
+                      <option value="Napoli">Napoli</option>
+                      <option value="Bari">Bari</option>
+                      <option value="Potenza">Potenza</option>
+                      <option value="Catanzaro">Catanzaro</option>
+                      <option value="Palermo">Palermo</option>
+                      <option value="Cagliari">Cagliari</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="indirizzo">Indirizzo:</label>
+                    <input type="text" name="indirizzo" id="indirizzo" required>
+                  </div>
+                  <div>
+                    <label for="cap">CAP:</label>
+                    <input type="text" inputmode="numeric" name="cap" id="cap" required>
+                  </div>
+                  <input class="button" type="submit" value="Crea" id="submit">
+                </form>
+              </div>
             </div>
           </div>
         </div>
+          
+        <div class="info">
+          <div>Interagisci con i tuoi condomini e il tuo amministratore pubblicando post e commentando</div>
+          <div>Controlla gli eventi e gli avvisi importanti sul calendario</div>
+          <div>Prenota gli spazi comuni che ti servono</div>
+          <div>Invia ticket al tuo amministratore per qualsiasi tipo di problema</div>
+        </div>
+      </div>
+      <div class="logout">
+        <form action ="global/04-php/logout.php", method="POST">
+          <button>
+            <span class="material-symbols-outlined">logout</span>Log Out
+          </button>
+        </form>
+      </div>
     </div>
-    <div class="lightgreen"></div>
   <script src="./01-login/local_js/01-login_admin.js"></script>
   <!--<script src="global/05-js/hover_text.js"></script>-->
   </body>

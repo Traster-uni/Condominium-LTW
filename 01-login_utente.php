@@ -58,55 +58,44 @@
       var check_sent = <?php echo $check_sent; ?>;
     </script>
 
-    <div class="grid">
-      <div class="lightgreen"></div>
-
-      <div>
-        <header class="title center green">
-          <h1 class="logo">CONDOMINIUM</h1>
-        </header>
-
-        <div class="buttons">
-          <p>Inserisci il codice fornito dall'amministratore del tuo condominio e la tua carta d'identità per entrare.</p>
-          <form class="id-form" enctype="multipart/form-data" action="./01-login/local_php/request_access.php" method="POST">
-            <input type="file" name="upload-img" id="upload-img" required>
-            <input class="id" type="number" name="id" id="id" required>
-            <button class="id-button" id="submit" name="invio"> RICHIEDI ACCESSO </button>
-          </form>
-          <?php
-          if (pg_num_rows($check_request) > 0): ?>
-          <p>Hai inviato una richiesta per entrare nel tuo condominio, attendi che venga accettata.</p>
-          <?php endif; ?>
-        </div>
-
-        <div style="padding-left: 40px; padding-right: 40px">
-          <div>
-            <div>
-              <h1>Lorem Ipsum</h1>
-              <h3>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </h3>
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                anim id est laborum consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat.
-              </p>
+    <div class="container">
+      <div class="top blue">
+        <h1 class="logo">CONDOMINIUM</h1>
+      </div>
+      <div class="bottom">
+        <div class="left-utente">
+            <p class="messaggio">Inserisci il codice fornito dall'amministratore del tuo condominio e la tua carta d'identità per entrare.</p>
+            <div class="buttons">
+              <form class="id-form" enctype="multipart/form-data" action="./01-login/local_php/request_access.php" method="POST">
+                <input class="id" type="number" name="id" id="id" placeholder="ID" required>
+                <input type="file" name="upload-img" id="upload-img" style="display: none;" required>
+                <button class="doc" id="doc">Carica documento</button>
+                <p class="file" id="file"></p>
+                <button class="accesso" id="submit" name="invio"> RICHIEDI ACCESSO </button>
+              </form>
             </div>
-          </div>
+            <?php if (pg_num_rows($check_request) > 0): ?>
+              <p>Hai inviato una richiesta per entrare nel tuo condominio, attendi che venga accettata.</p>
+            <?php endif; ?>
         </div>
+
+        <div class="info">
+          <div>Interagisci con i tuoi condomini e il tuo amministratore pubblicando post e commentando</div>
+          <div>Controlla gli eventi e gli avvisi importanti sul calendario</div>
+          <div>Prenota gli spazi comuni che ti servono</div>
+          <div>Invia ticket al tuo amministratore per qualsiasi tipo di problema</div>
+        </div>
+      </div>
+      <div class="logout">
+        <form action ="global/04-php/logout.php", method="POST">
+          <button>
+            <span class="material-symbols-outlined">logout</span>Log Out
+          </button>
+        </form>
+      </div>
     </div>
-    <div class="lightgreen"></div>
-  <script src="./01-login/local_js/01-login_utente.js"></script>
-  <!--<script src="global/05-js/hover_text.js"></script>-->
+
+    
+    <script src="./01-login/local_js/01-login_utente.js"></script>
   </body>
 </html>

@@ -78,11 +78,11 @@
 }
 
 .bottone {
-  background-color: #00a6d6;
-  color: #ffffff;
+  background-color: white;
+  color: black;
   font-size: 20px;
   padding: 15px 30px;
-  border: 1px solid transparent;
+  border: 2px solid #00a6d6;
   border-radius: 5px;
   font-weight: 200;
   letter-spacing: 1px;
@@ -93,6 +93,7 @@
 
 .bottone:hover {
   background-color: #00a6d6;
+  color: white;
 }
 
 .popup {
@@ -170,11 +171,11 @@
 }
 
 .submit {
-  background-color: #00a6d6;
-  color: #ffffff;
+  background-color: white;
+  color: black;
   font-size: 20px;
   padding: 5px 10px;
-  border: 1px solid transparent;
+  border: 2px solid #00a6d6;
   border-radius: 5px;
   font-weight: 100;
   letter-spacing: 1px;
@@ -186,6 +187,7 @@
 
 .submit:hover {
   background-color: #00a6d6;
+  color: white;
 }
 
 .prenotazioni-pending {

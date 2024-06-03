@@ -30,7 +30,7 @@
 
 .active,
 .openBtn:hover {
-  background-color: rgb(158, 218, 185);
+  background-color: #82cde2;
 }
 
 .descrizione {
@@ -108,7 +108,7 @@ textarea {
   font-weight: 700;
 }
 
-.ticket-replies{
+.ticket-replies {
   max-height: 450px;
   overflow-y: auto;
 }
@@ -116,7 +116,7 @@ textarea {
 .button-container {
   display: flex;
   justify-content: flex-start;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .button-container button {
