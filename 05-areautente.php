@@ -93,8 +93,9 @@
             <span class="material-symbols-outlined">settings</span>Impostazioni
           </button>
           <form action ="global/04-php/logout.php", method="POST">
-            <button class="delete_acc">
+            <button class="logout">
               <span class="material-symbols-outlined">logout</span>Log Out
+            </button>
           </form>
         </div>
       </div>

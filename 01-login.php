@@ -25,7 +25,7 @@ rel="stylesheet"
         </div>
         <div class="bottom">
             <div class="left">
-                <p>La community per il tuo condominio</p>
+                <p class="sottotitolo">La community per il tuo condominio</p>
                 <div class="buttons">
                     <button class="button" id="signin-button"> Registrati </button>
                     <button class="button" id="login-button"> Accedi </button>
@@ -48,7 +48,7 @@ rel="stylesheet"
                             </div>
                             <div>
                             <label for="data-nascita">Data di nascita:</label>
-                            <input type="date" name="data-nascita" id="data-nascita">
+                            <input type="date" name="data-nascita" id="data-nascita" required>
                             </div>
                             <div>
                             <label for="telefono">Telefono:</label>
@@ -56,7 +56,7 @@ rel="stylesheet"
                             </div>
                             <div>
                             <label for="fiscal-code">Codice Fiscale:</label>
-                            <input type="text" name="fiscal-code" maxlength="16" id="fiscal-code">
+                            <input type="text" name="fiscal-code" maxlength="16" id="fiscal-code" required>
                             </div>
                             <div>
                             <label for="address">Indirizzo di residenza:</label>
@@ -137,6 +137,5 @@ rel="stylesheet"
         </div>
     </div>
   <script src="./01-login/local_js/01-login.js"></script>
-  <!--<script src="global/05-js/hover_text.js"></script>-->
 </body>
 </html>

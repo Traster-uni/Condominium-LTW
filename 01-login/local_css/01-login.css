@@ -23,6 +23,15 @@
   max-width: 20%;
 }
 
+.left-utente {
+  display: flex;
+  flex-direction: column;
+  margin-left: 120px;
+  text-align: center;
+  align-items: center;
+  max-width: 30%;
+}
+
 .buttons {
   display: flex;
 }
@@ -44,7 +53,7 @@
   border-radius: 10px;
 }
 
-.left p {
+.sottotitolo {
   font-size: 40px;
   font-weight: bold;
   letter-spacing: 0.5px;
@@ -52,6 +61,11 @@
 
 p {
   font-size: 20px;
+}
+
+.messaggio {
+  font-size: 22px;
+  font-weight: normal;
 }
 
 .logo {
@@ -69,9 +83,10 @@ p {
 
 .button {
   color: #000000;
+  background-color: white;
   font-size: 20px;
   padding: 15px 30px;
-  border: 2px solid #00a6d6;
+  border: 3px solid #00a6d6;
   border-radius: 5px;
   font-weight: 600;
   letter-spacing: 1px;
@@ -83,6 +98,7 @@ p {
 
 .button:hover {
   background-color: #00a6d6;
+  color: white;
 }
 
 .close {
@@ -103,39 +119,81 @@ p {
   display: none;
 }
 
-.id {
-  border-radius: 5px;
-  border-style: solid;
-  height: 50.5px;
-  width: 220px;
-  margin-right: -20px;
-  font-size: 30px;
-}
-
 .id-form {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.id-button {
-  background-color: #00a6d6;
-  color: #ffffff;
+.id {
+  border-radius: 5px;
+  border-style: solid;
+  width: 228px;
+  height: 40px;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.id:focus {
+  outline: none;
+  border-color: black;
+}
+
+.doc {
+  border-radius: 5px;
+  border-style: solid;
+  cursor: pointer;
+  width: 235px;
+  height: 40px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  background-color: white;
+}
+
+.accesso {
+  background-color: white;
   font-size: 20px;
   padding: 15px;
-  border: 1px solid transparent;
+  border: 3px solid #00a6d6;
   border-radius: 5px;
   font-weight: 600;
   letter-spacing: 1px;
   cursor: pointer;
   transition: 0.3s;
-  margin: 6px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
 }
 
-.id-button:hover {
-  background-color: #51cff1;
+.accesso:hover {
+  background-color: #00a6d6;
+  color: white;
+}
+
+.file {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.logout {
+  display: flex;
+  flex: 1;
+  justify-content: end;
+  align-items: end;
+  margin: 40px;
+}
+
+.logout button {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.logout button:hover {
+  background-color: rgb(255, 84, 84);
 }
 
 input[type="number"]::-webkit-outer-spin-button,

@@ -50,8 +50,8 @@ if ($_SESSION['admin'] === "t"){
         $d = $discrizione->format('d/m/Y');
         ?>
         <p><pre class="tab2">  <?php echo htmlspecialchars($n_m);?></pre></p>
-        <p><pre class="tab2">  data di nascita: <?php echo htmlspecialchars($dnascita);?></pre></p>
-        <p><pre class="tab2">  telefono: <?php echo htmlspecialchars($tel);?></pre></p>
-        <p><pre class="tab2">  email: <?php echo htmlspecialchars($email);?></pre></p>
-        <p><pre class="tab2">  data iscrizione: <?php echo htmlspecialchars($d);?></pre></p>
+        <p><pre class="tab2">  Data di nascita: <?php echo htmlspecialchars($dnascita);?></pre></p>
+        <p><pre class="tab2">  Telefono: <?php echo htmlspecialchars($tel);?></pre></p>
+        <p><pre class="tab2">  Email: <?php echo htmlspecialchars($email);?></pre></p>
+        <p><pre class="tab2">  Data di iscrizione: <?php echo htmlspecialchars($d);?></pre></p>
     <?php endwhile; ?>
