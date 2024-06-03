@@ -1,7 +1,6 @@
 <?php
     session_start();
-    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=rinaldo password=service");
-
+    $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
     if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
 
         $thread_id = $_GET['thread_id'];

@@ -96,10 +96,10 @@ async function fetchAndDisplayTickets(fetchUrl, currentUserRole) {
 
 function displayTickets(ticketsByYear, currentUserRole) {
     const tabContainer = document.getElementById('ticket-tab');
-    if (!tabContainer) {
+    /* if (!tabContainer) {
         console.error('Tab container not found');
         return;
-    }
+    } */
     const currentDate = new Date().getFullYear();
     const years = Object.keys(ticketsByYear).sort((a, b) => b - a);
 
