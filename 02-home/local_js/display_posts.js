@@ -35,20 +35,24 @@ function enableAdminPosting() {
   if (adminPostContainer) {
     adminPostContainer.innerHTML = `
             <form action="./02-home/local_php/submit_post_admin.php" class="post-form" id="admin-post-form" method="post">
-                <input type="text" id="admin-post-title" name="admin-post-title" placeholder="Titolo del post" required>
-                <select class="tags" name="tags" id="tags" required>
-                    <option value="">tags</option>
-                    <option value="Evento">Evento (con data)</option>
-                    <option value="Riunione">Riunione (con data)</option>
-                    <option value="Avvertenze">Avvertenze (con data)</option>
-                    <option value="Danni spazi comuni">Danni spazi comuni</option>
-                    <option value="Danno palazzina">Danno palazzina</option>
-                    <option value="Lamentela">Lamentela</option>
-                    <option value="Proposta condominio">Proposta condominio</option>
-                </select>
-                <input type="datetime-local" id="event-datetime" name="event-datetime" style="margin-right: 20px"/>
+                <input class="form-title" type="text" id="admin-post-title" name="admin-post-title" placeholder="Titolo del post" required>
                 <textarea id="admin-post-content" name="admin-post-content" placeholder="Scrivi qualcosa..."></textarea>
-                <input type="submit" value="Invia">
+                <div class="post-form-bottom">
+                  <div class="tags-date">
+                    <select class="tags" name="tags" id="tags" required>
+                      <option value="">Tag</option>
+                      <option value="Evento">Evento (con data)</option>
+                      <option value="Riunione">Riunione (con data)</option>
+                      <option value="Avvertenze">Avvertenze (con data)</option>
+                      <option value="Danni spazi comuni">Danni spazi comuni</option>
+                      <option value="Danno palazzina">Danno palazzina</option>
+                      <option value="Lamentela">Lamentela</option>
+                      <option value="Proposta condominio">Proposta condominio</option>
+                    </select>
+                    <input class="form-date" type="datetime-local" id="event-datetime" name="event-datetime"/>
+                  </div>
+                  <input class="submit-button" type="submit" value="Invia">
+                </div>
             </form>
         `;
   }
@@ -59,16 +63,20 @@ function enableUserPosting() {
   if (userPostContainer) {
     userPostContainer.innerHTML = `
             <form action="./02-home/local_php/submit_post_ud.php" class="post-form" id="user-post-form" method="post">
-                <input type="text" id="ud-post-title" name="ud-post-title" placeholder="Titolo del post" required>
-                <select class="tags" name="tags" id="tags" required>
-                    <option value="">tags</option>
-                    <option value="Danni spazi comuni">Danni spazi comuni</option>
-                    <option value="Danno palazzina">Danno palazzina</option>
-                    <option value="Lamentela">Lamentela</option>
-                    <option value="Proposta condominio">Proposta condominio</option>
-                </select>
+                <input class="form-title" type="text" id="ud-post-title" name="ud-post-title" placeholder="Titolo del post" required>
                 <textarea id="ud-post-content" name="ud-post-content" placeholder="Scrivi qualcosa..." required></textarea>
-                <input type="submit" value="Invia">
+                <div class="post-form-bottom">
+                  <div class="tags-date">
+                    <select class="tags" name="tags" id="tags" required>
+                      <option value="">Tag</option>
+                      <option value="Danni spazi comuni">Danni spazi comuni</option>
+                      <option value="Danno palazzina">Danno palazzina</option>
+                      <option value="Lamentela">Lamentela</option>
+                      <option value="Proposta condominio">Proposta condominio</option>
+                    </select>
+                  </div>
+                  <input class="submit-button" type="submit" value="Invia">
+                </div>
             </form>
         `;
   }
@@ -156,7 +164,7 @@ function displayPostsAdmin(posts) {
                 <span class="post-tag-prova">${post.name_tag}</span>
                 </h5>
                 <p class="post-content">${post.ttext}</p>
-                <button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Commenti</button>
+                <button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Mostra commenti</button>
                 <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
                 <form class="response-form">
                     <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
@@ -192,13 +200,19 @@ function displayPostsAdmin(posts) {
       <p class="post-content">${post.ttext}</p>
       ${
         post.off_comments === "f"
-          ? `<button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Commenti</button>`
+          ? `<button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Mostra commenti</button>`
           : ""
       }
-      <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
-      <form class="response-form" style="${post.off_comments === "f" ? "display:block;" : "display:none;"}">
-        <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
-        <button type="button" class="response-button" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Rispondi</button>
+      <div class="responses" id="responses-${
+        post.post_id
+      }" style="display:none;"></div>
+      <form class="response-form" style="${
+        post.off_comments === "f" ? "display:flex;" : "display:none;"
+      }">
+        <input type="text" placeholder="Aggiungi un commento" class="response-input">
+        <button type="button" class="response-button" data-post-id="${
+          post.post_id
+        }" data-bb-name="${post.bb_name}">Commenta</button>
       </form>
     `;
 
@@ -238,7 +252,7 @@ function displayPostsUd(posts) {
                 </div>
                 <h5 class="post-title">${post.title} <span class="post-tag-prova">${post.name_tag}</span></h5>
                 <p class="post-content">${post.ttext}</p>
-                <button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Commenti</button>
+                <button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Mostra commenti</button>
                 <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
                 <form class="response-form">
                     <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
@@ -262,17 +276,25 @@ function displayPostsUd(posts) {
         <p class="post-author">${post.nome} ${post.cognome}</p>
         <span class="post-date">${data_pubblicazione}</span>
       </div>
-      <h5 class="post-title">${post.title} <span class="post-tag-prova">${post.name_tag}</span></h5>
+      <h5 class="post-title">${post.title} <span class="post-tag-prova">${
+      post.name_tag
+    }</span></h5>
       <p class="post-content">${post.ttext}</p>
       ${
         post.off_comments === "f"
-          ? `<button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Commenti</button>`
+          ? `<button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Mostra commenti</button>`
           : ""
       }
-      <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
-      <form class="response-form" style="${post.off_comments === "f" ? "display:block;" : "display:none;"}">
-        <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
-        <button type="button" class="response-button" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Rispondi</button>
+      <div class="responses" id="responses-${
+        post.post_id
+      }" style="display:none;"></div>
+      <form class="response-form" style="${
+        post.off_comments === "f" ? "display:flex;" : "display:none;"
+      }">
+        <input type="text" placeholder="Aggiungi un commento" class="response-input">
+        <button type="button" class="response-button" data-post-id="${
+          post.post_id
+        }" data-bb-name="${post.bb_name}">Commenta</button>
       </form>
     `;
     postContainer.appendChild(postElement);
@@ -282,71 +304,74 @@ function displayPostsUd(posts) {
 }
 
 async function gestoreClick(event) {
-    if (event.target.classList.contains('toggle-comments')) {
-        const postId = event.target.dataset.postId;
-        const type = event.target.dataset.bbName;
-        const responsesDiv = document.getElementById(`responses-${postId}`);
-        if (responsesDiv.style.display === 'none') {
-            const threads = await fetchThread(postId, type);
-            displayThreads(responsesDiv, threads, type);
-            responsesDiv.style.display = 'block';
-        } else {
-            responsesDiv.style.display = 'none';
-        }
+  if (event.target.classList.contains("toggle-comments")) {
+    const postId = event.target.dataset.postId;
+    const type = event.target.dataset.bbName;
+    const responsesDiv = document.getElementById(`responses-${postId}`);
+    if (responsesDiv.style.display === "none") {
+      const threads = await fetchThread(postId, type);
+      displayThreads(responsesDiv, threads, type);
+      responsesDiv.style.display = "block";
+    } else {
+      responsesDiv.style.display = "none";
     }
+  }
 
-    if (event.target.classList.contains('response-button')) {
-        const postId = event.target.dataset.postId;
-        const type = event.target.dataset.bbName;
-        const responseInput = event.target.previousElementSibling;
-        const responseText = responseInput.value;
-        if (responseText) {
-            await postThread(postId, responseText, type);
-            responseInput.value = '';
-            const responsesDiv = document.getElementById(`responses-${postId}`);
-            const threads = await fetchThread(postId, type);
-            displayThreads(responsesDiv, threads, type);
-        }
+  if (event.target.classList.contains("response-button")) {
+    const postId = event.target.dataset.postId;
+    const type = event.target.dataset.bbName;
+    const responseInput = event.target.previousElementSibling;
+    const responseText = responseInput.value;
+    if (responseText) {
+      await postThread(postId, responseText, type);
+      responseInput.value = "";
+      const responsesDiv = document.getElementById(`responses-${postId}`);
+      const threads = await fetchThread(postId, type);
+      displayThreads(responsesDiv, threads, type);
     }
+  }
 
-    if (event.target.classList.contains("toggle-thread-comments")) {
-        const threadId = event.target.dataset.threadId;
-        const type = event.target.dataset.bbName;
-        const commentsDiv = document.getElementById(`comments-${threadId}`);
-        if (commentsDiv.style.display === "none") {
-            const comments = await fetchThreadComments(threadId, type);
-            displayComments(commentsDiv, comments);
-            commentsDiv.style.display = "block";
-        } else {
-            commentsDiv.style.display = "none";
-        }
+  if (event.target.classList.contains("toggle-thread-comments")) {
+    const threadId = event.target.dataset.threadId;
+    const type = event.target.dataset.bbName;
+    const commentsDiv = document.getElementById(`comments-${threadId}`);
+    if (commentsDiv.style.display === "none") {
+      const comments = await fetchThreadComments(threadId, type);
+      displayComments(commentsDiv, comments);
+      commentsDiv.style.display = "block";
+    } else {
+      commentsDiv.style.display = "none";
     }
+  }
 
-    if (event.target.classList.contains("comment-button")) {
-        const threadId = event.target.dataset.threadId;
-        const commentInput = event.target.previousElementSibling;
-        const commentText = commentInput.value;
-        const type = event.target.dataset.bbName;
-        if (commentText) {
-            await postComment(threadId, commentText, type);
-            commentInput.value = "";
-        }
+  if (event.target.classList.contains("comment-button")) {
+    const threadId = event.target.dataset.threadId;
+    const commentInput = event.target.previousElementSibling;
+    const commentText = commentInput.value;
+    const type = event.target.dataset.bbName;
+    if (commentText) {
+      await postComment(threadId, commentText, type);
+      commentInput.value = "";
     }
+  }
 }
 
 async function fetchThread(postId, type) {
-    try {
-        const response = await fetch(`/02-home/local_php/get_comments.php?post_id=${postId}&type=${type}`, {
-            method: 'GET'
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('Error fetching threads:', error);
-        return [];
+  try {
+    const response = await fetch(
+      `/02-home/local_php/get_comments.php?post_id=${postId}&type=${type}`,
+      {
+        method: "GET",
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching threads:", error);
+    return [];
+  }
 }
 
 function displayThreads(container, threads, type) {
@@ -355,17 +380,24 @@ function displayThreads(container, threads, type) {
     const threadElement = document.createElement("div");
     threadElement.classList.add("thread");
     threadElement.dataset.threadId = thread.thread_id;
+    const time_born = new Date(thread.time_born);
+    const data_pubblicazione = new Intl.DateTimeFormat("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }).format(time_born);
+
     threadElement.innerHTML = `
-            <h5 class="comment-author">${thread.nome} ${thread.cognome}</h5>
-            <p class="thread-content">${thread.comm_text}</p>
-            <span class="thread-date">${new Date(thread.time_born).toLocaleDateString()}</span>
-            <button type="button" class="toggle-thread-comments" data-thread-id="${
-              thread.thread_id
-            }" data-bb-name="${type}">Commenti</button>
+            <div class="author-time">
+              <p class="thread-author">${thread.nome} ${thread.cognome}</p>
+              <span class="post-date">${data_pubblicazione}</span>
+            </div>
+            <p class="post-content">${thread.comm_text}</p>
+            <button type="button" class="toggle-thread-comments" data-thread-id="${thread.thread_id}" data-bb-name="${type}">Mostra commenti</button>
             <div class="comments" id="comments-${thread.thread_id}" style="display:none;"></div>
             <form class="comment-form">
-                <input type="text" placeholder="Aggiungi un commento..." class="comment-input">
-                <button type="button" class="comment-button" data-thread-id="${thread.thread_id}" data-bb-name="${type}">Commenta</button>
+                <input type="text" placeholder="Aggiungi un commento" class="comment-input">
+                <button type="button" class="response-button" data-thread-id="${thread.thread_id}" data-bb-name="${type}">Commenta</button>
             </form>
         `;
     container.appendChild(threadElement);
@@ -373,85 +405,94 @@ function displayThreads(container, threads, type) {
 }
 
 async function fetchThreadComments(threadId, type) {
-    try {
-        const response = await fetch(`/02-home/local_php/get_comments.php?thread_id=${threadId}&type=${type}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+  try {
+    const response = await fetch(
+      `/02-home/local_php/get_comments.php?thread_id=${threadId}&type=${type}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const threadComments = await response.json();
-        console.log('Threads fetched successfully:', threadComments);
-        return threadComments;
-      } catch (error) {
-        console.error('Error fetching thread comments:', error);
-        return [];
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const threadComments = await response.json();
+    console.log("Threads fetched successfully:", threadComments);
+    return threadComments;
+  } catch (error) {
+    console.error("Error fetching thread comments:", error);
+    return [];
+  }
 }
 
 function displayComments(container, comments) {
   container.innerHTML = "";
-  comments.forEach(comment => {
+  comments.forEach((comment) => {
     const commentElement = document.createElement("div");
     commentElement.classList.add("comment");
     commentElement.dataset.commentId = comment.comment_id;
     commentElement.innerHTML = `
             <h5 class="comment-author">${comment.nome} ${comment.cognome}</h5>
             <p class="comment-content">${comment.comm_text}</p>
-            <span class="comment-date">${new Date(comment.time_born).toLocaleDateString()}</span>
+            <span class="comment-date">${new Date(
+              comment.time_born
+            ).toLocaleDateString()}</span>
         `;
     container.appendChild(commentElement);
   });
 }
 
 async function postComment(threadId, content, type) {
-    try {
-        const response = await fetch('/02-home/local_php/submit_comment.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ threadId: threadId, content: content, type: type })
-        });
+  try {
+    const response = await fetch("/02-home/local_php/submit_comment.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        threadId: threadId,
+        content: content,
+        type: type,
+      }),
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-      const commentsDiv = document.getElementById(`comments-${threadId}`);
-      const comments = await fetchThreadComments(threadId, type);
-      displayComments(commentsDiv, comments);
-      commentsDiv.style.display = 'block';
+    const commentsDiv = document.getElementById(`comments-${threadId}`);
+    const comments = await fetchThreadComments(threadId, type);
+    displayComments(commentsDiv, comments);
+    commentsDiv.style.display = "block";
 
-      return await response.json();
-    } catch (error) {
+    return await response.json();
+  } catch (error) {
     console.error("Error posting comment:", error);
   }
 }
 
 async function postThread(postId, content, type) {
-    try {
-        const response = await fetch('/02-home/local_php/submit_thread.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ postId: postId, content: content, type: type })
-        });
+  try {
+    const response = await fetch("/02-home/local_php/submit_thread.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ postId: postId, content: content, type: type }),
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-        const responsesDiv = document.getElementById(`responses-${postId}`);
-        const threads = await fetchThread(postId, type);
-        displayThreads(responsesDiv, threads);
-        responsesDiv.style.display = 'block';
+    const responsesDiv = document.getElementById(`responses-${postId}`);
+    const threads = await fetchThread(postId, type);
+    displayThreads(responsesDiv, threads);
+    responsesDiv.style.display = "block";
 
     return await response.json();
   } catch (error) {
@@ -496,7 +537,8 @@ function enableAdminFeatures() {
     toggleButton.addEventListener("click", async (event) => {
       const postId = event.target.dataset.postId;
       const type = event.target.dataset.bbName;
-      const action = container.dataset.offComments === "t" ? "enable" : "disable";
+      const action =
+        container.dataset.offComments === "t" ? "enable" : "disable";
       await enableDisableComment(postId, action, type);
     });
     container.appendChild(toggleButton);
