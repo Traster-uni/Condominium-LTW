@@ -173,6 +173,7 @@ body {
 
 .table-calendar td,
 .table-calendar th {
+  max-width: 10px;
   padding: 5px;
   border: 1px solid #00000057;
   text-align: center;

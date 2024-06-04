@@ -103,7 +103,11 @@
       </div>
       <div class="colonna-centrale">
         <?php
-        $prenotazioni_pending = pg_query($connection, "SELECT * FROM ((rental_request JOIN req_ut_access ON ut_owner_id = utreq_id) NATURAL JOIN ut_registered) NATURAL JOIN common_spaces WHERE stat = 'pending' ORDER BY submit_time ASC");
+        $prenotazioni_pending = pg_query($connection, "SELECT * FROM (((rental_request JOIN req_ut_access ON ut_owner_id = utreq_id) 
+                                                                      NATURAL JOIN ut_registered) NATURAL JOIN common_spaces) 
+                                                                      JOIN req_aptblock_create ON aptblockreq_id = aptb_id 
+                                                                      WHERE rental_request.stat = 'pending' AND req_aptblock_create.ut_id = $id_utente 
+                                                                      ORDER BY submit_time ASC");
         ?>
         <?php if ($check_admin): ?>
           <div class="prenotazioni-pending" id="prenotazioni-pending">
