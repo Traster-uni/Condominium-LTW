@@ -4,9 +4,10 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<title>Condominium</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Condominium</title>
+<link rel="icon" type="image/x-icon" href="favicon.png">
 <link rel="stylesheet" href="./01-login/local_css/01-login.css" />
 <link rel="stylesheet" href="./global/01-css/popup.css">
 <link rel="stylesheet" href="global/01-css/global.css"/>

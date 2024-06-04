@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prenotazioni</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
     <link rel="stylesheet" href="./03-commonspaces/local_css/03-commonspaces.css" />
     <link rel="stylesheet" href="./global/01-css/contatti.css">
     <link rel="stylesheet" href="global/01-css/global.css" />
