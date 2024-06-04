@@ -116,7 +116,7 @@ function displayPostsAdmin(posts) {
   postContainer.innerHTML = "";
 
   if (posts.length === 0) {
-    postContainer.innerHTML = "<p>Nessun post presente</p>";
+    postContainer.innerHTML = "<p></p>";
     return;
   }
 
@@ -227,7 +227,7 @@ function displayPostsUd(posts) {
   postContainer.innerHTML = "";
 
   if (posts.length === 0) {
-    postContainer.innerHTML = "<p>Nessun post presente</p>";
+    postContainer.innerHTML = "<p></p>";
     return;
   }
 
