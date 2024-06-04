@@ -139,19 +139,19 @@ AS $$
 	rq_status_old = TD["old"]["stat"]
 	rq_status_new = TD["new"]["stat"]
 
-	ut_id 		= TD["old"]["ut_id"]
-	aptBlock_id = TD["old"]["aptblockreq_id"]
-	addr_aptB 	= TD["old"]["addr_aptb"]
-	city 		= TD["old"]["city"]
-	cap 		= TD["old"]["cap"]
+	ut_id 		= TD["new"]["ut_id"]
+	aptBlock_id = TD["new"]["aptblockreq_id"]
+	addr_aptB 	= TD["new"]["addr_aptb"]
+	city 		= TD["new"]["city"]
+	cap 		= TD["new"]["cap"]
 
 	if rq_status_old == "pending":
 		if rq_status_new == "refused":
 			raise plpy.error(f"The request was refused, aborting operation")
 
 		elif rq_status_new == "accepted":
-			qry = f"INSERT INTO aptBlock(aptBlock_id, addr_aptb, city, cap)
-					 VALUES({aptBlock_id}, '{addr_aptB}', '{city}', '{cap}');"
+			qry = f"""INSERT INTO aptBlock(aptBlock_id, addr_aptb, city, cap)
+					VALUES({aptBlock_id}, '{addr_aptB}', '{city}', '{cap}');"""
 			plpy.prepare(qry)
 			try:
 				plpy.execute(qry)
@@ -184,7 +184,7 @@ AS $$
 	try:
 		plpy.execute(qry_geneal)
 	except plpy.SPIError as e:
-		raise "something went wrong with the insertion of the general bboard"
+		raise plpy.error("something went wrong with the insertion of the general bboard")
 	try:
 		plpy.execute(qry_admin)
 	except plpy.SPIError as e:
