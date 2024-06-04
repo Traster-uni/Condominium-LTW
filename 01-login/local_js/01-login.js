@@ -38,18 +38,3 @@ window.onclick = function (event) {
     currentStep = 0;
   }
 };
-
-// Script per scorrere il form
-/* nextBtn.onclick = () => {
-  if (currentStep < formSteps.length - 1) {
-    currentStep++;
-    showStep(currentStep);
-  }
-};
-
-prevBtn.onclick = () => {
-  if (currentStep > 0) {
-    currentStep--;
-    showStep(currentStep);
-  }
-}; */

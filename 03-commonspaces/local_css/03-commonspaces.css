@@ -121,6 +121,10 @@
   border-radius: 10px;
   text-align: left;
   z-index: 5;
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.3s;
+  animation-name: animatetop;
+  animation-duration: 0.3s;
 }
 
 .popup:after {
@@ -209,6 +213,10 @@
   font-size: 18px;
 }
 
+.prenotazioni-pending img {
+  max-height: 100px;
+}
+
 .prenotazioni-pending form {
   box-sizing: border-box;
   display: flex;
@@ -230,6 +238,7 @@
 }
 
 .prenotazioni-pending button {
+  background-color: white;
   width: 80px;
   height: 30px;
   font-size: 16px;
@@ -242,8 +251,8 @@
 
 @media (max-width: 1400px) {
   .prenotazioni-pending form {
-    flex: 1 1 calc(50% - 10px); /* Adjust for the margin */
-    max-width: calc(50% - 10px); /* Adjust for the margin */
+    flex: 1 1 calc(50% - 10px);
+    max-width: calc(50% - 10px);
   }
 }
 
@@ -251,10 +260,28 @@
   .prenotazioni-pending form {
     flex: 1 1 100%;
     max-width: 100%;
-    margin: 5px 0; /* No horizontal margin on small screens */
+    margin: 5px 0;
   }
 }
 
-.prenotazioni-pending img {
-  max-height: 100px;
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 100;
+    opacity: 1;
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 100;
+    opacity: 1;
+  }
 }

@@ -7,7 +7,7 @@ body {
 }
 
 .flexbox {
-  min-height: 92.4vh;
+  height: 100vh;
   margin-top: 70px;
   flex-direction: row;
   display: flex;
@@ -57,7 +57,6 @@ body {
   position: absolute;
   bottom: 2rem;
   width: 20%;
-  font-size: small;
 }
 
 .flexbox .tab button:last-child:hover {

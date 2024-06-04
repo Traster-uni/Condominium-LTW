@@ -17,12 +17,12 @@ function show(id) {
   return (document.getElementById(id).style.display = "grid");
 }
 
-// Chiudi il popup cliccando sul tasto X
+// Chiude il popup cliccando sul tasto X
 function hide(id) {
   return (document.getElementById(id).style.display = "none");
 }
 
-// Chiudi il popup cliccando fuori da esso
+// Chiude il popup cliccando fuori
 window.addEventListener("click", ({ target }) => {
   if (
     target.id !== "prenota" &&
@@ -44,6 +44,7 @@ function checkTime(event) {
   }
 }
 
+// Controlla che l'utente abbia selezionato un giorno
 function checkDay(event) {
   if (!document.getElementById("giorno").value) {
     event.preventDefault();
@@ -51,6 +52,7 @@ function checkDay(event) {
   }
 }
 
+// Rimuove dinamicamente le prenotazioni che vanno in conflitto di data con quella appena accettata
 function removeRefusedForms(inizio1, fine1) {
   let prenotazioni = document.getElementById("prenotazioni-pending");
   let forms = prenotazioni.getElementsByTagName("form");
