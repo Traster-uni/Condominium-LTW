@@ -94,17 +94,17 @@ AS $$
 			SELECT rr.rental_req_id 
 			FROM rental_request rr
 			WHERE(
-			date_part('day', timestamp '2024-06-01 11:00:00') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
+			date_part('day', timestamp '{rt_dt_s}') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
 			OR 
-			date_part('day', timestamp '2024-06-01 15:00:00') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
+			date_part('day', timestamp '{rt_dt_e}') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
 			)AND(
-			date_part('hour', timestamp '2024-06-01 11:00:00') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)	
+			date_part('hour', timestamp '{rt_dt_s}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)	
 			OR
-			date_part('hour', timestamp '2024-06-01 15:00:00') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)
+			date_part('hour', timestamp '{rt_dt_e}') BETWEEN date_part('hour', rr.rental_datetime_start) AND date_part('hour', rr.rental_datetime_end)
 			)OR(
-			date_part('day', timestamp '2024-06-01 15:00:00') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
+			date_part('day', timestamp '{rt_dt_s}') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
 			AND
-			date_part('day', timestamp '2024-06-01 15:00:00') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
+			date_part('day', timestamp '{rt_dt_e}') BETWEEN date_part('day', rr.rental_datetime_start) AND date_part('day', rr.rental_datetime_end)
 			)
 			AND rr.stat = 'pending' AND rr.cs_id = {rt_cs_id}
 			"""
