@@ -196,7 +196,7 @@ $$ LANGUAGE plpython3u;
 CREATE OR REPLACE TRIGGER insert_bulletinBoard_on_aptBlock_creation 
 	AFTER INSERT ON aptBlock
 	FOR EACH ROW EXECUTE FUNCTION define_relative_bulletinBoards();
--- Triggers insertion of admin and general board once a new aptBlock has been defined.
+
 
 CREATE OR REPLACE FUNCTION timestamp_update_on_update_ticket() RETURNS trigger
 AS $$ 
@@ -288,6 +288,3 @@ CREATE OR REPLACE TRIGGER ut_owner_on_accepted_req
 	AFTER UPDATE ON req_ut_access
 	FOR EACH ROW EXECUTE FUNCTION ut_owner_on_accepted_req();
 
--- TO MODIFY TRIGGERS:
--- DROP TRIGGER rental_req_stamp ON rental_request;
--- DROP FUNCTION max_rental_req_accepted_per_user();

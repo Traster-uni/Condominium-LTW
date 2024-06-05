@@ -1,11 +1,10 @@
 <?php
-    
     session_start();
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-    // TODO: CONTROLLO SE L'UTENTE GIA ESISTE PRIMA DI CREARE RUOLO
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
+
     // Prendo i dati dalla form e li vado ad inserire nella tabella sul DB
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         

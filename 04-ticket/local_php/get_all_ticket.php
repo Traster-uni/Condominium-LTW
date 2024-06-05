@@ -5,9 +5,9 @@
         echo "Errore, connessione non riuscita.<br>";
         exit;
     }
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
     // Controllo se l'utente è autenticato
     if (!isset($_SESSION['ut_id']) && !isset($_SESSION['email']) && !isset($_SESSION['aptblock_id'])) {
         header("Location: ./01-login.php");

@@ -6,7 +6,6 @@
         exit;
     }
 
-    //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SESSION['admin']) {
         $data = json_decode(file_get_contents('php://input'), true);
         $ticket_id = $data['ticket_id'];

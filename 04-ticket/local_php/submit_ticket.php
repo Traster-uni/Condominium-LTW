@@ -114,16 +114,9 @@
                     WHERE req_ut_access.status = 'accepted' 
                     AND req_ut_access.ut_id = $id";
         $admin_id = pg_fetch_result(pg_query($connection, $query), 0, 'admin_id');
-        /* $qry_ut_owner = "SELECT ut_o.utreq_id as ut_owner_id
-                            FROM ut_registered ut_r 
-                            JOIN req_ut_access req_a ON ut_r.ut_id = req_a.ut_id
-                            JOIN ut_owner ut_o ON ut_o.utreq_id = req_a.utreq_id
-                            WHERE ut_r.ut_id = $id";
-        $ut_owner_id = pg_fetch_result(pg_query($connection, $qry_ut_owner), 0, 'ut_owner_id'); */
 
         //Preparo la query
         if ($relative_path) {
-            //                                                                          changed, was imgs_fname
             $qry_ticket = "INSERT INTO tickets(ud_id, aptblock_admin, title, comm_text, img_fname, time_born, time_lastreplay, status) 
                         VALUES ($id, $admin_id, '$titolo', '$comm_text', '$relative_path', '$data', '$data', 'open')";
         } else {
