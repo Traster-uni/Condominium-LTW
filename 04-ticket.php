@@ -140,9 +140,6 @@
       </div>
     </div>
     
-    <script src="./04-ticket/local_js/04-visualizeTicket.js"></script>
-    <!-- <script src="./04-ticket/local_js/04-ticket.js"></script> -->
-    <!-- <script src="./04-ticket/local_js/04-submitTicket.js"></script> -->
-    
+    <script src="./04-ticket/local_js/04-visualizeTicket.js"></script>    
   </body>
 </html>

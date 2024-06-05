@@ -10,7 +10,6 @@
     <link rel="icon" type="image/x-icon" href="favicon.png">
     <link rel="stylesheet" href="./02-home/local_css/02-home.css"/>
     <link rel="stylesheet" href="./05-areautente/local_css/05-areautente.css"/>
-    <link rel="stylesheet" href="./global/01-css/tab.css" />
     <link rel="stylesheet" href="global/01-css/global.css" />
     <link
       rel="stylesheet"

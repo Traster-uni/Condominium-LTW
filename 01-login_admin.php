@@ -151,6 +151,5 @@
       </div>
     </div>
   <script src="./01-login/local_js/01-login_admin.js"></script>
-  <!--<script src="global/05-js/hover_text.js"></script>-->
   </body>
 </html>

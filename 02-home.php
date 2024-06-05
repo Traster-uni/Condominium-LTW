@@ -139,6 +139,5 @@
   <script src="./02-home/local_js/02-home.js"></script>
   <script>document.getElementById("padmin").click();</script>
   <script src="./02-home/local_js/display_posts.js"></script>
-  <!-- <script src="./02-home/local_js/admin_features.js"></script> -->
   </body>
 </html>
