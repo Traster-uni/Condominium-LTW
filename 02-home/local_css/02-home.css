@@ -86,6 +86,7 @@
   border: 1px solid #9b9b9b;
 }
 
+.comment-button,
 .response-button {
   font-size: 16px;
   min-width: 10%;

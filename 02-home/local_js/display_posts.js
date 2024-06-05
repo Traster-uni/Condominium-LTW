@@ -389,15 +389,15 @@ function displayThreads(container, threads, type) {
 
     threadElement.innerHTML = `
             <div class="author-time">
-              <p class="thread-author">${thread.nome} ${thread.cognome}</p>
-              <span class="post-date">${data_pubblicazione}</span>
+              <p class="comment-author">${thread.nome} ${thread.cognome}</p>
+              <span class="thread-date">${data_pubblicazione}</span>
             </div>
-            <p class="post-content">${thread.comm_text}</p>
+            <p class="thread-content">${thread.comm_text}</p>
             <button type="button" class="toggle-thread-comments" data-thread-id="${thread.thread_id}" data-bb-name="${type}">Mostra commenti</button>
             <div class="comments" id="comments-${thread.thread_id}" style="display:none;"></div>
             <form class="comment-form">
-                <input type="text" placeholder="Aggiungi un commento" class="comment-input">
-                <button type="button" class="response-button" data-thread-id="${thread.thread_id}" data-bb-name="${type}">Commenta</button>
+              <input type="text" placeholder="Aggiungi un commento" class="comment-input">
+              <button type="button" class="comment-button" data-thread-id="${thread.thread_id}" data-bb-name="${type}">Commenta</button>
             </form>
         `;
     container.appendChild(threadElement);
