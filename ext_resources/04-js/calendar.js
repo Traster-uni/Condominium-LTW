@@ -247,6 +247,7 @@ showCalendar(currentMonth, currentYear);
 
 fetchPosts();
 
+// Metto tutti i post in un array
 async function fetchPosts() {
   try {
     const response = await fetch("/02-home/local_php/get_post.php", {
