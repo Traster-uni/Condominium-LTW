@@ -136,7 +136,7 @@ function daysInMonth(iMonth, iYear) {
 // Call the showCalendar1 function initially to display the calendar
 showCalendar1(currentMonth1, currentYear1);
 
-/* Source: https://www.geeksforgeeks.org/how-to-create-a-dynamic-calendar-in-html-css-javascript/ */
+/* Fonte: https://www.geeksforgeeks.org/how-to-create-a-dynamic-calendar-in-html-css-javascript/ */
 
 // Prendi i valori della data relativa al giorno cliccato sul calendario
 function getDays() {
