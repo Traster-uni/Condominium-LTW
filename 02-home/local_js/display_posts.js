@@ -152,41 +152,6 @@ function displayPostsAdmin(posts) {
       data_evento = "";
     }
 
-    /* if (post.off_comments === "f") {
-      postElement.innerHTML = `
-                <div class="author-time">
-                <p class="post-author">${post.nome} ${post.cognome}</p>
-                <span class="post-date">${data_pubblicazione}</span>
-                </div>
-                <h5 class="post-title">
-                ${post.title}
-                ${data_evento}
-                <span class="post-tag-prova">${post.name_tag}</span>
-                </h5>
-                <p class="post-content">${post.ttext}</p>
-                <button type="button" class="toggle-comments" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Mostra commenti</button>
-                <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
-                <form class="response-form">
-                    <input type="text" placeholder="Aggiungi una risposta..." class="response-input">
-                    <button type="button" class="response-button" data-post-id="${post.post_id}" data-bb-name="${post.bb_name}">Rispondi</button>
-                </form>
-            `;
-    } else {
-      postElement.innerHTML = `
-                <div class="author-time">
-                <p class="post-author">${post.nome} ${post.cognome}</p>
-                <span class="post-date">${data_pubblicazione}</span>
-                </div>
-                <h5 class="post-title">
-                ${post.title}
-                ${data_evento}
-                <span class="post-tag-prova">${post.name_tag}</span>
-                </h5>
-                <p class="post-content">${post.ttext}</p>
-                <div class="responses" id="responses-${post.post_id}" style="display:none;"></div>
-            `;
-    } */
-
     postElement.innerHTML = `
       <div class="author-time">
         <p class="post-author">${post.nome} ${post.cognome}</p>

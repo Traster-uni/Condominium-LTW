@@ -151,9 +151,6 @@ CREATE TABLE IF NOT EXISTS ut_personal_documents(
 	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
 );
 
--- https://stackoverflow.com/questions/54500/storing-images-in-postgresql
-
--- [bb](0,N) <---> (0,N) [post] (0,N) <---> (0,1) [thread] (1,N) <---> (1,1) [reply]
 
 CREATE TABLE IF NOT EXISTS aptBlock_bulletinBoard(
 	aptBlock_id integer NOT NULL,
@@ -165,7 +162,6 @@ CREATE TABLE IF NOT EXISTS aptBlock_bulletinBoard(
 	FOREIGN KEY (aptBlock_id) REFERENCES aptBlock(aptBlock_id),
 	UNIQUE (bb_id, aptBlock_id)
 );
--- drop table aptBlock_bulletinBoard cascade
 
 
 CREATE TABLE IF NOT EXISTS posts(
@@ -177,14 +173,15 @@ CREATE TABLE IF NOT EXISTS posts(
 	time_born timestamp NOT NULL DEFAULT current_timestamp,
 	time_mod timestamp NOT NULL DEFAULT current_timestamp,
 	time_event timestamp,
-	data_json json,		-- to be defined: JSON module for polls and JSON module for payments
+	data_json json,		
 	off_comments bool DEFAULT false,
 	PRIMARY KEY (post_id),
 	FOREIGN KEY (bb_id) REFERENCES aptBlock_bulletinBoard(bb_id),
 	FOREIGN KEY (ut_owner_id) REFERENCES ut_owner(utReq_id),
 	UNIQUE (post_id, bb_id)
 );
--- NEW!!
+
+
 CREATE TABLE IF NOT EXISTS posts_admin(
 	post_id serial,
 	bb_id integer,		-- bullettin board where the post is pinned to
@@ -194,7 +191,7 @@ CREATE TABLE IF NOT EXISTS posts_admin(
 	time_born timestamp NOT NULL DEFAULT current_timestamp,
 	time_mod timestamp NOT NULL DEFAULT current_timestamp,
 	time_event timestamp,
-	data_json json,		-- to be defined: JSON module for polls and JSON module for payments
+	data_json json,		
 	off_comments bool DEFAULT false,
 	PRIMARY KEY (post_id),
 	FOREIGN KEY (bb_id) REFERENCES aptBlock_bulletinBoard(bb_id),
@@ -203,8 +200,6 @@ CREATE TABLE IF NOT EXISTS posts_admin(
 );
 
 
--- may needs deletion and creation
--- DROP TABLE IF EXISTS post_thread CASCADE
 CREATE TABLE IF NOT EXISTS post_thread(		
 	thread_id serial,
 	ut_id integer,
@@ -217,7 +212,8 @@ CREATE TABLE IF NOT EXISTS post_thread(
 	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id),
 	UNIQUE (thread_id, post_id)
 );
---NEW!
+
+
 CREATE TABLE IF NOT EXISTS post_thread_admin(		
 	thread_id serial,
 	ut_id integer,
@@ -231,7 +227,7 @@ CREATE TABLE IF NOT EXISTS post_thread_admin(
 	UNIQUE (thread_id, post_admin_id)
 );
 
--- used for post_thread and tickets
+
 CREATE TABLE IF NOT EXISTS reply_thread(
 	thread_id integer,
 	ud_id integer,
@@ -240,8 +236,6 @@ CREATE TABLE IF NOT EXISTS reply_thread(
 	FOREIGN KEY (thread_id) REFERENCES post_thread(thread_id),
 	FOREIGN KEY (ud_id) REFERENCES ut_owner(utReq_id)
 );
--- ogni messaggio di raply ad un post crea un thread
--- 		ogni messaggio di risposta ad un thread crea un reply 
 
 
 CREATE TABLE IF NOT EXISTS tags(
@@ -280,7 +274,7 @@ CREATE TABLE IF NOT EXISTS tickets(
 	FOREIGN KEY (aptBlock_admin) REFERENCES aptBlock_admin(ut_id),
 	FOREIGN KEY (ud_id) REFERENCES ut_owner(utReq_id)
 );
--- TRIGGER: max 5 tickets per ud_id
+
 
 CREATE TABLE IF NOT EXISTS tags_tickets(
 	name_tag varchar(20),
@@ -290,6 +284,7 @@ CREATE TABLE IF NOT EXISTS tags_tickets(
 	FOREIGN KEY (ticket_id) REFERENCES tickets(ticket_id)
 );
  
+
 CREATE TABLE IF NOT EXISTS common_spaces(
 	cs_id serial,
 	aptb_id integer,
@@ -300,6 +295,7 @@ CREATE TABLE IF NOT EXISTS common_spaces(
 	PRIMARY KEY (cs_id),
 	FOREIGN KEY  (aptb_id) REFERENCES TO aptBlock(aptBlock_id)
  );
+
 
 CREATE TABLE IF NOT EXISTS rental_request(
 	rental_req_id serial,
@@ -326,7 +322,7 @@ CREATE TABLE thread_comments (
 	FOREIGN KEY (ut_id) REFERENCES ut_registered(ut_id)
 );
 
--- NEW!
+
 CREATE TABLE thread_admin_comments (
     comment_id SERIAL,
 	thread_id integer,
@@ -346,10 +342,4 @@ CREATE TABLE ticket_responses (
     ut_id INTEGER REFERENCES ut_registered(ut_id) NOT NULL, -- "user" o "admin"
     response_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
- -- TRIGGER: max n rental_req accepted per user
- -- TRIGGER: rental_req acceptable if within x days from current_date
- -- TRIGGER: for each user there can't be multiple rental_req in the same period/day
-
--------------------------------------------------------------------------------
-
 	

@@ -3,14 +3,12 @@
     $connection = pg_connect("host=127.0.0.1 port=5432 dbname=condominium_ltw user=user_condominium password=condominium");
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        //print_r($_SERVER['REQUEST_METHOD']);
         $user_id = $_SESSION['ut_id'];
         // Ottieni il contenuto grezzo della richiesta POST
         $requestBody = file_get_contents('php://input');
 
         // Decodifica il contenuto della richiesta JSON
         $data = json_decode($requestBody, true);
-        //echo "$data";
 
         if (isset($data['threadId']) && isset($data['content']) && isset($data['type'])) {
             $thread_id = $data['threadId'];

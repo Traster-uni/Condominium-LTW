@@ -23,7 +23,7 @@
 
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // print_r($_SERVER);
+
                 // Check for: Undefined | Multiple Files | $_FILES Corruption Attack
                 // courtesy of user CertaiN (user contributed notes): https://www.php.net/manual/it/features.file-upload.php
                 if (isset($_FILES['upload-img']['error']) || is_array($_FILES['upload-img']['error'])) {
